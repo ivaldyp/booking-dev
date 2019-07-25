@@ -20,3 +20,4 @@ Route::get('/registeruser', 'LoadRegisterController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/read', 'HomeController@read');
