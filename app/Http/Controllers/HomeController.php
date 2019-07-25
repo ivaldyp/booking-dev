@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 
 class HomeController extends Controller
 {
@@ -37,6 +39,7 @@ class HomeController extends Controller
                 json_encode(DB::select('SELECT *
                             FROM user_types
                             where id_userType = '.$user_status));
+            Session::put('user_status', $user_status);
             return view('home', $data);
         } else {
             return view('home');

@@ -278,7 +278,16 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-right">
-                  <a href="{{ url('logout') }}" class="btn btn-danger btn-flat">Sign out</a>
+                  <!-- <a href="{{ route('logout') }}" class="btn btn-danger btn-flat">Sign out</a> -->
+                  <a class="dropdown-item btn btn-danger btn-flat" href="{{ route('logout') }}"
+                      onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">
+                      {{ __('Logout') }}
+                  </a>
+
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      @csrf
+                  </form>
                 </div>
               </li>
             </ul>
@@ -306,6 +315,18 @@
       <ul class="sidebar-menu" data-widget="tree">
         <!-- <li class="header">MAIN NAVIGATION</li> -->
         <li><a href="#"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-users"></i> <span>Pengguna</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-user"></i> Kelola Pengguna </a></li>
+            <li><a href="{{ url('/roles/') }}"><i class="fa fa-lock"></i> Kelola Hak Akses </a></li>
+          </ul>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->

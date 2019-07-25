@@ -21,3 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/read', 'HomeController@read');
+
+Route::group(['prefix' => 'roles'], function () {
+	Route::get('/', 'RolesController@index');
+});
