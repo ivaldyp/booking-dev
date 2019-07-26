@@ -12,8 +12,8 @@ class LoadRegisterController extends Controller
     public function index()
     {
         $data['bidangs'] = 
-            DB::select('SELECT *
-                        FROM bidangs');
+            json_encode(DB::select('SELECT *
+                        FROM bidangs'));
 
         $data['user_types'] = 
         	DB::select('SELECT * 

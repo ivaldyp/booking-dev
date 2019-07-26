@@ -7,11 +7,11 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Hak Akses Pengguna {{ Session::get('user_status') }}</h3>
+              <h3 class="box-title">Hak Akses Pengguna</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover">
+              <table id="example1" class="table table-bordered table-hover">
                 <thead>
 	                <tr>
 	                  <th>No</th>
@@ -24,24 +24,42 @@
 	                </tr>
                 </thead>
                 <tbody>
+                	<?php foreach($user_status as $key => $data) { ?>
 	                <tr>
-	                  <td>Trident</td>
-	                  <td>Internet
-	                    Explorer 4.0
-	                  </td>
-	                  <td>Win 95+</td>
-	                  <td> 4</td>
-	                  <td>X</td>
+	                  <td>{{ $key + 1 }}</td>
+	                  <td>{{ $data->userType_name }}</td>
+
+	                  <?php if ($data->can_bookRoom == 1) { ?>
+	                  	<td> <i class="fa fa-check" style="color:green"></i> </td>
+	                  <?php } else { ?>
+	                  	<td> <i class="fa fa-check" style="color:red"></i> </td>
+	                  <?php } ?>
+
+	                  <?php if ($data->can_editUser == 1) { ?>
+	                  	<td> <i class="fa fa-check" style="color:green"></i> </td>
+	                  <?php } else { ?>
+	                  	<td> <i class="fa fa-check" style="color:red"></i> </td>
+	                  <?php } ?>
+
+	                  <?php if ($data->can_editRoom == 1) { ?>
+	                  	<td> <i class="fa fa-check" style="color:green"></i> </td>
+	                  <?php } else { ?>
+	                  	<td> <i class="fa fa-check" style="color:red"></i> </td>
+	                  <?php } ?>
+
+	                  <?php if ($data->can_approve == 1) { ?>
+	                  	<td> <i class="fa fa-check" style="color:green"></i> </td>
+	                  <?php } else { ?>
+	                  	<td> <i class="fa fa-check" style="color:red"></i> </td>
+	                  <?php } ?>
+
+	                  <?php if ($data->can_bookFood == 1) { ?>
+	                  	<td> <i class="fa fa-check" style="color:green"></i> </td>
+	                  <?php } else { ?>
+	                  	<td> <i class="fa fa-check" style="color:red"></i> </td>
+	                  <?php } ?>
 	                </tr>
-	                <tr>
-	                  <td>Trident</td>
-	                  <td>Internet
-	                    Explorer 5.0
-	                  </td>
-	                  <td>Win 95+</td>
-	                  <td>5</td>
-	                  <td>C</td>
-	                </tr>
+	                <?php } ?>
                 </tbody>
               </table>
             </div>

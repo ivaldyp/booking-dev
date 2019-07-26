@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-class RolesController extends Controller
+class BidangController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +17,10 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $user_status = Session::get('user_status');
-        $data['user_status'] = 
-                json_encode(DB::select('SELECT *
-                            FROM user_types'));
-        return view('pages.roles.table', $data);
+        $data['bidangs'] = 
+                DB::select('SELECT *
+                            FROM bidangs');
+        return view('pages.bidangs.table', $data);
     }
 
     /**

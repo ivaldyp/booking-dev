@@ -15,13 +15,33 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/registeruser', 'LoadRegisterController@index');
-
 Auth::routes();
+
+Route::get('/registeruser', 'LoadRegisterController@index');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/read', 'HomeController@read');
 
 Route::group(['prefix' => 'roles'], function () {
-	Route::get('/', 'RolesController@index');
+	Route::get('/', 'UserTypeController@index');
+});
+
+Route::group(['prefix' => 'users'], function () {
+	Route::get('/', 'UserController@index');
+});
+
+Route::group(['prefix' => 'time'], function () {
+	Route::get('/', 'TimeController@index');
+});
+
+Route::group(['prefix' => 'bidang'], function () {
+	Route::get('/', 'BidangController@index');
+});
+
+Route::group(['prefix' => 'ruang'], function () {
+	Route::get('/', 'RoomController@index');
+});
+
+Route::group(['prefix' => 'tipe_ruang'], function () {
+	Route::get('/', 'RoomTypeController@index');
 });

@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="{{ URL::asset('bower_components/font-awesome/css/font-awesome.min.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{ URL::asset('bower_components/Ionicons/css/ionicons.min.css') }}">
+   <!-- DataTables -->
+  <link rel="stylesheet" href="{{ URL::asset('plugins/datatables/dataTables.bootstrap.css') }}">
   <!-- fullCalendar 2.2.5-->
   <link rel="stylesheet" href="{{ URL::asset('plugins/fullcalendar/fullcalendar.min.css') }}">
   <link rel="stylesheet" href="{{ URL::asset('plugins/fullcalendar/fullcalendar.print.css') }}" media="print">
@@ -323,8 +325,22 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-user"></i> Kelola Pengguna </a></li>
-            <li><a href="{{ url('/roles/') }}"><i class="fa fa-lock"></i> Kelola Hak Akses </a></li>
+            <li><a href="{{ url('users') }}"><i class="fa fa-user"></i> Kelola Pengguna </a></li>
+            <li><a href="{{ url('roles') }}"><i class="fa fa-lock"></i> Kelola Hak Akses </a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-gear"></i> <span>Master Data</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ url('time') }}"><i class="fa fa-clock-o"></i> Data Waktu </a></li>
+            <li><a href="{{ url('bidang') }}"><i class="fa fa-industry"></i> Data Bidang </a></li>
+            <li><a href="{{ url('ruang') }}"><i class="glyphicon glyphicon-home"></i> Data Ruang </a></li>
+            <li><a href="{{ url('tipe_ruang') }}"><i class="fa fa-file"></i> Data Tipe Ruang </a></li>
           </ul>
         </li>
       </ul>
@@ -550,6 +566,9 @@
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ URL::asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<!-- DataTables -->
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
 <!-- FastClick -->
 <script src="{{ URL::asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
@@ -568,6 +587,19 @@
 <!-- fullCalendar 2.2.5 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 <script src="{{ URL::asset('plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": false,
+      "ordering": true,
+      "info": false,
+      "autoWidth": false
+    });
+  });
+</script>
 
 <!-- External -->
 <!-- <script src="{{ URL::asset('js/calendar.js') }}"></script> -->
