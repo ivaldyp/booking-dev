@@ -4,12 +4,14 @@
     
     <section class="content">
       <div class="row">
-        <?php echo $user_status; ?>
+        <div class="col-xs-2">
+          <button class="btn btn-success" style="margin-bottom: 10px"> Tambah </button>
+        </div>
       </div>
       <div class="row">
         <!-- /.col -->
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
+        <!-- <div class="col-md-2"></div> -->
+        <div class="col-md-12">
           <div class="box box-primary">
             <div class="box-body no-padding">
               <!-- THE CALENDAR -->
@@ -19,7 +21,7 @@
           </div>
           <!-- /. box -->
         </div>
-        <div class="col-md-2"></div>
+        <!-- <div class="col-md-2"></div> -->
         <!-- /.col -->
       </div>
       <!-- /.row -->

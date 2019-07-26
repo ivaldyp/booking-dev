@@ -3,6 +3,11 @@
 @section('content')
 
 		<section class="content">
+			<div class="row">
+      	<div class="col-xs-3">
+      		<button class="btn btn-success" style="margin-bottom: 10px">Tambah</button>
+      	</div>
+      </div>
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
