@@ -20,7 +20,8 @@ class CreateRoomsTable extends Migration
             $table->unsignedInteger('room_type');
             $table->integer('room_floor');
             $table->integer('room_capacity')->nullable();
-            $table->timestamps()->useCurrent();
+            $table->timestamp('created_at')->nullable()->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrent();
             $table->boolean('soft_delete')->default('0');
 
             $table->foreign('room_owner')->references('id_bidang')->on('bidangs');

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTimesTable extends Migration
+class CreateBookingStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateTimesTable extends Migration
      */
     public function up()
     {
-        Schema::create('times', function (Blueprint $table) {
-            $table->increments('id_time');
-            $table->timestamp('time_name');
+        Schema::create('booking_statuses', function (Blueprint $table) {
+            $table->increments('status_id');
+            $table->string('status_name');
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrent();
+            // $table->timestamps();
         });
     }
 
@@ -28,6 +29,6 @@ class CreateTimesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('times');
+        Schema::dropIfExists('booking_statuses');
     }
 }

@@ -5,7 +5,7 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-2">
-          <button class="btn btn-success" style="margin-bottom: 10px"> Tambah </button>
+          <a href="{{ url('booking/form') }}"><button class="btn btn-success" style="margin-bottom: 10px"> Tambah </button></a>
         </div>
       </div>
       <div class="row">
@@ -28,6 +28,9 @@
     </section>
     <!-- /.content -->
 
+@endsection 
+
+@section('calendar')
     <script language="javascript" type="text/javascript">
       $(document).ready(function () {
         /* initialize the calendar
@@ -40,7 +43,6 @@
             y = date.getFullYear();
         var testt = 2;
         $('#calendar').fullCalendar({
-          weekends: false,
           header: {
             left: 'prev,next today',
             center: 'title',
@@ -98,7 +100,8 @@
             {
               // newEvent.push({ title:datas[i].booking_judul, allDay: true });
               var newEvent = {
-                title: datas[i].booking_judul,
+                // title: datas[i].booking_judul,
+                title: 'AAA',
                 start: (datas[i].booking_date + " " + datas[i].time_startname),
                 end: (datas[i].booking_date + " " + datas[i].time_endname)
               };
@@ -109,5 +112,4 @@
       });
        
     </script>
-
 @endsection

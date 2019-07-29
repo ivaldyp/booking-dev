@@ -9,6 +9,6 @@ class Booking extends Model
     protected $primaryKey = 'id_booking';
 
     protected $fillable = [
-        'id_booking', 'booking_user', 'booking_room', 'booking_date', 'booking_judul', 'booking_deskripsi', 'time_start', 'time_end', 'booking_status', 'created_at', 'updated_at', 'soft_delete'
+        'id_booking', 'id_peminjam', 'nama_peminjam', 'bidang_peminjam, id_penyetuju', 'booking_room', 'booking_date', 'id_surat', 'time_start', 'time_end', 'booking_status', 'keterangan_status', 'request_hapus', 'created_at', 'updated_at', 'soft_delete'
     ];
 }

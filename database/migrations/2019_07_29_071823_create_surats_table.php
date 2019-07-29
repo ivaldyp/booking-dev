@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTimesTable extends Migration
+class CreateSuratsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateTimesTable extends Migration
      */
     public function up()
     {
-        Schema::create('times', function (Blueprint $table) {
-            $table->increments('id_time');
-            $table->timestamp('time_name');
+        Schema::create('surats', function (Blueprint $table) {
+            $table->string('id_surat')->primary();
+            $table->string('surat_judul');
+            $table->string('surat_deskripsi')->nullable();
+            $table->text('file_name');
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrent();
+            $table->boolean('soft_delete')->default('0');
         });
     }
 
@@ -28,6 +31,6 @@ class CreateTimesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('times');
+        Schema::dropIfExists('surats');
     }
 }

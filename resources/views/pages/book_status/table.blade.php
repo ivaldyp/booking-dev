@@ -12,7 +12,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Daftar Bidang</h3>
+              <h3 class="box-title">Daftar Status</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -20,17 +20,17 @@
                 <thead>
 	                <tr>
 	                  <th>No</th>
-	                  <th>Nama Bidang</th>
+	                  <th>Nama Status</th>
 	                  <th>Created At</th>
 	                  <th>Updated At</th>
 	                  <th>Aksi</th>
 	                </tr>
                 </thead>
                 <tbody>
-                	<?php foreach($bidangs as $key => $data) { ?>
+                	<?php foreach($status as $key => $data) { ?>
 	                <tr>
 	                  <td>{{ $key + 1 }}</td>
-	                  <td>{{ ucwords($data->bidang_name) }}</td>
+	                  <td>{{ ucwords($data->status_name) }}</td>
 	                  <td>{{ $data->created_at }}</td>
 	                  <td>{{ $data->updated_at }}</td>
 	                  <td>

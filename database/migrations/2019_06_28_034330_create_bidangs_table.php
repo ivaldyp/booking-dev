@@ -16,7 +16,8 @@ class CreateBidangsTable extends Migration
         Schema::create('bidangs', function (Blueprint $table) {
             $table->increments('id_bidang');
             $table->string('bidang_name');
-            $table->timestamps()->useCurrent();
+            $table->timestamp('created_at')->nullable()->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrent();
         });
     }
 

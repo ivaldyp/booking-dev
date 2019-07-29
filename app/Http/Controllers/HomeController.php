@@ -49,19 +49,20 @@ class HomeController extends Controller
     public function read()
     {
         $data['bookings'] = 
-            DB::select('SELECT b.id_booking, b.booking_user, u.name, u.user_bidang, bid1.bidang_name as bidang_user, 
+            DB::select('SELECT b.id_booking, bid1.bidang_name as bidang_user, 
                         b.booking_room, r.room_name, r.room_owner, bid2.bidang_name, r.room_floor, r.room_capacity, 
                         b.booking_date, b.time_start, DATE_FORMAT(t1.time_name, "%H:%i") as time_startname, b.time_end, DATE_FORMAT(t2.time_name, "%H:%i") as time_endname,
                         b.booking_judul, b.booking_deskripsi,
                         YEAR(b.booking_date) as book_year, MONTH(b.booking_date) as book_month, DAY(b.booking_date) as book_date,
                         HOUR(t1.time_name) as book_hstart, MINUTE(t1.time_name) as book_mstart, HOUR(t2.time_name) as book_hend, MINUTE(t2.time_name) as book_mend
                         FROM bookings b, times t1, times t2, users u, rooms r, bidangs bid1, bidangs bid2
-                        where b.booking_user = u.id_user
-                        AND b.booking_room = r.id_room
+                        where b.booking_room = r.id_room
                         AND b.time_start = t1.id_time
                         AND b.time_end = t2.id_time
                         AND u.user_bidang = bid1.id_bidang
-                        AND r.room_owner = bid2.id_bidang');
+                        AND r.room_owner = bid2.id_bidang
+                        AND b.booking_status = 3
+                        AND b.soft_delete = 0');
         return $data;
     }
 }

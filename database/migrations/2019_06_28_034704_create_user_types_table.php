@@ -21,7 +21,8 @@ class CreateUserTypesTable extends Migration
             $table->boolean('can_editRoom');
             $table->boolean('can_approve');
             $table->boolean('can_bookFood');
-            $table->timestamps()->useCurrent();
+            $table->timestamp('created_at')->nullable()->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrent();
         });
     }
 

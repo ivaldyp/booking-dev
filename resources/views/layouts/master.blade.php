@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="{{ URL::asset('bower_components/font-awesome/css/font-awesome.min.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{ URL::asset('bower_components/Ionicons/css/ionicons.min.css') }}">
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="{{ URL::asset('plugins/datepicker/datepicker3.css') }}">
    <!-- DataTables -->
   <link rel="stylesheet" href="{{ URL::asset('plugins/datatables/dataTables.bootstrap.css') }}">
   <!-- fullCalendar 2.2.5-->
@@ -319,6 +321,18 @@
         <li><a href="{{ url('home') }}"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
         <li class="treeview">
           <a href="#">
+            <i class="fa fa-book"></i> <span>Booking</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ url('users') }}"><i class="fa fa-close"></i> Pinjaman Belum Disetujui </a></li>
+            <li><a href="{{ url('roles') }}"><i class="fa fa-check"></i> Pinjaman Telah Disetujui </a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
             <i class="fa fa-users"></i> <span>Pengguna</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -339,6 +353,7 @@
           <ul class="treeview-menu">
             <li><a href="{{ url('time') }}"><i class="fa fa-clock-o"></i> Data Waktu </a></li>
             <li><a href="{{ url('bidang') }}"><i class="fa fa-industry"></i> Data Bidang </a></li>
+            <li><a href="{{ url('book_status') }}"><i class="fa fa-question-circle"></i> Data Status </a></li>
             <li><a href="{{ url('ruang') }}"><i class="glyphicon glyphicon-home"></i> Data Ruang </a></li>
             <li><a href="{{ url('tipe_ruang') }}"><i class="fa fa-file"></i> Data Tipe Ruang </a></li>
           </ul>
@@ -567,8 +582,10 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ URL::asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- DataTables -->
-<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="{{ URL::asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ URL::asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+<!-- bootstrap datepicker -->
+<script src="{{ URL::asset('plugins/datepicker/bootstrap-datepicker.js') }}"></script>
 <!-- FastClick -->
 <script src="{{ URL::asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
@@ -587,19 +604,12 @@
 <!-- fullCalendar 2.2.5 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 <script src="{{ URL::asset('plugins/fullcalendar/fullcalendar.min.js') }}"></script>
-<script>
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": false,
-      "ordering": true,
-      "info": false,
-      "autoWidth": false
-    });
-  });
-</script>
+
+@yield('calendar')
+
+@yield('datatable')
+
+@yield('datepicker')
 
 <!-- External -->
 <!-- <script src="{{ URL::asset('js/calendar.js') }}"></script> -->

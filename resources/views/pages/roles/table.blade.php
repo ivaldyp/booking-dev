@@ -37,31 +37,31 @@
 	                  <?php if ($data->can_bookRoom == 1) { ?>
 	                  	<td> <i class="fa fa-check" style="color:green"></i> </td>
 	                  <?php } else { ?>
-	                  	<td> <i class="fa fa-check" style="color:red"></i> </td>
+	                  	<td> <i class="fa fa-close" style="color:red"></i> </td>
 	                  <?php } ?>
 
 	                  <?php if ($data->can_editUser == 1) { ?>
 	                  	<td> <i class="fa fa-check" style="color:green"></i> </td>
 	                  <?php } else { ?>
-	                  	<td> <i class="fa fa-check" style="color:red"></i> </td>
+	                  	<td> <i class="fa fa-close" style="color:red"></i> </td>
 	                  <?php } ?>
 
 	                  <?php if ($data->can_editRoom == 1) { ?>
 	                  	<td> <i class="fa fa-check" style="color:green"></i> </td>
 	                  <?php } else { ?>
-	                  	<td> <i class="fa fa-check" style="color:red"></i> </td>
+	                  	<td> <i class="fa fa-close" style="color:red"></i> </td>
 	                  <?php } ?>
 
 	                  <?php if ($data->can_approve == 1) { ?>
 	                  	<td> <i class="fa fa-check" style="color:green"></i> </td>
 	                  <?php } else { ?>
-	                  	<td> <i class="fa fa-check" style="color:red"></i> </td>
+	                  	<td> <i class="fa fa-close" style="color:red"></i> </td>
 	                  <?php } ?>
 
 	                  <?php if ($data->can_bookFood == 1) { ?>
 	                  	<td> <i class="fa fa-check" style="color:green"></i> </td>
 	                  <?php } else { ?>
-	                  	<td> <i class="fa fa-check" style="color:red"></i> </td>
+	                  	<td> <i class="fa fa-close" style="color:red"></i> </td>
 	                  <?php } ?>
 	                </tr>
 	                <?php } ?>
@@ -74,5 +74,23 @@
         </div>
       </div>
     </section>
+
+@endsection
+
+@section('datatable')
+
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    // $('#example2').DataTable({
+    //   "paging": true,
+    //   "lengthChange": true,
+    //   "searching": false,
+    //   "ordering": true,
+    //   "info": false,
+    //   "autoWidth": false
+    // });
+  });
+</script>
 
 @endsection

@@ -24,7 +24,8 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('user_status')->nullable();
             $table->unsignedInteger('user_bidang')->nullable();
             $table->rememberToken();
-            $table->timestamps()->useCurrent();
+            $table->timestamp('created_at')->nullable()->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrent();
             $table->boolean('soft_delete')->default('0');
 
             $table->foreign('user_status')->references('id_userType')->on('user_types');
