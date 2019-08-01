@@ -93,7 +93,7 @@ class BookingController extends Controller
             $booking->request_hapus = $request->request_hapus;
 
             if ($booking->save()) {
-                return redirect('/home')->with('message', 'Booking berhasil dilakukan, harap menunggu hasilnya');
+                return redirect('/home')->with('message', 'Booking berhasil dilakukan, harap menunggu hingga peminjaman ruangan disetujui');
             } else {
                 return redirect('/home')->with('message', 'Booking gagal dilakukan');
             }
