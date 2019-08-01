@@ -4,6 +4,13 @@
     
     <section class="content">
       <div class="row">
+        <div class="col-lg-12">
+          @if(Session::has('message'))
+            <div class="alert alert-success">{{ Session::get('message') }}</div>
+          @endif
+        </div>
+      </div>
+      <div class="row">
         <div class="col-xs-2">
           <a href="{{ url('booking/form') }}"><button class="btn btn-success" style="margin-bottom: 10px"> Tambah </button></a>
         </div>
@@ -25,6 +32,30 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
+      <div class="row">
+        <div class="col-lg-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama file</th>
+                <th>Download</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach($files as $key => $data) { ?>
+                <tr>
+                  <td>{{ $key+1 }}</td>
+                  <td>{{ $data->file_name }}</td>
+                  <td><a href="{{ url('booking/download') }}/{{ $data->id_surat }}">
+                    <button class="btn btn-success" type="submit">DONLOD</button>
+                  </a></td>
+                </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
     <!-- /.content -->
 

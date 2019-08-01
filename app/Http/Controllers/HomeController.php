@@ -33,6 +33,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $data['files'] = DB::select('SELECT * FROM surats');
         if ($this->user->user_status) {
             $user_status = $this->user->user_status;
             $data['user_status'] = 
