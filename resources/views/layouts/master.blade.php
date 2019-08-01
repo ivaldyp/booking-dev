@@ -611,6 +611,7 @@
 
 @yield('datepicker')
 
+@yield('form_booking')
 <!-- External -->
 <!-- <script src="{{ URL::asset('js/calendar.js') }}"></script> -->
 </body>

@@ -19,7 +19,7 @@
             <div class="box-header with-border">
               <h3 class="box-title">Form Booking Baru</h3>
             </div>
-            <form class="form-horizontal" method="POST" action="confirm" enctype="multipart/form-data">
+            <form class="form-horizontal" method="POST" action="store" enctype="multipart/form-data">
               @csrf
               <div class="box-body">
 
@@ -45,7 +45,7 @@
                 <div class="form-group">
                   <label for="bidang_peminjam" class="col-lg-2 control-label"> Bidang Peminjam </label>
                   <div class="col-lg-8">
-                    <select class="form-control" name="bidang_peminjam">
+                    <select class="form-control" name="bidang_peminjam" id="bidang_peminjam">
                       <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Bidang --</option>
                       <?php foreach ($bidangs as $data) { ?>
                         <option value="{{ $data->id_bidang }}">{{ $data->bidang_name }}</option>
@@ -57,7 +57,7 @@
                 <div class="form-group">
                   <label for="booking_room" class="col-lg-2 control-label"> Ruang Rapat </label>
                   <div class="col-lg-8">
-                    <select class="form-control" name="booking_room">
+                    <select class="form-control" name="booking_room" id="booking_room">
                       <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
                       <?php foreach ($rooms as $data) { ?>
                         <option value="{{ $data->id_room }}">{{ $data->room_name }}</option>
@@ -73,7 +73,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control pull-right" id="datepicker" name="booking_date" autocomplete="off">
+                      <input type="text" class="form-control pull-right booking_date" id="datepicker" name="booking_date" autocomplete="off">
                     </div>
                   </div>  
                 </div>
@@ -81,7 +81,7 @@
                 <div class="form-group">
                   <label class="col-lg-2 control-label"> Jam Mulai </label>
                   <div class="col-lg-4">
-                    <select class="form-control" name="time_start">
+                    <select class="form-control" name="time_start" id="time_start">
                       <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
                       <?php foreach ($times as $data) { ?>
                         <option value="{{ $data->id_time }}">{{ $data->time_name }}</option>
@@ -93,7 +93,7 @@
                 <div class="form-group">
                   <label class="col-lg-2 control-label"> Jam Selesai </label>
                   <div class="col-lg-4">
-                    <select class="form-control" name="time_end">
+                    <select class="form-control" name="time_end" id="time_end">
                       <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
                       <?php foreach ($times as $data) { ?>
                         <option value="{{ $data->id_time }}">{{ $data->time_name }}</option>
@@ -128,19 +128,112 @@
               <div class="box-footer">
                 <div class="col-lg-2"></div>
                 <div class="col-lg-8">
-                  <button type="submit" class="btn btn-success pull-right">Submit</button>
+                  <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-default" id="btn_form_booking_modal">
+                    Simpan
+                  </button>
                 </div>
                 <div class="col-lg-2"></div>
               </div>
               <!-- /.box-footer -->
+
+              <div class="modal fade" id="modal-default">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">Apakah data dibawah sudah benar??</h4>
+                    </div>
+                    <div class="modal-body">
+
+                      <div class="form-group">
+                        <label for="id_peminjam" class="col-lg-2 control-label"> NIP </label>
+                        <div class="col-lg-8">
+                          <h5 id="modal-id_peminjam"></h5>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="nama_peminjam" class="col-lg-2 control-label"> Nama Peminjam </label>
+                        <div class="col-lg-8">
+                          <h5 id="modal-nama_peminjam"></h5>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="bidang_peminjam" class="col-lg-2 control-label"> Bidang Peminjam </label>
+                        <div class="col-lg-8">
+                          <h5 id="modal-bidang_peminjam"></h5>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="booking_room" class="col-lg-2 control-label"> Ruang Rapat </label>
+                        <div class="col-lg-8">
+                          <h5 id="modal-booking_room"></h5>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="booking_date" class="col-lg-2 control-label"> Tanggal </label>
+                        <div class="col-lg-4">
+                          <h5 id="modal-booking_date"></h5>
+                        </div>  
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-lg-2 control-label"> Jam Mulai </label>
+                        <div class="col-lg-4">
+                          <h5 id="modal-time_start"></h5>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-lg-2 control-label"> Jam Selesai </label>
+                        <div class="col-lg-4">
+                          <h5 id="modal-time_end"></h5>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="surat_judul" class="col-lg-2 control-label"> Judul Acara </label>
+                        <div class="col-lg-8">
+                          <h5 id="modal-surat_judul"></h5>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="surat_deskripsi" class="col-lg-2 control-label"> Deskripsi </label>
+                        <div class="col-lg-8">
+                          <h5 id="modal-surat_deskripsi"></h5>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="surat_deskripsi" class="col-lg-2 control-label"> File </label>
+                        <div class="col-lg-8">
+                          <h5 id="modal-surat_file"></h5>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-success pull-right">Simpan</button>
+                      <button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
+              <!-- /.modal -->
+
             </form>
           </div>
         </div>
         <div class="col-lg-2"></div>
       </div>
     </section>
-
-    
 
 @endsection
 
@@ -153,6 +246,49 @@
       autoclose: true,
       numberOfMonths: 3,
       startDate: new Date(),
+      format: 'dd/mm/yyyy'
+    });
+  });
+</script>
+
+@endsection
+
+@section('form_booking')
+
+<script type="text/javascript" language="javascript">
+  $(function () {
+    $('#btn_form_booking_modal').click(function() {
+      $("#modal-id_peminjam").append($("#id_peminjam").val());
+      $("#modal-nama_peminjam").append($("#nama_peminjam").val());
+      if ($("#bidang_peminjam option:selected").text().substr(0,2) != '--') {
+        $("#modal-bidang_peminjam").append($("#bidang_peminjam option:selected").text());
+      }
+      if ($("#booking_room option:selected").text().substr(0,2) != '--') {
+        $("#modal-booking_room").append($("#booking_room option:selected").text());
+      }
+      $("#modal-booking_date").append($(".booking_date").val());
+      if ($("#time_start option:selected").text().substr(0,2) != '--') {
+        $("#modal-time_start").append($("#time_start option:selected").text());
+      }
+      if ($("#time_end option:selected").text().substr(0,2) != '--') {
+        $("#modal-time_end").append($("#time_end option:selected").text());
+      }
+      $("#modal-surat_judul").append($("#surat_judul").val());
+      $("#modal-surat_deskripsi").append($("#surat_deskripsi").val());
+      $("#modal-surat_file").append($("#surat_file").val().replace(/C:\\fakepath\\/i, '')); 
+    });
+
+    $("#modal-default").on("hidden.bs.modal", function () {
+      $("#modal-id_peminjam").empty();
+      $("#modal-nama_peminjam").empty();
+      $("#modal-bidang_peminjam").empty();
+      $("#modal-booking_room").empty();
+      $("#modal-booking_date").empty();
+      $("#modal-time_start").empty();
+      $("#modal-time_end").empty();
+      $("#modal-surat_judul").empty();
+      $("#modal-surat_deskripsi").empty();
+      $("#modal-surat_file").empty();
     });
   });
 </script>

@@ -23,89 +23,97 @@
               @csrf
               <div class="box-body">
 
-                <input type="hidden" name="id_booking" value="<?php echo $id_booking; ?>">
-                <input type="hidden" name="id_surat" value="<?php echo $id_surat; ?>">
+                <input type="hidden" name="id_booking" value="{{ $id_booking }}">
+                <input type="hidden" name="id_surat" value="{{ $id_surat }}">
                 <input type="hidden" name="booking_status" value="1">
                 <input type="hidden" name="request_hapus" value="0">
                 
                 <div class="form-group">
                   <label for="id_peminjam" class="col-lg-2 control-label"> NIP </label>
                   <div class="col-lg-8">
-                    <h5><?php echo $id_peminjam; ?></h5>
-                    <input type="hidden" name="id_peminjam" value="<?php echo $id_peminjam; ?>">
+                    <h5>{{ $id_peminjam }}</h5>
+                    <input type="hidden" name="id_peminjam" value="{{ $id_peminjam }}">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="nama_peminjam" class="col-lg-2 control-label"> Nama Peminjam </label>
                   <div class="col-lg-8">
-                    <h5><?php echo $nama_peminjam; ?></h5>
-                    <input type="hidden" name="nama_peminjam" value="<?php echo $nama_peminjam; ?>">
+                    <h5>{{ $nama_peminjam }}</h5>
+                    <input type="hidden" name="nama_peminjam" value="{{ $nama_peminjam }}">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="bidang_peminjam" class="col-lg-2 control-label"> Bidang Peminjam </label>
                   <div class="col-lg-8">
-                    <h5><?php echo $bidang[0]->bidang_name; ?></h5>
-                    <input type="hidden" name="bidang_peminjam" value="<?php echo $bidang_peminjam; ?>">
+                    <h5>{{ $bidang[0]->bidang_name }}</h5>
+                    <input type="hidden" name="bidang_peminjam" value="{{ $bidang_peminjam }}">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="booking_room" class="col-lg-2 control-label"> Ruang Rapat </label>
                   <div class="col-lg-8">
-                    <h5><?php echo $ruang[0]->room_name; ?></h5>
-                    <input type="hidden" name="booking_room" value="<?php echo $booking_room; ?>">
+                    <h5>{{ $ruang[0]->room_name }}</h5>
+                    <input type="hidden" name="booking_room" value="{{ $booking_room }}">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="booking_date" class="col-lg-2 control-label"> Tanggal </label>
                   <div class="col-lg-4">
-                    <h5><?php echo $booking_date; ?></h5>
-                    <input type="hidden" name="booking_date" value="<?php echo $booking_date; ?>">
+                    <h5><?php 
+                      echo date("d-F-Y", strtotime($booking_date));
+                    ?></h5>
+                    <input type="hidden" name="booking_date" value="{{ $booking_date }}">
                   </div>  
                 </div>
 
                 <div class="form-group">
                   <label class="col-lg-2 control-label"> Jam Mulai </label>
                   <div class="col-lg-4">
-                    <h5><?php echo $start[0]->time_name; ?></h5>
-                    <input type="hidden" name="time_start" value="<?php echo $time_start; ?>">
+                    <h5>{{ $start[0]->time_name }}</h5>
+                    <input type="hidden" name="time_start" value="{{ $time_start }}">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-lg-2 control-label"> Jam Mulai </label>
                   <div class="col-lg-4">
-                    <h5><?php echo $end[0]->time_name; ?></h5>
-                    <input type="hidden" name="time_end" value="<?php echo $time_end; ?>">
+                    <h5>{{ $end[0]->time_name }}</h5>
+                    <input type="hidden" name="time_end" value="{{ $time_end }}">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="surat_judul" class="col-lg-2 control-label"> Judul Acara </label>
                   <div class="col-lg-8">
-                    <h5><?php echo $surat_judul; ?></h5>
-                    <input type="hidden" name="surat_judul" value="<?php echo $surat_judul; ?>">
+                    <h5>{{ $surat_judul }}</h5>
+                    <input type="hidden" name="surat_judul" value="{{ $surat_judul }}">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="surat_deskripsi" class="col-lg-2 control-label"> Deskripsi </label>
                   <div class="col-lg-8">
-                    <h5><?php echo $surat_deskripsi; ?></h5>
-                    <input type="hidden" name="surat_deskripsi" value="<?php echo $surat_deskripsi; ?>">
+                    <h5>{{ $surat_deskripsi }}</h5>
+                    <input type="hidden" name="surat_deskripsi" value="{{ $surat_deskripsi }}">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="surat_file" class="col-lg-2 control-label"> Upload Surat </label>
                   <div class="col-lg-8">
-                    <h5><?php echo $surat_file->getClientOriginalName(); ?></h5>
+                    <h5>{{ $surat_file->getClientOriginalName() }}</h5>
                   </div>
                 </div>
+
+                <input type="hidden" name="surat_filename" value="{{ $surat_file->getClientOriginalName() }}">
+                <input type="hidden" name="surat_fileext" value="{{ $surat_file->getClientOriginalExtension() }}">
+                <input type="hidden" name="surat_filetmppath" value="{{ $surat_file->getRealPath() }}">
+                <input type="hidden" name="surat_filesize" value="{{ $surat_file->getSize() }}">
+                <input type="hidden" name="surat_filemime" value="{{ $surat_file->getMimeType() }}">
 
               </div>
               <!-- /.box-body -->

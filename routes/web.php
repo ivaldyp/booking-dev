@@ -27,8 +27,8 @@ Route::group(['prefix' => 'bidang'], function () {
 });
 
 Route::group(['prefix' => 'booking'], function () {
-	Route::post('/confirm', 'BookingController@confirm');
 	Route::get('/form', 'BookingController@showForm');
+	Route::post('/confirm', 'BookingController@confirm');
 	Route::post('/store', 'BookingController@store');
 	Route::get('/download/{id}', 'BookingController@download');
 });

@@ -31,7 +31,6 @@ class BookingController extends Controller
     public function download($id)
     {
         $data['files'] = DB::select("SELECT * FROM surats WHERE id_surat = '$id' ");
-        var_dump($data['files']);
         header("Content-type: application/pdf");
         header("Content-disposition: attachment; filename=".$data['files'][0]->file_name);
         readfile($data['files'][0]->file_fullpath);
@@ -57,11 +56,12 @@ class BookingController extends Controller
 
         if ($file->getSize() > 2222222) {
             return redirect('/booking/form')->with('message', 'Ukuran file terlalu besar (Maksimal 2MB)');     
-        } elseif ($file->getClientOriginalExtension() != "pdf") {
+        } 
+        if ($file->getClientOriginalExtension() != "pdf" && $file->getMimeType() != 'application/pdf') {
             return redirect('/booking/form')->with('message', 'File yang diunggah bukan berbentuk PDF');     
-        } else {
-            $file_name = uniqid(md5(time()))."~".$request->surat_judul."~".$file->getClientOriginalName();
-        }
+        } 
+
+        $file_name = uniqid(md5(time()))."~".date('dmY')."~".$file->getClientOriginalName();
 
         $tujuan_upload = 'C:\Users\user\Documents\Upload';
 
@@ -93,7 +93,7 @@ class BookingController extends Controller
             $booking->request_hapus = $request->request_hapus;
 
             if ($booking->save()) {
-                return redirect('/home')->with('message', 'Booking berhasil dilakukan');
+                return redirect('/home')->with('message', 'Booking berhasil dilakukan, harap menunggu hasilnya');
             } else {
                 return redirect('/home')->with('message', 'Booking gagal dilakukan');
             }
