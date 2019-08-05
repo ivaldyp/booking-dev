@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+// use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
@@ -11,30 +13,11 @@ use App\Bidang;
 use App\Room;
 use App\Surat;
 use App\Time;
+use App\User;
 use App\Http\Controllers\Controller;
 
 class BookingController extends Controller
 {
-    public function showForm()
-    {
-    	$data['rooms'] = DB::select('SELECT r.*, b.bidang_name, rt.roomType_name
-                            FROM rooms r
-                            INNER JOIN bidangs b ON b.id_bidang = r.room_owner
-                            INNER JOIN room_types rt ON rt.id_roomType = r.room_type');
-        $data['bidangs'] = DB::select('SELECT *
-                            FROM bidangs');
-    	$data['times'] = DB::select('SELECT id_time, DATE_FORMAT(time_name, "%H:%i") as time_name, created_at, updated_at
-                            FROM times');
-    	return view('pages.bookings.form', $data);
-    }
-
-    public function download($id)
-    {
-        $data['files'] = DB::select("SELECT * FROM surats WHERE id_surat = '$id' ");
-        header("Content-type: application/pdf");
-        header("Content-disposition: attachment; filename=".$data['files'][0]->file_name);
-        readfile($data['files'][0]->file_fullpath);
-    }
 
     public function confirm(Request $request)
     {
@@ -45,6 +28,74 @@ class BookingController extends Controller
         return view('pages.bookings.confirm', $request, $data); 
     }
 
+    public function download($id)
+    {
+        $data['files'] = DB::select("SELECT * FROM surats WHERE id_surat = '$id' ");
+        header("Content-type: application/pdf");
+        header("Content-disposition: attachment; filename=".$data['files'][0]->file_name);
+        readfile($data['files'][0]->file_fullpath);
+    }
+
+    public function showAllBook()
+    {
+        $data['rooms'] = DB::select('SELECT r.*, b.bidang_name, rt.roomType_name
+                            FROM rooms r
+                            INNER JOIN bidangs b ON b.id_bidang = r.room_owner
+                            INNER JOIN room_types rt ON rt.id_roomType = r.room_type');
+        $data['bidangs'] = DB::select('SELECT *
+                            FROM bidangs');
+        $data['times'] = DB::select('SELECT id_time, DATE_FORMAT(time_name, "%H:%i") as time_name, created_at, updated_at
+                            FROM times');
+        return view('pages.bookings.table', $data);
+    }
+    
+    public function showBookDone()
+    {
+    	$data['rooms'] = DB::select('SELECT b.id_booking, b.id_peminjam, b.nama_peminjam, b.bidang_peminjam, b.booking_room, b.booking_total_tamu, b.booking_date, b.time_start, b.time_end, b.booking_status,
+        bs.status_name, bid.bidang_name, r.id_room, r.room_name, t1.id_time, DATE_FORMAT(t1.time_name, "%H:%i") as time_start, t2.id_time, DATE_FORMAT(t2.time_name, "%H:%i") as time_end,
+        s.id_surat, s.surat_judul, s.surat_deskripsi, s.file_name, s.file_fullpath
+                        FROM bookings b
+                        INNER JOIN booking_statuses bs ON bs.status_id = b.booking_status
+                        INNER JOIN surats s ON s.id_surat = b.id_surat
+                        INNER JOIN bidangs bid ON bid.id_bidang = b.bidang_peminjam
+                        INNER JOIN rooms r ON r.id_room = b.booking_room
+                        INNER JOIN times t1 ON t1.id_time = b.time_start
+                        INNER JOIN times t2 ON t2.id_time = b.time_end
+                        WHERE b.id_penyetuju IS NOT NULL
+                        AND b.booking_status = 3');
+        return view('pages.bookings.table-done', $data);
+    }
+
+    public function showBookNotDone()
+    {
+        $data['rooms'] = DB::select('SELECT b.id_booking, b.id_peminjam, b.nama_peminjam, b.bidang_peminjam, b.booking_room, b.booking_total_tamu, b.booking_date, b.time_start, b.time_end, b.booking_status,
+        bs.status_name, bid.bidang_name, r.id_room, r.room_name, t1.id_time, DATE_FORMAT(t1.time_name, "%H:%i") as time_start, t2.id_time, DATE_FORMAT(t2.time_name, "%H:%i") as time_end,
+        s.id_surat, s.surat_judul, s.surat_deskripsi, s.file_name, s.file_fullpath
+                        FROM bookings b
+                        INNER JOIN booking_statuses bs ON bs.status_id = b.booking_status
+                        INNER JOIN surats s ON s.id_surat = b.id_surat
+                        INNER JOIN bidangs bid ON bid.id_bidang = b.bidang_peminjam
+                        INNER JOIN rooms r ON r.id_room = b.booking_room
+                        INNER JOIN times t1 ON t1.id_time = b.time_start
+                        INNER JOIN times t2 ON t2.id_time = b.time_end
+                        WHERE b.id_penyetuju IS NULL
+                        AND b.booking_status = 1');
+        return view('pages.bookings.table-not', $data);
+    }
+
+    public function showForm()
+    {
+        $data['rooms'] = DB::select('SELECT r.*, b.bidang_name, rt.roomType_name
+                            FROM rooms r
+                            INNER JOIN bidangs b ON b.id_bidang = r.room_owner
+                            INNER JOIN room_types rt ON rt.id_roomType = r.room_type');
+        $data['bidangs'] = DB::select('SELECT *
+                            FROM bidangs');
+        $data['times'] = DB::select('SELECT id_time, DATE_FORMAT(time_name, "%H:%i") as time_name, created_at, updated_at
+                            FROM times');
+        return view('pages.bookings.form', $data);
+    }
+    
     public function store(Request $request)
     {
         $file = $request->surat_file;
@@ -86,6 +137,7 @@ class BookingController extends Controller
             $booking->nama_peminjam = $request->nama_peminjam;
             $booking->bidang_peminjam = $request->bidang_peminjam;
             $booking->booking_room = $request->booking_room;
+            $booking->booking_total_tamu = $request->booking_total_tamu;
             $booking->booking_date = $newDate;
             $booking->time_start = $request->time_start;
             $booking->time_end = $request->time_end;
@@ -100,5 +152,21 @@ class BookingController extends Controller
         } else {
             return redirect('/home')->with('message', 'Data Surat ada yang salah');
         }
+    }
+
+    public function updateBookStatus(Request $request)
+    { 
+        $booking = Booking::find($request->id_booking);
+
+        $booking->id_penyetuju = Auth::id();
+        $booking->booking_status = $request->booking_status;
+        $booking->keterangan_status = $request->keterangan_status;
+        
+        if($booking->save()) {
+            return redirect('booking/done')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
+        } else {
+            return redirect('booking/not')->with('message', 'Gagal melakukan perubahan terhadap status booking');
+        }
+
     }
 }

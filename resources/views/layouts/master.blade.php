@@ -310,8 +310,8 @@
           <img src="{{ URL::asset('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <p><?php echo ucwords(Auth::user()->name); ?></p>
+          <a href="#"><i class="fa fa-circle text-success"></i><?php echo ucwords(Auth::user()->username); ?></a>
         </div>
       </div>
       <!-- /.search form -->
@@ -327,8 +327,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ url('users') }}"><i class="fa fa-close"></i> Pinjaman Belum Disetujui </a></li>
-            <li><a href="{{ url('roles') }}"><i class="fa fa-check"></i> Pinjaman Telah Disetujui </a></li>
+            <li><a href="{{ url('booking/not') }}"><i class="fa fa-close"></i> Pinjaman Belum Disetujui </a></li>
+            <li><a href="{{ url('booking/done') }}"><i class="fa fa-check"></i> Pinjaman Telah Disetujui </a></li>
+            <li><a href="{{ url('booking') }}"><i class="fa fa-search"></i> Semua Pinjaman </a></li>
           </ul>
         </li>
         <li class="treeview">

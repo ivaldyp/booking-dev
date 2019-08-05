@@ -21,6 +21,7 @@ class CreateBookingsTable extends Migration
             $table->string('id_penyetuju')->nullable();
             $table->string('booking_room');
             $table->date('booking_date');
+            $table->integer('booking_total_tamu')->nullable();
             $table->string('id_surat');
             $table->unsignedInteger('time_start');
             $table->unsignedInteger('time_end');

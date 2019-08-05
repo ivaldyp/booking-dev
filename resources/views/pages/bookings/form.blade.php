@@ -31,7 +31,7 @@
                 <div class="form-group">
                   <label for="id_peminjam" class="col-lg-2 control-label"> NIP </label>
                   <div class="col-lg-8">
-                    <input type="text" class="form-control" id="id_peminjam" name="id_peminjam" autocomplete="off" required>
+                    <input type="number" class="form-control" id="id_peminjam" name="id_peminjam" autocomplete="off" required>
                   </div>
                 </div>
 
@@ -63,6 +63,13 @@
                         <option value="{{ $data->id_room }}">{{ $data->room_name }}</option>
                       <?php } ?>
                     </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="booking_total_tamu" class="col-lg-2 control-label"> Jumlah Peserta </label>
+                  <div class="col-lg-4">
+                    <input type="number" class="form-control" id="booking_total_tamu" name="booking_total_tamu" autocomplete="off" required>
                   </div>
                 </div>
 
