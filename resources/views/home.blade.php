@@ -40,11 +40,11 @@
 							<h4 class="modal-title"><strong>Detail</strong></h4>
 						</div>
 						<div class="modal-body"></div>
-						<!-- <div class="modal-footer">
+						<div class="modal-footer">
 							<button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>
-							<button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
-						</div> -->
+							<!-- <button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>
+							<button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button> -->
+						</div>
 					</div>
 				</div>
 			</div>
