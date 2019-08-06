@@ -16,14 +16,16 @@
   <link rel="stylesheet" href="{{ URL::asset('plugins/datepicker/datepicker3.css') }}">
    <!-- DataTables -->
   <link rel="stylesheet" href="{{ URL::asset('plugins/datatables/dataTables.bootstrap.css') }}">
-  <!-- fullCalendar 2.2.5-->
-  <link rel="stylesheet" href="{{ URL::asset('plugins/fullcalendar/fullcalendar.min.css') }}">
-  <link rel="stylesheet" href="{{ URL::asset('plugins/fullcalendar/fullcalendar.print.css') }}" media="print">
   <!-- jvectormap -->
   <link rel="stylesheet" href="{{ URL::asset('bower_components/jvectormap/jquery-jvectormap.css') }}">
+  <!-- Calendar CSS -->
+  <link rel="stylesheet" href="{{ URL::asset('plugins2/bower_components/calendar/dist/fullcalendar.css') }}" />
+  <!-- fullCalendar 2.2.5-->
+  <!-- <link rel="stylesheet" href="{{ URL::asset('plugins/fullcalendar/fullcalendar.min.css') }}">
+  <link rel="stylesheet" href="{{ URL::asset('plugins/fullcalendar/fullcalendar.print.css') }}" media="print"> -->
   <!-- fullCalendar -->
-  <link rel="stylesheet" href="{{ URL::asset('bower_components/fullcalendar/dist/fullcalendar.min.css') }}">
-  <link rel="stylesheet" href="{{ URL::asset('bower_components/fullcalendar/dist/fullcalendar.print.min.css') }}" media="print">
+  <!-- <link rel="stylesheet" href="{{ URL::asset('bower_components/fullcalendar/dist/fullcalendar.min.css') }}">
+  <link rel="stylesheet" href="{{ URL::asset('bower_components/fullcalendar/dist/fullcalendar.print.min.css') }}" media="print"> -->
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ URL::asset('dist/css/AdminLTE.min.css') }}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -603,10 +605,17 @@
 <!-- ChartJS -->
 <script src="{{ URL::asset('bower_components/chart.js/Chart.js') }}"></script>
 <!-- fullCalendar 2.2.5 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="{{ URL::asset('plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="{{ URL::asset('plugins/fullcalendar/fullcalendar.min.js') }}"></script> -->
 
-@yield('calendar')
+<!-- Calendar JavaScript -->
+<script src="{{ URL::asset('plugins2/bower_components/calendar/jquery-ui.min.js') }}"></script>
+<script src="{{ URL::asset('plugins2/bower_components/moment/moment.js') }}"></script>
+<script src="{{ URL::asset('plugins2/bower_components/calendar/dist/fullcalendar.min.js') }}"></script>
+<script src="{{ URL::asset('plugins2/bower_components/calendar/dist/jquery.fullcalendar.js') }}"></script>
+<script src="{{ URL::asset('plugins2/bower_components/calendar/dist/cal-init.js') }}"></script>
+
+<!-- @yield('calendar') -->
 
 @yield('datatable')
 
