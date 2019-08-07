@@ -49,20 +49,15 @@ class HomeController extends Controller
     public function read()
     {
         $data['bookings'] = 
-            DB::select('SELECT b.id_booking, bid1.bidang_name as bidang_user, 
-                        b.booking_room, r.room_name, r.room_owner, bid2.bidang_name, r.room_floor, r.room_capacity, 
-                        b.booking_date, b.time_start, DATE_FORMAT(t1.time_name, "%H:%i") as time_startname, b.time_end, DATE_FORMAT(t2.time_name, "%H:%i") as time_endname,
-                        b.booking_judul, b.booking_deskripsi,
-                        YEAR(b.booking_date) as book_year, MONTH(b.booking_date) as book_month, DAY(b.booking_date) as book_date,
-                        HOUR(t1.time_name) as book_hstart, MINUTE(t1.time_name) as book_mstart, HOUR(t2.time_name) as book_hend, MINUTE(t2.time_name) as book_mend
-                        FROM bookings b, times t1, times t2, users u, rooms r, bidangs bid1, bidangs bid2
-                        where b.booking_room = r.id_room
-                        AND b.time_start = t1.id_time
-                        AND b.time_end = t2.id_time
-                        AND u.user_bidang = bid1.id_bidang
-                        AND r.room_owner = bid2.id_bidang
-                        AND b.booking_status = 3
-                        AND b.soft_delete = 0');
+            DB::select('SELECT b.id_booking, s.id_surat, s.surat_judul, s.surat_deskripsi, b.booking_date, r.room_name,
+                t1.id_time, DATE_FORMAT(t1.time_name, "%H:%i") as time_start, t2.id_time, DATE_FORMAT(t2.time_name, "%H:%i") as time_end
+                FROM bookings b
+                INNER JOIN surats s ON s.id_surat = b.id_surat
+                INNER JOIN times t1 ON t1.id_time = b.time_start
+                INNER JOIN times t2 ON t2.id_time = b.time_end
+                INNER JOIN rooms r ON r.id_room = b.booking_room
+                WHERE b.soft_delete = 0
+                AND b.booking_status = 3');
         return $data;
     }
 }

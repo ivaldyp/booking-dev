@@ -1,4 +1,5 @@
 
+
 !function($) {
     "use strict";
 
@@ -38,8 +39,27 @@
     CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
         var $this = this;
             var form = $("<form></form>");
-            form.append("<label>Change event name</label>");
-            form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>");
+            form.append("<div class='col-lg-12' style='padding-top:10px'>")
+            form.append("<label style='padding-top:6px' class='col-lg-2 control-label'>Acara</label>");
+            form.append("<div class='input-group col-lg-9'><input class='form-control' type=text disabled value='" + calEvent.title + "' /></div></div>");
+
+            form.append("<div class='col-lg-12' style='padding-top:10px'>")
+            form.append("<label style='padding-top:6px' class='col-lg-2 control-label'>Ruang</label>");
+            form.append("<div class='input-group col-lg-9'><input class='form-control' type=text disabled value='" + calEvent.room_name + "' /></div></div>");
+
+            form.append("<div class='col-lg-12' style='padding-top:10px'>")
+            form.append("<label style='padding-top:6px' class='col-lg-2 control-label'>Tanggal</label>");
+            form.append("<div class='input-group col-lg-9'><input class='form-control' type=text disabled value='" + calEvent.book_date + "' /></div></div>");
+
+            form.append("<div class='col-lg-12' style='padding-top:10px'>")
+            form.append("<label style='padding-top:6px' class='col-lg-2 control-label'>Waktu</label>");
+            form.append("<div class='input-group col-lg-9'><input class='form-control' type=text disabled value='" + calEvent.time_start + " - " + calEvent.time_end + "' /></div></div>");
+
+            form.append("<div class='col-lg-12' style='padding-top:10px'>")
+            form.append("<label style='padding-top:6px' class='col-lg-2 control-label'>Deskripsi</label>");
+            form.append("<div class='input-group col-lg-9'><textarea rows='5' disabled class='form-control'>"+ calEvent.detail +"</textarea></div></div>");
+
+
             $this.$modal.modal({
                 backdrop: 'static'
             });
@@ -121,7 +141,7 @@
     }
     /* Initializing */
     CalendarApp.prototype.init = function() {
-        this.enableDrag();
+        // this.enableDrag();
         /*  Initialize the calendar  */
         var date = new Date();
         var d = date.getDate();
@@ -130,51 +150,38 @@
         var form = '';
         var today = new Date($.now());
 
-        var defaultEvents =  [{
-                title: 'Released Ample Admin!',
-                start: new Date($.now() + 506800000),
-                className: 'bg-info'
-            }, {
-                title: 'This is today check date',
-                start: today,
-                end: today,
-                className: 'bg-danger'
-            }, {
-                title: 'This is your birthday',
-                start: new Date($.now() + 848000000),
-                className: 'bg-info'
-            },{
-                title: 'your meeting with john',
-                start: new Date($.now() - 1099000000),
-                end:  new Date($.now() - 919000000),
-                className: 'bg-warning'
-            },{
-                title: 'your meeting with john',
-                start: new Date($.now() - 1199000000),
-                end: new Date($.now() - 1199000000),
-                className: 'bg-purple'
-            },{
-                title: 'your meeting with john',
-                start: new Date($.now() - 399000000),
-                end: new Date($.now() - 219000000),
-                className: 'bg-info'
-            },  
-              {
-                title: 'Hanns birthday',
-                start: new Date($.now() + 868000000),
-                className: 'bg-danger'
-            },{
-                title: 'Like it?',
-                start: new Date($.now() + 348000000),
-                className: 'bg-success'
-            }];
+        var datas;
+        $.ajax({
+            url: "/home/read",
+            type: "get",
+            success: function(data){
+                datas = data.bookings;
+                console.log(datas);
+
+                for(var i=0; i<datas.length; i++)
+                {
+                    var newEvent = {
+                        title: datas[i].surat_judul,
+                        start: (datas[i].booking_date + " " + datas[i].time_start),
+                        end: (datas[i].booking_date + " " + datas[i].time_end),
+                        detail: datas[i].surat_deskripsi,
+                        book_date: datas[i].booking_date,
+                        time_start: datas[i].time_start,
+                        time_end: datas[i].time_end,
+                        room_name: datas[i].room_name
+                    };
+                    $('#calendar').fullCalendar( 'renderEvent', newEvent , 'stick');    
+                }
+            }
+        });
 
         var $this = this;
         $this.$calendarObj = $this.$calendar.fullCalendar({
             slotDuration: '00:15:00', /* If we want to split day time each 15minutes */
-            minTime: '08:00:00',
-            maxTime: '19:00:00',  
-            defaultView: 'month',  
+            minTime: '07:00:00',
+            maxTime: '17:00:00',  
+            defaultView: 'agendaDay',  
+            // aspectRatio: 0.5,
             handleWindowResize: true,   
              
             header: {
@@ -182,13 +189,13 @@
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-            events: defaultEvents,
-            editable: true,
-            droppable: true, // this allows things to be dropped onto the calendar !!!
+            // events: defaultEvents,
+            editable: false,
+            droppable: false, // this allows things to be dropped onto the calendar !!!
             eventLimit: true, // allow "more" link when too many events
             selectable: true,
-            drop: function(date) { $this.onDrop($(this), date); },
-            select: function (start, end, allDay) { $this.onSelect(start, end, allDay); },
+            // drop: function(date) { $this.onDrop($(this), date); },
+            // select: function (start, end, allDay) { $this.onSelect(start, end, allDay); },
             eventClick: function(calEvent, jsEvent, view) { $this.onEventClick(calEvent, jsEvent, view); }
 
         });

@@ -32,7 +32,7 @@
 				<!-- /.col -->
 			</div>
 			<!-- BEGIN MODAL -->
-			<div class="modal fade none-border" id="my-event">
+			<div class="modal fade" id="my-event">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -50,7 +50,7 @@
 			</div>
 
 			<!-- Modal Add Category -->
-			<div class="modal fade none-border" id="add-new-event">
+			<div class="modal fade" id="add-new-event">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">

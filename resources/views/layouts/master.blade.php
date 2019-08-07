@@ -609,7 +609,7 @@
 <script src="{{ URL::asset('plugins/fullcalendar/fullcalendar.min.js') }}"></script> -->
 
 <!-- Calendar JavaScript -->
-<script src="{{ URL::asset('plugins2/bower_components/calendar/jquery-ui.min.js') }}"></script>
+<!-- <script src="{{ URL::asset('plugins2/bower_components/calendar/jquery-ui.min.js') }}"></script> -->
 <script src="{{ URL::asset('plugins2/bower_components/moment/moment.js') }}"></script>
 <script src="{{ URL::asset('plugins2/bower_components/calendar/dist/fullcalendar.min.js') }}"></script>
 <script src="{{ URL::asset('plugins2/bower_components/calendar/dist/jquery.fullcalendar.js') }}"></script>
@@ -620,7 +620,7 @@
 @yield('datatable')
 
 @yield('datepicker')
-
+  
 @yield('form_booking')
 <!-- External -->
 <!-- <script src="{{ URL::asset('js/calendar.js') }}"></script> -->

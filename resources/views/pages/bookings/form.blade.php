@@ -250,6 +250,7 @@
   var today = new Date(); 
   $(function () {
     $('#datepicker').datepicker({
+      beforeShowDay: $.datepicker.noWeekends,
       autoclose: true,
       numberOfMonths: 3,
       startDate: new Date(),

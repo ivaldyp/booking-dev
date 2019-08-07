@@ -4,9 +4,10 @@
 
     <section class="content">
       <div class="row">
+        <?php var_dump(Auth::id()); ?>
         <div class="col-lg-12">
           @if(Session::has('message'))
-            <div class="alert alert-danger">{{ Session::get('message') }}</div>
+            <div class="alert alert-success">{{ Session::get('message') }}</div>
           @endif
         </div>
       </div>
@@ -19,7 +20,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Booking Belum Disetujui</h3>
+              <h3 class="box-title">Booking Telah Disetujui</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -28,7 +29,7 @@
                   <tr>
                     <th>No</th>
                     <th>Acara</th>
-                    <th>Deskripsi</th>
+                    <th class="col-lg-3">Deskripsi</th>
                     <th>Nama Peminjam</th>
                     <th>NIP</th>
                     <th>Bidang Peminjam</th>
@@ -37,6 +38,7 @@
                     <th>Tanggal</th>
                     <th>Waktu</th>
                     <th>File Surat</th>
+                    <th>Disetujui Oleh</th>
                     <th>Status Booking</th>
                     <?php if(Auth::check()) { ?>
                     <th> Aksi </th>
@@ -46,7 +48,7 @@
                 <tbody>
                   <?php foreach($rooms as $key => $data) { ?>
                   <tr>
-                    <input type="hidden" name="id_booking" id="form_book_done_id_booking" value="{{ $data->id_booking }}">
+                    <input class="form_book_done_id_booking" type="hidden" name="id_booking" value="{{ $data->id_booking }}">
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $data->surat_judul }}</td>
                     <td>{{ $data->surat_deskripsi }}</td>
@@ -59,10 +61,11 @@
                     <td>{{ $data->time_start }} - {{ $data->time_end }}</td>
                     <?php $file_name = explode("~", $data->file_name); ?>
                     <td><a href="{{ url('booking/download') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
+                    <td>{{ ucwords($data->name) }}</td>
                     <td bgcolor="#64de5d">
                       {{ $data->status_name }}
                     </td>
-                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" id="btn_booking_done_edit_stat"><i class="fa fa-edit"></i></button></td>
+                    <td><button type="button" class="btn btn-primary btn_booking_done_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}"><i class="fa fa-edit"></i></button></td>
                   </tr>
                   <?php } ?>
                 </tbody>
@@ -81,7 +84,7 @@
                     <form method="POST" action="updateStatus" class="form-horizontal">
                     @csrf
                       <div class="modal-body">
-                        <input type="hidden" name="id_booking" id="modal_id_booking">
+                        <input type="text" name="id_booking" id="modal_id_booking">
 
                         <div class="form-group">
                           <label for="booking_status" class="col-lg-2 control-label"> Ubah Status </label>
@@ -104,7 +107,7 @@
                         <div class="form-group">
                           <label for="keterangan_status" class="col-lg-2 control-label"> Keterangan </label>
                           <div class="col-lg-8">
-                            <textarea class="form-control" id="keterangan_status" name="keterangan_status" rows="3" autocomplete="off"></textarea>
+                            <textarea class="form-control" id="modal_keterangan_status" name="keterangan_status" rows="3" autocomplete="off"></textarea>
                           </div>
                         </div>
                       </div>
@@ -133,8 +136,15 @@
 <script>
   $(function () {
     $("#example1").DataTable();
-    $('#btn_booking_done_edit_stat').click(function() {
-      $('#modal_id_booking').val($('#form_book_done_id_booking').val());
+    $('.btn_booking_done_edit_stat').click(function() {
+      console.log(this.id);
+      var data = (this.id).split('||');
+      $('#modal_id_booking').val(data[0]);
+      if (data[1] == '' || data[1] == null) {
+        $('#modal_keterangan_status').val('-');
+      } else {
+        $('#modal_keterangan_status').val(data[1]);
+      }
     });
   });
 </script>

@@ -28,7 +28,7 @@
                   <tr>
                     <th>No</th>
                     <th>Acara</th>
-                    <th>Deskripsi</th>
+                    <th class="col-lg-3">Deskripsi</th>
                     <th>Nama Peminjam</th>
                     <th>NIP</th>
                     <th>Bidang Peminjam</th>
@@ -38,6 +38,7 @@
                     <th>Waktu</th>
                     <th>File Surat</th>
                     <th>Status Booking</th>
+                    <th>Keterangan</th>
                     <?php if(Auth::check()) { ?>
                     <th> Aksi </th>
                     <?php } ?>
@@ -61,16 +62,23 @@
                     <td><a href="{{ url('booking/download') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
                     <td 
                       <?php if($data->status_name == 'OK'){
-                        echo "bgcolor='green'";  
+                        echo "bgcolor='#64de5d'";  
                       } elseif($data->status_name == 'Batal'){
-                        echo "bgcolor='red'";
+                        echo "bgcolor='#ff3333'";
                       } else {
                         echo "bgcolor='yellow'";
                       }
                       ?>>
                       {{ $data->status_name }}
                     </td>
-                    <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default" id="btn_booking_not_edit_stat"><i class="fa fa-edit"></i></button></td>
+                    <td>
+                      <?php if (is_null($data->keterangan_status) || $data->keterangan_status == '') {
+                        echo "-";
+                      } else {
+                        echo $data->keterangan_status;
+                      }?>
+                    </td>
+                    <td><button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}"><i class="fa fa-edit"></i></button></td>
                   </tr>
                   <?php } ?>
                 </tbody>
@@ -112,7 +120,7 @@
                         <div class="form-group">
                           <label for="keterangan_status" class="col-lg-2 control-label"> Keterangan </label>
                           <div class="col-lg-8">
-                            <textarea class="form-control" id="keterangan_status" name="keterangan_status" rows="3" autocomplete="off"></textarea>
+                            <textarea class="form-control" id="modal_keterangan_status" name="keterangan_status" rows="3" autocomplete="off"></textarea>
                           </div>
                         </div>
                       </div>
@@ -141,8 +149,15 @@
 <script>
   $(function () {
     $("#example1").DataTable();
-    $('#btn_booking_not_edit_stat').click(function() {
-      $('#modal_id_booking').val($('#form_book_not_id_booking').val());
+    $('.btn_booking_not_edit_stat').click(function() {
+      console.log(this.id);
+      var data = (this.id).split('||');
+      $('#modal_id_booking').val(data[0]);
+      if (data[1] == '' || data[1] == null) {
+        $('#modal_keterangan_status').val('-');
+      } else {
+        $('#modal_keterangan_status').val(data[1]);
+      }
     });
   });
 </script>
