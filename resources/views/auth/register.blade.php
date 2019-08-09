@@ -90,7 +90,8 @@
                                 @enderror
                             </div>
                         </div>
-<!-- 
+
+                        <!-- 
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
@@ -101,7 +102,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button id="register-button" type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
                             </div>
@@ -112,4 +113,23 @@
         </div>
     </div>
 </div>
+
+@endsection
+
+@section('confirm_password')
+
+<script type="text/javascript" language="javascript">
+    $(function () {
+        $("#password2").bind("change paste keyup", function() {
+            alert($(this).val()); 
+        });
+        // var pass = $('#password').val();
+        // var pass2 = $('#password2').val();
+        // alert("wadooo");
+        // if (pass = pass2) {
+        //     $("#register-button").prop("disabled", false);
+        // }
+    });
+</script>
+
 @endsection

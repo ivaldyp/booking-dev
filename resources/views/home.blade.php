@@ -11,11 +11,6 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-2">
-					<a href="{{ url('booking/form') }}"><button class="btn btn-success" style="margin-bottom: 10px"> Tambah </button></a>
-				</div>
-			</div>
-			<div class="row">
 				<!-- /.col -->
 				<!-- <div class="col-md-2"></div> -->
 				<div class="col-md-12">

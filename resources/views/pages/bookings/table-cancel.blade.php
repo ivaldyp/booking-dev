@@ -17,9 +17,9 @@
       </div> -->
       <div class="row">
         <div class="col-xs-12">
-          <div class="box">
+          <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Booking Telah Disetujui</h3>
+              <h3 class="box-title">Booking Dibatalkan</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -39,7 +39,7 @@
                     <th>File Surat</th>
                     <th>Disetujui Oleh</th>
                     <th>Status Booking</th>
-                    <th>Aksi</th>
+                    <th>Keterangan</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -59,61 +59,18 @@
                     <?php $file_name = explode("~", $data->file_name); ?>
                     <td><a href="{{ url('booking/download') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
                     <td>{{ ucwords($data->name) }}</td>
-                    <td bgcolor="#64de5d">
+                    <td bgcolor="#ff3333">
                       {{ $data->status_name }}
                     </td>
-                    <td><button type="button" class="btn btn-primary btn_booking_done_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}"><i class="fa fa-edit"></i></button></td>
+                    <td>Buat ulang pinjaman <br><hr> 
+                      {{ $data->keterangan_status }}
+                    </td>
                   </tr>
                   <?php } ?>
                 </tbody>
               </table>
             </div>
             <!-- /.box-body -->
-
-            <div class="modal fade" id="modal-default">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Ubah status booking ruangan</h4>
-                  </div>
-                    <form method="POST" action="updateStatus" class="form-horizontal">
-                    @csrf
-                      <div class="modal-body">
-                        <input type="hidden" name="id_booking" id="modal_id_booking">
-
-                        <div class="form-group">
-                          <label for="booking_status" class="col-lg-2 control-label"> Ubah Status </label>
-                          <div class="col-lg-8">
-                            <div class="checkbox">
-                              <label for="booking_status" class="control-label">
-                                <input type="checkbox" name="booking_status" id="optionsCheck2" value="2">
-                                Batal
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                          <label for="keterangan_status" class="col-lg-2 control-label"> Keterangan </label>
-                          <div class="col-lg-8">
-                            <textarea class="form-control" id="modal_keterangan_status" name="keterangan_status" rows="3" autocomplete="off"></textarea>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="submit" class="btn btn-success pull-right">Simpan</button>
-                        <button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
-                      </div>
-                    </form>
-                  </div>
-                  <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-              </div>
-              <!-- /.modal -->
-
           </div>
           <!-- /.box -->
         </div>

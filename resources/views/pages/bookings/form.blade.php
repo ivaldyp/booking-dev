@@ -29,9 +29,9 @@
                 <input type="hidden" name="request_hapus" value="0">
                 
                 <div class="form-group">
-                  <label for="id_peminjam" class="col-lg-2 control-label"> NIP </label>
+                  <label for="nip_peminjam" class="col-lg-2 control-label"> NIP </label>
                   <div class="col-lg-8">
-                    <input type="number" class="form-control" id="id_peminjam" name="id_peminjam" autocomplete="off" required>
+                    <input type="number" class="form-control" id="nip_peminjam" name="nip_peminjam" autocomplete="off" required>
                   </div>
                 </div>
 
@@ -60,7 +60,7 @@
                     <select class="form-control" name="booking_room" id="booking_room">
                       <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
                       <?php foreach ($rooms as $data) { ?>
-                        <option value="{{ $data->id_room }}">{{ $data->room_name }}</option>
+                        <option value="{{ $data->id_room }}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option>
                       <?php } ?>
                     </select>
                   </div>
@@ -70,6 +70,13 @@
                   <label for="booking_total_tamu" class="col-lg-2 control-label"> Jumlah Peserta </label>
                   <div class="col-lg-4">
                     <input type="number" class="form-control" id="booking_total_tamu" name="booking_total_tamu" autocomplete="off" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="booking_total_snack" class="col-lg-2 control-label"> Jumlah Snack </label>
+                  <div class="col-lg-4">
+                    <input type="number" class="form-control" id="booking_total_snack" name="booking_total_snack" autocomplete="off" required>
                   </div>
                 </div>
 
@@ -154,9 +161,9 @@
                     <div class="modal-body">
 
                       <div class="form-group">
-                        <label for="id_peminjam" class="col-lg-2 control-label"> NIP </label>
+                        <label for="nip_peminjam" class="col-lg-2 control-label"> NIP </label>
                         <div class="col-lg-8">
-                          <h5 id="modal-id_peminjam"></h5>
+                          <h5 id="modal-nip_peminjam"></h5>
                         </div>
                       </div>
 
@@ -266,7 +273,7 @@
 <script type="text/javascript" language="javascript">
   $(function () {
     $('#btn_form_booking_modal').click(function() {
-      $("#modal-id_peminjam").append($("#id_peminjam").val());
+      $("#modal-nip_peminjam").append($("#nip_peminjam").val());
       $("#modal-nama_peminjam").append($("#nama_peminjam").val());
       if ($("#bidang_peminjam option:selected").text().substr(0,2) != '--') {
         $("#modal-bidang_peminjam").append($("#bidang_peminjam option:selected").text());
@@ -287,7 +294,7 @@
     });
 
     $("#modal-default").on("hidden.bs.modal", function () {
-      $("#modal-id_peminjam").empty();
+      $("#modal-nip_peminjam").empty();
       $("#modal-nama_peminjam").empty();
       $("#modal-bidang_peminjam").empty();
       $("#modal-booking_room").empty();

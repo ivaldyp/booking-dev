@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
 
@@ -33,23 +33,21 @@ class HomeController extends Controller
     public function index()
     {
         $data['files'] = DB::select('SELECT * FROM surats');
-        if ($this->user->user_status) {
+        if (Auth::check()) {
             $user_status = $this->user->user_status;
             $data['user_status'] = 
                 json_encode(DB::select('SELECT *
                             FROM user_types
                             where id_userType = '.$user_status));
             Session::put('user_status', $user_status);
-            return view('home', $data);
-        } else {
-            return view('home');
-        }
+        } 
+        return view('home', $data);
     }
 
     public function read()
     {
         $data['bookings'] = 
-            DB::select('SELECT b.id_booking, s.id_surat, s.surat_judul, s.surat_deskripsi, b.booking_date, r.room_name,
+            DB::select('SELECT b.id_booking, s.id_surat, s.surat_judul, s.surat_deskripsi, b.booking_date, DATE_FORMAT(b.booking_date, "%d-%m-%Y") as booking_date2, r.room_name,
                 t1.id_time, DATE_FORMAT(t1.time_name, "%H:%i") as time_start, t2.id_time, DATE_FORMAT(t2.time_name, "%H:%i") as time_end
                 FROM bookings b
                 INNER JOIN surats s ON s.id_surat = b.id_surat

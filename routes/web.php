@@ -11,11 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/registeruser', 'LoadRegisterController@index');
 
@@ -30,6 +32,8 @@ Route::group(['prefix' => 'booking'], function () {
 	Route::get('/', 'BookingController@showAllBook');
 	Route::get('/not', 'BookingController@showBookNotDone');
 	Route::get('/done', 'BookingController@showBookDone');
+	Route::get('/cancel', 'BookingController@showBookCancel');
+	Route::get('/my-booking', 'BookingController@showBookMy');
 	Route::post('/confirm', 'BookingController@confirm');
 	Route::get('/download/{id}', 'BookingController@download');
 	Route::get('/form', 'BookingController@showForm');

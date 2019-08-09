@@ -165,7 +165,7 @@
                         start: (datas[i].booking_date + " " + datas[i].time_start),
                         end: (datas[i].booking_date + " " + datas[i].time_end),
                         detail: datas[i].surat_deskripsi,
-                        book_date: datas[i].booking_date,
+                        book_date: datas[i].booking_date2,
                         time_start: datas[i].time_start,
                         time_end: datas[i].time_end,
                         room_name: datas[i].room_name
@@ -180,7 +180,7 @@
             slotDuration: '00:15:00', /* If we want to split day time each 15minutes */
             minTime: '07:00:00',
             maxTime: '17:00:00',  
-            defaultView: 'agendaDay',  
+            defaultView: 'month',  
             // aspectRatio: 0.5,
             handleWindowResize: true,   
              

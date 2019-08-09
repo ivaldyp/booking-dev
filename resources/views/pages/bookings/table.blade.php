@@ -19,7 +19,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Booking Belum Disetujui</h3>
+              <h3 class="box-title">Semua Booking</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -39,8 +39,8 @@
                     <th>File Surat</th>
                     <th>Status Booking</th>
                     <th>Keterangan</th>
-                    <?php if(Auth::check()) { ?>
-                    <th> Aksi </th>
+                    <?php if(Auth::check() && Auth::user()->user_status != 2) { ?>
+                      <th> Aksi </th>
                     <?php } ?>
                   </tr>
                 </thead>
@@ -52,11 +52,11 @@
                     <td>{{ $data->surat_judul }}</td>
                     <td>{{ $data->surat_deskripsi }}</td>
                     <td>{{ $data->nama_peminjam }}</td>
-                    <td>{{ $data->id_peminjam }}</td>
+                    <td>{{ $data->nip_peminjam }}</td>
                     <td>{{ $data->bidang_name }}</td>
                     <td>{{ $data->room_name }}</td>
                     <td>{{ $data->booking_total_tamu }}</td>
-                    <td>{{ $data->booking_date }}</td>
+                    <td>{{ $data->booking_date2 }}</td>
                     <td>{{ $data->time_start }} - {{ $data->time_end }}</td>
                     <?php $file_name = explode("~", $data->file_name); ?>
                     <td><a href="{{ url('booking/download') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
@@ -75,10 +75,21 @@
                       <?php if (is_null($data->keterangan_status) || $data->keterangan_status == '') {
                         echo "-";
                       } else {
+                        if ($data->booking_status == 2){
+                          echo "Buat ulang pinjaman <br><hr>";
+                        }
                         echo $data->keterangan_status;
                       }?>
                     </td>
-                    <td><button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}"><i class="fa fa-edit"></i></button></td>
+                    <?php if(Auth::check() && Auth::user()->user_status != 2) { ?>
+                      <td>
+                        <?php if($data->status_id == 2) { ?>
+                          -
+                        <?php } else { ?>
+                          <button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_status }}"><i class="fa fa-edit"></i></button>
+                        <?php } ?>
+                      </td>
+                    <?php } ?>
                   </tr>
                   <?php } ?>
                 </tbody>
@@ -98,7 +109,9 @@
                     @csrf
                       <div class="modal-body">
                         <input type="hidden" name="id_booking" id="modal_id_booking">
+                        <input type="hidden" name="booking_status" id="modal_stat_booking">
 
+                        <?php if ($data->status_id == 1) { ?>
                         <div class="form-group">
                           <label for="booking_status" class="col-lg-2 control-label"> Ubah Status </label>
                           <div class="col-lg-8">
@@ -116,6 +129,19 @@
                             </div>
                           </div>
                         </div>
+                        <?php } elseif ($data->status_id == 3) { ?>
+                        <div class="form-group">
+                          <label for="booking_status" class="col-lg-2 control-label"> Ubah Status </label>
+                          <div class="col-lg-8">
+                            <div class="checkbox">
+                              <label for="booking_status" class="control-label">
+                                <input type="checkbox" name="booking_status" id="optionsCheck2" value="2">
+                                Batal
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <?php } ?>
 
                         <div class="form-group">
                           <label for="keterangan_status" class="col-lg-2 control-label"> Keterangan </label>
@@ -150,7 +176,15 @@
   $(function () {
     $("#example1").DataTable();
     $('.btn_booking_not_edit_stat').click(function() {
-      $('#modal_id_booking').val(this.id);
+      console.log(this.id);
+      var data = (this.id).split('||');
+      $('#modal_id_booking').val(data[0]);
+      if (data[1] == '' || data[1] == null) {
+        $('#modal_keterangan_status').val('-');
+      } else {
+        $('#modal_keterangan_status').val(data[1]);
+      }
+      $('#modal_stat_booking').val(data[2]);
     });
   });
 </script>
