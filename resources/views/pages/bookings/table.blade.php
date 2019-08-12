@@ -86,7 +86,7 @@
                         <?php if($data->status_id == 2) { ?>
                           -
                         <?php } else { ?>
-                          <button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_status }}"><i class="fa fa-edit"></i></button>
+                          <button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->id_time1 }}||{{ $data->booking_room }}||{{ $data->status_id }}"><i class="fa fa-edit"></i></button>
                         <?php } ?>
                       </td>
                     <?php } ?>
@@ -105,43 +105,17 @@
                       <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Ubah status booking ruangan</h4>
                   </div>
-                    <form method="POST" action="updateStatus" class="form-horizontal">
+                    <form method="POST" action="booking/updateStatus" class="form-horizontal">
                     @csrf
                       <div class="modal-body">
                         <input type="hidden" name="id_booking" id="modal_id_booking">
-                        <input type="hidden" name="booking_status" id="modal_stat_booking">
+                        <input type="hidden" name="booking_date" id="modal_booking_date">
+                        <input type="hidden" name="time_start" id="modal_time_start">
+                        <input type="hidden" name="booking_room" id="modal_booking_room">
+                        <input type="hidden" name="status_id" id="modal_status_id">
 
-                        <?php if ($data->status_id == 1) { ?>
-                        <div class="form-group">
-                          <label for="booking_status" class="col-lg-2 control-label"> Ubah Status </label>
-                          <div class="col-lg-8">
-                            <div class="radio">
-                              <label>
-                                <input type="radio" name="booking_status" id="optionsRadios1" value="3" checked>
-                                OK
-                              </label>
-                            </div>
-                            <div class="radio">
-                              <label>
-                                <input type="radio" name="booking_status" id="optionsRadios2" value="2">
-                                Batal
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                        <?php } elseif ($data->status_id == 3) { ?>
-                        <div class="form-group">
-                          <label for="booking_status" class="col-lg-2 control-label"> Ubah Status </label>
-                          <div class="col-lg-8">
-                            <div class="checkbox">
-                              <label for="booking_status" class="control-label">
-                                <input type="checkbox" name="booking_status" id="optionsCheck2" value="2">
-                                Batal
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                        <?php } ?>
+                        <div id="book-status-1"></div>
+                        <div id="book-status-2"></div>
 
                         <div class="form-group">
                           <label for="keterangan_status" class="col-lg-2 control-label"> Keterangan </label>
@@ -161,7 +135,6 @@
                 <!-- /.modal-dialog -->
               </div>
               <!-- /.modal -->
-
           </div>
           <!-- /.box -->
         </div>
@@ -177,14 +150,30 @@
     $("#example1").DataTable();
     $('.btn_booking_not_edit_stat').click(function() {
       console.log(this.id);
+
       var data = (this.id).split('||');
+
+      if (data[5] == 1) {
+        $("#book-status-1").append("<div class='form-group'><label for='booking_status' class='col-lg-2 control-label'> Ubah Status </label><div class='col-lg-8'><div class='radio'><label><input type='radio' name='booking_status' id='optionsRadios1' value='3' checked>OK</label></div><div class='radio'><label><input type='radio' name='booking_status' id='optionsRadios2' value='2'>Batal</label></div></div></div>");
+      } else if (data[5] == 3) {
+        $("#book-status-2").append("<div class='form-group'><label for='booking_status' class='col-lg-2 control-label'> Ubah Status </label><div class='col-lg-8'><div class='checkbox'><label for='booking_status' class='control-label'><input type='checkbox' name='booking_status' id='optionsCheck2' value='2'>Batal</label></div></div></div>");
+      }
+
       $('#modal_id_booking').val(data[0]);
       if (data[1] == '' || data[1] == null) {
         $('#modal_keterangan_status').val('-');
       } else {
         $('#modal_keterangan_status').val(data[1]);
       }
-      $('#modal_stat_booking').val(data[2]);
+      $('#modal_booking_date').val(data[2]);
+      $('#modal_time_start').val(data[3]);
+      $('#modal_booking_room').val(data[4]);
+      $('#modal_status_id').val(data[5]);
+    });
+
+    $("#modal-default").on("hidden.bs.modal", function () {
+      $("#book-status-1").empty();
+      $("#book-status-2").empty();
     });
   });
 </script>

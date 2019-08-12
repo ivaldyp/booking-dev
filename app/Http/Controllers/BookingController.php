@@ -221,22 +221,41 @@ class BookingController extends Controller
         $booking->keterangan_status = $request->keterangan_status;
 
         $actual_link = "{$_SERVER['HTTP_REFERER']}";
-        var_dump($request->booking_date);
-        var_dump($request->time_start);
-        // die();
-        
-        if($booking->save()) {
+        $back_link = explode("/", $actual_link);
 
-            DB::update("UPDATE bookings SET booking_status = 2, keterangan_status = 'Jadwal yang dipilih telah terisi penuh', soft_delete = 1
-                WHERE id_booking <> '$request->id_booking'
-                AND booking_room = '$request->booking_room'
-                AND booking_date = '$request->booking_date'
-                AND (time_start <= '$request->time_start' AND time_end > '$request->time_start') ");
-
-            return redirect('booking/done')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
+        if ($booking->save()) {
+            //kalau ubah status nya dari halaman "booking/"
+            if (array_key_exists(4, $back_link) == false) {
+                if ($request->status_id == 1) {
+                    if ($request->booking_status == 2) {
+                        return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
+                    } elseif ($request->booking_status == 3) {
+                        return redirect('booking/done')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
+                    }
+                    
+                } elseif ($request->status_id == 3) {
+                    return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
+                }
+            } elseif ($back_link == 'not') {
+                if ($request->booking_status == 2) {
+                    return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
+                } elseif ($request->booking_status == 3) {
+                    DB::update("UPDATE bookings SET booking_status = 2, keterangan_status = 'Jadwal yang dipilih telah terisi penuh', soft_delete = 1
+                        WHERE id_booking <> '$request->id_booking'
+                        AND booking_room = '$request->booking_room'
+                        AND booking_date = '$request->booking_date'
+                        AND (time_start <= '$request->time_start' AND time_end > '$request->time_start') ");
+                    return redirect('booking/done')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
+                }
+            } elseif ($back_link == 'done') {
+                return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
+            }
         } else {
-            return redirect('booking/not')->with('message', 'Gagal melakukan perubahan terhadap status booking');
+            if ($back_link == 'not') {
+                return redirect('booking/not')->with('message', 'Gagal melakukan perubahan terhadap status booking');
+            } elseif ($back_link == 'done') {
+                return redirect('booking/done')->with('message', 'Gagal melakukan perubahan terhadap status booking');
+            }
         }
-
     }
 }
