@@ -37,7 +37,6 @@
                     <th>Tanggal</th>
                     <th>Waktu</th>
                     <th>File Surat</th>
-                    <th>Disetujui Oleh</th>
                     <th>Status Booking</th>
                     <th>Keterangan</th>
                   </tr>
@@ -58,7 +57,6 @@
                     <td>{{ $data->time_start }} - {{ $data->time_end }}</td>
                     <?php $file_name = explode("~", $data->file_name); ?>
                     <td><a href="{{ url('booking/download') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
-                    <td>{{ ucwords($data->name) }}</td>
                     <td bgcolor="#ff3333">
                       {{ $data->status_name }}
                     </td>

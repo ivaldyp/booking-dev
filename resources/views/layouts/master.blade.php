@@ -157,8 +157,6 @@
               @endif
             @endif
             <li><a href="{{ url('booking') }}"><i class="fa fa-search"></i>Semua Pinjaman </a></li>
-           
-            
           </ul>
         </li>
         <li class="treeview">
@@ -169,8 +167,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ url('booking/not') }}"><i class="fa fa-file"></i> Notulen Rapat Internal </a></li>
-            <li><a href="{{ url('booking/done') }}"><i class="fa fa-file-o"></i> Laporan Rapat Luar </a></li>
+            <li><a href="#"><i class="fa fa-file"></i> Notulen Rapat Internal </a></li>
+            <li><a href="#"><i class="fa fa-file-o"></i> Laporan Rapat Luar </a></li>
           </ul>
         </li>
         <?php if (Auth::check() && Auth::user()->user_status == 1) { ?>
