@@ -139,8 +139,18 @@ class BookingController extends Controller
 
     public function store(Request $request)
     {
-        // var_dump(Auth::id());
-        // die();
+        $date = str_replace('/', '-', $request->booking_date);
+        $newDate = date("Y/m/d", strtotime($date));
+        $book_check = DB::select("SELECT * FROM bookings 
+                    WHERE booking_room = '$request->booking_room' 
+                    AND booking_date = '$newDate'
+                    AND time_start <= '$request->time_start'
+                    AND time_end > '$request->time_start' ");
+        
+        if (count($book_check) > 0) {
+            return redirect('/booking/form')->with('message', 'Tidak dapat melakukan booking karena jadwal tersebut telah terisi');    
+        }
+
         $file = $request->surat_file;
         // var_dump($file->getClientOriginalName());
         // var_dump($file->getClientOriginalExtension());
@@ -151,7 +161,7 @@ class BookingController extends Controller
         if ($file->getSize() > 2222222) {
             return redirect('/booking/form')->with('message', 'Ukuran file terlalu besar (Maksimal 2MB)');     
         } 
-        if ($file->getClientOriginalExtension() != "pdf" && $file->getMimeType() != 'application/pdf') {
+        if ($file->getClientOriginalExtension() != "pdf") {
             return redirect('/booking/form')->with('message', 'File yang diunggah bukan berbentuk PDF');     
         } 
 

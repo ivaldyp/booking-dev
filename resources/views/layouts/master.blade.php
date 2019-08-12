@@ -147,15 +147,18 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            @if(Auth::check() and Auth::user()->user_status == 2)
-              <li><a href="{{ url('booking/my-booking') }}"><i class="fa fa-odnoklassniki"></i> Pinjaman Saya </a></li>
-            @else
-              <li><a href="{{ url('booking/not') }}"><i class="fa fa-question"></i> Pinjaman Belum Disetujui </a></li>
-              <li><a href="{{ url('booking/cancel') }}"><i class="fa fa-close"></i> Pinjaman Dibatalkan </a></li>
-              <li><a href="{{ url('booking/done') }}"><i class="fa fa-check"></i> Pinjaman Telah Disetujui </a></li>
+            @if(Auth::check())
+              @if(Auth::user()->user_status == 2)
+                <li><a href="{{ url('booking/my-booking') }}"><i class="fa fa-odnoklassniki"></i> Pinjaman Saya </a></li>
+              @elseif(Auth::user()->user_status != 2)
+                <li><a href="{{ url('booking/not') }}"><i class="fa   fa-question"></i> Pinjaman Belum Disetujui </a></li>
+                <li><a href="{{ url('booking/cancel') }}"><i class="fa fa-close"></i> Pinjaman Dibatalkan </a></li>
+                <li><a href="{{ url('booking/done') }}"><i class="fa fa-check"></i> Pinjaman Telah Disetujui </a></li>
+              @endif
             @endif
+            <li><a href="{{ url('booking') }}"><i class="fa fa-search"></i>Semua Pinjaman </a></li>
+           
             
-            <li><a href="{{ url('booking') }}"><i class="fa fa-search"></i> Semua Pinjaman </a></li>
           </ul>
         </li>
         <li class="treeview">
