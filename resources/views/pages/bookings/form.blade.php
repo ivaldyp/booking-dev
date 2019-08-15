@@ -97,12 +97,21 @@
                   <div class="col-lg-4">
                     <select class="form-control" name="time_start" id="time_start">
                       <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
-                      <?php foreach ($times as $data) { ?>
-                        <option value="{{ $data->id_time }}">{{ $data->time_name }}</option>
-                      <?php } ?>
+                      <?php
+                        $i = 0;
+                        foreach ($times as $data) {
+                          if ($i == count($times) - 1) {
+                            break;
+                          } else {
+                            echo "<option value='$data->id_time'>$data->time_name</option>";
+                          }
+                          $i++;
+                        }
+                      ?>
+                      
                     </select>
                   </div>
-                </div>
+                </div> 
 
                 <div class="form-group">
                   <label class="col-lg-2 control-label"> Jam Selesai </label>
@@ -110,7 +119,7 @@
                     <select class="form-control" name="time_end" id="time_end">
                       <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
                       <?php foreach ($times as $data) { ?>
-                        <option value="{{ $data->id_time }}">{{ $data->time_name }}</option>
+                        <option id="timend{{$data->id_time}}" value="{{ $data->id_time }}">{{ $data->time_name }}</option>
                       <?php } ?>
                     </select>
                   </div>
@@ -124,7 +133,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="surat_deskripsi" class="col-lg-2 control-label"> Deskripsi </label>
+                  <label for="surat_deskripsi" class="col-lg-2 control-label"> Deskripsi Acara </label>
                   <div class="col-lg-8">
                     <textarea class="form-control" id="surat_deskripsi" name="surat_deskripsi" rows="3" autocomplete="off"></textarea>
                   </div>
@@ -261,6 +270,8 @@
       autoclose: true,
       numberOfMonths: 3,
       startDate: new Date(),
+      minDate: new Date(),
+      maxDate: new Date(),
       format: 'dd/mm/yyyy'
     });
   });
@@ -272,6 +283,19 @@
 
 <script type="text/javascript" language="javascript">
   $(function () {
+    $("#time_start").change(function(){
+
+      var selectedtime = $(this).children("option:selected").val();
+      for (var i = 1; i <= 22; i++) {
+        var timend = '#timend'+i;
+        if (i <= selectedtime) {
+          $(timend).prop('disabled', 'disabled');    
+        } else {
+          $(timend).prop('disabled', false);
+        }
+      }
+    });
+
     $('#btn_form_booking_modal').click(function() {
       $("#modal-nip_peminjam").append($("#nip_peminjam").val());
       $("#modal-nama_peminjam").append($("#nama_peminjam").val());

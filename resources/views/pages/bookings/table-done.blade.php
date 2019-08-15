@@ -39,6 +39,7 @@
                     <th>File Surat</th>
                     <th>Disetujui Oleh</th>
                     <th>Status Booking</th>
+                    <th>Tanggal Dibuat</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -62,6 +63,7 @@
                     <td bgcolor="#64de5d">
                       {{ $data->status_name }}
                     </td>
+                    <td>{{$data->tanggal_dibuat}}</td>
                     <td><button type="button" class="btn btn-primary btn_booking_done_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}"><i class="fa fa-edit"></i></button></td>
                   </tr>
                   <?php } ?>

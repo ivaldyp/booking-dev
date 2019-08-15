@@ -39,6 +39,7 @@
                     <th>File Surat</th>
                     <th>Status Booking</th>
                     <th>Keterangan</th>
+                    <th>Tanggal Dibuat</th>
                     <?php if(Auth::check() && Auth::user()->user_status != 2) { ?>
                       <th> Aksi </th>
                     <?php } ?>
@@ -81,6 +82,7 @@
                         echo $data->keterangan_status;
                       }?>
                     </td>
+                    <td>{{$data->tanggal_dibuat}}</td>
                     <?php if(Auth::check() && Auth::user()->user_status != 2) { ?>
                       <td>
                         <?php if($data->status_id == 2) { ?>

@@ -72,6 +72,11 @@
 
           <?php if(Auth::check()) { ?>
             <!-- User Account: style can be found in dropdown.less -->
+            <!-- <li class="dropdown tasks-menu" style="background-color: red;">
+              <a href="{{ route('logout') }}" class="nav-link">
+                Logout
+              </a>
+            </li> -->
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="{{ URL::asset('dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
@@ -136,7 +141,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <!-- <li class="header">MAIN NAVIGATION</li> -->
         <li><a href="{{ url('/') }}"><i class="fa fa-home"></i> <span>Home</span></a></li>
-        @if(Auth::check())
+        @if(Auth::check() and Auth::user()->user_status == 2)
           <li><a href="{{ url('booking/form') }}"><i class="fa fa-plus"></i> <span>Buat Pinjaman Baru</span></a></li>
         @endif
         <li class="treeview">
