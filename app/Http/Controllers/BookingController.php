@@ -236,7 +236,7 @@ class BookingController extends Controller
         $back_link = explode("/", $actual_link);
 
 
-        if ($booking->save()) {
+        if ($booking->save()){
             //kalau ubah status nya dari halaman "booking/"
             if (array_key_exists(4, $back_link) == false) {
                 if ($request->status_id == 1) {

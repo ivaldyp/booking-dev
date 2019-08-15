@@ -5,7 +5,7 @@
 		<section class="content">
       <div class="row">
       	<div class="col-xs-3">
-      		<button class="btn btn-success" style="margin-bottom: 10px">Tambah</button>
+      		<button class="btn btn-success" style="margin-bottom: 10px" data-toggle="modal" data-target="#modal-create">Tambah</button>
       	</div>
       </div>
       <div class="row">
@@ -49,6 +49,34 @@
               </table>
             </div>
             <!-- /.box-body -->
+
+            <div class="modal fade" id="modal-create">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                  <form method="POST" action="createTimes" class="form-horizontal">
+                  @csrf
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">Waktu Baru</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label for="time_name" class="col-lg-2
+                        control-label"> Waktu </label>
+                        <div class="col-lg-8">
+                          <input type="time" name="time_name" id="time_name" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-success pull-right">Simpan</button>
+                      <button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
           <!-- /.box -->
         </div>
@@ -61,15 +89,9 @@
 
 <script>
   $(function () {
-    $("#example1").DataTable();
-    // $('#example2').DataTable({
-    //   "paging": true,
-    //   "lengthChange": true,
-    //   "searching": false,
-    //   "ordering": true,
-    //   "info": false,
-    //   "autoWidth": false
-    // });
+    $("#example1").DataTable({
+      "iDisplayLength": 25
+    });
   });
 </script>
 

@@ -161,7 +161,7 @@
                 <li><a href="{{ url('booking/done') }}"><i class="fa fa-check"></i> Pinjaman Telah Disetujui </a></li>
               @endif
             @endif
-            <li><a href="{{ url('booking') }}"><i class="fa fa-search"></i>Semua Pinjaman </a></li>
+            <li><a href="{{ url('booking') }}"><i class="fa fa-search"></i> Semua Pinjaman </a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -172,7 +172,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-file"></i> Notulen Rapat Internal </a></li>
+            <li><a href="{{ url('notulen/') }}"><i class="fa fa-file"></i> Notulen Rapat Internal </a></li>
             <li><a href="#"><i class="fa fa-file-o"></i> Laporan Rapat Luar </a></li>
           </ul>
         </li>

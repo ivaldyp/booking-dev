@@ -45,6 +45,10 @@ Route::group(['prefix' => 'book_status'], function () {
 	Route::get('/', 'BookingStatusController@index');
 });
 
+Route::group(['prefix' => 'notulen'], function () {
+	Route::get('/', 'NotulenController@index');
+});
+
 Route::group(['prefix' => 'roles'], function () {
 	Route::get('/', 'UserTypeController@index');
 });
