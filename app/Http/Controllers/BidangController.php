@@ -44,7 +44,6 @@ class BidangController extends Controller
     public function store(Request $request)
     {
         $bidang = new Bidang;
-        // var_dump(DB::getPdo()->lastInsertId());
         $bidang->bidang_name = $request->bidang_name;
         $bidang->save();
 

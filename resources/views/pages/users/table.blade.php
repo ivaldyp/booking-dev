@@ -5,7 +5,7 @@
 		<section class="content">
       <div class="row">
       	<div class="col-xs-3">
-      		<button class="btn btn-success" style="margin-bottom: 10px">Tambah</button>
+      		<a href="/registeruser"><button class="btn btn-success" style="margin-bottom: 10px">Tambah</button></a>
       	</div>
       </div>
       <div class="row">

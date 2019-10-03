@@ -60,6 +60,9 @@ Route::group(['prefix' => 'notulen'], function () {
 
 Route::group(['prefix' => 'roles'], function () {
 	Route::get('/', 'UserTypeController@index');
+	Route::post('/store', 'UserTypeController@store');
+	Route::post('/update', 'UserTypeController@update');
+	Route::get('/delete/{id}', 'UserTypeController@delete');
 });
 
 Route::group(['prefix' => 'ruang'], function () {

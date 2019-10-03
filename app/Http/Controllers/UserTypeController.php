@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\User_type;
 
 class UserTypeController extends Controller
 {
@@ -42,7 +43,45 @@ class UserTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (is_null($request->can_editUser)) {
+            $can_editUser = 0;
+        } else {
+            $can_editUser = 1;
+        }
+
+        if (is_null($request->can_editRoom)) {
+            $can_editRoom = 0;
+        } else {
+            $can_editRoom = 1;
+        }
+
+        if (is_null($request->can_bookRoom)) {
+            $can_bookRoom = 0;
+        } else {
+            $can_bookRoom = 1;
+        }
+
+        if (is_null($request->can_approve)) {
+            $can_approve = 0;
+        } else {
+            $can_approve = 1;
+        }
+
+        if (is_null($request->can_bookFood)) {
+            $can_bookFood = 0;
+        } else {
+            $can_bookFood = 1;
+        }
+
+        $user_type = new User_type;
+        $user_type->userType_name = $request->userType_name;
+        $user_type->can_editUser = $can_editUser;
+        $user_type->can_editRoom = $can_editRoom;
+        $user_type->can_bookRoom = $can_bookRoom;
+        $user_type->can_approve = $can_approve;
+        $user_type->can_bookFood = $can_bookFood;
+        $user_type->save();
+        return redirect('/roles')->with('message', 'Data Tipe Pengguna Baru berhasil ditambah');
     }
 
     /**
@@ -74,9 +113,47 @@ class UserTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        if (is_null($request->can_editUser)) {
+            $can_editUser = 0;
+        } else {
+            $can_editUser = 1;
+        }
+
+        if (is_null($request->can_editRoom)) {
+            $can_editRoom = 0;
+        } else {
+            $can_editRoom = 1;
+        }
+
+        if (is_null($request->can_bookRoom)) {
+            $can_bookRoom = 0;
+        } else {
+            $can_bookRoom = 1;
+        }
+
+        if (is_null($request->can_approve)) {
+            $can_approve = 0;
+        } else {
+            $can_approve = 1;
+        }
+
+        if (is_null($request->can_bookFood)) {
+            $can_bookFood = 0;
+        } else {
+            $can_bookFood = 1;
+        }
+
+        DB::update("UPDATE user_types 
+                    SET userType_name = '$request->userType_name',
+                        can_editUser = '$can_editUser',
+                        can_editRoom = '$can_editRoom',
+                        can_bookRoom = '$can_bookRoom',
+                        can_approve = '$can_approve',
+                        can_bookFood = '$can_bookFood'
+                    WHERE id_userType = '$request->id_userType' ");
+        return redirect('roles')->with('message', 'Berhasil melakukan perubahan data bidang');
     }
 
     /**
@@ -85,8 +162,13 @@ class UserTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $user_type = User_type::where('id_userType', $id);
+        if($user_type->delete()) {
+            return redirect('roles')->with('message', 'Data berhasil dihapus');
+        } else {
+            return redirect('roles')->with('message', 'Data gagal dihapus');
+        }
     }
 }

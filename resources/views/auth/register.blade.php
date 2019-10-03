@@ -27,6 +27,34 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="nrk" class="col-md-4 col-form-label text-md-right">NRK</label>
+
+                            <div class="col-md-6">
+                                <input id="nrk" type="text" class="form-control @error('nrk') is-invalid @enderror" name="nrk" required autocomplete="off" autofocus>
+
+                                @error('nrk')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="nip" class="col-md-4 col-form-label text-md-right">NIP</label>
+
+                            <div class="col-md-6">
+                                <input id="nip" type="text" class="form-control @error('nip') is-invalid @enderror" name="nip" required autocomplete="off" autofocus>
+
+                                @error('nip')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="user_bidang" class="col-md-4 col-form-label text-md-right">Bidang</label>
                             <div class="col-md-6">
                                 <select id="user_bidang" class="form-control" name="user_bidang">
