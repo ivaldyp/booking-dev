@@ -52,12 +52,14 @@
 								<td>{{ $data->nama_peminjam }}</td> 
 								<td>{{ $data->nip_peminjam }}</td>
 								<td>{{ $data->bidang_name }}</td>
-								<td>{{ $data->room_name }}</td>
+								<td>
+									<!-- {{ $data->room_name }} -->
+								<a class="status" href="#" data-type="select" roomid="{{ $data->booking_room }}">{{ $data->room_name }}</a></td>
 								<td>{{ $data->booking_total_tamu }}</td>
 								<td>{{ $data->booking_date2 }}</td>
 								<td>{{ $data->time_start }} - {{ $data->time_end }}</td>
 								<?php $file_name = explode("~", $data->file_name); ?>
-								<td><a href="{{ url('booking/download') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
+								<td><a href="{{ url('booking/downloadSurat') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
 								<td bgcolor='yellow'>
 									{{ $data->status_name }}
 								</td>
@@ -181,6 +183,29 @@
 			$('#modal_booking_room').val(data[4]);
 		});
 	});
+</script>
+
+@endsection
+
+@section('inlineedit')
+
+<script>
+$(function(){
+	var booking_room;
+	$('.status').click(function(){
+		booking_room = $(this).attr("roomid");
+		$(this).editable({
+	        value: booking_room,   
+	        pk: 1, 
+	        source: [
+				{value: '908c8316d17662a84bb99cfeb9098c76', text: 'Ruang Rapat Simaster'},
+				{value: 'fdc50bb09e12dc0b6219405948406059', text: 'Ruang Rapat Sierra'}
+			],
+			url: '/'
+	    });
+	});
+    
+});
 </script>
 
 @endsection

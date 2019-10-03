@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Time;
 
 class TimeController extends Controller
 {
@@ -19,7 +20,8 @@ class TimeController extends Controller
     {
         $data['times'] = 
                 DB::select('SELECT id_time, DATE_FORMAT(time_name, "%H:%i") as time_name, created_at, updated_at
-                            FROM times');
+                            FROM times
+                            ORDER BY time_name ASC');
         return view('pages.times.table', $data);    
     }
 
@@ -41,7 +43,15 @@ class TimeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $time_input = $request->time_name;
+        $time_name = date('Y-m-d') . " " . $time_input;
+
+        $time = new Time;
+        // var_dump(DB::getPdo()->lastInsertId());
+        $time->time_name = $time_name;
+        $time->save();
+
+        return redirect('/time')->with('message', 'Data Waktu berhasil ditambah');
     }
 
     /**
@@ -73,9 +83,12 @@ class TimeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $time_name = date('Y-m-d') . " " . $request->time_name;
+        DB::update("UPDATE times SET time_name = '$time_name' 
+                    WHERE id_time = '$request->id_time' ");
+        return redirect('time')->with('message', 'Berhasil melakukan perubahan data waktu');
     }
 
     /**
@@ -84,8 +97,13 @@ class TimeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $time = Time::where('id_time', $id);
+        if($time->delete()) {
+            return redirect('time')->with('message', 'Data waktu berhasil dihapus');
+        } else {
+            return redirect('time')->with('message', 'Data waktu gagal dihapus');
+        }
     }
 }

@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
+use App\Bidang;
+use App\Room;
+use App\Room_type;
+
 class RoomController extends Controller
 {
     /**
@@ -18,10 +22,20 @@ class RoomController extends Controller
     public function index()
     {
         $data['rooms'] = 
-                DB::select('SELECT r.*, b.bidang_name, rt.roomType_name
+                DB::select('SELECT r.*, b.id_bidang, b.bidang_name, rt.id_roomType, rt.roomType_name
                             FROM rooms r
                             INNER JOIN bidangs b ON b.id_bidang = r.room_owner
-                            INNER JOIN room_types rt ON rt.id_roomType = r.room_type');
+                            INNER JOIN room_types rt ON rt.id_roomType = r.room_type
+                            ORDER BY b.id_bidang ASC, r.room_name ASC ');
+
+        $data['bidangs'] = 
+                DB::select('SELECT id_bidang, bidang_name
+                            FROM bidangs');
+
+        $data['room_types'] = 
+                DB::select('SELECT id_roomType, roomType_name
+                            FROM room_types');    
+        
         return view('pages.rooms.table', $data);    
     }
 
@@ -43,7 +57,17 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $room = new Room;
+        $room->id_room = $request->id_room;
+        $room->room_name = $request->room_name;
+        $room->room_owner = $request->room_owner;
+        $room->room_type = $request->room_type;
+        $room->room_floor = $request->room_floor;
+        $room->room_capacity = $request->room_capacity;
+
+        $room->save();
+
+        return redirect('/ruang')->with('message', 'Data Ruang berhasil ditambah');
     }
 
     /**
@@ -75,9 +99,16 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        DB::update("UPDATE rooms 
+                    SET room_name = '$request->room_name',
+                        room_owner = '$request->room_owner',
+                        room_type = '$request->room_type',
+                        room_floor = '$request->room_floor',
+                        room_capacity = '$request->room_capacity' 
+                    WHERE id_room = '$request->id_room' ");
+        return redirect('ruang')->with('message', 'Berhasil melakukan perubahan data');
     }
 
     /**
@@ -86,8 +117,13 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $room = Room::where('id_room', $id);
+        if($room->delete()) {
+            return redirect('ruang')->with('message', 'Data berhasil dihapus');
+        } else {
+            return redirect('ruang')->with('message', 'Data gagal dihapus');
+        }
     }
 }

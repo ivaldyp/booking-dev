@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Room_type;
 
 
 class RoomTypeController extends Controller
@@ -42,7 +43,12 @@ class RoomTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $room_type = new Room_type;
+        $room_type->roomType_name = $request->roomType_name;
+        $room_type->roomType_ket = $request->roomType_ket;
+        $room_type->save();
+
+        return redirect('/tipe_ruang')->with('message', 'Data Tipe Ruang berhasil ditambah');
     }
 
     /**
@@ -74,9 +80,13 @@ class RoomTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        DB::update("UPDATE room_types 
+                    SET roomType_name = '$request->roomType_name',
+                        roomType_ket = '$request->roomType_ket' 
+                    WHERE id_roomType = '$request->id_roomType' ");
+        return redirect('tipe_ruang')->with('message', 'Berhasil melakukan perubahan data');
     }
 
     /**
@@ -85,8 +95,13 @@ class RoomTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $room_type = Room_type::where('id_roomType', $id);
+        if($room_type->delete()) {
+            return redirect('tipe_ruang')->with('message', 'Data berhasil dihapus');
+        } else {
+            return redirect('tipe_ruang')->with('message', 'Data gagal dihapus');
+        }
     }
 }

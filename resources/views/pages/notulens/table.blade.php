@@ -2,15 +2,15 @@
 
 @section('content')
 
-<section class="content">
+
+	<!-- <div class=<section class="content">
 	<div class="row">
 		<div class="col-lg-12">
 			@if(Session::has('message'))
 				<div class="alert alert-danger">{{ Session::get('message') }}</div>
 			@endif
 		</div>
-	</div>
-	<!-- <div class="row">
+	</div>"row">
 		<div class="col-xs-3">
 			<button class="btn btn-success" style="margin-bottom: 10px">Tambah</button>
 		</div>
@@ -19,7 +19,7 @@
 		<div class="col-xs-12">
 			<div class="box">
 				<div class="box-header">
-					<h3 class="box-title">Booking Belum Disetujui</h3>
+					<h3 class="box-title">Rapat Internal</h3>
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
@@ -35,7 +35,8 @@
 								<th class="col-lg-1">Waktu</th>
 								<th>File Surat</th>
 								<th>File Notulen</th>
-								<th>File Daftar Hadir</th>
+								<th>Foto Daftar Hadir</th>
+								<th>Foto Dokumentasi</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -50,11 +51,26 @@
 								<td>{{ $data->room_name }}</td>
 								<td>{{ $data->booking_date }} <hr> {{ $data->time_start }} </td>
 								<?php $file_name = explode("~", $data->file_name); ?>
-								<td><a href="{{ url('booking/download') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
+								<td><a href="{{ url('booking/downloadSurat') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
 
+								<?php 
+									if (is_null($data->notulen_name)) {
+										if (Auth::check()) { ?>
+											<td><a href="{{ url('notulen/tambah') }}/{{ $data->id_surat }}"><button class="btn btn-success" style="margin-bottom: 10px">Tambah</button></a></td>;
+											<?php
+										} else {
+											echo "<td> - </td>";
+										}
+									} else {
+										$notulen_name = explode("~", $data->notulen_name); ?>
+										echo "<td><a href="{{ url('notulen/downloadNotulen') }}/{{ $data->id_surat }}"> {{$notulen_name[2]}} </a></td>";
+								<?php 
+									}
+								?>
+								
 								<?php $file_name = explode("~", $data->file_name); ?>
 								<td><a href="{{ url('booking/download') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
-								
+
 								<?php $file_name = explode("~", $data->file_name); ?>
 								<td><a href="{{ url('booking/download') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
 							</tr>

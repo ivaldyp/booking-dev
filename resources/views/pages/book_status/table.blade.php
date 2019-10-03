@@ -4,10 +4,17 @@
 
 		<section class="content">
       <div class="row">
-      	<div class="col-xs-3">
-      		<button class="btn btn-success" style="margin-bottom: 10px">Tambah</button>
-      	</div>
+        <div class="col-lg-12">
+          @if(Session::has('message'))
+            <div class="alert alert-success">{{ Session::get('message') }}</div>
+          @endif
+        </div>
       </div>
+      <!-- <div class="row">
+      	<div class="col-xs-3">
+      		<button data-toggle="modal" data-target="#modal-create" class="btn btn-success" style="margin-bottom: 10px">Tambah</button>
+      	</div>
+      </div> -->
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
@@ -23,7 +30,7 @@
 	                  <th>Nama Status</th>
 	                  <th>Created At</th>
 	                  <th>Updated At</th>
-	                  <th>Aksi</th>
+	                  <!-- <th>Aksi</th> -->
 	                </tr>
                 </thead>
                 <tbody>
@@ -33,7 +40,7 @@
 	                  <td>{{ ucwords($data->status_name) }}</td>
 	                  <td>{{ $data->created_at }}</td>
 	                  <td>{{ $data->updated_at }}</td>
-	                  <td>
+	                  <!-- <td>
 	                  	<div class="btn-group">
 	                  		<button class="btn btn-warning">
 	                  			<i class="fa fa-edit"></i>
@@ -42,7 +49,7 @@
 	                  			<i class="fa fa-trash-o"></i>
 	                  		</button>
 	                  	</div>
-	                  </td>
+	                  </td> -->
 	                </tr>
 	                <?php } ?>
                 </tbody>

@@ -58,7 +58,7 @@
                     <td>{{ $data->booking_date2 }}</td>
                     <td>{{ $data->time_start }} - {{ $data->time_end }}</td>
                     <?php $file_name = explode("~", $data->file_name); ?>
-                    <td><a href="{{ url('booking/download') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
+                    <td><a href="{{ url('booking/downloadSurat') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
                     <td>{{ ucwords($data->name) }}</td>
                     <td bgcolor="#64de5d">
                       {{ $data->status_name }}

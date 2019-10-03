@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Bidang;
 
 class BidangController extends Controller
 {
@@ -19,7 +20,8 @@ class BidangController extends Controller
     {
         $data['bidangs'] = 
                 DB::select('SELECT *
-                            FROM bidangs');
+                            FROM bidangs
+                            ORDER BY bidang_name ASC');
         return view('pages.bidangs.table', $data);
     }
 
@@ -41,7 +43,12 @@ class BidangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $bidang = new Bidang;
+        // var_dump(DB::getPdo()->lastInsertId());
+        $bidang->bidang_name = $request->bidang_name;
+        $bidang->save();
+
+        return redirect('/bidang')->with('message', 'Data Bidang berhasil ditambah');
     }
 
     /**
@@ -73,9 +80,11 @@ class BidangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        DB::update("UPDATE bidangs SET bidang_name = '$request->bidang_name' 
+                    WHERE id_bidang = '$request->id_bidang' ");
+        return redirect('bidang')->with('message', 'Berhasil melakukan perubahan data bidang');
     }
 
     /**
@@ -84,8 +93,13 @@ class BidangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $bidang = Bidang::where('id_bidang', $id);
+        if($bidang->delete()) {
+            return redirect('bidang')->with('message', 'Data bidang berhasil dihapus');
+        } else {
+            return redirect('bidang')->with('message', 'Data bidang gagal dihapus');
+        }
     }
 }

@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="{{ URL::asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ URL::asset('bower_components/font-awesome/css/font-awesome.min.css') }}">
+  <!-- X-editable -->
+  <link href="{{ URL::asset('bootstrap-editable/css/bootstrap-editable.css') }}" rel="stylesheet">
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{ URL::asset('bower_components/Ionicons/css/ionicons.min.css') }}">
   <!-- bootstrap datepicker -->
@@ -218,9 +220,9 @@
 
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 0.0.2
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+    <strong>Copyright &copy; 2019 <a href="http://bpad.jakarta.go.id/">BPAD</a>.</strong> All rights
     reserved.
   </footer>
 
@@ -428,6 +430,8 @@
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ URL::asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<!-- X-editable -->
+<script src="{{ URL::asset('bootstrap-editable/js/bootstrap-editable.js') }}"></script>
 <!-- DataTables -->
 <script src="{{ URL::asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ URL::asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
@@ -468,6 +472,8 @@
 @yield('datepicker')
   
 @yield('form_booking')
+
+@yield('inlineedit')
 <!-- External -->
 <!-- <script src="{{ URL::asset('js/calendar.js') }}"></script> -->
 </body>

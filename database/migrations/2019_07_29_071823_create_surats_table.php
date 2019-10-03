@@ -21,8 +21,6 @@ class CreateSuratsTable extends Migration
             $table->text('file_fullpath');
             $table->text('notulen_name')->nullable();
             $table->text('notulen_fullpath')->nullable();
-            $table->text('daftar_hadir_name')->nullable();
-            $table->text('daftar_hadir_fullpath')->nullable();
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrent();
             $table->boolean('soft_delete')->default('0');

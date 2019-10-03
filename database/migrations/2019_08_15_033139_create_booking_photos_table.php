@@ -16,6 +16,7 @@ class CreateBookingPhotosTable extends Migration
         Schema::create('booking_photos', function (Blueprint $table) {
             $table->string('id_booking_photo')->primary();
             $table->string('id_surat');
+            $table->string('foto_tipe');
             $table->text('foto_name');
             $table->text('foto_fullpath');
             $table->timestamp('created_at')->nullable()->useCurrent();
