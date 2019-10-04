@@ -88,4 +88,6 @@ Route::group(['prefix' => 'tipe_ruang'], function () {
 
 Route::group(['prefix' => 'users'], function () {
 	Route::get('/', 'UserController@index');
+	Route::post('/update', 'UserController@update');
+	Route::get('/delete/{id}', 'UserController@delete');
 });

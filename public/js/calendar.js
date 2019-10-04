@@ -19,6 +19,7 @@ $(function () {
       m = date.getMonth(),
       y = date.getFullYear();
   $('#calendar').fullCalendar({
+    defaultView: 'listWeek',
     header: {
       left: 'prev,next today',
       center: 'title',

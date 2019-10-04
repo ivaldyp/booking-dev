@@ -181,7 +181,7 @@
             slotDuration: '00:15:00', /* If we want to split day time each 15minutes */
             minTime: '07:00:00',
             maxTime: '17:00:00',  
-            defaultView: 'month',  
+            defaultView: 'agendaDay',  
             // aspectRatio: 0.5,
             handleWindowResize: true,   
              

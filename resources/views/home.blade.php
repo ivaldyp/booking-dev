@@ -98,6 +98,7 @@
 						y = date.getFullYear();
 				var testt = 2;
 				$('#calendar').fullCalendar({
+					defaultView: 'listWeek',
 					header: {
 						left: 'prev,next today',
 						center: 'title',

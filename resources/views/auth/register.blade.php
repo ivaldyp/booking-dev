@@ -12,6 +12,7 @@
                         @csrf
 
                         <input type="hidden" name="id_user" value="<?php echo md5(uniqid()); ?>">
+
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Nama</label>
 
@@ -30,7 +31,7 @@
                             <label for="nrk" class="col-md-4 col-form-label text-md-right">NRK</label>
 
                             <div class="col-md-6">
-                                <input id="nrk" type="text" class="form-control @error('nrk') is-invalid @enderror" name="nrk" required autocomplete="off" autofocus>
+                                <input id="nrk" type="text" class="form-control @error('nrk') is-invalid @enderror" name="nrk" autocomplete="off" autofocus>
 
                                 @error('nrk')
                                     <span class="invalid-feedback" role="alert">
@@ -44,7 +45,7 @@
                             <label for="nip" class="col-md-4 col-form-label text-md-right">NIP</label>
 
                             <div class="col-md-6">
-                                <input id="nip" type="text" class="form-control @error('nip') is-invalid @enderror" name="nip" required autocomplete="off" autofocus>
+                                <input id="nip" type="text" class="form-control @error('nip') is-invalid @enderror" name="nip" autocomplete="off" autofocus>
 
                                 @error('nip')
                                     <span class="invalid-feedback" role="alert">
@@ -55,24 +56,25 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="user_bidang" class="col-md-4 col-form-label text-md-right">Bidang</label>
+                            <label for="user_status" class="col-md-4 col-form-label text-md-right">Tipe Pengguna</label>
                             <div class="col-md-6">
-                                <select id="user_bidang" class="form-control" name="user_bidang">
-                                    <option value="<?php echo NULL; ?>" selected>-- Pilih Bidang --</option>
-                                    <?php foreach ($bidangs as $bidang) { ?>
-                                    <option value="{{$bidang->id_bidang}}">{{$bidang->bidang_name}}</option>
+                                <select id="user_status" class="form-control" name="user_status" required>
+                                    <option value="<?php echo NULL; ?>" disabled selected>-- Pilih Tipe Pengguna --</option>
+                                    <?php foreach ($user_types as $type) { ?>
+                                    <option value="{{$type->id_userType}}">{{$type->userType_name}}</option>
                                     <?php } ?>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="user_status" class="col-md-4 col-form-label text-md-right">Tipe Pengguna</label>
+                            <label for="user_bidang" class="col-md-4 col-form-label text-md-right">Bidang</label>
                             <div class="col-md-6">
-                                <select id="user_status" class="form-control" name="user_status">
-                                    <option value="<?php echo NULL; ?>" disabled selected>-- Pilih Tipe Pengguna --</option>
-                                    <?php foreach ($user_types as $type) { ?>
-                                    <option value="{{$type->id_userType}}">{{$type->userType_name}}</option>
+                                <select id="user_bidang" class="form-control" name="user_bidang">
+                                    <option value="<?php echo NULL; ?>" disabled selected>-- Pilih Bidang --</option>
+                                    <option value="<?php echo NULL; ?>">Tidak Ada</option>
+                                    <?php foreach ($bidangs as $bidang) { ?>
+                                    <option value="{{$bidang->id_bidang}}">{{$bidang->bidang_name}}</option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -91,6 +93,8 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <hr>
 
                         <div class="form-group row">
                             <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
@@ -119,8 +123,8 @@
                             </div>
                         </div>
 
-                        <!-- 
-                        <div class="form-group row">
+                        
+                        <!-- <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">

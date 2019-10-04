@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\User;
 
 class UserController extends Controller
 {
@@ -18,10 +19,19 @@ class UserController extends Controller
     public function index()
     {
         $data['users'] = 
-                DB::select('SELECT u.*, ut.userType_name, b.bidang_name
+                DB::select('SELECT u.*, ut.id_userType, ut.userType_name, b.id_bidang, b.bidang_name
                             FROM users u
                             LEFT JOIN bidangs b ON b.id_bidang = u.user_bidang
                             INNER JOIN user_types ut ON ut.id_userType = u.user_status');
+
+        $data['bidangs'] = 
+                DB::select('SELECT id_bidang, bidang_name
+                            FROM bidangs');
+
+        $data['user_types'] = 
+                DB::select('SELECT id_userType, userType_name
+                            FROM user_types'); 
+
         return view('pages.users.table', $data);
     }
 
@@ -75,9 +85,36 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        if (!(is_null($request->nrk))) {
+            $nrk = "nrk = '$request->nrk',";
+        } else {
+            $nrk = NULL;
+        }
+
+        if (!(is_null($request->nip))) {
+            $nip = "nip = '$request->nip',";
+        } else {
+            $nip = NULL;
+        }
+
+        if (!(is_null($request->user_bidang))) {
+            $user_bidang = ",user_bidang = '$request->user_bidang'";
+        } else {
+            $user_bidang = NULL;
+        }
+
+        DB::update("UPDATE users 
+                    SET name = '$request->name', 
+                        $nrk 
+                        $nip
+                        username = '$request->username',
+                        email = '$request->email',
+                        user_status = '$request->user_status' 
+                        $user_bidang
+                    WHERE id_user = '$request->id_user' ");
+        return redirect('users')->with('message', 'Berhasil melakukan perubahan data');
     }
 
     /**
@@ -86,8 +123,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $user = User::where('id_user', $id);
+        if($user->delete()) {
+            return redirect('users')->with('message', 'Data berhasil dihapus');
+        } else {
+            return redirect('users')->with('message', 'Data gagal dihapus');
+        }
     }
 }
