@@ -26,6 +26,14 @@
 				<!-- <div class="col-md-2"></div> -->
 				<!-- /.col -->
 			</div>
+
+			<style type="text/css">
+				th.ui-widget-header {
+				    font-size: 52pt;
+				    font-family: Verdana, Arial, Sans-Serif;
+				}
+			</style>
+
 			<!-- BEGIN MODAL -->
 			<div class="modal fade" id="my-event">
 				<div class="modal-dialog">
@@ -81,14 +89,14 @@
 				</div>
 			</div>
 		</section>
-
-		<script src="{{ URL::asset('plugins2/bower_components/calendar/dist/cal-init.js') }}"></script>
 		<!-- /.content -->
+
+	    <script src="{{ URL::asset('plugins2/bower_components/calendar/dist/cal-init2.js') }}"></script>
 
 @endsection 
 
 @section('cal-init')
-	<script src="{{ URL::asset('plugins2/bower_components/calendar/dist/cal-init.js') }}"></script>
+	<script src="{{ URL::asset('plugins2/bower_components/calendar/dist/cal-init2.js') }}"></script>
 @endsection
 
 @section('calendar')

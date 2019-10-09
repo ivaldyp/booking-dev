@@ -39,25 +39,25 @@
     CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
         var $this = this;
             var form = $("<form></form>");
-            form.append("<div class='col-lg-12' style='padding-top:10px'>")
-            form.append("<label style='padding-top:6px' class='col-lg-2 control-label'>Acara</label>");
-            form.append("<div class='input-group col-lg-9'><input class='form-control' type=text disabled value='" + calEvent.title + "' /></div></div>");
+            form.append("<div class='col-sm-12' style='padding-top:10px'>")
+            form.append("<label style='padding-top:6px' class='col-sm-2 control-label'>Acara</label>");
+            form.append("<div class='input-group col-sm-9'><input class='form-control' type=text disabled value='" + calEvent.title + "' /></div></div>");
 
-            form.append("<div class='col-lg-12' style='padding-top:10px'>")
-            form.append("<label style='padding-top:6px' class='col-lg-2 control-label'>Ruang</label>");
-            form.append("<div class='input-group col-lg-9'><input class='form-control' type=text disabled value='" + calEvent.room_name + "' /></div></div>");
+            form.append("<div class='col-sm-12' style='padding-top:10px'>")
+            form.append("<label style='padding-top:6px' class='col-sm-2 control-label'>Ruang</label>");
+            form.append("<div class='input-group col-sm-9'><input class='form-control' type=text disabled value='" + calEvent.room_name + "' /></div></div>");
 
-            form.append("<div class='col-lg-12' style='padding-top:10px'>")
-            form.append("<label style='padding-top:6px' class='col-lg-2 control-label'>Tanggal</label>");
-            form.append("<div class='input-group col-lg-9'><input class='form-control' type=text disabled value='" + calEvent.book_date + "' /></div></div>");
+            form.append("<div class='col-sm-12' style='padding-top:10px'>")
+            form.append("<label style='padding-top:6px' class='col-sm-2 control-label'>Tanggal</label>");
+            form.append("<div class='input-group col-sm-9'><input class='form-control' type=text disabled value='" + calEvent.book_date + "' /></div></div>");
 
-            form.append("<div class='col-lg-12' style='padding-top:10px'>")
-            form.append("<label style='padding-top:6px' class='col-lg-2 control-label'>Waktu</label>");
-            form.append("<div class='input-group col-lg-9'><input class='form-control' type=text disabled value='" + calEvent.time_start + " - " + calEvent.time_end + "' /></div></div>");
+            form.append("<div class='col-sm-12' style='padding-top:10px'>")
+            form.append("<label style='padding-top:6px' class='col-sm-2 control-label'>Waktu</label>");
+            form.append("<div class='input-group col-sm-9'><input class='form-control' type=text disabled value='" + calEvent.time_start + " - " + calEvent.time_end + "' /></div></div>");
 
-            form.append("<div class='col-lg-12' style='padding-top:10px'>")
-            form.append("<label style='padding-top:6px' class='col-lg-2 control-label'>Deskripsi</label>");
-            form.append("<div class='input-group col-lg-9'><textarea rows='5' disabled class='form-control'>"+ calEvent.detail +"</textarea></div></div>");
+            form.append("<div class='col-sm-12' style='padding-top:10px'>")
+            form.append("<label style='padding-top:6px' class='col-sm-2 control-label'>Deskripsi</label>");
+            form.append("<div class='input-group col-sm-9'><textarea rows='5' disabled class='form-control'>"+ calEvent.detail +"</textarea></div></div>");
 
 
             $this.$modal.modal({
@@ -181,14 +181,14 @@
             slotDuration: '00:15:00', /* If we want to split day time each 15minutes */
             minTime: '07:00:00',
             maxTime: '17:00:00',  
-            defaultView: 'agendaDay',  
+            defaultView: 'month',  
             // aspectRatio: 0.5,
             handleWindowResize: true,   
              
             header: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'month,agendaWeek,agendaDay'
+                right: 'month'
             },
             // events: defaultEvents,
             editable: false,

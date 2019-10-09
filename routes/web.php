@@ -17,12 +17,14 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index2')->name('home');
 
 Route::get('/registeruser', 'LoadRegisterController@index');
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home2', 'HomeController@index2')->name('home');
 Route::get('/home/read', 'HomeController@read');
+Route::get('/home/read2', 'HomeController@read2');
 
 Route::group(['prefix' => 'bidang'], function () {
 	Route::get('/', 'BidangController@index');
@@ -38,7 +40,7 @@ Route::group(['prefix' => 'booking'], function () {
 	Route::get('/cancel', 'BookingController@showBookCancel');
 	Route::get('/my-booking', 'BookingController@showBookMy');
 	Route::post('/confirm', 'BookingController@confirm');
-	Route::get('/downloadSurat/{id}', 'BookingController@downloadSurat');
+	Route::get('/download/{id}', 'BookingController@download');
 	Route::get('/form', 'BookingController@showForm');
 	Route::post('/store', 'BookingController@store');
 	Route::post('/updateStatus', 'BookingController@updateBookStatus');
@@ -53,9 +55,11 @@ Route::group(['prefix' => 'book_status'], function () {
 
 Route::group(['prefix' => 'notulen'], function () {
 	Route::get('/', 'NotulenController@index');
-	Route::get('/tambah/{id}', 'NotulenController@tambah');
-	Route::get('/store', 'NotulenController@store');
-	Route::get('/downloadNotulen/{id}', 'NotulenController@downloadNotulen');
+	Route::post('/store', 'NotulenController@store');
+	Route::post('/storeHadir', 'NotulenController@storeHadir');
+	Route::post('/storePhoto', 'NotulenController@storePhoto');
+	Route::get('/download/{id}', 'NotulenController@download');
+	Route::get('/downloadHadir/{id}', 'NotulenController@downloadHadir');
 });
 
 Route::group(['prefix' => 'roles'], function () {

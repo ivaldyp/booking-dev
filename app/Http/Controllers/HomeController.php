@@ -44,6 +44,20 @@ class HomeController extends Controller
         return view('home', $data);
     }
 
+    public function index2()
+    {
+        $data = [];
+        if (Auth::check()) {
+            $user_status = $this->user->user_status;
+            $data['user_status'] = 
+                json_encode(DB::select('SELECT *
+                            FROM user_types
+                            where id_userType = '.$user_status));
+            Session::put('user_status', $user_status);
+        } 
+        return view('home2', $data);
+    }
+
     public function read()
     {
         $data['bookings'] = 

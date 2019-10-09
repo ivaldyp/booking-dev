@@ -28,13 +28,14 @@ class BookingController extends Controller
         return view('pages.bookings.confirm', $request, $data); 
     }
 
-    public function downloadSurat($id)
+    public function download($id)
     {
-        $data['files'] = DB::select("SELECT * FROM surats WHERE id_surat = '$id' ");
+        $data = DB::select("SELECT * FROM surats WHERE id_surat = '$id' ");
+        $name = explode("~", $data[0]->file_name)[2];
+        
         header("Content-type: application/pdf");
-        $name = explode("~", $data['files'][0]->file_name)[2];
-        header("Content-disposition: attachment; filename=".$name);
-        readfile($data['files'][0]->file_fullpath);
+        header("Content-disposition: attachment; filename=".$name."");
+        readfile($data[0]->file_fullpath);
     }
 
     public function showAllBook()
