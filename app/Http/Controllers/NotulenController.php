@@ -21,7 +21,6 @@ class NotulenController extends Controller
     {
         $data = DB::select("SELECT * FROM surats WHERE id_surat = '$id' ");
         $name = explode("~", $data[0]->notulen_name)[2];
-        // var_dump($name); die();
         
         header("Content-type: application/pdf");
         header("Content-disposition: attachment; filename=".$name."");
@@ -123,7 +122,7 @@ class NotulenController extends Controller
         // $surat = new Surat;
         // var_dump($request->photo1_fullpath->getClientOriginalName()); die();
 
-        $tujuan_upload = 'C:\\Users\\user\\Documents\\Upload';
+        $tujuan_upload = 'C:\\xampp\\htdocs\\booking-dev\\public\\images';
         $surat = Surat::find($request->id_surat);
 
 

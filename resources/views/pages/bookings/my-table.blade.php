@@ -34,7 +34,7 @@
                     <th>Waktu</th>
                     <th>File Surat</th>
                     <th>Status Booking</th>
-                    <th>Keterangan</th>
+                    <!-- <th>Keterangan</th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -64,14 +64,14 @@
                       ?>>
                       {{ $data->status_name }}
                     </td>
-                    <td>
+                    <!-- <td>
                       <?php if (is_null($data->keterangan_status) || $data->keterangan_status == '') {
                         echo "-";
                       } else {
                         echo "Buat ulang pinjaman <br><hr>";
                         echo $data->keterangan_status;
                       }?>
-                    </td>
+                    </td> -->
                   </tr>
                   <?php } ?>
                 </tbody>

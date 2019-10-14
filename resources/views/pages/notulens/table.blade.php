@@ -29,14 +29,14 @@
 								<th>No</th>
 								<th>Acara</th>
 								<th>Deskripsi</th>
-								<th>Nama Peminjam</th>
-								<th>Bidang Peminjam</th>
+								<!-- <th>Nama Peminjam</th> -->
+								<!-- <th>Bidang Peminjam</th> -->
 								<th>Ruang</th>
 								<th class="col-sm-1">Waktu</th>
-								<th>File Surat</th>
-								<th>File Notulen</th>
-								<th>File Daftar Hadir</th>
-								<th>Foto Dokumentasi</th>
+								<th class="col-sm-1">File Surat</th>
+								<th class="col-sm-1">File Notulen</th>
+								<th class="col-sm-1">File Daftar Hadir</th>
+								<th class="col-sm-1">Foto Dokumentasi</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -46,8 +46,8 @@
 								<td>{{ $key + 1 }}</td>
 								<td>{{ $data->surat_judul }}</td>
 								<td>{{ $data->surat_deskripsi }}</td>
-								<td>{{ $data->name }}</td>
-								<td>{{ $data->bidang_name }}</td>
+								<!-- <td>{{ $data->name }}</td> -->
+								<!-- <td>{{ $data->bidang_name }}</td> -->
 								<td>{{ $data->room_name }}</td>
 								<td>{{ $data->booking_date }} <hr> {{ $data->time_start }} </td>
 								<?php $file_name = explode("~", $data->file_name); ?>
@@ -103,21 +103,23 @@
 									if (is_null($data->photo1_fullpath) && is_null($data->photo2_fullpath) && is_null($data->photo3_fullpath)) { ?>
 										<td><button data-toggle="modal" data-target="#photo-create" class="btn btn-success" style="margin-bottom: 10px" onclick="myFunction('{{$data->id_surat}}')">Tambah</button></td>
 									<?php } else { ?>
+										<?php 
+											$photo1 = explode("\\", $data->photo1_fullpath)[6];
+											$photo2 = explode("\\", $data->photo2_fullpath)[6];
+											$photo3 = explode("\\", $data->photo3_fullpath)[6];
+
+											$loc1 = "images/" . $photo1;
+											$loc2 = "images/" . $photo2;
+											$loc3 = "images/" . $photo3;
+										?>
 										<td>
-											<img src="C:/Users/user/Documents/Upload/abc.jpeg">
-											{{ $data->photo1_fullpath }}<br>
-											<!-- {{ $data->photo2_fullpath }}<br> -->
-											<!-- {{ $data->photo3_fullpath }} -->
+											<img width="200px" src="{{$loc1}}"><hr>
+											<img width="200px" src="{{$loc2}}"><hr>
+											<img width="200px" src="{{$loc3}}">
+											
 										</td>
 									<?php } 
 								?>
-								
-								
-								<!-- <?php $file_name = explode("~", $data->file_name); ?>
-								<td><a href="{{ url('booking/download') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td> -->
-
-								<!-- <?php $file_name = explode("~", $data->file_name); ?> -->
-								<!-- <td><a href="{{ url('booking/download') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td> -->
 							</tr>
 							<?php } ?>
 						</tbody>

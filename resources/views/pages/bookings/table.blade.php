@@ -37,7 +37,7 @@
                     <th class="col-lg-1">Waktu</th>
                     <th>File Surat</th>
                     <th>Status Booking</th>
-                    <th>Keterangan</th>
+                    <!-- <th>Keterangan</th> -->
                     <th>Tanggal Dibuat</th>
                     <?php if(Auth::check() && Auth::user()->user_status != 2) { ?>
                       <th> Aksi </th>
@@ -70,7 +70,7 @@
                       ?>>
                       {{ $data->status_name }}
                     </td>
-                    <td>
+                    <!-- <td>
                       <?php if (is_null($data->keterangan_status) || $data->keterangan_status == '') {
                         echo "-";
                       } else {
@@ -79,7 +79,7 @@
                         }
                         echo $data->keterangan_status;
                       }?>
-                    </td>
+                    </td> -->
                     <td>{{$data->tanggal_dibuat}}</td>
                     <?php if(Auth::check() && Auth::user()->user_status != 2) { ?>
                       <td>
