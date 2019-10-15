@@ -129,9 +129,7 @@
 <script>
   $(function () {
     $("#example1").DataTable();
-    $('.btn_booking_done_edit_stat').click(function() {
-      console.log(this.id);
-      
+    $('.btn_booking_done_edit_stat').click(function() {      
       var data = (this.id).split('||');
 
       $('#modal_id_booking').val(data[0]);

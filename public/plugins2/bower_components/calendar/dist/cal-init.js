@@ -156,7 +156,6 @@
             type: "get",
             success: function(data){
                 datas = data.bookings;
-                console.log(datas);
 
                 for(var i=0; i<datas.length; i++)
                 {

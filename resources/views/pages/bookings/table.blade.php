@@ -311,7 +311,6 @@
     $("#example3").DataTable();
 
     $('.btn_booking_not_edit_stat').click(function() {
-      console.log(this.id);
 
       var data = (this.id).split('||');
 

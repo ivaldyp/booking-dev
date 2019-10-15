@@ -5,7 +5,6 @@ $(function () {
   // var bookings;
 
   // var events = [];
-  // console.log("AA"); 
   // $.each(data.bookings, function( index, value ) {
   //   events.push({ title: data.bookings.booking_judul, start: new Date(2019, 7, 20, 10, 0), backgroundColor: "#0073b7", borderColor: "#0073b7"});
   // }); 
@@ -57,10 +56,6 @@ $(function () {
     type: "get",
     success: function(data){
       datas = data.bookings;
-
-      console.log(datas);
-      console.log(datas[0].book_hstart);
-      console.log(datas[0].booking_judul);
       for(var i=0; i<datas.length; i++)
       {
         // newEvent.push({ title:datas[i].booking_judul, allDay: true });
