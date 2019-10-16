@@ -30,7 +30,6 @@
 								<th>Acara</th>
 								<th class="col-lg-3">Deskripsi</th>
 								<th>Nama Peminjam</th>
-								<th>NIP</th>
 								<th>Bidang Peminjam</th>
 								<th>Ruang</th>
 								<th>Jumlah Peserta</th>
@@ -49,8 +48,7 @@
 								<td>{{ $key + 1 }}</td>
 								<td>{{ $data->surat_judul }}</td>
 								<td>{{ $data->surat_deskripsi }}</td>
-								<td>{{ $data->nama_peminjam }}</td> 
-								<td>{{ $data->nip_peminjam }}</td>
+								<td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
 								<td>{{ $data->bidang_name }}</td>
 								<td>
 									<!-- {{ $data->room_name }} -->

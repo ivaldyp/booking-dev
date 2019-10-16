@@ -154,10 +154,6 @@
 					type: "get",
 					success: function(data){
 						datas = data.bookings;
-
-						console.log(datas);
-						console.log(datas[0].book_hstart);
-						console.log(datas[0].booking_judul);
 						for(var i=0; i<datas.length; i++)
 						{
 							// newEvent.push({ title:datas[i].booking_judul, allDay: true });

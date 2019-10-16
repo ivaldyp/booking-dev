@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>SI-MPEN</title>
+  <title>SI-MPENAN</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -58,7 +58,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>SI</b>-M</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>SI</b>-MPEN</span>
+      <span class="logo-lg"><b>SI</b>-MPENAN</span>
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->
@@ -166,7 +166,7 @@
             <li><a href="{{ url('booking') }}"><i class="fa fa-search"></i> Semua Pinjaman </a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <!-- <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i> <span>Laporan</span>
             <span class="pull-right-container">
@@ -177,7 +177,7 @@
             <li><a href="{{ url('notulen/') }}"><i class="fa fa-file"></i> Notulen Rapat Internal </a></li>
             <li><a href="#"><i class="fa fa-file-o"></i> Laporan Rapat Luar </a></li>
           </ul>
-        </li>
+        </li> -->
         <?php if (Auth::check() && Auth::user()->user_status == 1) { ?>
         <li class="treeview">
           <a href="#">

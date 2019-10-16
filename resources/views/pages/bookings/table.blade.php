@@ -29,8 +29,7 @@
                     <th>No</th>
                     <th>Acara</th>
                     <th>Deskripsi</th>
-                    <th>Nama Peminjam</th>
-                    <th>NIP</th>
+                    <th>Peminjam</th>
                     <th>Bidang Peminjam</th>
                     <th>Ruang</th>
                     <th>Jumlah Peserta</th>
@@ -38,7 +37,7 @@
                     <th>File Surat</th>
                     <th>Status Booking</th>
                     <!-- <th>Keterangan</th> -->
-                    <th>Tanggal Dibuat</th>
+                    <!-- <th>Tanggal Dibuat</th> -->
                     <?php if(Auth::check() && Auth::user()->user_status != 2) { ?>
                       <th> Aksi </th>
                     <?php } ?>
@@ -51,8 +50,7 @@
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $data->surat_judul }}</td>
                     <td>{{ $data->surat_deskripsi }}</td>
-                    <td>{{ $data->nama_peminjam }}</td>
-                    <td>{{ $data->nip_peminjam }}</td>
+                    <td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
                     <td>{{ $data->bidang_name }}</td>
                     <td>{{ $data->room_name }}</td>
                     <td>{{ $data->booking_total_tamu }}</td>
@@ -80,7 +78,7 @@
                         echo $data->keterangan_status;
                       }?>
                     </td> -->
-                    <td>{{$data->tanggal_dibuat}}</td>
+                    <!-- <td>{{$data->tanggal_dibuat}}</td> -->
                     <?php if(Auth::check() && Auth::user()->user_status != 2) { ?>
                       <td>
                         <?php if($data->status_id == 2) { ?>
@@ -116,7 +114,6 @@
                     <th>Acara</th>
                     <th>Deskripsi</th>
                     <th>Nama Peminjam</th>
-                    <th>NIP</th>
                     <th>Bidang Peminjam</th>
                     <th>Ruang</th>
                     <th>Jumlah Peserta</th>
@@ -137,8 +134,7 @@
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $data->surat_judul }}</td>
                     <td>{{ $data->surat_deskripsi }}</td>
-                    <td>{{ $data->nama_peminjam }}</td>
-                    <td>{{ $data->nip_peminjam }}</td>
+                    <td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
                     <td>{{ $data->bidang_name }}</td>
                     <td>{{ $data->room_name }}</td>
                     <td>{{ $data->booking_total_tamu }}</td>
@@ -202,7 +198,6 @@
                     <th>Acara</th>
                     <th>Deskripsi</th>
                     <th>Nama Peminjam</th>
-                    <th>NIP</th>
                     <th>Bidang Peminjam</th>
                     <th>Ruang</th>
                     <th>Jumlah Peserta</th>
@@ -220,8 +215,7 @@
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $data->surat_judul }}</td>
                     <td>{{ $data->surat_deskripsi }}</td>
-                    <td>{{ $data->nama_peminjam }}</td>
-                    <td>{{ $data->nip_peminjam }}</td>
+                    <td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
                     <td>{{ $data->bidang_name }}</td>
                     <td>{{ $data->room_name }}</td>
                     <td>{{ $data->booking_total_tamu }}</td>
