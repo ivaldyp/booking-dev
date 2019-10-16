@@ -31,6 +31,10 @@ class CreateUsersTable extends Migration
             $table->foreign('user_status')->references('id_userType')->on('user_types');
             $table->foreign('user_bidang')->references('id_bidang')->on('bidangs');
         });
+
+        Artisan::call('db:seed', [
+            '--class' => UsersTableSeeder::class
+        ]);
     }
 
     /**

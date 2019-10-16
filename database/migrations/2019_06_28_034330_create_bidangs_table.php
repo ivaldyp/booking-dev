@@ -19,6 +19,10 @@ class CreateBidangsTable extends Migration
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrent();
         });
+        
+        Artisan::call('db:seed', [
+            '--class' => BidangsTableSeeder::class
+        ]);
     }
 
     /**

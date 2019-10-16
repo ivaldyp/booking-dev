@@ -27,6 +27,10 @@ class CreateRoomsTable extends Migration
             $table->foreign('room_owner')->references('id_bidang')->on('bidangs');
             $table->foreign('room_type')->references('id_roomType')->on('room_types');
         });
+
+        Artisan::call('db:seed', [
+            '--class' => RoomsTableSeeder::class
+        ]);
     }
 
     /**
