@@ -46,18 +46,27 @@
 							<tr>
 								<input type="hidden" name="id_booking" id="form_book_not_id_booking" value="{{ $data->id_booking }}">
 								<td>{{ $key + 1 }}</td>
-								<td>{{ $data->surat_judul }}</td>
-								<td>{{ $data->surat_deskripsi }}</td>
+								<td>{{ $data->surat->surat_judul }}</td>
+								<td>{{ $data->surat->surat_deskripsi }}</td>
 								<td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
-								<td>{{ $data->bidang_name }}</td>
-								<td>
-									<!-- {{ $data->room_name }} -->
-								<a class="status" href="#" data-type="select" roomid="{{ $data->booking_room }}">{{ $data->room_name }}</a></td>
+								<td>{{ $data->bidang->bidang_name }}</td>
+								<td>{{ $data->room->room_name }}</td>
 								<td>{{ $data->booking_total_tamu }}</td>
-								<td>{{ $data->booking_date2 }}</td>
-								<td>{{ $data->time_start }} - {{ $data->time_end }}</td>
-								<?php $file_name = explode("~", $data->file_name); ?>
-								<td><a href="{{ url('booking/downloadSurat') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
+
+								<?php 
+									$booking_date2 = DateTime::createFromFormat('Y-m-d', $data->booking_date);
+									$booking_date3 = $booking_date2->format('d-M-Y');
+			                    ?>
+			                    <td>{{ $booking_date3 }}</td>
+
+								<?php
+									$time1 = explode(":", explode(" ", $data->time1->time_name)[1]);
+									$time2 = explode(":", explode(" ", $data->time2->time_name)[1]);
+			                    ?>
+			                    <td>{{ $time1[0] . ":" . $time1[1] }} - {{ $time2[0] . ":" . $time2[1] }}</td>
+
+								<?php $file_name = explode("~", $data->surat->file_name); ?>
+								<td><a href="{{ url('booking/download') }}/{{ $data->surat->id_surat }}"> {{ $file_name[2] }} </a></td>
 								<td bgcolor='yellow'>
 									{{ $data->status_name }}
 								</td>
@@ -68,7 +77,7 @@
 										echo $data->keterangan_status;
 									}?>
 								</td>
-								<td><button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->id_time1 }}||{{ $data->booking_room }}"><i class="fa fa-edit"></i></button></td>
+								<td><button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->room->booking_room }}"><i class="fa fa-edit"></i></button></td>
 							</tr>
 							<?php } ?>
 						</tbody>
@@ -127,7 +136,7 @@
 											<div class="col-lg-7">
 							                    <select class="form-control" name="booking_room_change" id="booking_room_change" disabled="">
 							                      	<option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
-							                      	<?php foreach ($roomlist as $data) { ?>
+							                      	<?php foreach ($roomlists as $data) { ?>
 							                        	<option value="{{ $data->id_room }}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option>
 							                      	<?php } ?>
 							                    </select>

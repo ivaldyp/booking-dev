@@ -159,6 +159,7 @@
 
                 for(var i=0; i<datas.length; i++)
                 {
+
                     var newEvent = {
                         title: datas[i].surat_judul,
                         start: (datas[i].booking_date + " " + datas[i].time_start),

@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use App\Booking;
 use App\Bidang;
+use App\Booking;
+use App\Booking_Status;
 use App\Room;
 use App\Surat;
 use App\Time;
@@ -19,23 +20,29 @@ use App\Http\Controllers\Controller;
 class BookingController extends Controller
 {
 
-    public function confirm(Request $request)
-    {
-        $data['bidang'] = DB::select("SELECT * FROM bidangs WHERE id_bidang='$request->bidang_peminjam' ");
-        $data['ruang'] = DB::select("SELECT * FROM rooms WHERE id_room='$request->booking_room' ");
-        $data['start'] = DB::select("SELECT DATE_FORMAT(time_name, '%H:%i') as time_name FROM times WHERE id_time='$request->time_start' ");
-        $data['end'] = DB::select("SELECT DATE_FORMAT(time_name, '%H:%i') as time_name FROM times WHERE id_time='$request->time_end' ");
-        return view('pages.bookings.confirm', $request, $data); 
-    }
+    // public function confirm(Request $request)
+    // {
+    //     $data['bidang'] = DB::select("SELECT * FROM bidangs WHERE id_bidang='$request->bidang_peminjam' ");
+    //     $data['ruang'] = DB::select("SELECT * FROM rooms WHERE id_room='$request->booking_room' ");
+    //     $data['start'] = DB::select("SELECT DATE_FORMAT(time_name, '%H:%i') as time_name FROM times WHERE id_time='$request->time_start' ");
+    //     $data['end'] = DB::select("SELECT DATE_FORMAT(time_name, '%H:%i') as time_name FROM times WHERE id_time='$request->time_end' ");
+
+    //     $data['bidang'] = Bidang::where('id_bidang', $request->bidang_peminjam);
+    //     $data['ruang'] = Room::where('id_room', $request->booking_room);
+    //     $data['start'] = Time::where('id_', $request->booking_room);
+
+    //     return view('pages.bookings.confirm', $request, $data); 
+    // }
 
     public function download($id)
     {
-        $data = DB::select("SELECT * FROM surats WHERE id_surat = '$id' ");
-        $name = explode("~", $data[0]->file_name)[2];
+        // $data = DB::select("SELECT * FROM surats WHERE id_surat = '$id' ");
+        $data = Surat::where('id_surat', $id)->first();
+        $name = explode("~", $data->file_name)[2];
         
         header("Content-type: application/pdf");
         header("Content-disposition: attachment; filename=".$name."");
-        readfile($data[0]->file_fullpath);
+        readfile($data->file_fullpath);
     }
 
     public function showAllBook()
@@ -100,42 +107,73 @@ class BookingController extends Controller
     
     public function showBookDone()
     {
-    	$data['rooms'] = DB::select("SELECT b.id_booking, b.id_peminjam, b.nama_peminjam, b.bidang_peminjam, b.booking_room, b.booking_total_tamu, DATE_FORMAT(b.created_at, '%d-%m-%Y %H:%i %p') as tanggal_dibuat, b.nip_peminjam, b.booking_date, DATE_FORMAT(b.booking_date, '%d-%m-%Y') as booking_date2, b.time_start, b.time_end, b.booking_status, b.id_penyetuju, u.name,
-        bs.status_name, bid.bidang_name, r.id_room, r.room_name, t1.id_time as id_time1, DATE_FORMAT(t1.time_name, '%H:%i') as time_start, t2.id_time as id_time2, DATE_FORMAT(t2.time_name, '%H:%i') as time_end,
-        s.id_surat, s.surat_judul, s.surat_deskripsi, s.file_name, s.file_fullpath
-                        FROM bookings b
-                        INNER JOIN booking_statuses bs ON bs.status_id = b.booking_status
-                        INNER JOIN surats s ON s.id_surat = b.id_surat
-                        INNER JOIN bidangs bid ON bid.id_bidang = b.bidang_peminjam
-                        INNER JOIN rooms r ON r.id_room = b.booking_room
-                        INNER JOIN times t1 ON t1.id_time = b.time_start
-                        INNER JOIN times t2 ON t2.id_time = b.time_end
-                        INNER JOIN users u ON u.id_user = b.id_penyetuju
-                        WHERE b.booking_status = 3
-                        ORDER BY b.booking_date DESC, b.time_start ASC, b.time_end ASC");
-        return view('pages.bookings.table-done', $data);
+    	// $datas = DB::select("SELECT b.id_booking, b.id_peminjam, b.nama_peminjam, b.bidang_peminjam, b.booking_room, b.booking_total_tamu, DATE_FORMAT(b.created_at, '%d-%m-%Y %H:%i %p') as tanggal_dibuat, b.nip_peminjam, b.booking_date, DATE_FORMAT(b.booking_date, '%d-%m-%Y') as booking_date2, b.time_start, b.time_end, b.booking_status, b.id_penyetuju, u.name,
+     //    bs.status_name, bid.bidang_name, r.id_room, r.room_name, t1.id_time as id_time1, DATE_FORMAT(t1.time_name, '%H:%i') as time_start, t2.id_time as id_time2, DATE_FORMAT(t2.time_name, '%H:%i') as time_end,
+     //    s.id_surat, s.surat_judul, s.surat_deskripsi, s.file_name, s.file_fullpath
+     //                    FROM bookings b
+     //                    INNER JOIN booking_statuses bs ON bs.status_id = b.booking_status
+     //                    INNER JOIN surats s ON s.id_surat = b.id_surat
+     //                    INNER JOIN bidangs bid ON bid.id_bidang = b.bidang_peminjam
+     //                    INNER JOIN rooms r ON r.id_room = b.booking_room
+     //                    INNER JOIN times t1 ON t1.id_time = b.time_start
+     //                    INNER JOIN times t2 ON t2.id_time = b.time_end
+     //                    INNER JOIN users u ON u.id_user = b.id_penyetuju
+     //                    WHERE b.booking_status = 3
+     //                    ORDER BY b.booking_date DESC, b.time_start ASC, b.time_end ASC");
+
+        $datas = Booking::with('status')
+                ->with('surat')
+                ->with('bidang')
+                ->with('room')
+                ->with('time1')
+                ->with('time2')
+                ->with('user')
+                ->where('booking_status', '=', 3)
+                ->orderBy('booking_date', 'desc')
+                ->orderBy('time_start', 'asc')
+                ->orderBy('time_end', 'asc')
+                ->get();
+
+        return view('pages.bookings.table-done')->with('datas',$datas);
     }
 
     public function showBookNotDone()
     {
-        $data['roomlist'] = DB::select('SELECT r.*, b.bidang_name, rt.roomType_name
-                            FROM rooms r
-                            INNER JOIN bidangs b ON b.id_bidang = r.room_owner
-                            INNER JOIN room_types rt ON rt.id_roomType = r.room_type');
+        // $data['roomlist'] = DB::select('SELECT r.*, b.bidang_name, rt.roomType_name
+        //                     FROM rooms r
+        //                     INNER JOIN bidangs b ON b.id_bidang = r.room_owner
+        //                     INNER JOIN room_types rt ON rt.id_roomType = r.room_type');
 
-        $data['rooms'] = DB::select("SELECT b.id_booking, b.id_peminjam, b.nama_peminjam, b.bidang_peminjam, b.booking_room, b.booking_total_tamu, DATE_FORMAT(b.created_at, '%d-%m-%Y %H:%i %p') as tanggal_dibuat, b.nip_peminjam, b.booking_date, DATE_FORMAT(b.booking_date, '%d-%m-%Y') as booking_date2, b.time_start, b.time_end, b.booking_status, b.keterangan_status,
-        bs.status_name, bid.bidang_name, r.id_room, r.room_name, t1.id_time as id_time1, DATE_FORMAT(t1.time_name, '%H:%i') as time_start, t2.id_time as id_time2, DATE_FORMAT(t2.time_name, '%H:%i') as time_end,
-        s.id_surat, s.surat_judul, s.surat_deskripsi, s.file_name, s.file_fullpath
-                        FROM bookings b
-                        INNER JOIN booking_statuses bs ON bs.status_id = b.booking_status
-                        INNER JOIN surats s ON s.id_surat = b.id_surat
-                        INNER JOIN bidangs bid ON bid.id_bidang = b.bidang_peminjam
-                        INNER JOIN rooms r ON r.id_room = b.booking_room
-                        INNER JOIN times t1 ON t1.id_time = b.time_start
-                        INNER JOIN times t2 ON t2.id_time = b.time_end
-                        WHERE b.booking_status = 1
-                        ORDER BY b.created_at ASC");
-        return view('pages.bookings.table-not', $data);
+        $roomlists = Room::with('bidang')
+                        ->with('roomtype')
+                        ->get();
+        // var_dump($roomlists[3]->id_room);
+        // die();
+
+        // $data['rooms'] = DB::select("SELECT b.id_booking, b.id_peminjam, b.nama_peminjam, b.bidang_peminjam, b.booking_room, b.booking_total_tamu, DATE_FORMAT(b.created_at, '%d-%m-%Y %H:%i %p') as tanggal_dibuat, b.nip_peminjam, b.booking_date, DATE_FORMAT(b.booking_date, '%d-%m-%Y') as booking_date2, b.time_start, b.time_end, b.booking_status, b.keterangan_status,
+        // bs.status_name, bid.bidang_name, r.id_room, r.room_name, t1.id_time as id_time1, DATE_FORMAT(t1.time_name, '%H:%i') as time_start, t2.id_time as id_time2, DATE_FORMAT(t2.time_name, '%H:%i') as time_end,
+        // s.id_surat, s.surat_judul, s.surat_deskripsi, s.file_name, s.file_fullpath
+        //                 FROM bookings b
+        //                 INNER JOIN booking_statuses bs ON bs.status_id = b.booking_status
+        //                 INNER JOIN surats s ON s.id_surat = b.id_surat
+        //                 INNER JOIN bidangs bid ON bid.id_bidang = b.bidang_peminjam
+        //                 INNER JOIN rooms r ON r.id_room = b.booking_room
+        //                 INNER JOIN times t1 ON t1.id_time = b.time_start
+        //                 INNER JOIN times t2 ON t2.id_time = b.time_end
+        //                 WHERE b.booking_status = 1
+        //                 ORDER BY b.created_at ASC");
+
+        $rooms = Booking::with('status')
+                    ->with('surat')
+                    ->with('bidang')
+                    ->with('room')
+                    ->with('time1')
+                    ->with('time2')
+                    ->where('booking_status', 1)
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+
+        return view('pages.bookings.table-not')->with('roomlists', $roomlists)->with('rooms', $rooms);
     }
 
     public function showBookMy()
@@ -282,8 +320,8 @@ class BookingController extends Controller
 
     public function updateBookStatus(Request $request)
     { 
-        $booking = Booking::find($request->id_booking);
-
+        $booking = Booking::where('id_booking', $request->id_booking)->first();
+        // $booking = Booking::find($request->id_booking);
         $booking->id_penyetuju = Auth::id();
         $booking->booking_status = $request->booking_status;
         if ($request->booking_status == 2) {
@@ -296,7 +334,6 @@ class BookingController extends Controller
 
         $actual_link = "{$_SERVER['HTTP_REFERER']}";
         $back_link = explode("/", $actual_link);
-
 
         if ($booking->save()){
             //kalau ubah status nya dari halaman "booking/"
@@ -314,11 +351,29 @@ class BookingController extends Controller
                 if ($request->booking_status == 2) {
                     return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
                 } elseif ($request->booking_status == 3) {
-                    DB::update("UPDATE bookings SET booking_status = 2, keterangan_status = 'Jadwal yang dipilih telah terisi penuh', soft_delete = 1
-                        WHERE id_booking <> '$request->id_booking'
-                        AND booking_room = '$request->booking_room'
-                        AND booking_date = '$request->booking_date'
-                        AND (time_start <= '$request->time_start' AND time_end > '$request->time_start') ");
+                    // DB::update("UPDATE bookings SET booking_status = 2, keterangan_status = 'Jadwal yang dipilih telah terisi penuh', soft_delete = 1
+                    //     WHERE id_booking <> '$request->id_booking'
+                    //     AND booking_room = '$request->booking_room'
+                    //     AND booking_date = '$request->booking_date'
+                    //     AND (time_start <= '$request->time_start' AND time_end > '$request->time_start') ");
+
+                    $time1 = $request->time_start;
+                    $bookings = Booking::where('id_booking', '!=', $request->id_booking)
+                                        ->where('booking_room', $request->booking_room)
+                                        ->where('booking_date', $request->booking_date)
+                                        ->where(function($f) use ($time1){
+                                            $f->where('time_start', '<=', $time1)
+                                              ->where('time_end', '>', $time1);
+                                        })
+                                        ->get();
+
+                    foreach ($bookings as $key => $booking) {
+                        $booking->booking_status = 2;
+                        $booking->keterangan_status = 'Jadwal yang dipilih telah terisi penuh';
+                        $booking->soft_delete = 1;
+                        $booking->save();
+                    }
+                    
                     return redirect('booking/done')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
                 }
             } elseif ($back_link[4] == 'done') {

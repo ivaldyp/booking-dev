@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Booking;
+use App\Surat;
+use App\User_Type;
 
 class HomeController extends Controller
 {
@@ -35,10 +38,12 @@ class HomeController extends Controller
         $data = [];
         if (Auth::check()) {
             $user_status = $this->user->user_status;
-            $data['user_status'] = 
-                json_encode(DB::select('SELECT *
-                            FROM user_types
-                            where id_userType = '.$user_status));
+            // $data['user_status'] = 
+            //     json_encode(DB::select('SELECT *
+            //                 FROM user_types
+            //                 where id_userType = '.$user_status));
+
+            $data['user_status'] = User_Type::where('id_userType', $user_status);
             Session::put('user_status', $user_status);
         } 
         return view('home', $data);
@@ -49,10 +54,12 @@ class HomeController extends Controller
         $data = [];
         if (Auth::check()) {
             $user_status = $this->user->user_status;
-            $data['user_status'] = 
-                json_encode(DB::select('SELECT *
-                            FROM user_types
-                            where id_userType = '.$user_status));
+            // $data['user_status'] = 
+            //     json_encode(DB::select('SELECT *
+            //                 FROM user_types
+            //                 where id_userType = '.$user_status));
+
+            $data['user_status'] = User_Type::where('id_userType', $user_status);
             Session::put('user_status', $user_status);
         } 
         return view('home2', $data);
@@ -70,6 +77,14 @@ class HomeController extends Controller
                 INNER JOIN rooms r ON r.id_room = b.booking_room
                 WHERE b.soft_delete = 0
                 AND b.booking_status = 3');
+
+        // $data['bookings'] = Booking::with('surat')
+        //                     ->with('time1')
+        //                     ->with('time2')
+        //                     ->with('room')
+        //                     ->where('soft_delete', false)
+        //                     ->where('booking_status', 3)
+        //                     ->get();
         return $data;
     }
 }
