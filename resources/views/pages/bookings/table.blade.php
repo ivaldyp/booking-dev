@@ -44,47 +44,42 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach($booking_done as $key => $data) { ?>
+                  <?php foreach($bookingdone as $key => $data) { ?>
                   <tr>
                     <input type="hidden" name="id_booking" id="form_book_not_id_booking" value="{{ $data->id_booking }}">
                     <td>{{ $key + 1 }}</td>
-                    <td>{{ $data->surat_judul }}</td>
-                    <td>{{ $data->surat_deskripsi }}</td>
+                    <td>{{ $data->surat->surat_judul }}</td>
+                    <td>{{ $data->surat->surat_deskripsi }}</td>
                     <td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
-                    <td>{{ $data->bidang_name }}</td>
-                    <td>{{ $data->room_name }}</td>
+                    <td>{{ $data->bidang->bidang_name }}</td>
+                    <td>{{ $data->room->room_name }}</td>
                     <td>{{ $data->booking_total_tamu }}</td>
-                    <td>{{ $data->booking_date2 }}<hr>{{ $data->time_start }} - {{ $data->time_end }}</td>
-                    <?php $file_name = explode("~", $data->file_name); ?>
-                    <td><a href="{{ url('booking/downloadSurat') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
-                    <td 
-                      <?php if($data->status_name == 'OK'){
-                        echo "bgcolor=' #64de5d'";  
-                      } elseif($data->status_name == 'Batal'){
-                        echo "bgcolor='#ff3333'";
-                      } else {
-                        echo "bgcolor='yellow'";
-                      }
-                      ?>>
-                      {{ $data->status_name }}
+
+                    <?php 
+                      $booking_date2 = DateTime::createFromFormat('Y-m-d', $data->booking_date);
+                      $booking_date3 = $booking_date2->format('d-M-Y');
+                    ?>
+                    <td>{{ $booking_date3 }}<hr>
+
+                    <?php
+                      $time1 = explode(":", explode(" ", $data->time1->time_name)[1]);
+                      $time2 = explode(":", explode(" ", $data->time2->time_name)[1]);
+                    ?>
+                    {{ $time1[0] . ":" . $time1[1] }} - {{ $time2[0] . ":" . $time2[1] }}</td>
+
+                    <?php $file_name = explode("~", $data->surat->file_name); ?>
+                    <td><a href="{{ url('booking/download') }}/{{ $data->surat->id_surat }}"> {{ $file_name[2] }} </a></td>
+                    <td bgcolor="#64de5d">
+                      {{ $data->status->status_name }}
                     </td>
-                    <!-- <td>
-                      <?php if (is_null($data->keterangan_status) || $data->keterangan_status == '') {
-                        echo "-";
-                      } else {
-                        if ($data->booking_status == 2){
-                          echo "Buat ulang pinjaman <br><hr>";
-                        }
-                        echo $data->keterangan_status;
-                      }?>
-                    </td> -->
+                    
                     <!-- <td>{{$data->tanggal_dibuat}}</td> -->
                     <?php if(Auth::check() && Auth::user()->user_status != 2) { ?>
                       <td>
-                        <?php if($data->status_id == 2) { ?>
+                        <?php if($data->status->  status_id == 2) { ?>
                           -
                         <?php } else { ?>
-                          <button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->id_time1 }}||{{ $data->booking_room }}||{{ $data->status_id }}"><i class="fa fa-edit"></i></button>
+                          <button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->room->booking_room }}||{{ $data->status->status_id }}"><i class="fa fa-edit"></i></button>
                         <?php } ?>
                       </td>
                     <?php } ?>
@@ -120,39 +115,43 @@
                     <th class="col-lg-1">Waktu</th>
                     <th>File Surat</th>
                     <th>Status Booking</th>
-                    <th>Keterangan</th>
-                    <th>Tanggal Dibuat</th>
+                    <!-- <th>Keterangan</th> -->
+                    <!-- <th>Tanggal Dibuat</th> -->
                     <?php if(Auth::check() && Auth::user()->user_status != 2) { ?>
                       <th> Aksi </th>
                     <?php } ?>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach($booking_not as $key => $data) { ?>
+                  <?php foreach($bookingnot as $key => $data) { ?>
                   <tr>
                     <input type="hidden" name="id_booking" id="form_book_not_id_booking" value="{{ $data->id_booking }}">
                     <td>{{ $key + 1 }}</td>
-                    <td>{{ $data->surat_judul }}</td>
-                    <td>{{ $data->surat_deskripsi }}</td>
+                    <td>{{ $data->surat->surat_judul }}</td>
+                    <td>{{ $data->surat->surat_deskripsi }}</td>
                     <td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
-                    <td>{{ $data->bidang_name }}</td>
-                    <td>{{ $data->room_name }}</td>
+                    <td>{{ $data->bidang->bidang_name }}</td>
+                    <td>{{ $data->room->room_name }}</td>
                     <td>{{ $data->booking_total_tamu }}</td>
-                    <td>{{ $data->booking_date2 }}<hr>{{ $data->time_start }} - {{ $data->time_end }}</td>
-                    <?php $file_name = explode("~", $data->file_name); ?>
-                    <td><a href="{{ url('booking/downloadSurat') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
-                    <td 
-                      <?php if($data->status_name == 'OK'){
-                        echo "bgcolor=' #64de5d'";  
-                      } elseif($data->status_name == 'Batal'){
-                        echo "bgcolor='#ff3333'";
-                      } else {
-                        echo "bgcolor='yellow'";
-                      }
-                      ?>>
-                      {{ $data->status_name }}
+
+                    <?php 
+                      $booking_date2 = DateTime::createFromFormat('Y-m-d', $data->booking_date);
+                      $booking_date3 = $booking_date2->format('d-M-Y');
+                      ?>
+                      <td>{{ $booking_date3 }}<hr>
+
+                    <?php
+                      $time1 = explode(":", explode(" ", $data->time1->time_name)[1]);
+                      $time2 = explode(":", explode(" ", $data->time2->time_name)[1]);
+                    ?>
+                    {{ $time1[0] . ":" . $time1[1] }} - {{ $time2[0] . ":" . $time2[1] }}</td>
+
+                    <?php $file_name = explode("~", $data->surat->file_name); ?>
+                    <td><a href="{{ url('booking/download') }}/{{ $data->surat->id_surat }}"> {{ $file_name[2] }} </a></td>
+                    <td bgcolor='yellow'>
+                      {{ $data->status->status_name }}
                     </td>
-                    <td>
+                    <!-- <td>
                       <?php if (is_null($data->keterangan_status) || $data->keterangan_status == '') {
                         echo "-";
                       } else {
@@ -161,14 +160,14 @@
                         }
                         echo $data->keterangan_status;
                       }?>
-                    </td>
-                    <td>{{$data->tanggal_dibuat}}</td>
+                    </td> -->
+                    <!-- <td>{{$data->tanggal_dibuat}}</td> -->
                     <?php if(Auth::check() && Auth::user()->user_status != 2) { ?>
                       <td>
-                        <?php if($data->status_id == 2) { ?>
+                        <?php if($data->status->status_id == 2) { ?>
                           -
                         <?php } else { ?>
-                          <button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->id_time1 }}||{{ $data->booking_room }}||{{ $data->status_id }}"><i class="fa fa-edit"></i></button>
+                          <button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->room->booking_room }}||{{ $data->status->status_id }}"><i class="fa fa-edit"></i></button>
                         <?php } ?>
                       </td>
                     <?php } ?>
@@ -205,45 +204,45 @@
                     <th>File Surat</th>
                     <th>Status Booking</th>
                     <th>Keterangan</th>
-                    <th>Tanggal Dibuat</th>
+                    <!-- <th>Tanggal Dibuat</th> -->
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach($booking_cancel as $key => $data) { ?>
+                  <?php foreach($bookingcancel as $key => $data) { ?>
                   <tr>
                     <input type="hidden" name="id_booking" id="form_book_not_id_booking" value="{{ $data->id_booking }}">
                     <td>{{ $key + 1 }}</td>
-                    <td>{{ $data->surat_judul }}</td>
-                    <td>{{ $data->surat_deskripsi }}</td>
+                    <td>{{ $data->surat->surat_judul }}</td>
+                    <td>{{ $data->surat->surat_deskripsi }}</td>
                     <td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
-                    <td>{{ $data->bidang_name }}</td>
-                    <td>{{ $data->room_name }}</td>
+                    <td>{{ $data->bidang->bidang_name }}</td>
+                    <td>{{ $data->room->room_name }}</td>
                     <td>{{ $data->booking_total_tamu }}</td>
-                    <td>{{ $data->booking_date2 }}<hr>{{ $data->time_start }} - {{ $data->time_end }}</td>
-                    <?php $file_name = explode("~", $data->file_name); ?>
-                    <td><a href="{{ url('booking/downloadSurat') }}/{{ $data->id_surat }}"> {{ $file_name[2] }} </a></td>
-                    <td 
-                      <?php if($data->status_name == 'OK'){
-                        echo "bgcolor=' #64de5d'";  
-                      } elseif($data->status_name == 'Batal'){
-                        echo "bgcolor='#ff3333'";
-                      } else {
-                        echo "bgcolor='yellow'";
-                      }
-                      ?>>
-                      {{ $data->status_name }}
-                    </td>
-                    <td>
-                      <?php if (is_null($data->keterangan_status) || $data->keterangan_status == '') {
-                        echo "-";
-                      } else {
-                        if ($data->booking_status == 2){
-                          echo "Buat ulang pinjaman <br><hr>";
-                        }
+                    
+                    <?php 
+                      $booking_date2 = DateTime::createFromFormat('Y-m-d', $data->booking_date);
+                      $booking_date3 = $booking_date2->format('d-M-Y');
+                    ?>
+                    <td>{{ $booking_date3 }}<hr>
+
+                    <?php
+                      $time1 = explode(":", explode(" ", $data->time1->time_name)[1]);
+                      $time2 = explode(":", explode(" ", $data->time2->time_name)[1]);
+                    ?>
+                    {{ $time1[0] . ":" . $time1[1] }} - {{ $time2[0] . ":" . $time2[1] }}</td>
+
+                    <?php $file_name = explode("~", $data->surat->file_name); ?>
+                    <td><a href="{{ url('booking/download') }}/{{ $data->surat->id_surat }}"> {{ $file_name[2] }} </a></td>
+                    <td bgcolor="#ff3333"><b>
+                      {{ $data->status->status_name }}
+                    </b></td>
+                    <td>Buat ulang pinjaman
+                      <?php if ($data->keterangan_status != 'NULL' && $data->keterangan_status != '') {
+                        echo "<br><hr>";
                         echo $data->keterangan_status;
-                      }?>
+                      } ?>
                     </td>
-                    <td>{{$data->tanggal_dibuat}}</td>
+                    <!-- <td>{{$data->tanggal_dibuat}}</td> -->
                   </tr>
                   <?php } ?>
                 </tbody>

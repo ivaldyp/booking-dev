@@ -33,8 +33,7 @@
 								<th>Bidang Peminjam</th>
 								<th>Ruang</th>
 								<th>Jumlah Peserta</th>
-								<th>Tanggal</th>
-								<th>Waktu</th>
+								<th class="col-lg-1">Waktu</th>
 								<th>File Surat</th>
 								<th>Status Booking</th>
 								<th>Keterangan</th>
@@ -57,18 +56,18 @@
 									$booking_date2 = DateTime::createFromFormat('Y-m-d', $data->booking_date);
 									$booking_date3 = $booking_date2->format('d-M-Y');
 			                    ?>
-			                    <td>{{ $booking_date3 }}</td>
+			                    <td>{{ $booking_date3 }}<hr>
 
 								<?php
 									$time1 = explode(":", explode(" ", $data->time1->time_name)[1]);
 									$time2 = explode(":", explode(" ", $data->time2->time_name)[1]);
 			                    ?>
-			                    <td>{{ $time1[0] . ":" . $time1[1] }} - {{ $time2[0] . ":" . $time2[1] }}</td>
+			                    {{ $time1[0] . ":" . $time1[1] }} - {{ $time2[0] . ":" . $time2[1] }}</td>
 
 								<?php $file_name = explode("~", $data->surat->file_name); ?>
 								<td><a href="{{ url('booking/download') }}/{{ $data->surat->id_surat }}"> {{ $file_name[2] }} </a></td>
 								<td bgcolor='yellow'>
-									{{ $data->status_name }}
+									{{ $data->status->status_name }}
 								</td>
 								<td>
 									<?php if (is_null($data->keterangan_status) || $data->keterangan_status == '') {
@@ -77,7 +76,7 @@
 										echo $data->keterangan_status;
 									}?>
 								</td>
-								<td><button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->room->booking_room }}"><i class="fa fa-edit"></i></button></td>
+								<td><button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->booking_room }}"><i class="fa fa-edit"></i></button></td>
 							</tr>
 							<?php } ?>
 						</tbody>
@@ -96,10 +95,10 @@
 								<form method="POST" action="updateStatus" class="form-horizontal">
 								@csrf
 									<div class="modal-body">
-										<input type="hidden" name="id_booking" id="modal_id_booking">
-										<input type="hidden" name="booking_date" id="modal_booking_date">
-										<input type="hidden" name="time_start" id="modal_time_start">
-										<input type="hidden" name="booking_room" id="modal_booking_room">
+										<input type="text" name="id_booking" id="modal_id_booking">
+										<input type="text" name="booking_date" id="modal_booking_date">
+										<input type="text" name="time_start" id="modal_time_start">
+										<input type="text" name="booking_room" id="modal_booking_room">
 
 										<div class="form-group">
 											<label for="booking_status" class="col-lg-2 control-label"> Ubah Status </label>

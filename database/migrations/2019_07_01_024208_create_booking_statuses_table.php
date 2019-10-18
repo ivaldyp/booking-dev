@@ -20,6 +20,10 @@ class CreateBookingStatusesTable extends Migration
             $table->timestamp('updated_at')->nullable()->useCurrent();
             // $table->timestamps();
         });
+
+        Artisan::call('db:seed', [
+            '--class' => BookingStatusesTableSeeder::class
+        ]);
     }
 
     /**

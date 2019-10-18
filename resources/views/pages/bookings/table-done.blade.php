@@ -33,8 +33,7 @@
                     <th>Bidang Peminjam</th>
                     <th>Ruang</th>
                     <th>Jumlah Peserta</th>
-                    <th>Tanggal</th>
-                    <th>Waktu</th>
+                    <th class="col-lg-1">Waktu</th>
                     <th>File Surat</th>
                     <!-- <th>Disetujui Oleh</th> -->
                     <th>Status Booking</th>
@@ -58,19 +57,19 @@
                       $booking_date2 = DateTime::createFromFormat('Y-m-d', $data->booking_date);
                       $booking_date3 = $booking_date2->format('d-M-Y');
                     ?>
-                    <td>{{ $booking_date3 }}</td>
+                    <td>{{ $booking_date3 }}<hr>
 
                     <?php
                       $time1 = explode(":", explode(" ", $data->time1->time_name)[1]);
                       $time2 = explode(":", explode(" ", $data->time2->time_name)[1]);
                     ?>
-                    <td>{{ $time1[0] . ":" . $time1[1] }} - {{ $time2[0] . ":" . $time2[1] }}</td>
+                    {{ $time1[0] . ":" . $time1[1] }} - {{ $time2[0] . ":" . $time2[1] }}</td>
 
                     <?php $file_name = explode("~", $data->surat->file_name); ?>
                     <td><a href="{{ url('booking/download') }}/{{ $data->surat->id_surat }}"> {{ $file_name[2] }} </a></td>
                     <!-- <td>{{ ucwords($data->user->name) }}</td> -->
                     <td bgcolor="#64de5d">
-                      {{ $data->status_name }}
+                      {{ $data->status->status_name }}
                     </td>
                     <!-- <td>{{$data->created_at}}</td> -->
                     <td><button type="button" class="btn btn-primary btn_booking_done_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}"><i class="fa fa-edit"></i></button></td>

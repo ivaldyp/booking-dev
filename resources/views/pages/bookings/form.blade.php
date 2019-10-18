@@ -98,15 +98,20 @@
                     <select class="form-control" name="time_start" id="time_start">
                       <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
                       <?php
-                        $i = 0;
-                        foreach ($times as $data) {
-                          if ($i == count($times) - 1) {
-                            break;
-                          } else {
-                            echo "<option value='$data->id_time'>$data->time_name</option>";
-                          }
-                          $i++;
-                        }
+                        // $i = 0;
+                        // foreach ($times as $data) {
+                        //   $time_name = explode(":", explode(" ", $data->time_name)[1]);
+                        //   if ($i == count($times) - 1) {
+                        //     break;
+                        //   } else {
+                        //     echo "<option value=".$data->id_time.">".$time_name[0].":". $time_name[1]."</option>";
+                        //   }
+                        //   $i++;
+                        // }
+                        foreach ($times as $data) { 
+                          $time_name = explode(":", explode(" ", $data->time_name)[1]); ?>
+                          <option value="{{ $data->id_time }}">{{ $time_name[0].":". $time_name[1] }}</option>
+                        <?php }
                       ?>
                       
                     </select>
@@ -118,8 +123,9 @@
                   <div class="col-lg-4">
                     <select class="form-control" name="time_end" id="time_end">
                       <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
-                      <?php foreach ($times as $data) { ?>
-                        <option id="timend{{$data->id_time}}" value="{{ $data->id_time }}">{{ $data->time_name }}</option>
+                      <?php foreach ($times as $data) { 
+                        $time_name = explode(":", explode(" ", $data->time_name)[1]); ?>
+                        <option id="timend{{$data->id_time}}" value="{{ $data->id_time }}">{{ $time_name[0].":". $time_name[1] }}</option>
                       <?php } ?>
                     </select>
                   </div>
@@ -289,9 +295,9 @@
       for (var i = 1; i <= 22; i++) {
         var timend = '#timend'+i;
         if (i <= selectedtime) {
-          $(timend).prop('disabled', 'disabled');    
+          $(timend).toggle(false);    
         } else {
-          $(timend).prop('disabled', false);
+          $(timend).toggle(true);  
         }
       }
     });
