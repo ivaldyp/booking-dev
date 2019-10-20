@@ -373,7 +373,8 @@ class BookingController extends Controller
 
         $file_name = uniqid(md5(time()))."~".date('dmY')."~".$file->getClientOriginalName();
 
-        $tujuan_upload = 'C:\Users\user\Documents\Upload';
+        // $tujuan_upload = 'C:\Users\user\Documents\Upload';
+        $tujuan_upload = 'C:\Users\Valdy\Documents\Upload';
 
         $origDate = $request->booking_date;
         $date = str_replace('/', '-', $origDate );
@@ -466,10 +467,12 @@ class BookingController extends Controller
                     $bookings = Booking::where('id_booking', '!=', $request->id_booking)
                                         ->where('booking_room', $request->booking_room)
                                         ->where('booking_date', $request->booking_date)
-                                        ->where(function($f) use ($time1){
-                                            $f->where('time_start', '<=', $time1)
-                                              ->where('time_end', '>', $time1);
-                                        })
+                                        ->where('time_start', '<=', $request->time_start)
+                                        ->where('time_end', '>', $request->time_start)
+                                        // ->where(function($f) use ($time1){
+                                        //     $f->where('time_start', '<=', $time1)
+                                        //       ->where('time_end', '>', $time1);
+                                        // })
                                         ->get();
 
                     foreach ($bookings as $key => $booking) {

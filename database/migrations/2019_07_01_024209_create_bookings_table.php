@@ -43,6 +43,10 @@ class CreateBookingsTable extends Migration
             $table->foreign('time_end')->references('id_time')->on('times');
             $table->foreign('booking_status')->references('status_id')->on('booking_statuses');
         });
+
+        Artisan::call('db:seed', [
+            '--class' => BookingsTableSeeder::class
+        ]);
     }
 
     /**
