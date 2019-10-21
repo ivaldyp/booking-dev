@@ -459,44 +459,44 @@ class BookingController extends Controller
                 } elseif ($request->booking_status == 3) {
                     $time1 = $request->time_start;
                     $time2 = $request->time_end;
-                    DB::update("UPDATE bookings SET booking_status = 2, keterangan_status = 'Jadwal yang dipilih telah terisi penuh', soft_delete = 1
-                        WHERE id_booking <> '$request->id_booking'
-                        AND booking_room = '$request->booking_room'
-                        AND booking_date = '$request->booking_date'
-                        AND ((time_start < '$time1' AND (time_end BETWEEN '$time1' AND '$time2')) 
-                            OR ((time_start BETWEEN '$time1' AND '$time2') AND time_end > '$time2') 
-                            OR (time_start >= '$time1' AND time_end <= '$time2') 
-                            OR (time_start < '$time1' AND time_end > '$time2')) ");
+                    // DB::update("UPDATE bookings SET booking_status = 2, keterangan_status = 'Jadwal yang dipilih telah terisi penuh', soft_delete = 1
+                    //     WHERE id_booking <> '$request->id_booking'
+                    //     AND booking_room = '$request->booking_room'
+                    //     AND booking_date = '$request->booking_date'
+                    //     AND ((time_start < '$time1' AND (time_end BETWEEN '$time1' AND '$time2')) 
+                    //         OR ((time_start BETWEEN '$time1' AND '$time2') AND time_end > '$time2') 
+                    //         OR (time_start >= '$time1' AND time_end <= '$time2') 
+                    //         OR (time_start < '$time1' AND time_end > '$time2')) ");
 
                     $bookings = Booking::where('id_booking', '!=', $request->id_booking)
                                         ->where('booking_room', $request->booking_room)
                                         ->where('booking_date', $request->booking_date)
-                                        // ->where('time_start', '<=', $request->time_start)
-                                        // ->where('time_end', '>', $request->time_start)
-                                        ->where(function($f1) use ($time1, $time2){
-                                            $f1->where('time_start', '<', $time1)
-                                              ->whereBetween('time_end', [$time1, $time2]);
-                                        })
-                                        ->orWhere(function($f2) use ($time1, $time2){
-                                            $f2->whereBetween('time_start', [$time1, $time2])
-                                              ->where('time_end', '>', $time2);
-                                        })
-                                        ->orWhere(function($f3) use ($time1, $time2){
-                                            $f3->where('time_start', '>=', $time1)
-                                              ->where('time_end', '<=', $time2);
-                                        })
-                                        ->orWhere(function($f4) use ($time1, $time2){
-                                            $f4->where('time_start', '<', $time1)
-                                              ->where('time_end', '>', $time2);
+                                        ->where(function($q) use ($time1, $time2){
+                                            $q->where(function($f1) use ($time1, $time2) {
+                                                $f1->where('time_start', '<', $time1)
+                                                   ->whereBetween('time_end', [$time1, $time2]);
+                                            })
+                                            ->orWhere(function($f2) use ($time1, $time2) {
+                                                $f2->whereBetween('time_start', [$time1, $time2])
+                                                   ->where('time_end', '>', $time2);
+                                            })
+                                            ->orWhere(function($f3) use ($time1, $time2) {
+                                                $f3->where('time_start', '>=', $time1)
+                                                   ->where('time_end', '<=', $time2);
+                                            })
+                                            ->orWhere(function($f4) use ($time1, $time2) {
+                                                $f4->where('time_start', '<', $time1)
+                                                   ->where('time_end', '>', $time2);
+                                            });
                                         })
                                         ->get();
 
-                    // foreach ($bookings as $key => $booking) {
-                    //     $booking->booking_status = 2;
-                    //     $booking->keterangan_status = 'Jadwal yang dipilih telah terisi penuh';
-                    //     $booking->soft_delete = 1;
-                    //     $booking->save();
-                    // }
+                    foreach ($bookings as $key => $booking) {
+                        $booking->booking_status = 2;
+                        $booking->keterangan_status = 'Jadwal yang dipilih telah terisi penuh';
+                        $booking->soft_delete = 1;
+                        $booking->save();
+                    }
                     
                     return redirect('booking/done')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
                 }
