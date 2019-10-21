@@ -18,11 +18,13 @@ class BidangController extends Controller
      */
     public function index()
     {
-        $data['bidangs'] = 
-                DB::select('SELECT *
-                            FROM bidangs
-                            ORDER BY bidang_name ASC');
-        return view('pages.bidangs.table', $data);
+        // $data['bidangs'] = 
+        //         DB::select('SELECT *
+        //                     FROM bidangs
+        //                     ORDER BY bidang_name ASC');
+
+        $bidangs = Bidang::orderBy('bidang_name', 'asc')->get();
+        return view('pages.bidangs.table')->with('bidangs', $bidangs);
     }
 
     /**
@@ -81,8 +83,13 @@ class BidangController extends Controller
      */
     public function update(Request $request)
     {
-        DB::update("UPDATE bidangs SET bidang_name = '$request->bidang_name' 
-                    WHERE id_bidang = '$request->id_bidang' ");
+        // DB::update("UPDATE bidangs SET bidang_name = '$request->bidang_name' 
+        //             WHERE id_bidang = '$request->id_bidang' ");
+
+        $bidang = Bidang::find($request->id_bidang);
+        $bidang->bidang_name = $request->bidang_name;
+        $bidang->save();
+
         return redirect('bidang')->with('message', 'Berhasil melakukan perubahan data bidang');
     }
 
@@ -94,7 +101,7 @@ class BidangController extends Controller
      */
     public function delete($id)
     {
-        $bidang = Bidang::where('id_bidang', $id);
+        $bidang = Bidang::find($id);
         if($bidang->delete()) {
             return redirect('bidang')->with('message', 'Data bidang berhasil dihapus');
         } else {

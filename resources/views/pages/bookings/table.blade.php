@@ -308,9 +308,9 @@
 
       var data = (this.id).split('||');
 
-      if (data[5] == 1) {
+      if (data[6] == 1) {
         $("#book-status-1").append("<div class='form-group'><label for='booking_status' class='col-lg-2 control-label'> Ubah Status </label><div class='col-lg-8'><div class='radio'><label><input type='radio' name='booking_status' id='optionsRadios1' value='3' checked>OK</label></div><div class='radio'><label><input type='radio' name='booking_status' id='optionsRadios2' value='2'>Batal</label></div></div></div>");
-      } else if (data[5] == 3) {
+      } else if (data[6] == 3) {
         $("#book-status-2").append("<div class='form-group'><label for='booking_status' class='col-lg-2 control-label'> Ubah Status </label><div class='col-lg-8'><div class='checkbox'><label for='booking_status' class='control-label'><input type='checkbox' name='booking_status' id='optionsCheck2' value='2'>Batal</label></div></div></div>");
       }
 
