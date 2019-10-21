@@ -167,7 +167,7 @@
                         <?php if($data->status->status_id == 2) { ?>
                           -
                         <?php } else { ?>
-                          <button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->booking_room }}||{{ $data->status->status_id }}"><i class="fa fa-edit"></i></button>
+                          <button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->time2->id_time }}||{{ $data->booking_room }}||{{ $data->status->status_id }}"><i class="fa fa-edit"></i></button>
                         <?php } ?>
                       </td>
                     <?php } ?>
@@ -265,6 +265,7 @@
                     <input type="hidden" name="id_booking" id="modal_id_booking">
                     <input type="hidden" name="booking_date" id="modal_booking_date">
                     <input type="hidden" name="time_start" id="modal_time_start">
+                    <input type="hidden" name="time_end" id="modal_time_end">
                     <input type="hidden" name="booking_room" id="modal_booking_room">
                     <input type="hidden" name="status_id" id="modal_status_id">
 
@@ -321,8 +322,9 @@
       }
       $('#modal_booking_date').val(data[2]);
       $('#modal_time_start').val(data[3]);
-      $('#modal_booking_room').val(data[4]);
-      $('#modal_status_id').val(data[5]);
+      $('#modal_time_end').val(data[4]);
+      $('#modal_booking_room').val(data[5]);
+      $('#modal_status_id').val(data[6]);
     });
 
     $("#modal-default").on("hidden.bs.modal", function () {

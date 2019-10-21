@@ -76,7 +76,7 @@
 										echo $data->keterangan_status;
 									}?>
 								</td>
-								<td><button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->booking_room }}"><i class="fa fa-edit"></i></button></td>
+								<td><button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->time2->id_time }}||{{ $data->booking_room }}"><i class="fa fa-edit"></i></button></td>
 							</tr>
 							<?php } ?>
 						</tbody>
@@ -98,6 +98,7 @@
 										<input type="text" name="id_booking" id="modal_id_booking">
 										<input type="text" name="booking_date" id="modal_booking_date">
 										<input type="text" name="time_start" id="modal_time_start">
+										<input type="text" name="time_end" id="modal_time_end">
 										<input type="text" name="booking_room" id="modal_booking_room">
 
 										<div class="form-group">
@@ -185,7 +186,8 @@
 			}
 			$('#modal_booking_date').val(data[2]);
 			$('#modal_time_start').val(data[3]);
-			$('#modal_booking_room').val(data[4]);
+			$('#modal_time_end').val(data[4]);
+			$('#modal_booking_room').val(data[5]);
 		});
 	});
 </script>
