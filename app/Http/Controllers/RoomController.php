@@ -21,22 +21,34 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $data['rooms'] = 
-                DB::select('SELECT r.*, b.id_bidang, b.bidang_name, rt.id_roomType, rt.roomType_name
-                            FROM rooms r
-                            INNER JOIN bidangs b ON b.id_bidang = r.room_owner
-                            INNER JOIN room_types rt ON rt.id_roomType = r.room_type
-                            ORDER BY b.id_bidang ASC, r.room_name ASC ');
+        // $data['rooms'] = 
+        //         DB::select('SELECT r.*, b.id_bidang, b.bidang_name, rt.id_roomType, rt.roomType_name
+        //                     FROM rooms r
+        //                     INNER JOIN bidangs b ON b.id_bidang = r.room_owner
+        //                     INNER JOIN room_types rt ON rt.id_roomType = r.room_type
+        //                     ORDER BY b.id_bidang ASC, r.room_name ASC ');
 
-        $data['bidangs'] = 
-                DB::select('SELECT id_bidang, bidang_name
-                            FROM bidangs');
+        // $data['bidangs'] = 
+        //         DB::select('SELECT id_bidang, bidang_name
+        //                     FROM bidangs');
 
-        $data['room_types'] = 
-                DB::select('SELECT id_roomType, roomType_name
-                            FROM room_types');    
+        // $data['room_types'] = 
+        //         DB::select('SELECT id_roomType, roomType_name
+        //                     FROM room_types');    
+
+        $rooms = Room::
+                        // leftJoin('bidangs as b', 'b.id_bidang', '=', 'rooms.room_owner')
+                        with('bidang')
+                        ->with('usertype')
+                        // ->orderBy('b.id_bidang', 'asc')
+                        ->orderBy('room_name', 'asc')
+                        ->get();
+
+        $bidangs = Bidang::get();
+
+        $user_types = User_type::get();
         
-        return view('pages.rooms.table', $data);    
+        return view('pages.rooms.table')->with('rooms', $rooms)->with('bidangs', $bidangs)->with('user_types', $user_types);    
     }
 
     /**
@@ -101,13 +113,22 @@ class RoomController extends Controller
      */
     public function update(Request $request)
     {
-        DB::update("UPDATE rooms 
-                    SET room_name = '$request->room_name',
-                        room_owner = '$request->room_owner',
-                        room_type = '$request->room_type',
-                        room_floor = '$request->room_floor',
-                        room_capacity = '$request->room_capacity' 
-                    WHERE id_room = '$request->id_room' ");
+        // DB::update("UPDATE rooms 
+        //             SET room_name = '$request->room_name',
+        //                 room_owner = '$request->room_owner',
+        //                 room_type = '$request->room_type',
+        //                 room_floor = '$request->room_floor',
+        //                 room_capacity = '$request->room_capacity' 
+        //             WHERE id_room = '$request->id_room' ");
+
+        $room = Room::find($request->id_room);
+        $room->room_name = $request->room_name;
+        $room->room_owner = $request->room_owner;
+        $room->room_type = $request->room_type;
+        $room->room_floor = $request->room_floor;
+        $room->room_capacity = $request->room_capacity;
+        $room->save();
+
         return redirect('ruang')->with('message', 'Berhasil melakukan perubahan data');
     }
 
@@ -119,7 +140,7 @@ class RoomController extends Controller
      */
     public function delete($id)
     {
-        $room = Room::where('id_room', $id);
+        $room = Room::find($id);
         if($room->delete()) {
             return redirect('ruang')->with('message', 'Data berhasil dihapus');
         } else {

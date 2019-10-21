@@ -46,7 +46,7 @@
                     <td>{{ $data->room_capacity }}</td>
 	                  <td>
 	                  	<div class="btn-group">
-	                  		<button class="btn btn-warning" data-toggle="modal" data-target="#modal-update" onclick="myFunction('{{$data->id_room}}', '{{$data->room_name}}', '{{$data->id_bidang}}', '{{$data->id_roomType}}', '{{$data->room_floor}}', '{{$data->room_capacity}}')">
+	                  		<button class="btn btn-warning" data-toggle="modal" data-target="#modal-update" onclick="myFunction('{{$data->id_room}}', '{{$data->room_name}}', '{{$data->bidang->id_bidang}}', '{{$data->roomtype->id_roomType}}', '{{$data->room_floor}}', '{{$data->room_capacity}}')">
 	                  			<i class="fa fa-edit"></i>
 	                  		</button>
 	                  		<button class="btn btn-danger" data-toggle="modal" data-target="#deleteRoom{{$key}}">

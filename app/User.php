@@ -21,6 +21,16 @@ class User extends Authenticatable
     protected $fillable = [
         'id_user', 'nrk', 'nip', 'username', 'password', 'name', 'email', 'user_status', 'user_bidang', 'remember_token', 'created_at', 'updated_at', 'soft_delete'
     ];
+
+    public function bidang()
+    {
+        return $this->hasOne('App\Bidang','id_bidang','user_bidang');
+    }
+
+    public function usertype()
+    {
+        return $this->hasOne('App\User_type','id_userType','user_status');
+    }
     
     // protected $fillable = [
     //     'name', 'email', 'password',

@@ -19,10 +19,12 @@ class RoomTypeController extends Controller
      */
     public function index()
     {
-        $data['room_types'] = 
-                DB::select('SELECT * 
-                            FROM room_types');
-        return view('pages.roomtypes.table', $data);
+        // $data['room_types'] = 
+        //         DB::select('SELECT * 
+        //                     FROM room_types');
+
+        $room_types = Room_type::get();
+        return view('pages.roomtypes.table')->with('room_types', $room_types);
     }
 
     /**
@@ -82,10 +84,15 @@ class RoomTypeController extends Controller
      */
     public function update(Request $request)
     {
-        DB::update("UPDATE room_types 
-                    SET roomType_name = '$request->roomType_name',
-                        roomType_ket = '$request->roomType_ket' 
-                    WHERE id_roomType = '$request->id_roomType' ");
+        // DB::update("UPDATE room_types 
+        //             SET roomType_name = '$request->roomType_name',
+        //                 roomType_ket = '$request->roomType_ket' 
+        //             WHERE id_roomType = '$request->id_roomType' ");
+
+        $room_type = Room_type::find($request->id_roomType);
+        $room_type->roomType_name = $request->roomType_name;
+        $room_type->roomType_ket = $request->roomType_ket;
+        $room_type->save();
         return redirect('tipe_ruang')->with('message', 'Berhasil melakukan perubahan data');
     }
 
@@ -97,7 +104,7 @@ class RoomTypeController extends Controller
      */
     public function delete($id)
     {
-        $room_type = Room_type::where('id_roomType', $id);
+        $room_type = Room_type::find($id);
         if($room_type->delete()) {
             return redirect('tipe_ruang')->with('message', 'Data berhasil dihapus');
         } else {

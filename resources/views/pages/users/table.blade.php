@@ -29,21 +29,26 @@
 								</thead>
 								<tbody>
 									<?php foreach($users as $key => $data) { ?>
+									<?php if(!(isset($data->bidang->bidang_name))) { 
+										$id_bidang = NULL;
+									} else {
+										$id_bidang = $data->bidang->id_bidang;
+									}?>
 									<tr>
 										<td>{{ $key + 1 }}</td>
 										<td>{{ $data->username }}</td>
 										<td>{{ ucwords($data->name) }}</td>
 
-										<?php if (is_null($data->bidang_name)) { ?>
+										<?php if (!(isset($data->bidang->bidang_name))) { ?>
 											<td> - </td>
 										<?php } else { ?>
-											<td> {{ $data->bidang_name }} </td>
+											<td> {{ $data->bidang->bidang_name }} </td>
 										<?php } ?>
 
-										<td>{{ $data->userType_name }}</td>
+										<td>{{ $data->usertype->userType_name }}</td>
 										<td>
 											<div class="btn-group">
-												<button class="btn btn-warning btn_modal_update_user" data-toggle="modal" data-target="#modal-update" onclick="myFunction('{{$data->id_user}}', '{{$data->name}}', '{{$data->nrk}}', '{{$data->nip}}', '{{$data->username}}', '{{$data->email}}', '{{$data->id_userType}}', '{{$data->id_bidang}}')">
+												<button class="btn btn-warning btn_modal_update_user" data-toggle="modal" data-target="#modal-update" onclick="myFunction('{{$data->id_user}}', '{{$data->name}}', '{{$data->nrk}}', '{{$data->nip}}', '{{$data->username}}', '{{$data->email}}', '{{$data->usertype->id_userType}}', '{{$id_bidang}}')">
 													<i class="fa fa-edit"></i>
 												</button>
 												<button class="btn btn-danger"  data-toggle="modal" data-target="#deleteUser{{$key}}">
@@ -188,6 +193,7 @@
 				document.getElementById("modal_update_user_email").value = email;
 				document.getElementById("modal_update_user_status").value = id_userType;
 				document.getElementById("modal_update_user_bidang").value = id_bidang;
+				console.log(id_bidang);
 			}
 		</script>
 

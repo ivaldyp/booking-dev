@@ -18,10 +18,12 @@ class BookingStatusController extends Controller
      */
     public function index()
     {
-        $data['status'] = 
-                DB::select('SELECT *
-                            FROM booking_statuses');
-        return view('pages.book_status.table', $data);
+        // $data['status'] = 
+        //         DB::select('SELECT *
+        //                     FROM booking_statuses');
+
+        $status = Booking_Status::get();
+        return view('pages.book_status.table')->with('status', $status);
     }
 
     /**

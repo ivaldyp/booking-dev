@@ -37,7 +37,10 @@
                 	<?php foreach($times as $key => $data) { ?>
 	                <tr>
 	                  <td>{{ $key + 1 }}</td>
-	                  <td>{{ $data->time_name }}</td>
+                    <?php
+                      $time1 = explode(":", explode(" ", $data->time_name)[1]);
+                    ?>
+	                  <td>{{ $time1[0] . ":" . $time1[1] }}</td>
 	                  <td>{{ $data->created_at }}</td>
 	                  <td>{{ $data->updated_at }}</td>
 	                  <td>
@@ -154,9 +157,11 @@
 
     $('.btn_modal_update_time').click(function() {
       var data = (this.id).split('||');
+      var time_full = data[1].split(" ");
+      var time = time_full[1].split(":");
       
       $("#modal_update_id_time").val(data[0]);
-      $("#modal_update_time").append("<div class='form-group'><label for='time_name' class='col-lg-2 control-label'> Waktu </label><div class='col-lg-8'><input type='time' name='time_name' id='time_name' class='form-control' value='"+data[1]+"'></div> </div>");
+      $("#modal_update_time").append("<div class='form-group'><label for='time_name' class='col-lg-2 control-label'> Waktu </label><div class='col-lg-8'><input type='time' name='time_name' id='time_name' class='form-control' value='"+time[0] +":"+ time[1]+"'></div> </div>");
     });
 
     $("#modal-update").on("hidden.bs.modal", function () {

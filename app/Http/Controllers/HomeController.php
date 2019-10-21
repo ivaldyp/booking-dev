@@ -77,14 +77,15 @@ class HomeController extends Controller
                 INNER JOIN rooms r ON r.id_room = b.booking_room
                 WHERE b.soft_delete = 0
                 AND b.booking_status = 3');
+        return $data;
 
-        // $data['bookings'] = Booking::with('surat')
+        // $bookings = Booking::with('surat')
         //                     ->with('time1')
         //                     ->with('time2')
         //                     ->with('room')
         //                     ->where('soft_delete', false)
         //                     ->where('booking_status', 3)
         //                     ->get();
-        return $data;
+        // return with('bookings', $bookings);
     }
 }

@@ -19,10 +19,12 @@ class UserTypeController extends Controller
     public function index()
     {
         // $user_status = Session::get('user_status');
-        $data['user_status'] = 
-                DB::select('SELECT *
-                            FROM user_types');
-        return view('pages.roles.table', $data);
+        // $data['user_status'] = 
+        //         DB::select('SELECT *
+        //                     FROM user_types');
+
+        $user_status = User_type::get();
+        return view('pages.roles.table')->with('user_status', $user_status);
     }
 
     /**
@@ -145,14 +147,24 @@ class UserTypeController extends Controller
             $can_bookFood = 1;
         }
 
-        DB::update("UPDATE user_types 
-                    SET userType_name = '$request->userType_name',
-                        can_editUser = '$can_editUser',
-                        can_editRoom = '$can_editRoom',
-                        can_bookRoom = '$can_bookRoom',
-                        can_approve = '$can_approve',
-                        can_bookFood = '$can_bookFood'
-                    WHERE id_userType = '$request->id_userType' ");
+        // DB::update("UPDATE user_types 
+        //             SET userType_name = '$request->userType_name',
+        //                 can_editUser = '$can_editUser',
+        //                 can_editRoom = '$can_editRoom',
+        //                 can_bookRoom = '$can_bookRoom',
+        //                 can_approve = '$can_approve',
+        //                 can_bookFood = '$can_bookFood'
+        //             WHERE id_userType = '$request->id_userType' ");
+
+        $status = User_type::find($request->id_userType);
+        $status->userType_name = $request->userType_name;
+        $status->can_editUser = $can_editUser;
+        $status->can_editRoom = $can_editRoom;
+        $status->can_bookRoom = $can_bookRoom;
+        $status->can_approve = $can_approve;
+        $status->can_bookFood = $can_bookFood;
+        $status->save();
+
         return redirect('roles')->with('message', 'Berhasil melakukan perubahan data bidang');
     }
 
@@ -164,7 +176,7 @@ class UserTypeController extends Controller
      */
     public function delete($id)
     {
-        $user_type = User_type::where('id_userType', $id);
+        $user_type = User_type::find($id);
         if($user_type->delete()) {
             return redirect('roles')->with('message', 'Data berhasil dihapus');
         } else {

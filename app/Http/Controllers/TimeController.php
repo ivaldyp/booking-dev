@@ -18,11 +18,14 @@ class TimeController extends Controller
      */
     public function index()
     {
-        $data['times'] = 
-                DB::select('SELECT id_time, DATE_FORMAT(time_name, "%H:%i") as time_name, created_at, updated_at
-                            FROM times
-                            ORDER BY time_name ASC');
-        return view('pages.times.table', $data);    
+        // $data['times'] = 
+        //         DB::select('SELECT id_time, DATE_FORMAT(time_name, "%H:%i") as time_name, created_at, updated_at
+        //                     FROM times
+        //                     ORDER BY time_name ASC');
+        
+        $times = Time::orderBy('time_name', 'asc')
+                        ->get();
+        return view('pages.times.table')->with('times', $times);    
     }
 
     /**
@@ -85,9 +88,13 @@ class TimeController extends Controller
      */
     public function update(Request $request)
     {
+        // DB::update("UPDATE times SET time_name = '$time_name' 
+        //             WHERE id_time = '$request->id_time' ");
+
         $time_name = date('Y-m-d') . " " . $request->time_name;
-        DB::update("UPDATE times SET time_name = '$time_name' 
-                    WHERE id_time = '$request->id_time' ");
+        $time = Time::find($request->id_time);
+        $time->time_name = $time_name;
+        $time->save();
         return redirect('time')->with('message', 'Berhasil melakukan perubahan data waktu');
     }
 

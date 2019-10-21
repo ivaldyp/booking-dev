@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Bidang;
+use App\User_type;
 
 class LoadRegisterController extends Controller
 {
@@ -26,6 +28,9 @@ class LoadRegisterController extends Controller
         // }
         // var_dump($data['bidangs']); 
         // die();
-        return view('auth.register', $data);
+
+        $bidangs = Bidang::get();
+        $user_types = User_type::get();
+        return view('auth.register')->with('bidangs', $bidangs)->with('user_types', $user_types);
     }
 }
