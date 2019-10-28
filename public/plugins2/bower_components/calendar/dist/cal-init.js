@@ -152,23 +152,39 @@
 
         var datas;
         $.ajax({
-            url: "/home/read",
+            url: "/booking-dev/home/read",
             type: "get",
             success: function(data){
-                datas = data.bookings;
 
-                for(var i=0; i<datas.length; i++)
+                for(var i=0; i<data.length; i++)
                 {
+                    var safeColors = ['#800000','#ffa500','#808000','#800080','#008000','#000080','#008080','#808080','#3a87ad'];
+                    var rand = function() {
+                        return Math.floor(Math.random()*6);
+                    };
+                    var randomColor = function() {
+                        var colorrand = safeColors[rand()];
+                        return colorrand;
+                    };
+
+                    var booking_date2 = data[i].booking_date.split("-");
+
+                    var time1 = data[i].time1.time_name.split(" ");
+                    var time_start = time1[1].split(":");
+
+                    var time2 = data[i].time2.time_name.split(" ");
+                    var time_end = time2[1].split(":");
 
                     var newEvent = {
-                        title: datas[i].surat_judul,
-                        start: (datas[i].booking_date + " " + datas[i].time_start),
-                        end: (datas[i].booking_date + " " + datas[i].time_end),
-                        detail: datas[i].surat_deskripsi,
-                        book_date: datas[i].booking_date2,
-                        time_start: datas[i].time_start,
-                        time_end: datas[i].time_end,
-                        room_name: datas[i].room_name
+                        title: data[i].surat.surat_judul + "\n" + data[i].room.room_name + "\n\n" + data[i].surat.surat_deskripsi  ,
+                        start: (data[i].booking_date + " " + time_start[0] + ":" + time_start[1]),
+                        end: (data[i].booking_date + " " + time_end[0] + ":" + time_end[1]),
+                        detail: data[i].surat.surat_deskripsi,
+                        book_date: booking_date2[2] + booking_date2[1] + booking_date2[0],
+                        time_start: time_start[0] + ":" + time_start[1],
+                        time_end: time_end[0] + ":" + time_end[1],
+                        room_name: data[i].room.room_name,
+                        color: randomColor()
                     };
                     $('#calendar').fullCalendar( 'renderEvent', newEvent , 'stick');    
                 }
