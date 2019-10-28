@@ -7,21 +7,21 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ ('/booking-dev/public/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="{{ ('/booking-dev/public/bower_components/font-awesome/css/font-awesome.min.css') }}">
   <!-- X-editable -->
-  <link href="{{ asset('bootstrap-editable/css/bootstrap-editable.css') }}" rel="stylesheet">
+  <link href="{{ ('/booking-dev/public/bootstrap-editable/css/bootstrap-editable.css') }}" rel="stylesheet">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="{{ asset('bower_components/Ionicons/css/ionicons.min.css') }}">
+  <link rel="stylesheet" href="{{ ('/booking-dev/public/bower_components/Ionicons/css/ionicons.min.css') }}">
   <!-- bootstrap datepicker -->
-  <link rel="stylesheet" href="{{ asset('plugins/datepicker/datepicker3.css') }}">
+  <link rel="stylesheet" href="{{ ('/booking-dev/public/plugins/datepicker/datepicker3.css') }}">
    <!-- DataTables -->
-  <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ ('/booking-dev/public/plugins/datatables/dataTables.bootstrap.css') }}">
   <!-- jvectormap -->
-  <link rel="stylesheet" href="{{ asset('bower_components/jvectormap/jquery-jvectormap.css') }}">
+  <link rel="stylesheet" href="{{ ('/booking-dev/public/bower_components/jvectormap/jquery-jvectormap.css') }}">
   <!-- Calendar CSS -->
-  <link rel="stylesheet" href="{{ asset('plugins2/bower_components/calendar/dist/fullcalendar.css') }}" />
+  <link rel="stylesheet" href="{{ ('/booking-dev/public/plugins2/bower_components/calendar/dist/fullcalendar.css') }}" />
   <!-- fullCalendar 2.2.5-->
   <!-- <link rel="stylesheet" href="{{ asset('plugins/fullcalendar/fullcalendar.min.css') }}">
   <link rel="stylesheet" href="{{ asset('plugins/fullcalendar/fullcalendar.print.css') }}" media="print"> -->
@@ -29,12 +29,12 @@
   <!-- <link rel="stylesheet" href="{{ asset('bower_components/fullcalendar/dist/fullcalendar.min.css') }}">
   <link rel="stylesheet" href="{{ asset('bower_components/fullcalendar/dist/fullcalendar.print.min.css') }}" media="print"> -->
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.min.css') }}">
+  <link rel="stylesheet" href="{{ ('/booking-dev/public/dist/css/AdminLTE.min.css') }}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="{{ asset('dist/css/skins/_all-skins.min.css') }}">
+  <link rel="stylesheet" href="{{ ('/booking-dev/public/dist/css/skins/_all-skins.min.css') }}">
   <!-- jQuery 3.1.1 -->
-  <script src="{{ asset('plugins/jQuery/jquery-3.1.1.min.js') }}"></script>
+  <script src="{{ ('/booking-dev/public/plugins/jQuery/jquery-3.1.1.min.js') }}"></script>
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -81,13 +81,13 @@
             </li> -->
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
+                <img src="{{ ('/booking-dev/public/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
                 <span class="hidden-xs"><?php echo ucwords(Auth::user()->username); ?></span>
               </a>
               <ul class="dropdown-menu">
                 <!-- User image -->
                 <li class="user-header">
-                  <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                  <img src="{{ ('/booking-dev/public/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
 
                   <p>
                     <?php echo ucwords(Auth::user()->name); ?>
@@ -130,7 +130,7 @@
       <?php if (Auth::check()) { ?>
         <div class="user-panel">
           <div class="pull-left image">
-            <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+            <img src="{{ ('/booking-dev/public/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
             <p><?php echo ucwords(Auth::user()->name); ?></p>
@@ -422,46 +422,46 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 3.1.1 -->
-<script src="{{ asset('plugins/jQuery/jquery-3.1.1.min.js') }}"></script>
+<script src="{{ ('/booking-dev/public/plugins/jQuery/jquery-3.1.1.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script><!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.7 -->
-<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ ('/booking-dev/public/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- X-editable -->
-<script src="{{ asset('bootstrap-editable/js/bootstrap-editable.js') }}"></script>
+<script src="{{ ('/booking-dev/public/bootstrap-editable/js/bootstrap-editable.js') }}"></script>
 <!-- DataTables -->
-<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ ('/booking-dev/public/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ ('/booking-dev/public/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 <!-- bootstrap datepicker -->
-<script src="{{ asset('plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+<script src="{{ ('/booking-dev/public/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
 <!-- FastClick -->
-<script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
+<script src="{{ ('/booking-dev/public/bower_components/fastclick/lib/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
-<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+<script src="{{ ('/booking-dev/public/dist/js/adminlte.min.js') }}"></script>
 <!-- Sparkline -->
-<script src="{{ asset('bower_components/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
+<script src="{{ ('/booking-dev/public/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
 <!-- jvectormap  -->
-<script src="{{ asset('plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-<script src="{{ asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+<script src="{{ ('/booking-dev/public/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+<script src="{{ ('/booking-dev/public/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
 <!-- SlimScroll -->
-<script src="{{ asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+<script src="{{ ('/booking-dev/public/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <!-- FastClick -->
-<script src="{{ asset('plugins/fastclick/fastclick.js') }}"></script>
+<script src="{{ ('/booking-dev/public/plugins/fastclick/fastclick.js') }}"></script>
 <!-- ChartJS -->
-<script src="{{ asset('bower_components/chart.js/Chart.js') }}"></script>
+<script src="{{ ('/booking-dev/public/bower_components/chart.js/Chart.js') }}"></script>
 <!-- fullCalendar 2.2.5 -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="{{ asset('plugins/fullcalendar/fullcalendar.min.js') }}"></script> -->
+<script src="{{ ('plugins/fullcalendar/fullcalendar.min.js') }}"></script> -->
 
 <!-- Calendar JavaScript -->
-<!-- <script src="{{ asset('plugins2/bower_components/calendar/jquery-ui.min.js') }}"></script> -->
-<script src="{{ asset('plugins2/bower_components/moment/moment.js') }}"></script>
-<script src="{{ asset('plugins2/bower_components/calendar/dist/fullcalendar.min.js') }}"></script>
-<script src="{{ asset('plugins2/bower_components/calendar/dist/jquery.fullcalendar.js') }}"></script>
-<!-- <script src="{{ asset('plugins2/bower_components/calendar/dist/cal-init.js') }}"></script> -->
+<!-- <script src="{{ ('plugins2/bower_components/calendar/jquery-ui.min.js') }}"></script> -->
+<script src="{{ ('/booking-dev/public/plugins2/bower_components/moment/moment.js') }}"></script>
+<script src="{{ ('/booking-dev/public/plugins2/bower_components/calendar/dist/fullcalendar.min.js') }}"></script>
+<script src="{{ ('/booking-dev/public/plugins2/bower_components/calendar/dist/jquery.fullcalendar.js') }}"></script>
+<!-- <script src="{{ ('plugins2/bower_components/calendar/dist/cal-init.js') }}"></script> -->
 
 @yield('cal-init')
 
