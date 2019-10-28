@@ -367,7 +367,7 @@ class BookingController extends Controller
         if ($file->getSize() > 2222222) {
             return redirect('/booking/form')->with('message', 'Ukuran file terlalu besar (Maksimal 2MB)');     
         } 
-        if ($file->getClientOriginalExtension() != "pdf") {
+        if ($file->getClientOriginalExtension() != "pdf" && $file->getClientOriginalExtension() != "png" && $file->getClientOriginalExtension() != "jpg" && $file->getClientOriginalExtension() != "jpeg") {
             return redirect('/booking/form')->with('message', 'File yang diunggah bukan berbentuk PDF');     
         } 
 
