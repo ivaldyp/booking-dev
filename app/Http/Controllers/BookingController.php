@@ -390,6 +390,11 @@ class BookingController extends Controller
         $surat->file_name = $file_name;
         $surat->file_fullpath = $tujuan_upload.'\\'.$file_name;
 
+        // echo "<pre>";
+        var_dump($surat->file_name);        
+        var_dump($surat->file_fullpath);
+        // die();
+
         if ($surat->save()) {
             $booking->id_booking = $request->id_booking;
             $booking->id_surat = $request->id_surat;

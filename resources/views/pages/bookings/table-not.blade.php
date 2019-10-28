@@ -95,11 +95,11 @@
 								<form method="POST" action="updateStatus" class="form-horizontal">
 								@csrf
 									<div class="modal-body">
-										<input type="text" name="id_booking" id="modal_id_booking">
-										<input type="text" name="booking_date" id="modal_booking_date">
-										<input type="text" name="time_start" id="modal_time_start">
-										<input type="text" name="time_end" id="modal_time_end">
-										<input type="text" name="booking_room" id="modal_booking_room">
+										<input type="hidden" name="id_booking" id="modal_id_booking">
+										<input type="hidden" name="booking_date" id="modal_booking_date">
+										<input type="hidden" name="time_start" id="modal_time_start">
+										<input type="hidden" name="time_end" id="modal_time_end">
+										<input type="hidden" name="booking_room" id="modal_booking_room">
 
 										<div class="form-group">
 											<label for="booking_status" class="col-lg-2 control-label"> Ubah Status </label>
