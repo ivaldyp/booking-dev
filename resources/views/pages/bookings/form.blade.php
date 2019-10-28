@@ -14,7 +14,7 @@
       </div>
       <div class="row">
         <div class="col-lg-2"></div>
-        <div class="col-lg-8">
+        <div class="col-lg-9">
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Form Booking Baru</h3>
@@ -31,21 +31,21 @@
                 <div class="form-group">
                   <label for="nip_peminjam" class="col-lg-2 control-label"> NIP </label>
                   <div class="col-lg-8">
-                    <input type="number" class="form-control" id="nip_peminjam" name="nip_peminjam" autocomplete="off" required>
+                    <input type="number" class="form-control" id="nip_peminjam" name="nip_peminjam" autocomplete="off">
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="nama_peminjam" class="col-lg-2 control-label"> Nama Peminjam </label>
+                  <label for="nama_peminjam" class="col-lg-2 control-label"><span style="color: red">*</span> Nama Peminjam </label>
                   <div class="col-lg-8">
                     <input type="text" class="form-control" id="nama_peminjam" name="nama_peminjam" autocomplete="off" required>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="bidang_peminjam" class="col-lg-2 control-label"> Bidang Peminjam </label>
+                  <label for="bidang_peminjam" class="col-lg-2 control-label"><span style="color: red">*</span> Bidang Peminjam </label>
                   <div class="col-lg-8">
-                    <select class="form-control" name="bidang_peminjam" id="bidang_peminjam">
+                    <select class="form-control" name="bidang_peminjam" id="bidang_peminjam" required>
                       <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Bidang --</option>
                       <?php foreach ($bidangs as $data) { ?>
                         <option value="{{ $data->id_bidang }}">{{ $data->bidang_name }}</option>
@@ -55,9 +55,9 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="booking_room" class="col-lg-2 control-label"> Ruang Rapat </label>
+                  <label for="booking_room" class="col-lg-2 control-label"><span style="color: red">*</span> Ruang Rapat </label>
                   <div class="col-lg-8">
-                    <select class="form-control" name="booking_room" id="booking_room">
+                    <select class="form-control" name="booking_room" id="booking_room" required>
                       <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
                       <?php foreach ($rooms as $data) { ?>
                         <option value="{{ $data->id_room }}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option>
@@ -69,33 +69,33 @@
                 <div class="form-group">
                   <label for="booking_total_tamu" class="col-lg-2 control-label"> Jumlah Peserta </label>
                   <div class="col-lg-4">
-                    <input type="number" class="form-control" id="booking_total_tamu" name="booking_total_tamu" autocomplete="off" required>
+                    <input type="number" class="form-control" id="booking_total_tamu" name="booking_total_tamu" autocomplete="off">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="booking_total_snack" class="col-lg-2 control-label"> Jumlah Snack </label>
                   <div class="col-lg-4">
-                    <input type="number" class="form-control" id="booking_total_snack" name="booking_total_snack" autocomplete="off" required>
+                    <input type="number" class="form-control" id="booking_total_snack" name="booking_total_snack" autocomplete="off">
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="booking_date" class="col-lg-2 control-label"> Tanggal </label>
+                  <label for="booking_date" class="col-lg-2 control-label"><span style="color: red">*</span> Tanggal </label>
                   <div class="col-lg-4">
                     <div class="input-group date">
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control pull-right booking_date" id="datepicker" name="booking_date" autocomplete="off">
+                      <input type="text" class="form-control pull-right booking_date" id="datepicker" name="booking_date" autocomplete="off" required>
                     </div>
                   </div>  
                 </div>
 
                 <div class="form-group">
-                  <label class="col-lg-2 control-label"> Jam Mulai </label>
+                  <label class="col-lg-2 control-label"><span style="color: red">*</span> Jam Mulai </label>
                   <div class="col-lg-4">
-                    <select class="form-control" name="time_start" id="time_start">
+                    <select class="form-control" name="time_start" id="time_start" required>
                       <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
                       <?php
                         // $i = 0;
@@ -119,9 +119,9 @@
                 </div> 
 
                 <div class="form-group">
-                  <label class="col-lg-2 control-label"> Jam Selesai </label>
+                  <label class="col-lg-2 control-label"><span style="color: red">*</span> Jam Selesai </label>
                   <div class="col-lg-4">
-                    <select class="form-control" name="time_end" id="time_end">
+                    <select class="form-control" name="time_end" id="time_end" required> 
                       <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
                       <?php foreach ($times as $data) { 
                         $time_name = explode(":", explode(" ", $data->time_name)[1]); ?>
@@ -132,7 +132,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="surat_judul" class="col-lg-2 control-label"> Judul Acara </label>
+                  <label for="surat_judul" class="col-lg-2 control-label"><span style="color: red">*</span> Judul Acara </label>
                   <div class="col-lg-8">
                     <input type="text" class="form-control" id="surat_judul" name="surat_judul" autocomplete="off">
                   </div>
@@ -146,9 +146,9 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="surat_file" class="col-lg-2 control-label"> Upload Surat </label>
+                  <label for="surat_file" class="col-lg-2 control-label"><span style="color: red">*</span> Upload Surat <br> <span style="font-size: 8px">Hanya berupa PDF, JPG, JPEG, dan PNG</span> </label>
                   <div class="col-lg-8">
-                    <input type="file" class="form-control" id="surat_file" name="surat_file">
+                    <input type="file" class="form-control" id="surat_file" name="surat_file" required>
                   </div>
                 </div>
 
