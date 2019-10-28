@@ -442,7 +442,7 @@ class BookingController extends Controller
         $back_link = explode("/", $actual_link);
         if ($back_link[2] == '127.0.0.1') {
             $array_key = 4;
-        } elseif ($back_link[2] == 'localhost') {
+        } elseif ($back_link[2] == 'localhost' || $back_link[2] == '10.10.96.226') {
             $array_key = 5;
         }
         if ($booking->save()){
