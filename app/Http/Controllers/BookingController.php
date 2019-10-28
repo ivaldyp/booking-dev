@@ -440,10 +440,14 @@ class BookingController extends Controller
 
         $actual_link = "{$_SERVER['HTTP_REFERER']}";
         $back_link = explode("/", $actual_link);
-
+        if ($back_link[2] == '127.0.0.1') {
+            $array_key = 4;
+        } elseif ($back_link[2] == 'localhost') {
+            $array_key = 5;
+        }
         if ($booking->save()){
             //kalau ubah status nya dari halaman "booking/"
-            if (array_key_exists(4, $back_link) == false) {
+            if (array_key_exists($array_key, $back_link) == false) {
                 if ($request->status_id == 1) {
                     if ($request->booking_status == 2) {
                         return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
@@ -453,7 +457,7 @@ class BookingController extends Controller
                 } elseif ($request->status_id == 3) {
                     return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
                 }
-            } elseif ($back_link[4] == 'not') {
+            } elseif (end($back_link) == 'not') {
                 if ($request->booking_status == 2) {
                     return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
                 } elseif ($request->booking_status == 3) {
@@ -500,13 +504,13 @@ class BookingController extends Controller
                     
                     return redirect('booking/done')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
                 }
-            } elseif ($back_link[4] == 'done') {
+            } elseif (end($back_link) == 'done') {
                 return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
             }
         } else {
-            if ($back_link[4] == 'not') {
+            if (end($back_link) == 'not') {
                 return redirect('booking/not')->with('message', 'Gagal melakukan perubahan terhadap status booking');
-            } elseif ($back_link[4] == 'done') {
+            } elseif (end($back_link) == 'done') {
                 return redirect('booking/done')->with('message', 'Gagal melakukan perubahan terhadap status booking');
             }
         }
