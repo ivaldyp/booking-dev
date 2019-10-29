@@ -19,7 +19,7 @@
             <div class="box-header with-border">
               <h3 class="box-title">Form Booking Baru</h3>
             </div>
-            <form class="form-horizontal" method="POST" action="store" enctype="multipart/form-data">
+            <form class="form-horizontal" method="POST" action="store" enctype="multipart/form-data" name="newbooking">
               @csrf
               <div class="box-body">
 
@@ -146,7 +146,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="surat_file" class="col-lg-2 control-label"><span style="color: red">*</span> Upload Surat <br> <span style="font-size: 8px">Hanya berupa PDF, JPG, JPEG, dan PNG</span> </label>
+                  <label for="surat_file" class="col-lg-2 control-label"><span style="color: red">*</span> Upload Surat <br> <span style="font-size: 10px">Hanya berupa PDF, JPG, JPEG, dan PNG</span> </label>
                   <div class="col-lg-8">
                     <input type="file" class="form-control" id="surat_file" name="surat_file" required>
                   </div>
@@ -263,6 +263,61 @@
         <div class="col-lg-2"></div>
       </div>
     </section>
+
+@endsection
+
+@section('formvalidation')
+
+<script language="javascript" type="text/javascript">
+  $(function() {
+    $('#surat_file').bind('change', function() {
+      var ext = $("#surat_file").val().split('.').pop();
+      if (ext != 'pdf' && ext != 'pdf' && ext != 'pdf' && ext != 'pdf') {
+        alert("File hanya boleh memiliki ekstensi PDF / JPG / JPEG / PNG");
+        $('#surat_file').val('');
+      }
+      if (this.files[0].size > 2100000) {
+        alert("Ukuran file tidak dapat melebihi 2MB");
+        $('#surat_file').val('');
+      }
+      //this.files[0].size gets the size of your file.
+      // alert(this.files[0].size);
+
+    });
+    $("form[name='newbooking']").validate({
+      rules: {
+        nama_peminjam: "required",
+        bidang_peminjam: "required",
+        booking_room: "required",
+        booking_date: "required",
+        time_start: "required",
+        time_end: "required",
+        surat_judul: "required",
+        surat_file: {
+          required: true,
+        },
+      },
+      highlight: function(element) {
+          $(element).css('background', '#ffdddd');
+      },
+      unhighlight: function(element) {
+        $(element).css('background', '#ffffff');
+      },
+      messages: {
+        nama_peminjam: "Masukkan Nama Peminjam",
+        bidang_peminjam: "Pilih Bidang",
+        booking_room: "Pilih Ruang Rapat",
+        booking_date: "Pilih Tanggal Rapat",
+        time_start: "Pilih Waktu Mulai",
+        time_end: "Pilih Waktu Selesai",
+        surat_judul: "Masukkan Nama Acara",
+        surat_file: {
+          required: "Unggah Surat",
+        },
+      }
+    });
+  });
+</script>
 
 @endsection
 

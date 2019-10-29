@@ -463,6 +463,12 @@
 <script src="{{ ('/booking-dev/public/plugins2/bower_components/calendar/dist/jquery.fullcalendar.js') }}"></script>
 <!-- <script src="{{ ('plugins2/bower_components/calendar/dist/cal-init.js') }}"></script> -->
 
+<!-- jquery validation -->
+<!-- <script src="{{ ('/booking-dev/public/js/jquery-validation2/dist/jquery.validate.min.js') }}"></script> -->
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+
 @yield('cal-init')
 
 <!-- @yield('calendar') -->
@@ -474,6 +480,8 @@
 @yield('datepicker')
   
 @yield('form_booking')
+
+@yield('formvalidation')
 
 @yield('inlineedit')
 <!-- External -->
