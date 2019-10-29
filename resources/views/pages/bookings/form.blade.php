@@ -31,7 +31,7 @@
                 <div class="form-group">
                   <label for="nip_peminjam" class="col-lg-2 control-label"> NIP </label>
                   <div class="col-lg-8">
-                    <input type="number" class="form-control" id="nip_peminjam" name="nip_peminjam" autocomplete="off">
+                    <input type="number" class="form-control" id="nip_peminjam" name="nip_peminjam" autocomplete="off" maxlength="18">
                   </div>
                 </div>
 
@@ -69,14 +69,14 @@
                 <div class="form-group">
                   <label for="booking_total_tamu" class="col-lg-2 control-label"> Jumlah Peserta </label>
                   <div class="col-lg-4">
-                    <input type="number" class="form-control" id="booking_total_tamu" name="booking_total_tamu" autocomplete="off">
+                    <input type="number" class="form-control" id="booking_total_tamu" name="booking_total_tamu" autocomplete="off" maxlength="3">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="booking_total_snack" class="col-lg-2 control-label"> Jumlah Snack </label>
                   <div class="col-lg-4">
-                    <input type="number" class="form-control" id="booking_total_snack" name="booking_total_snack" autocomplete="off">
+                    <input type="number" class="form-control" id="booking_total_snack" name="booking_total_snack" autocomplete="off" maxlength="3">
                   </div>
                 </div>
 
@@ -270,6 +270,36 @@
 
 <script language="javascript" type="text/javascript">
   $(function() {
+    $('#nip_peminjam').unbind('keyup change input paste').bind('keyup change input paste',function(e){
+      var $this = $(this);
+      var val = $this.val();
+      var valLength = val.length;
+      var maxCount = $this.attr('maxlength');
+      if(valLength>maxCount){
+          $this.val($this.val().substring(0,maxCount));
+      }
+    });
+
+    $('#booking_total_snack').unbind('keyup change input paste').bind('keyup change input paste',function(e){
+      var $this = $(this);
+      var val = $this.val();
+      var valLength = val.length;
+      var maxCount = $this.attr('maxlength');
+      if(valLength>maxCount){
+          $this.val($this.val().substring(0,maxCount));
+      }
+    });
+
+    $('#booking_total_tamu').unbind('keyup change input paste').bind('keyup change input paste',function(e){
+      var $this = $(this);
+      var val = $this.val();
+      var valLength = val.length;
+      var maxCount = $this.attr('maxlength');
+      if(valLength>maxCount){
+          $this.val($this.val().substring(0,maxCount));
+      }
+    });
+
     $('#surat_file').bind('change', function() {
       var ext = $("#surat_file").val().split('.').pop();
       if (ext != 'pdf' && ext != 'pdf' && ext != 'pdf' && ext != 'pdf') {
