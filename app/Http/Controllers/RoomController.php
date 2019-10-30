@@ -46,9 +46,9 @@ class RoomController extends Controller
 
         $bidangs = Bidang::get();
 
-        $user_types = User_type::get();
+        $room_types = Room_type::get();
         
-        return view('pages.rooms.table')->with('rooms', $rooms)->with('bidangs', $bidangs)->with('user_types', $user_types);    
+        return view('pages.rooms.table')->with('rooms', $rooms)->with('bidangs', $bidangs)->with('room_types', $room_types);    
     }
 
     /**
