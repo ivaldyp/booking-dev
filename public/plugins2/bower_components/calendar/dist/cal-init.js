@@ -176,7 +176,7 @@
                     var time_end = time2[1].split(":");
 
                     var newEvent = {
-                        title: data[i].surat.surat_judul + "\n" + data[i].room.room_name + "\n\n" + data[i].surat.surat_deskripsi  ,
+                        title: data[i].surat.surat_judul,
                         start: (data[i].booking_date + " " + time_start[0] + ":" + time_start[1]),
                         end: (data[i].booking_date + " " + time_end[0] + ":" + time_end[1]),
                         detail: data[i].surat.surat_deskripsi,

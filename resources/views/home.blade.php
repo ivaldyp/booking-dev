@@ -11,6 +11,11 @@
 				</div>
 			</div>
 			<div class="row">
+				<div class="col-xs-3">
+		      		<a href="{{ url('/') }}"><button class="btn btn-success" style="margin-bottom: 10px">Agenda View</button></a>
+		      	</div>
+			</div>
+			<div class="row">
 				<!-- /.col -->
 				<!-- <div class="col-md-2"></div> -->
 				<div class="col-md-12">

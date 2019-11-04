@@ -373,8 +373,8 @@ class BookingController extends Controller
 
         $file_name = uniqid(md5(time()))."~".date('dmY')."~".$file->getClientOriginalName();
 
-        $tujuan_upload = 'C:\Users\user\Documents\Upload';
-        // $tujuan_upload = 'C:\Users\Valdy\Documents\Upload';
+        // $tujuan_upload = 'C:\Users\user\Documents\Upload';
+        $tujuan_upload = 'C:\Users\Valdy\Documents\Upload';
 
         $origDate = $request->booking_date;
         $date = str_replace('/', '-', $origDate );

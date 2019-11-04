@@ -11,6 +11,11 @@
 				</div>
 			</div>
 			<div class="row">
+				<div class="col-xs-3">
+		      		<a href="{{ url('/home') }}"><button class="btn btn-success" style="margin-bottom: 10px">Month View</button></a>
+		      	</div>
+			</div>
+			<div class="row">
 				<!-- /.col -->
 				<!-- <div class="col-md-2"></div> -->
 				<div class="col-md-12">
