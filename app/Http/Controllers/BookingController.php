@@ -1,21 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
 
-// use Auth;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
-use App\Bidang;
-use App\Booking;
-use App\Booking_Status;
-use App\Room;
-use App\Surat;
-use App\Time;
-use App\User;
-use App\Http\Controllers\Controller;
 
 class BookingController extends Controller
 {
