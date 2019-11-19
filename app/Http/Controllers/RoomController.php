@@ -40,7 +40,7 @@ class RoomController extends Controller
                         // leftJoin('bidangs as b', 'b.id_bidang', '=', 'rooms.room_owner')
                         with('bidang')
                         ->with('roomtype')
-                        // ->orderBy('b.id_bidang', 'asc')
+                        ->orderBy('room_owner', 'asc')
                         ->orderBy('room_name', 'asc')
                         ->get();
 
@@ -127,7 +127,9 @@ class RoomController extends Controller
 
         $room = Room::find($request->id_room);
         $room->room_name = $request->room_name;
-        $room->room_owner = $request->room_owner;
+        $owners = explode("||", $request->room_owner);
+        $room->room_owner = $owners[0];
+        $room->room_subowner = $owners[1];
         $room->room_type = $request->room_type;
         $room->room_floor = $request->room_floor;
         $room->room_capacity = $request->room_capacity;

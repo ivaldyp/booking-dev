@@ -36,7 +36,14 @@
 	                </tr>
                 </thead>
                 <tbody>
-                	<?php foreach($rooms as $key => $data) { ?>
+                	<?php $bidangnow = 0; foreach($rooms as $key => $data) { 
+                    if ($bidangnow != $data->room_owner) {
+                      $bidangnow = $data->room_owner;
+                      echo "<tr>";
+                      echo "<td colspan=7><b>".$data->bidang->bidang_name."</b></td>";
+                      echo "</tr>";
+                    }
+                  ?>
 	                <tr>
 	                  <td>{{ $key + 1 }}</td>
 	                  <td>{{ ucwords($data->room_name) }}</td>
@@ -191,8 +198,14 @@
                       <label for="modal_update_room_owner" class="col-lg-2 control-label"> Pemilik Ruangan </label>
                       <div class="col-lg-8">
                         <select class="form-control" name="room_owner" id="modal_update_room_owner">
-                          <?php foreach ($bidangs as $data) { ?>
-                            <option value="{{ $data->id_bidang }}">{{ $data->bidang_name }}</option>
+                          <?php $bidangnow = 0; foreach ($bidangs as $data) { 
+                            if ($data->id_bidang != $id) {
+                              $id = $data->id_bidang; ?>
+                              <optgroup label="{{$data->bidang_name}}">
+                          <?php
+                            }
+                          ?>
+                            <option value="{{ $data->id_bidang }}||{{ $data->id_subbidang }}">{{ $data->subbidang_name }}</option>
                           <?php } ?>
                         </select>
                       </div>
@@ -257,7 +270,7 @@
 
 <script>
   $(function () {
-    $("#example1").DataTable();
+    // $("#example1").DataTable();
     // $('#example2').DataTable({
     //   "paging": true,
     //   "lengthChange": true,

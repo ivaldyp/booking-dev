@@ -100,7 +100,7 @@ class BookingsTableSeeder extends Seeder
                 'room_owner' => 4,
                 'room_subowner' => NULL,
                 'room_type' => "1",
-                'room_floor' => "74",
+                'room_floor' => "7",
                 'room_capacity' => "30",
             ], 
             [
