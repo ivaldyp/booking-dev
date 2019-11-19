@@ -159,7 +159,7 @@ class BookingsTableSeeder extends Seeder
                     'id_surat' => $id_surat,
                     'time_start' => 5,
                     'time_end' => 10,
-                    'booking_status' => 1,
+                    'booking_status' => 3,
                     'request_hapus' => 0
                 ], 
             ]);

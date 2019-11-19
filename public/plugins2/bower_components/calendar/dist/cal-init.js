@@ -176,11 +176,11 @@
                     var time_end = time2[1].split(":");
 
                     var newEvent = {
-                        title: data[i].surat.surat_judul,
+                        title: data[i].surat.surat_judul   ,
                         start: (data[i].booking_date + " " + time_start[0] + ":" + time_start[1]),
                         end: (data[i].booking_date + " " + time_end[0] + ":" + time_end[1]),
                         detail: data[i].surat.surat_deskripsi,
-                        book_date: booking_date2[2] + booking_date2[1] + booking_date2[0],
+                        book_date: booking_date2[2] + "-" + booking_date2[1] + "-" + booking_date2[0],
                         time_start: time_start[0] + ":" + time_start[1],
                         time_end: time_end[0] + ":" + time_end[1],
                         room_name: data[i].room.room_name,

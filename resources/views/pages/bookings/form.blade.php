@@ -23,9 +23,9 @@
               @csrf
               <div class="box-body">
 
-                <input type="hidden" name="id_booking" value="<?php echo md5(uniqid()); ?>">
+                <!-- <input type="hidden" name="id_booking" value="<?php echo md5(uniqid()); ?>"> -->
                 <input type="hidden" name="id_surat" value="<?php echo md5(uniqid()); ?>">
-                <input type="hidden" name="booking_status" value="1">
+                <!-- <input type="hidden" name="booking_status" value="1"> -->
                 <input type="hidden" name="request_hapus" value="0">
                 
                 <div class="form-group">
@@ -56,20 +56,42 @@
 
                 <div class="form-group">
                   <label for="booking_room" class="col-lg-2 control-label"><span style="color: red">*</span> Ruang Rapat </label>
-                  <div class="col-lg-8">
-                    <select class="form-control" name="booking_room" id="booking_room" required>
-                      <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
-                      <?php foreach ($rooms as $data) { ?>
-                        <option value="{{ $data->id_room }}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option>
-                      <?php } ?>
+                  <div class="col-lg-2">
+                    <select class="form-control" name="total_room" id="total_room" required >
+                      <option value="1"> 1 </option>
+                      <option value="2"> 2 </option>
+                      <option value="3"> 3 </option>
+                      <option value="4"> 4 </option>
                     </select>
                   </div>
+                  <!-- <div class="col-lg-8">
+                    <select class="form-control" name="booking_room[]" id="booking_room" required >
+                      <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
+                      <?php foreach ($rooms as $data) { ?>
+                        <option value="{{ $data->id_room }}" roomcap="{{$data->room_capacity}}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option>
+                      <?php } ?>
+                    </select>
+                  </div> -->
                 </div>
 
+                <div id="ruang-tambahan">
+                  <div class="form-group">
+                    <label for="booking_room" class="col-lg-2 control-label"></label>
+                    <div class="col-lg-8">
+                      <select class="form-control booking_room" name="booking_room[]" required >
+                        <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
+                        <?php foreach ($rooms as $data) { ?>
+                          <option value="{{ $data->id_room }}||{{ $data->room_owner }}||{{ $data->room_subowner }}" roomcap="{{$data->room_capacity}}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+    
                 <div class="form-group">
                   <label for="booking_total_tamu" class="col-lg-2 control-label"> Jumlah Peserta </label>
                   <div class="col-lg-4">
-                    <input type="number" class="form-control" id="booking_total_tamu" name="booking_total_tamu" autocomplete="off" maxlength="3">
+                    <input type="text" class="form-control" id="booking_total_tamu" name="booking_total_tamu" autocomplete="off" maxlength="3">
                   </div>
                 </div>
 
@@ -157,7 +179,12 @@
               <div class="box-footer">
                 <div class="col-lg-2"></div>
                 <div class="col-lg-8">
-                  <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-default" id="btn_form_booking_modal">
+                  <!-- <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-default" id="btn_form_booking_modal">
+                    Simpan
+                  </button> -->
+
+                  <!-- <button type="submit" class="btn btn-primary pull-right" id="btn_form_booking_modal"> -->
+                  <button type="submit" class="btn btn-primary pull-right">
                     Simpan
                   </button>
                 </div>
@@ -266,10 +293,44 @@
 
 @endsection
 
+@section('multipleselect')
+
+<script language="javascript" type="text/javascript">
+  $(function() {
+    $('#booking_room').multiselect({
+      selectAllValue:'multiselect-all',
+    });
+  });
+</script>
+
+@endsection
+
 @section('formvalidation')
 
 <script language="javascript" type="text/javascript">
   $(function() {
+
+    $("#total_room").change(function () {
+      $("#ruang-tambahan").empty();
+      for (var i = 0; i < $("#total_room").val(); i++) {
+        $("#ruang-tambahan").append('<div class="form-group"><label for="booking_room" class="col-lg-2 control-label"></label><div class="col-lg-8"><select class="form-control booking_room" name="booking_room[]" required ><option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option><?php foreach ($rooms as $data) { ?><option value="{{ $data->id_room }}||{{ $data->room_owner }}||{{ $data->room_subowner }}" roomcap="{{$data->room_capacity}}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option><?php } ?></select></div></div>');
+      }
+    });
+
+    //WARNING KALAU TAMU LEBIH BANYAK DARI KAPASITAS RUANG
+    $("#booking_total_tamu").on("keypress keyup blur",function (event) {    
+      $(this).val($(this).val().replace(/[^\d].+/, ""));
+      if ((event.which < 48 || event.which > 57)) {
+        event.preventDefault();
+      }
+    });
+    // var capacity = 100;
+    // $("#booking_room").change(function(){
+    //   capacity = $(this).children("option:selected").attr("roomcap");
+    // });
+
+    // ---------------------------------------------------------------------- //
+
     $('#nip_peminjam').unbind('keyup change input paste').bind('keyup change input paste',function(e){
       var $this = $(this);
       var val = $this.val();
@@ -374,8 +435,21 @@
 
 <script type="text/javascript" language="javascript">
   $(function () {
-    $("#time_start").change(function(){
 
+    // $('#booking_room').multiSelect({
+    //   afterSelect: function(values){
+    //     var res = values[0].split("||");
+    //     // alert("Select value: "+res[1]);
+    //   },
+    //   afterDeselect: function(values){
+    //     alert("Deselect value: "+values);
+    //   }
+    // });
+
+    var str = ""
+
+
+    $("#time_start").change(function(){
       var selectedtime = $(this).children("option:selected").val();
       for (var i = 1; i <= 22; i++) {
         var timend = '#timend'+i;
@@ -395,7 +469,19 @@
       }
       if ($("#booking_room option:selected").text().substr(0,2) != '--') {
         $("#modal-booking_room").append($("#booking_room option:selected").text());
+      }  
+      if ($("#booking_room option:selected").text().substr(0,2) != '--') {
+        $("#modal-booking_room").append($("#booking_room option:selected").text());
       }
+      // var selectedrooms = $(".booking_room :selected").val();
+      // $.each($(".booking_room :selected"), function( index, value ) {
+      //   alert( index + ": " + value );
+      // });
+      // console.log($(".booking_room :selected").val());    
+      // var items = [];
+      // $('#booking_room option:selected').each(function(){ items.push($(this).text()); });
+      // var result = $("#booking_room option:selected").val();
+      // console.log(result);
       $("#modal-booking_date").append($(".booking_date").val());
       if ($("#time_start option:selected").text().substr(0,2) != '--') {
         $("#modal-time_start").append($("#time_start option:selected").text());

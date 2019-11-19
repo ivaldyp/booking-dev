@@ -23,6 +23,9 @@ Route::get('/registeruser', 'LoadRegisterController@index');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home2', 'HomeController@index2')->name('home');
+Route::get('/home3', 'HomeController@index3')->name('home');
+Route::get('/home4', 'HomeController@index4')->name('home');
+Route::get('/home5', 'HomeController@index5')->name('home');
 Route::get('/home/read', 'HomeController@read');
 Route::get('/home/read2', 'HomeController@read2');
 
@@ -39,6 +42,7 @@ Route::group(['prefix' => 'booking'], function () {
 	Route::get('/done', 'BookingController@showBookDone');
 	Route::get('/cancel', 'BookingController@showBookCancel');
 	Route::get('/my-booking', 'BookingController@showBookMy');
+	Route::get('/bidang-lain', 'BookingController@showBookOthers');
 	Route::post('/confirm', 'BookingController@confirm');
 	Route::get('/download/{id}', 'BookingController@download');
 	Route::get('/form', 'BookingController@showForm');
@@ -51,6 +55,11 @@ Route::group(['prefix' => 'book_status'], function () {
 	Route::post('/store', 'BidangController@store');
 	Route::post('/update', 'BidangController@update');
 	Route::get('/delete/{id}', 'BidangController@delete');
+});
+
+Route::group(['prefix' => 'list'], function () {
+	Route::get('/bidang', 'ListController@getBidang');
+	Route::get('/ruang', 'ListController@getRuang');
 });
 
 Route::group(['prefix' => 'notulen'], function () {

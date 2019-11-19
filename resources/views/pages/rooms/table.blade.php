@@ -115,8 +115,13 @@
                       <div class="col-lg-8">
                         <select class="form-control" name="room_owner" id="room_owner">
                           <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Bidang --</option>
-                          <?php foreach ($bidangs as $data) { ?>
-                            <option value="{{ $data->id_bidang }}">{{ $data->bidang_name }}</option>
+                          <?php $id=0; foreach ($bidangs as $data) { 
+                            if ($data->id_bidang != $id) {
+                              $id = $data->id_bidang;
+                              echo "<optgroup label='$data->bidang_name'>";
+                            }
+                          ?>
+                            <option value="{{ $data->id_bidang }}||{{ $data->id_subbidang }}">{{ $data->subbidang_name }}</option>
                           <?php } ?>
                         </select>
                       </div>

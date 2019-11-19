@@ -35,7 +35,6 @@
                     <th>Jumlah Peserta</th>
                     <th class="col-lg-1">Waktu</th>
                     <th>File Surat</th>
-                    <!-- <th>Disetujui Oleh</th> -->
                     <th>Status Booking</th>
                     <!-- <th>Tanggal Dibuat</th> -->
                     <th>Aksi</th>
@@ -67,7 +66,6 @@
 
                     <?php $file_name = explode("~", $data->surat->file_name); ?>
                     <td><a href="{{ url('booking/download') }}/{{ $data->surat->id_surat }}"> {{ $file_name[2] }} </a></td>
-                    <!-- <td>{{ ucwords($data->user->name) }}</td> -->
                     <td bgcolor="#64de5d">
                       {{ $data->status->status_name }}
                     </td>
