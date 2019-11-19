@@ -21,14 +21,6 @@ class LoadRegisterController extends Controller
             DB::select('SELECT * 
                         FROM user_types');
 
-        // $bidang = json_encode($data['bidangs']);
-        // var_dump($bidang[3]);
-        // foreach ($data['bidangs'] as $bidang) {
-        //  echo $bidang->id_bidang;
-        // }
-        // var_dump($data['bidangs']); 
-        // die();
-
         $bidangs = Bidang::get();
         $user_types = User_type::get();
         return view('auth.register')->with('bidangs', $bidangs)->with('user_types', $user_types);

@@ -11,12 +11,6 @@ use App\Surat;
 
 class NotulenController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
     public function download($id)
     {
         $data = DB::select("SELECT * FROM surats WHERE id_surat = '$id' ");
@@ -55,7 +49,6 @@ class NotulenController extends Controller
     public function tambah($id)
     {
         $data['id_surat'] = $id;
-        //$data['surat_judul'] = DB::select("SELECT surat_judul FROM surats WHERE id_surat = '".$data['id_surat']."'");
         $data['surat_judul'] = Surat::where('id_surat', $data['id_surat'])->first();
         var_dump($data['surat_judul']);
         die();
@@ -64,8 +57,6 @@ class NotulenController extends Controller
  
     public function store(Request $request)
     {
-        // $surat = new Surat;
-
         $file = $request->notulen_file;
 
         if ($file->getSize() > 2222222) {
@@ -92,8 +83,6 @@ class NotulenController extends Controller
 
     public function storeHadir(Request $request)
     {
-        // $surat = new Surat;
-
         $file = $request->hadir_file;
 
         if ($file->getSize() > 2222222) {
@@ -119,9 +108,6 @@ class NotulenController extends Controller
 
     public function storePhoto(Request $request)
     {
-        // $surat = new Surat;
-        // var_dump($request->photo1_fullpath->getClientOriginalName()); die();
-
         $tujuan_upload = 'C:\\xampp\\htdocs\\booking-dev\\public\\images';
         $surat = Surat::find($request->id_surat);
 
@@ -178,66 +164,5 @@ class NotulenController extends Controller
         }
         $surat->save();
         return redirect('notulen')->with('message', 'Berhasil menyimpan foto');
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

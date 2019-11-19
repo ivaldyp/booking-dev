@@ -11,38 +11,12 @@ use App\User_type;
 
 class UserTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        // $user_status = Session::get('user_status');
-        // $data['user_status'] = 
-        //         DB::select('SELECT *
-        //                     FROM user_types');
-
         $user_status = User_type::get();
         return view('pages.roles.table')->with('user_status', $user_status);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         if (is_null($request->can_editUser)) {
@@ -86,35 +60,11 @@ class UserTypeController extends Controller
         return redirect('/roles')->with('message', 'Data Tipe Pengguna Baru berhasil ditambah');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
         if (is_null($request->can_editUser)) {
@@ -147,15 +97,6 @@ class UserTypeController extends Controller
             $can_bookFood = 1;
         }
 
-        // DB::update("UPDATE user_types 
-        //             SET userType_name = '$request->userType_name',
-        //                 can_editUser = '$can_editUser',
-        //                 can_editRoom = '$can_editRoom',
-        //                 can_bookRoom = '$can_bookRoom',
-        //                 can_approve = '$can_approve',
-        //                 can_bookFood = '$can_bookFood'
-        //             WHERE id_userType = '$request->id_userType' ");
-
         $status = User_type::find($request->id_userType);
         $status->userType_name = $request->userType_name;
         $status->can_editUser = $can_editUser;
@@ -168,12 +109,6 @@ class UserTypeController extends Controller
         return redirect('roles')->with('message', 'Berhasil melakukan perubahan data bidang');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function delete($id)
     {
         $user_type = User_type::find($id);

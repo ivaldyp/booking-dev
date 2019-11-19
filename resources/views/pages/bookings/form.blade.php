@@ -321,7 +321,6 @@
     $("#total_room").change(function () {
       $("#ruang-tambahan").empty();
       for (var i = 0; i < $("#total_room").val(); i++) {
-        // $("#ruang-tambahan").append('<div class="form-group"><label for="booking_room" class="col-lg-2 control-label"></label><div class="col-lg-8"><select class="form-control booking_room" name="booking_room[]" required ><option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option><?php foreach ($rooms as $data) { ?><option value="{{ $data->id_room }}||{{ $data->room_owner }}||{{ $data->room_subowner }}" roomcap="{{$data->room_capacity}}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option><?php } ?></select></div></div>');
         $("#ruang-tambahan").append('<div class="form-group"><label for="booking_room" class="col-lg-2 control-label"></label><div class="col-lg-8"><select class="form-control booking_room" name="booking_room[]" required ><option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option><?php foreach ($rooms as $data) { if ($data->room_owner != $bidang_now) { $bidang_now = $data->room_owner; ?><optgroup label="{{ $data->bidang_name }}"><?php } ?><option value="{{ $data->id_room }}||{{ $data->room_owner }}||{{ $data->room_subowner }}" roomcap="{{$data->room_capacity}}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option><?php } ?></select></div></div>');
       }
     });
