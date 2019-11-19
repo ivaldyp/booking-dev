@@ -13,6 +13,17 @@
     <link href="{{ ('/booking-dev/public/ampleplugins/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Menu CSS -->
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
+    <!--alerts CSS -->
+    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/sweetalert/sweetalert.css') }}" rel="stylesheet" type="text/css">
+    <!-- Page plugins css -->
+    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css') }}" rel="stylesheet">
+    <!-- Color picker plugins css -->
+    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery-asColorPicker-master/css/asColorPicker.css') }}" rel="stylesheet">
+    <!-- Date picker plugins css -->
+    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Daterange picker plugins css -->
+    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
     <!-- animation CSS -->
     <link href="{{ ('/booking-dev/public/ampleplugins/css/animate.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
@@ -59,13 +70,14 @@
                 <!-- Search input and Toggle icon -->
                 
                 <ul class="nav navbar-top-links navbar-right pull-right">
+                <?php if (Auth::check()) { ?>
                     <li class="dropdown">
-                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="{{ ('/booking-dev/public/ampleplugins/images/users/varun.jpg') }}" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Steave</b><span class="caret"></span> </a>
+                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="{{ ('/booking-dev/public/ampleplugins/images/users/varun.jpg') }}" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{Session::get('user_data')->name}}</b><span class="caret"></span> </a>
                         <ul class="dropdown-menu dropdown-user animated flipInY">
                             <li>
                                 <div class="dw-user-box">
                                     <div class="u-img"><img src="{{ ('/booking-dev/public/ampleplugins/images/users/varun.jpg') }}" alt="user" /></div>
-                                    <div class="u-text"><h4>Steave Jobs</h4><p class="text-muted">varun@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
+                                    <div class="u-text"><h4>{{Session::get('user_data')->name}}</h4><p class="text-muted">{{Session::get('user_data')->email}}</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>
@@ -75,11 +87,25 @@
                             <li role="separator" class="divider"></li>
                             <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                            <li>
+                                <a class="dropdown-item btn btn-danger btn-flat" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
                         </ul>
-                        <!-- /.dropdown-user -->
                     </li>
-                    <!-- /.dropdown -->
+                <?php } else { ?>
+                    <li class="dropdown tasks-menu" style="background-color: green">
+                        <a href="{{ url('login') }}" class="nav-link">
+                            Login
+                        </a>
+                    </li>
+                <?php } ?>                  
                 </ul>
             </div>
             <!-- /.navbar-header -->
@@ -96,22 +122,20 @@
                     <h3><span class="fa-fw open-close"><i class="ti-menu hidden-xs"></i><i class="ti-close visible-xs"></i></span> <span class="hide-menu">Menu</span></h3> 
                 </div>
                 <ul class="nav" id="side-menu">
-                    <!-- <li class="user-pro">
-                        <a href="#" class="waves-effect"><img src="../plugins/images/users/varun.jpg" alt="user-img" class="img-circle"> <span class="hide-menu"> Steve Gection<span class="fa arrow"></span></span>
-                        </a>
-                        <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
-                            <li><a href="javascript:void(0)"><i class="ti-user"></i> <span class="hide-menu">My Profile</span></a></li>
-                            <li><a href="javascript:void(0)"><i class="ti-wallet"></i> <span class="hide-menu">My Balance</span></a></li>
-                            <li><a href="javascript:void(0)"><i class="ti-email"></i> <span class="hide-menu">Inbox</span></a></li>
-                            <li><a href="javascript:void(0)"><i class="ti-settings"></i> <span class="hide-menu">Account Setting</span></a></li>
-                            <li><a href="javascript:void(0)"><i class="fa fa-power-off"></i> <span class="hide-menu">Logout</span></a></li>
-                        </ul>
-                    </li> -->
-                    <li> <a href="index.html" class="waves-effect"><i class="mdi mdi-av-timer fa-fw" data-icon="v"></i> <span class="hide-menu"> Dashboard <span class="fa arrow"></span> <span class="label label-rouded label-inverse pull-right">4</span></span></a>
+                    <li> <a href="#" class="waves-effect"><i class="mdi mdi-home fa-fw" data-icon="v"></i> <span class="hide-menu"> Home <span class="fa arrow"></span></span></a>
                         <ul class="nav nav-second-level">
-                            <li> <a href="index.html"><i class=" fa-fw">1</i><span class="hide-menu">Dashboard 1</span></a> </li>
-                            <li> <a href="index2.html"><i class=" fa-fw">2</i><span class="hide-menu">Dashboard 2</span></a> </li>
-                            <li> <a href="index3.html"><i class=" fa-fw">3</i><span class="hide-menu">Dashboard 3</span></a> </li>
+                            <li><a href="{{ url('home3') }}"><i class=" fa-fw">1</i><span class="hide-menu">Home V1</span></a> </li>
+                            <li><a href="{{ url('home4') }}"><i class=" fa-fw">2</i><span class="hide-menu">Home V2</span></a> </li>
+                            <li><a href="{{ url('home6') }}"><i class=" fa-fw">3</i><span class="hide-menu">Home V3</span></a> </li>
+                        </ul>
+                    </li>
+                    @if(Auth::check() and Auth::user()->user_status == 2)
+                        <li><a href="{{ url('booking/form') }}" class="waves-effect"><i class="mdi mdi-plus fa-fw"></i> <span class="hide-menu">Buat Pinjaman Baru</span></a></li>
+                    @endif
+                    <li> <a href="#" class="waves-effect"><i class="mdi mdi-note-outline fa-fw" data-icon="v"></i> <span class="hide-menu"> Rekap Per Bulan <span class="fa arrow"></span></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="{{ url('list/bidang') }}"><i class=" fa-fw">1</i><span class="hide-menu">Per Bidang</span></a> </li>
+                            <li><a href="{{ url('list/ruang') }}"><i class=" fa-fw">2</i><span class="hide-menu">Per Ruang</span></a> </li>
                         </ul>
                     </li>
                     <li class="devider"></li>
@@ -142,10 +166,36 @@
     <script src="{{ ('/booking-dev/public/ampleplugins/js/jquery.slimscroll.js') }}"></script>
     <!--Wave Effects -->
     <script src="{{ ('/booking-dev/public/ampleplugins/js/waves.js') }}"></script>
+    <!-- Sweet-Alert  -->
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/sweetalert/jquery.sweet-alert.custom.js') }}"></script>
     <!-- Custom Theme JavaScript -->
     <script src="{{ ('/booking-dev/public/ampleplugins/js/custom.min.js') }}"></script>
+    <!-- Plugin JavaScript -->
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/moment/moment.js') }}"></script>
+    <!-- Clock Plugin JavaScript -->
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/clockpicker/dist/jquery-clockpicker.min.js') }}"></script>
+    <!-- Color Picker Plugin JavaScript -->
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery-asColorPicker-master/libs/jquery-asColor.js') }}"></script>
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery-asColorPicker-master/libs/jquery-asGradient.js') }}"></script>
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js') }}"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <!-- Date range Plugin JavaScript -->
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/timepicker/bootstrap-timepicker.min.js') }}"></script>
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+
+    <!-- jquery validation -->
+    <!-- <script src="{{ ('/booking-dev/public/js/jquery-validation2/dist/jquery.validate.min.js') }}"></script> -->
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    
     <!--Style Switcher -->
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/styleswitcher/jQuery.style.switcher.js') }}"></script>
+
+    @yield('datepicker')
+  
+    @yield('formvalidation')
 </body>
 
 </html>

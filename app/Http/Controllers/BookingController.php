@@ -205,8 +205,9 @@ class BookingController extends Controller
 
     public function store(Request $request)
     {
-        $date = str_replace('/', '-', $request->booking_date);
-        $newDate = date("Y/m/d", strtotime($date));
+        // $date = explode("/", $request->booking_date);
+        // $date = str_replace('/', '-', $request->booking_date);
+        $newDate = date("Y/m/d", strtotime($request->booking_date));
         $totalbookcheck = 0;
         for ($i=0; $i < $request->total_room; $i++) { 
             $book_check = Booking::
@@ -242,9 +243,10 @@ class BookingController extends Controller
         $tujuan_upload = 'C:\Users\user\Documents\Upload';
         // $tujuan_upload = 'C:\Users\Valdy\Documents\Upload';
 
-        $origDate = $request->booking_date;
-        $date = str_replace('/', '-', $origDate );
-        $newDate = date("Y-m-d", strtotime($date));
+        // $origDate = $request->booking_date;
+        // $date = str_replace('/', '-', $origDate );
+        $newDate = date("Y-m-d", strtotime($request->booking_date));
+        // var_dump($newDate); die();
 
         $surat = new Surat;
 

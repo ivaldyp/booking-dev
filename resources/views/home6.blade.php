@@ -54,7 +54,12 @@
 														if($bookings[$bookingnow]->booking_room == $rooms[$i]->id_room && 
 															$bookings[$bookingnow]->time_start == $times[$j-1]->id_time) {
 															$colspan = $bookings[$bookingnow]->time_end - $bookings[$bookingnow]->time_start;
-															echo "<td bgcolor='red' colspan='$colspan'>".$i.$j."</td>";
+															$time1 = explode(":", explode(" ", $bookings[$bookingnow]->time1->time_name)[1]);
+															$time2 = explode(":", explode(" ", $bookings[$bookingnow]->time2->time_name)[1]);
+															echo "<td bgcolor='blue' colspan='$colspan' style='padding: 10px; background: #667db6; background: -webkit-linear-gradient(to top, #667db6, #0082c8, #0082c8, #667db6); background: linear-gradient(to top, #667db6, #0082c8, #0082c8, #667db6); color:white;'>".
+																$bookings[$bookingnow]->surat->surat_judul."<br>".
+                    											$time1[0] . ":" . $time1[1] ." - ". $time2[0] . ":" . $time2[1]
+																."</td>";
 															$j+=($colspan-1);
 															if ($bookingnow != count($bookings) - 1) {
 																$bookingnow++;

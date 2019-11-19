@@ -1,316 +1,209 @@
-@extends('layouts.master')
+@extends('layouts.master2')
 
 @section('content')
+	<div id="page-wrapper">
+		<div class="container-fluid">
+			<div class="row bg-title">
+				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+					<h4 class="page-title">Form</h4> 
+				</div>
+				<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12"> 
+					<ol class="breadcrumb">
+						<li><a href="#">Dashboard</a></li>
+						<li class="active">Starter Page</li>
+					</ol>
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+			<div class="row">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-10">
+					<div class="white-box">
+						<form class="form-horizontal" method="POST" action="store" enctype="multipart/form-data" name="newbooking">
+						  @csrf
+							<!-- <input type="hidden" name="id_booking" value="<?php echo md5(uniqid()); ?>"> -->
+							<input type="hidden" name="id_surat" value="<?php echo md5(uniqid()); ?>">
+							<!-- <input type="hidden" name="booking_status" value="1"> -->
+							<input type="hidden" name="request_hapus" value="0">
+							
+							<div class="form-group">
+							  <label for="nip_peminjam" class="col-lg-2 control-label"> NIP </label>
+							  <div class="col-lg-8">
+								<input type="number" class="form-control" id="nip_peminjam" name="nip_peminjam" autocomplete="off" maxlength="18">
+							  </div>
+							</div>
 
-		<section class="content">
-      <div class="row">
-        <div class="col-lg-2"></div>
-        <div class="col-lg-8">
-          @if(Session::has('message'))
-            <div class="alert alert-danger">{{ Session::get('message') }}</div>
-          @endif
-        </div>
-        <div class="col-lg-2"></div>
-      </div>
-      <div class="row">
-        <div class="col-lg-2"></div>
-        <div class="col-lg-9">
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Form Booking Baru</h3>
-            </div>
-            <form class="form-horizontal" method="POST" action="store" enctype="multipart/form-data" name="newbooking">
-              @csrf
-              <div class="box-body">
+							<div class="form-group">
+							  <label for="nama_peminjam" class="col-lg-2 control-label"><span style="color: red">*</span> Nama Peminjam </label>
+							  <div class="col-lg-8">
+								<input type="text" class="form-control" id="nama_peminjam" name="nama_peminjam" autocomplete="off" required>
+							  </div>
+							</div>
 
-                <!-- <input type="hidden" name="id_booking" value="<?php echo md5(uniqid()); ?>"> -->
-                <input type="hidden" name="id_surat" value="<?php echo md5(uniqid()); ?>">
-                <!-- <input type="hidden" name="booking_status" value="1"> -->
-                <input type="hidden" name="request_hapus" value="0">
-                
-                <div class="form-group">
-                  <label for="nip_peminjam" class="col-lg-2 control-label"> NIP </label>
-                  <div class="col-lg-8">
-                    <input type="number" class="form-control" id="nip_peminjam" name="nip_peminjam" autocomplete="off" maxlength="18">
-                  </div>
-                </div>
+							<div class="form-group">
+							  <label for="bidang_peminjam" class="col-lg-2 control-label"><span style="color: red">*</span> Bidang Peminjam </label>
+							  <div class="col-lg-8">
+								<select class="form-control" name="bidang_peminjam" id="bidang_peminjam" required>
+								  <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Bidang --</option>
+								  <?php foreach ($bidangs as $data) { ?>
+									<option value="{{ $data->id_bidang }}">{{ $data->bidang_name }}</option>
+								  <?php } ?>
+								</select>
+							  </div>
+							</div>
 
-                <div class="form-group">
-                  <label for="nama_peminjam" class="col-lg-2 control-label"><span style="color: red">*</span> Nama Peminjam </label>
-                  <div class="col-lg-8">
-                    <input type="text" class="form-control" id="nama_peminjam" name="nama_peminjam" autocomplete="off" required>
-                  </div>
-                </div>
+							<div class="form-group">
+							  <label for="booking_room" class="col-lg-2 control-label"><span style="color: red">*</span> Ruang Rapat </label>
+							  <div class="col-lg-2">
+								<select class="form-control" name="total_room" id="total_room" required >
+								  <option value="1"> 1 </option>
+								  <option value="2"> 2 </option>
+								  <option value="3"> 3 </option>
+								  <option value="4"> 4 </option>
+								</select>
+							  </div>
+							  <!-- <div class="col-lg-8">
+								<select class="form-control" name="booking_room[]" id="booking_room" required >
+								  <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
+								  <?php foreach ($rooms as $data) { ?>
+									<option value="{{ $data->id_room }}" roomcap="{{$data->room_capacity}}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option>
+								  <?php } ?>
+								</select>
+							  </div> -->
+							</div>
 
-                <div class="form-group">
-                  <label for="bidang_peminjam" class="col-lg-2 control-label"><span style="color: red">*</span> Bidang Peminjam </label>
-                  <div class="col-lg-8">
-                    <select class="form-control" name="bidang_peminjam" id="bidang_peminjam" required>
-                      <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Bidang --</option>
-                      <?php foreach ($bidangs as $data) { ?>
-                        <option value="{{ $data->id_bidang }}">{{ $data->bidang_name }}</option>
-                      <?php } ?>
-                    </select>
-                  </div>
-                </div>
+							<div id="ruang-tambahan">
+							  <div class="form-group">
+								<label for="booking_room" class="col-lg-2 control-label"></label>
+								<div class="col-lg-8">
+								  <select class="form-control booking_room" name="booking_room[]" required >
+									<option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
+									<?php $bidang_now=0; foreach ($rooms as $data) { 
+									  if ($data->room_owner != $bidang_now) {
+										$bidang_now = $data->room_owner; 
+									?> 
+										<optgroup label="{{ $data->bidang_name }}">
+									<?php
+									  }
+									?>
 
-                <div class="form-group">
-                  <label for="booking_room" class="col-lg-2 control-label"><span style="color: red">*</span> Ruang Rapat </label>
-                  <div class="col-lg-2">
-                    <select class="form-control" name="total_room" id="total_room" required >
-                      <option value="1"> 1 </option>
-                      <option value="2"> 2 </option>
-                      <option value="3"> 3 </option>
-                      <option value="4"> 4 </option>
-                    </select>
-                  </div>
-                  <!-- <div class="col-lg-8">
-                    <select class="form-control" name="booking_room[]" id="booking_room" required >
-                      <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
-                      <?php foreach ($rooms as $data) { ?>
-                        <option value="{{ $data->id_room }}" roomcap="{{$data->room_capacity}}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option>
-                      <?php } ?>
-                    </select>
-                  </div> -->
-                </div>
+									  <option value="{{ $data->id_room }}||{{ $data->room_owner }}||{{ $data->room_subowner }}" roomcap="{{$data->room_capacity}}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option>
+									<?php } ?>
+								  </select>
+								</div>
+							  </div>
+							</div>
+				
+							<div class="form-group">
+							  <label for="booking_total_tamu" class="col-lg-2 control-label"> Jumlah Peserta </label>
+							  <div class="col-lg-4">
+								<input type="text" class="form-control" id="booking_total_tamu" name="booking_total_tamu" autocomplete="off" maxlength="3">
+							  </div>
+							</div>
 
-                <div id="ruang-tambahan">
-                  <div class="form-group">
-                    <label for="booking_room" class="col-lg-2 control-label"></label>
-                    <div class="col-lg-8">
-                      <select class="form-control booking_room" name="booking_room[]" required >
-                        <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
-                        <?php $bidang_now=0; foreach ($rooms as $data) { 
-                          if ($data->room_owner != $bidang_now) {
-                            $bidang_now = $data->room_owner; 
-                        ?> 
-                            <optgroup label="{{ $data->bidang_name }}">
-                        <?php
-                          }
-                        ?>
+							<div class="form-group">
+							  <label for="booking_total_snack" class="col-lg-2 control-label"> Jumlah Snack </label>
+							  <div class="col-lg-4">
+								<input type="number" class="form-control" id="booking_total_snack" name="booking_total_snack" autocomplete="off" maxlength="3">
+							  </div>
+							</div>
 
-                          <option value="{{ $data->id_room }}||{{ $data->room_owner }}||{{ $data->room_subowner }}" roomcap="{{$data->room_capacity}}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option>
-                        <?php } ?>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-    
-                <div class="form-group">
-                  <label for="booking_total_tamu" class="col-lg-2 control-label"> Jumlah Peserta </label>
-                  <div class="col-lg-4">
-                    <input type="text" class="form-control" id="booking_total_tamu" name="booking_total_tamu" autocomplete="off" maxlength="3">
-                  </div>
-                </div>
+							<div class="form-group">
+							  <label for="booking_date" class="col-lg-2 control-label"><span style="color: red">*</span> Tanggal </label>
+							  <div class="col-lg-4">
+								<div class="input-group date">
+								  <div class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								  </div>
+								  <input type="text" class="form-control pull-right booking_date" id="datepicker-autoclose" name="booking_date" autocomplete="off" required>
+								</div>
+							  </div>  
+							</div>
 
-                <div class="form-group">
-                  <label for="booking_total_snack" class="col-lg-2 control-label"> Jumlah Snack </label>
-                  <div class="col-lg-4">
-                    <input type="number" class="form-control" id="booking_total_snack" name="booking_total_snack" autocomplete="off" maxlength="3">
-                  </div>
-                </div>
+							<div class="form-group">
+							  <label class="col-lg-2 control-label"><span style="color: red">*</span> Jam Mulai </label>
+							  <div class="col-lg-4">
+								<select class="form-control" name="time_start" id="time_start" required>
+								  <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
+								  <?php
+									// $i = 0;
+									// foreach ($times as $data) {
+									//   $time_name = explode(":", explode(" ", $data->time_name)[1]);
+									//   if ($i == count($times) - 1) {
+									//     break;
+									//   } else {
+									//     echo "<option value=".$data->id_time.">".$time_name[0].":". $time_name[1]."</option>";
+									//   }
+									//   $i++;
+									// }
+									foreach ($times as $data) { 
+									  $time_name = explode(":", explode(" ", $data->time_name)[1]); ?>
+									  <option value="{{ $data->id_time }}">{{ $time_name[0].":". $time_name[1] }}</option>
+									<?php }
+								  ?>
+								  
+								</select>
+							  </div>
+							</div> 
 
-                <div class="form-group">
-                  <label for="booking_date" class="col-lg-2 control-label"><span style="color: red">*</span> Tanggal </label>
-                  <div class="col-lg-4">
-                    <div class="input-group date">
-                      <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                      </div>
-                      <input type="text" class="form-control pull-right booking_date" id="datepicker" name="booking_date" autocomplete="off" required>
-                    </div>
-                  </div>  
-                </div>
+							<div class="form-group">
+							  <label class="col-lg-2 control-label"><span style="color: red">*</span> Jam Selesai </label>
+							  <div class="col-lg-4">
+								<select class="form-control" name="time_end" id="time_end" required> 
+								  <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
+								  <?php foreach ($times as $data) { 
+									$time_name = explode(":", explode(" ", $data->time_name)[1]); ?>
+									<option id="timend{{$data->id_time}}" value="{{ $data->id_time }}">{{ $time_name[0].":". $time_name[1] }}</option>
+								  <?php } ?>
+								</select>
+							  </div>
+							</div>
 
-                <div class="form-group">
-                  <label class="col-lg-2 control-label"><span style="color: red">*</span> Jam Mulai </label>
-                  <div class="col-lg-4">
-                    <select class="form-control" name="time_start" id="time_start" required>
-                      <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
-                      <?php
-                        // $i = 0;
-                        // foreach ($times as $data) {
-                        //   $time_name = explode(":", explode(" ", $data->time_name)[1]);
-                        //   if ($i == count($times) - 1) {
-                        //     break;
-                        //   } else {
-                        //     echo "<option value=".$data->id_time.">".$time_name[0].":". $time_name[1]."</option>";
-                        //   }
-                        //   $i++;
-                        // }
-                        foreach ($times as $data) { 
-                          $time_name = explode(":", explode(" ", $data->time_name)[1]); ?>
-                          <option value="{{ $data->id_time }}">{{ $time_name[0].":". $time_name[1] }}</option>
-                        <?php }
-                      ?>
-                      
-                    </select>
-                  </div>
-                </div> 
+							<div class="form-group">
+							  <label for="surat_judul" class="col-lg-2 control-label"><span style="color: red">*</span> Judul Acara </label>
+							  <div class="col-lg-8">
+								<input type="text" class="form-control" id="surat_judul" name="surat_judul" autocomplete="off">
+							  </div>
+							</div>
 
-                <div class="form-group">
-                  <label class="col-lg-2 control-label"><span style="color: red">*</span> Jam Selesai </label>
-                  <div class="col-lg-4">
-                    <select class="form-control" name="time_end" id="time_end" required> 
-                      <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
-                      <?php foreach ($times as $data) { 
-                        $time_name = explode(":", explode(" ", $data->time_name)[1]); ?>
-                        <option id="timend{{$data->id_time}}" value="{{ $data->id_time }}">{{ $time_name[0].":". $time_name[1] }}</option>
-                      <?php } ?>
-                    </select>
-                  </div>
-                </div>
+							<div class="form-group">
+							  <label for="surat_deskripsi" class="col-lg-2 control-label"> Deskripsi Acara </label>
+							  <div class="col-lg-8">
+								<textarea class="form-control" id="surat_deskripsi" name="surat_deskripsi" rows="3" autocomplete="off"></textarea>
+							  </div>
+							</div>
 
-                <div class="form-group">
-                  <label for="surat_judul" class="col-lg-2 control-label"><span style="color: red">*</span> Judul Acara </label>
-                  <div class="col-lg-8">
-                    <input type="text" class="form-control" id="surat_judul" name="surat_judul" autocomplete="off">
-                  </div>
-                </div>
+							<div class="form-group">
+							  <label for="surat_file" class="col-lg-2 control-label"><span style="color: red">*</span> Upload Surat <br> <span style="font-size: 10px">Hanya berupa PDF, JPG, JPEG, dan PNG</span> </label>
+							  <div class="col-lg-8">
+								<input type="file" class="form-control" id="surat_file" name="surat_file" required>
+							  </div>
+							</div>
 
-                <div class="form-group">
-                  <label for="surat_deskripsi" class="col-lg-2 control-label"> Deskripsi Acara </label>
-                  <div class="col-lg-8">
-                    <textarea class="form-control" id="surat_deskripsi" name="surat_deskripsi" rows="3" autocomplete="off"></textarea>
-                  </div>
-                </div>
+						  <!-- /.box-body -->
+						  	<div class="form-group">
+						  		<div class="col-lg-2"></div>
+								<div class="col-lg-8">
+								  <!-- <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-default" id="btn_form_booking_modal">
+									Simpan
+								  </button> -->
 
-                <div class="form-group">
-                  <label for="surat_file" class="col-lg-2 control-label"><span style="color: red">*</span> Upload Surat <br> <span style="font-size: 10px">Hanya berupa PDF, JPG, JPEG, dan PNG</span> </label>
-                  <div class="col-lg-8">
-                    <input type="file" class="form-control" id="surat_file" name="surat_file" required>
-                  </div>
-                </div>
-
-              </div>
-              <!-- /.box-body -->
-              <div class="box-footer">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-8">
-                  <!-- <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-default" id="btn_form_booking_modal">
-                    Simpan
-                  </button> -->
-
-                  <!-- <button type="submit" class="btn btn-primary pull-right" id="btn_form_booking_modal"> -->
-                  <button type="submit" class="btn btn-primary pull-right">
-                    Simpan
-                  </button>
-                </div>
-                <div class="col-lg-2"></div>
-              </div>
-              <!-- /.box-footer -->
-
-              <div class="modal fade" id="modal-default">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title">Apakah data dibawah sudah benar??</h4>
-                    </div>
-                    <div class="modal-body">
-
-                      <div class="form-group">
-                        <label for="nip_peminjam" class="col-lg-2 control-label"> NIP </label>
-                        <div class="col-lg-8">
-                          <h5 id="modal-nip_peminjam"></h5>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="nama_peminjam" class="col-lg-2 control-label"> Nama Peminjam </label>
-                        <div class="col-lg-8">
-                          <h5 id="modal-nama_peminjam"></h5>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="bidang_peminjam" class="col-lg-2 control-label"> Bidang Peminjam </label>
-                        <div class="col-lg-8">
-                          <h5 id="modal-bidang_peminjam"></h5>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="booking_room" class="col-lg-2 control-label"> Ruang Rapat </label>
-                        <div class="col-lg-8">
-                          <h5 id="modal-booking_room"></h5>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="booking_date" class="col-lg-2 control-label"> Tanggal </label>
-                        <div class="col-lg-4">
-                          <h5 id="modal-booking_date"></h5>
-                        </div>  
-                      </div>
-
-                      <div class="form-group">
-                        <label class="col-lg-2 control-label"> Jam Mulai </label>
-                        <div class="col-lg-4">
-                          <h5 id="modal-time_start"></h5>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="col-lg-2 control-label"> Jam Selesai </label>
-                        <div class="col-lg-4">
-                          <h5 id="modal-time_end"></h5>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="surat_judul" class="col-lg-2 control-label"> Judul Acara </label>
-                        <div class="col-lg-8">
-                          <h5 id="modal-surat_judul"></h5>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="surat_deskripsi" class="col-lg-2 control-label"> Deskripsi </label>
-                        <div class="col-lg-8">
-                          <h5 id="modal-surat_deskripsi"></h5>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="surat_deskripsi" class="col-lg-2 control-label"> File </label>
-                        <div class="col-lg-8">
-                          <h5 id="modal-surat_file"></h5>
-                        </div>
-                      </div>
-
-                    </div>
-                    <div class="modal-footer">
-                      <button type="submit" class="btn btn-success pull-right">Simpan</button>
-                      <button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                  <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-              </div>
-              <!-- /.modal -->
-
-            </form>
-          </div>
-        </div>
-        <div class="col-lg-2"></div>
-      </div>
-    </section>
-
-@endsection
-
-@section('multipleselect')
-
-<script language="javascript" type="text/javascript">
-  $(function() {
-    $('#booking_room').multiselect({
-      selectAllValue:'multiselect-all',
-    });
-  });
-</script>
-
+								  <!-- <button type="submit" class="btn btn-primary pull-right" id="btn_form_booking_modal"> -->
+								  <button type="submit" class="btn btn-primary pull-right">
+									Simpan
+								  </button>
+								<div class="col-lg-2"></div>
+						  	</div>
+						  </div>
+						  <!-- /.box-footer -->
+						</form>
+					</div>
+				</div>
+				<div class="col-sm-1"></div>
+			</div>
+		<footer class="footer text-center"> 2017 &copy; Ample Admin brought to you by themedesigner.in </footer>
+	</div>
+	
 @endsection
 
 @section('formvalidation')
@@ -318,103 +211,99 @@
 <script language="javascript" type="text/javascript">
   $(function() {
 
-    $("#total_room").change(function () {
-      $("#ruang-tambahan").empty();
-      for (var i = 0; i < $("#total_room").val(); i++) {
-        $("#ruang-tambahan").append('<div class="form-group"><label for="booking_room" class="col-lg-2 control-label"></label><div class="col-lg-8"><select class="form-control booking_room" name="booking_room[]" required ><option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option><?php foreach ($rooms as $data) { if ($data->room_owner != $bidang_now) { $bidang_now = $data->room_owner; ?><optgroup label="{{ $data->bidang_name }}"><?php } ?><option value="{{ $data->id_room }}||{{ $data->room_owner }}||{{ $data->room_subowner }}" roomcap="{{$data->room_capacity}}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option><?php } ?></select></div></div>');
-      }
-    });
+	$("#total_room").change(function () {
+	  $("#ruang-tambahan").empty();
+	  for (var i = 0; i < $("#total_room").val(); i++) {
+		$("#ruang-tambahan").append('<div class="form-group"><label for="booking_room" class="col-lg-2 control-label"></label><div class="col-lg-8"><select class="form-control booking_room" name="booking_room[]" required ><option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option><?php foreach ($rooms as $data) { if ($data->room_owner != $bidang_now) { $bidang_now = $data->room_owner; ?><optgroup label="{{ $data->bidang_name }}"><?php } ?><option value="{{ $data->id_room }}||{{ $data->room_owner }}||{{ $data->room_subowner }}" roomcap="{{$data->room_capacity}}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option><?php } ?></select></div></div>');
+	  }
+	});
 
-    //WARNING KALAU TAMU LEBIH BANYAK DARI KAPASITAS RUANG
-    $("#booking_total_tamu").on("keypress keyup blur",function (event) {    
-      $(this).val($(this).val().replace(/[^\d].+/, ""));
-      if ((event.which < 48 || event.which > 57)) {
-        event.preventDefault();
-      }
-    });
-    // var capacity = 100;
-    // $("#booking_room").change(function(){
-    //   capacity = $(this).children("option:selected").attr("roomcap");
-    // });
+	//WARNING KALAU TAMU LEBIH BANYAK DARI KAPASITAS RUANG
+	$("#booking_total_tamu").on("keypress keyup blur",function (event) {    
+	  $(this).val($(this).val().replace(/[^\d].+/, ""));
+	  if ((event.which < 48 || event.which > 57)) {
+		event.preventDefault();
+	  }
+	});
 
-    // ---------------------------------------------------------------------- //
+	// ---------------------------------------------------------------------- //
 
-    $('#nip_peminjam').unbind('keyup change input paste').bind('keyup change input paste',function(e){
-      var $this = $(this);
-      var val = $this.val();
-      var valLength = val.length;
-      var maxCount = $this.attr('maxlength');
-      if(valLength>maxCount){
-          $this.val($this.val().substring(0,maxCount));
-      }
-    });
+	$('#nip_peminjam').unbind('keyup change input paste').bind('keyup change input paste',function(e){
+	  var $this = $(this);
+	  var val = $this.val();
+	  var valLength = val.length;
+	  var maxCount = $this.attr('maxlength');
+	  if(valLength>maxCount){
+		  $this.val($this.val().substring(0,maxCount));
+	  }
+	});
 
-    $('#booking_total_snack').unbind('keyup change input paste').bind('keyup change input paste',function(e){
-      var $this = $(this);
-      var val = $this.val();
-      var valLength = val.length;
-      var maxCount = $this.attr('maxlength');
-      if(valLength>maxCount){
-          $this.val($this.val().substring(0,maxCount));
-      }
-    });
+	$('#booking_total_snack').unbind('keyup change input paste').bind('keyup change input paste',function(e){
+	  var $this = $(this);
+	  var val = $this.val();
+	  var valLength = val.length;
+	  var maxCount = $this.attr('maxlength');
+	  if(valLength>maxCount){
+		  $this.val($this.val().substring(0,maxCount));
+	  }
+	});
 
-    $('#booking_total_tamu').unbind('keyup change input paste').bind('keyup change input paste',function(e){
-      var $this = $(this);
-      var val = $this.val();
-      var valLength = val.length;
-      var maxCount = $this.attr('maxlength');
-      if(valLength>maxCount){
-          $this.val($this.val().substring(0,maxCount));
-      }
-    });
+	$('#booking_total_tamu').unbind('keyup change input paste').bind('keyup change input paste',function(e){
+	  var $this = $(this);
+	  var val = $this.val();
+	  var valLength = val.length;
+	  var maxCount = $this.attr('maxlength');
+	  if(valLength>maxCount){
+		  $this.val($this.val().substring(0,maxCount));
+	  }
+	});
 
-    $('#surat_file').bind('change', function() {
-      var ext = $("#surat_file").val().split('.').pop();
-      if (ext != 'pdf' && ext != 'pdf' && ext != 'pdf' && ext != 'pdf') {
-        alert("File hanya boleh memiliki ekstensi PDF / JPG / JPEG / PNG");
-        $('#surat_file').val('');
-      }
-      if (this.files[0].size > 2100000) {
-        alert("Ukuran file tidak dapat melebihi 2MB");
-        $('#surat_file').val('');
-      }
-      //this.files[0].size gets the size of your file.
-      // alert(this.files[0].size);
+	$('#surat_file').bind('change', function() {
+	  var ext = $("#surat_file").val().split('.').pop();
+	  if (ext != 'pdf' && ext != 'pdf' && ext != 'pdf' && ext != 'pdf') {
+		alert("File hanya boleh memiliki ekstensi PDF / JPG / JPEG / PNG");
+		$('#surat_file').val('');
+	  }
+	  if (this.files[0].size > 2100000) {
+		alert("Ukuran file tidak dapat melebihi 2MB");
+		$('#surat_file').val('');
+	  }
+	  //this.files[0].size gets the size of your file.
+	  // alert(this.files[0].size);
 
-    });
-    $("form[name='newbooking']").validate({
-      rules: {
-        nama_peminjam: "required",
-        bidang_peminjam: "required",
-        booking_room: "required",
-        booking_date: "required",
-        time_start: "required",
-        time_end: "required",
-        surat_judul: "required",
-        surat_file: {
-          required: true,
-        },
-      },
-      highlight: function(element) {
-          $(element).css('background', '#ffdddd');
-      },
-      unhighlight: function(element) {
-        $(element).css('background', '#ffffff');
-      },
-      messages: {
-        nama_peminjam: "Masukkan Nama Peminjam",
-        bidang_peminjam: "Pilih Bidang",
-        booking_room: "Pilih Ruang Rapat",
-        booking_date: "Pilih Tanggal Rapat",
-        time_start: "Pilih Waktu Mulai",
-        time_end: "Pilih Waktu Selesai",
-        surat_judul: "Masukkan Nama Acara",
-        surat_file: {
-          required: "Unggah Surat",
-        },
-      }
-    });
+	});
+	$("form[name='newbooking']").validate({
+	  rules: {
+		nama_peminjam: "required",
+		bidang_peminjam: "required",
+		booking_room: "required",
+		booking_date: "required",
+		time_start: "required",
+		time_end: "required",
+		surat_judul: "required",
+		surat_file: {
+		  required: true,
+		},
+	  },
+	  highlight: function(element) {
+		  $(element).css('background', '#ffdddd');
+	  },
+	  unhighlight: function(element) {
+		$(element).css('background', '#ffffff');
+	  },
+	  messages: {
+		nama_peminjam: "Masukkan Nama Peminjam",
+		bidang_peminjam: "Pilih Bidang",
+		booking_room: "Pilih Ruang Rapat",
+		booking_date: "Pilih Tanggal Rapat",
+		time_start: "Pilih Waktu Mulai",
+		time_end: "Pilih Waktu Selesai",
+		surat_judul: "Masukkan Nama Acara",
+		surat_file: {
+		  required: "Unggah Surat",
+		},
+	  }
+	});
   });
 </script>
 
@@ -422,42 +311,8 @@
 
 @section('datepicker')
 
-<script language="javascript" type="text/javascript">
-  var today = new Date(); 
-  $(function () {
-    $('#datepicker').datepicker({
-      beforeShowDay: $.datepicker.noWeekends,
-      autoclose: true,
-      numberOfMonths: 3,
-      startDate: new Date(),
-      minDate: new Date(),
-      maxDate: new Date(),
-      format: 'dd/mm/yyyy'
-    });
-  });
-</script>
-
-@endsection
-
-@section('form_booking')
-
-<script type="text/javascript" language="javascript">
-  $(function () {
-
-    // $('#booking_room').multiSelect({
-    //   afterSelect: function(values){
-    //     var res = values[0].split("||");
-    //     // alert("Select value: "+res[1]);
-    //   },
-    //   afterDeselect: function(values){
-    //     alert("Deselect value: "+values);
-    //   }
-    // });
-
-    var str = ""
-
-
-    $("#time_start").change(function(){
+<script>
+	$("#time_start").change(function(){
       var selectedtime = $(this).children("option:selected").val();
       for (var i = 1; i <= 22; i++) {
         var timend = '#timend'+i;
@@ -468,53 +323,73 @@
         }
       }
     });
-
-    $('#btn_form_booking_modal').click(function() {
-      $("#modal-nip_peminjam").append($("#nip_peminjam").val());
-      $("#modal-nama_peminjam").append($("#nama_peminjam").val());
-      if ($("#bidang_peminjam option:selected").text().substr(0,2) != '--') {
-        $("#modal-bidang_peminjam").append($("#bidang_peminjam option:selected").text());
-      }
-      if ($("#booking_room option:selected").text().substr(0,2) != '--') {
-        $("#modal-booking_room").append($("#booking_room option:selected").text());
-      }  
-      if ($("#booking_room option:selected").text().substr(0,2) != '--') {
-        $("#modal-booking_room").append($("#booking_room option:selected").text());
-      }
-      // var selectedrooms = $(".booking_room :selected").val();
-      // $.each($(".booking_room :selected"), function( index, value ) {
-      //   alert( index + ": " + value );
-      // });
-      // console.log($(".booking_room :selected").val());    
-      // var items = [];
-      // $('#booking_room option:selected').each(function(){ items.push($(this).text()); });
-      // var result = $("#booking_room option:selected").val();
-      // console.log(result);
-      $("#modal-booking_date").append($(".booking_date").val());
-      if ($("#time_start option:selected").text().substr(0,2) != '--') {
-        $("#modal-time_start").append($("#time_start option:selected").text());
-      }
-      if ($("#time_end option:selected").text().substr(0,2) != '--') {
-        $("#modal-time_end").append($("#time_end option:selected").text());
-      }
-      $("#modal-surat_judul").append($("#surat_judul").val());
-      $("#modal-surat_deskripsi").append($("#surat_deskripsi").val());
-      $("#modal-surat_file").append($("#surat_file").val().replace(/C:\\fakepath\\/i, '')); 
+    // Clock pickers
+    $('#single-input').clockpicker({
+        placement: 'bottom'
+        , align: 'left'
+        , autoclose: true
+        , 'default': 'now'
     });
-
-    $("#modal-default").on("hidden.bs.modal", function () {
-      $("#modal-nip_peminjam").empty();
-      $("#modal-nama_peminjam").empty();
-      $("#modal-bidang_peminjam").empty();
-      $("#modal-booking_room").empty();
-      $("#modal-booking_date").empty();
-      $("#modal-time_start").empty();
-      $("#modal-time_end").empty();
-      $("#modal-surat_judul").empty();
-      $("#modal-surat_deskripsi").empty();
-      $("#modal-surat_file").empty();
+    $('.clockpicker').clockpicker({
+        donetext: 'Done'
+    , }).find('input').change(function () {
+        console.log(this.value);
     });
-  });
+    $('#check-minutes').click(function (e) {
+        // Have to stop propagation here
+        e.stopPropagation();
+        input.clockpicker('show').clockpicker('toggleView', 'minutes');
+    });
+    if (/mobile/i.test(navigator.userAgent)) {
+        $('input').prop('readOnly', true);
+    }
+    // Colorpicker
+    $(".colorpicker").asColorPicker();
+    $(".complex-colorpicker").asColorPicker({
+        mode: 'complex'
+    });
+    $(".gradient-colorpicker").asColorPicker({
+        mode: 'gradient'
+    });
+    // Date Picker
+    jQuery('.mydatepicker, #datepicker').datepicker();
+    jQuery('#datepicker-autoclose').datepicker({
+        autoclose: true
+        , todayHighlight: true
+    });
+    jQuery('#date-range').datepicker({
+        toggleActive: true
+    });
+    jQuery('#datepicker-inline').datepicker({
+        todayHighlight: true
+    });
+    // Daterange picker
+    $('.input-daterange-datepicker').daterangepicker({
+        buttonClasses: ['btn', 'btn-sm']
+        , applyClass: 'btn-danger'
+        , cancelClass: 'btn-inverse'
+    });
+    $('.input-daterange-timepicker').daterangepicker({
+        timePicker: true
+        , format: 'MM/DD/YYYY h:mm A'
+        , timePickerIncrement: 30
+        , timePicker12Hour: true
+        , timePickerSeconds: false
+        , buttonClasses: ['btn', 'btn-sm']
+        , applyClass: 'btn-danger'
+        , cancelClass: 'btn-inverse'
+    });
+    $('.input-limit-datepicker').daterangepicker({
+        format: 'MM/DD/YYYY'
+        , minDate: '06/01/2015'
+        , maxDate: '06/30/2015'
+        , buttonClasses: ['btn', 'btn-sm']
+        , applyClass: 'btn-danger'
+        , cancelClass: 'btn-inverse'
+        , dateLimit: {
+            days: 6
+        }
+    });
 </script>
 
 @endsection

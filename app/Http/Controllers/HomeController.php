@@ -214,15 +214,22 @@ class HomeController extends Controller
                     ->orderBy('id_room', 'ASC')
                     ->get();
 
-        $datenow = date('Y-m-d');
+        $datenow = date('Y-m-21');
 
         $bookings = Booking::
-                    where('booking_date', $datenow)
+                    with('surat')
+                    ->with('time1')
+                    ->with('time2')
+                    ->where('booking_date', $datenow)
                     ->where('booking_status', 3)
                     ->orderBy('booking_room_owner', 'ASC')
                     ->orderBy('booking_room', 'ASC')
                     ->orderBy('time_start', 'ASC')
                     ->get();
+
+        // var_dump($data_user);
+        // var_dump(Session::get('user_data')->name); 
+        // die();
         
         return view('home6', $data)
                 ->with('bidangs', $bidangs)
