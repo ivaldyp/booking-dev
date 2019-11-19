@@ -380,13 +380,20 @@ class BookingController extends Controller
         // var_dump();
         // die();
 
-        $rooms = Room::with('bidang')
+        $rooms = Room::
+                        // with('bidang')
+                        join('bidangs', 'bidangs.id_bidang', '=', 'rooms.room_owner')
                         ->with('roomtype')
+                        ->orderBy('room_owner', 'ASC')
+                        ->orderBy('room_name', 'ASC')
                         ->get();
 
+        // $bidangs = Bidang::join('subbidangs', 'subbidangs.id_bidang', '=', 'bidangs.id_bidang')->get();
         $bidangs = Bidang::get();
 
         $times = Time::get();
+        // var_dump($rooms);
+        // die();
 
         return view('pages.bookings.form')->with('rooms', $rooms)->with('bidangs', $bidangs)->with('times', $times);
     }
