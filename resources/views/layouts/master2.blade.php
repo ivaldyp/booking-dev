@@ -11,6 +11,8 @@
     <title>Ample Admin Template - The Ultimate Multipurpose admin template</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{ ('/booking-dev/public/ampleplugins/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
     <!-- Menu CSS -->
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
     <!--alerts CSS -->
@@ -171,6 +173,7 @@
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/sweetalert/jquery.sweet-alert.custom.js') }}"></script>
     <!-- Custom Theme JavaScript -->
     <script src="{{ ('/booking-dev/public/ampleplugins/js/custom.min.js') }}"></script>
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/datatables/jquery.dataTables.min.js') }}"></script>
     <!-- Plugin JavaScript -->
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/moment/moment.js') }}"></script>
     <!-- Clock Plugin JavaScript -->
@@ -196,6 +199,8 @@
     @yield('datepicker')
   
     @yield('formvalidation')
+
+    @yield('datatable')
 </body>
 
 </html>

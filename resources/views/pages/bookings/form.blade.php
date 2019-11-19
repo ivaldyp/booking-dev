@@ -201,6 +201,7 @@
 				</div>
 				<div class="col-sm-1"></div>
 			</div>
+		</div>
 		<footer class="footer text-center"> 2017 &copy; Ample Admin brought to you by themedesigner.in </footer>
 	</div>
 	
