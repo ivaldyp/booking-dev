@@ -191,6 +191,45 @@ class HomeController extends Controller
                 ->with('bookings', $bookings);
     }
 
+    public function index6(Request $request)
+    {
+        $data = [];
+        if (Auth::check()) {
+            $user_status = $this->user->user_status;
+            $data['user_status'] = User_Type::where('id_userType', $user_status);
+            Session::put('user_status', $user_status);
+            $data_user = User::where('id_user',$this->user->id_user)
+                            ->leftjoin('subbidangs', 'subbidangs.id_subbidang', '=', 'users.user_subbidang')
+                            ->leftjoin('bidangs', 'bidangs.id_bidang', '=', 'subbidangs.id_bidang')
+                            ->get();
+            Session::put('user_data', $data_user[0]);
+        }
+
+        $bidangs = Bidang::get();
+
+        $times = Time::get();
+
+        $rooms = Room::
+                    orderBy('room_owner', 'ASC')
+                    ->orderBy('id_room', 'ASC')
+                    ->get();
+
+        $datenow = date('Y-m-d');
+
+        $bookings = Booking::
+                    where('booking_date', $datenow)
+                    ->where('booking_status', 3)
+                    ->orderBy('booking_room_owner', 'ASC')
+                    ->orderBy('booking_room', 'ASC')
+                    ->orderBy('time_start', 'ASC')
+                    ->get();
+        
+        return view('home6', $data)
+                ->with('bidangs', $bidangs)
+                ->with('times', $times)
+                ->with('rooms', $rooms)
+                ->with('bookings', $bookings);
+    }
 
     public function read()
     {
