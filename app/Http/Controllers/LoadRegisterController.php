@@ -18,13 +18,13 @@ class LoadRegisterController extends Controller
                         FROM bidangs');
 
         $data['user_types'] = 
-        	DB::select('SELECT * 
-        				FROM user_types');
+            DB::select('SELECT * 
+                        FROM user_types');
 
         // $bidang = json_encode($data['bidangs']);
         // var_dump($bidang[3]);
         // foreach ($data['bidangs'] as $bidang) {
-        // 	echo $bidang->id_bidang;
+        //  echo $bidang->id_bidang;
         // }
         // var_dump($data['bidangs']); 
         // die();

@@ -44,7 +44,7 @@ class RoomController extends Controller
                         ->orderBy('room_name', 'asc')
                         ->get();
 
-        $bidangs = Bidang::get();
+        $bidangs = Bidang::join('subbidangs', 'subbidangs.id_bidang', '=', 'bidangs.id_bidang')->get();
 
         $room_types = Room_type::get();
         
@@ -72,7 +72,11 @@ class RoomController extends Controller
         $room = new Room;
         $room->id_room = $request->id_room;
         $room->room_name = $request->room_name;
-        $room->room_owner = $request->room_owner;
+
+        $room_ids = explode("||", $request->room_owner);
+        $room->room_owner = $room_ids[0];
+        $room->room_subowner = $room_ids[1];
+
         $room->room_type = $request->room_type;
         $room->room_floor = $request->room_floor;
         $room->room_capacity = $request->room_capacity;
