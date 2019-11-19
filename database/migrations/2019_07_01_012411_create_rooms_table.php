@@ -17,6 +17,7 @@ class CreateRoomsTable extends Migration
             $table->string('id_room')->primary();
             $table->string('room_name');
             $table->unsignedInteger('room_owner');
+            $table->unsignedInteger('room_subowner')->nullable();
             $table->unsignedInteger('room_type');
             $table->integer('room_floor');
             $table->integer('room_capacity')->nullable();
@@ -25,6 +26,7 @@ class CreateRoomsTable extends Migration
             $table->boolean('soft_delete')->default('0');
 
             $table->foreign('room_owner')->references('id_bidang')->on('bidangs');
+            $table->foreign('room_subowner')->references('id_subbidang')->on('subbidangs');
             $table->foreign('room_type')->references('id_roomType')->on('room_types');
         });
 

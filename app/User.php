@@ -27,6 +27,17 @@ class User extends Authenticatable
         return $this->hasOne('App\Bidang','id_bidang','user_bidang');
     }
 
+    // public function subbidang()
+    // {
+    //     return $this->hasOne('App\Subbidang','id_subbidang','id_subbidang');
+    // }
+
+    public function subbidang()
+    {
+        return $this->hasOneThrough('App\User', 'App\Bidang');
+    }
+
+
     public function usertype()
     {
         return $this->hasOne('App\User_type','id_userType','user_status');

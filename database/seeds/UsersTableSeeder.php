@@ -22,11 +22,19 @@ class UsersTableSeeder extends Seeder
 	        ], 
 	        [
 	        	'id_user' =>  md5(uniqid()),
-	            'username' => "pegawai",
+	            'username' => "pegawai1",
 	            'password' => Hash::make("p1p1p1p1"),
-	            'name' => "pegawai",
+	            'name' => "pegawai - 1",
 	            'user_status' => "2",
 	            'user_bidang' => "5",
+	        ], 
+	        [
+	        	'id_user' =>  md5(uniqid()),
+	            'username' => "pegawai2",
+	            'password' => Hash::make("p2p2p2p2"),
+	            'name' => "pegawai - 2",
+	            'user_status' => "2",
+	            'user_bidang' => "2",
 	        ], 
 	        [
 	        	'id_user' =>  md5(uniqid()),

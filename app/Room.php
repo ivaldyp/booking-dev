@@ -12,7 +12,7 @@ class Room extends Model
     // protected $table = 'rooms';
 
     protected $fillable = [
-        'id_room', 'room_name', 'room_owner', 'room_type', 'room_floor', 'room_capacity', 'created_at', 'updated_at', 'soft_delete'
+        'id_room', 'room_name', 'room_owner', 'room_subowner', 'room_type', 'room_floor', 'room_capacity', 'created_at', 'updated_at', 'soft_delete'
     ];
 
     public function bidang()
