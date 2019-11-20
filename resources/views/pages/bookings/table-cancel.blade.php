@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="white-box">
-                        <h3 class="box-title">Pinjaman Disetujui</h3>
+                        <h3 class="box-title">Pinjaman Dibatalkan</h3>
                         <div class="table-responsive">
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead>
