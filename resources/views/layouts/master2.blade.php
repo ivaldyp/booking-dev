@@ -32,6 +32,13 @@
     <link href="{{ ('/booking-dev/public/ampleplugins/css/style.css') }}" rel="stylesheet">
     <!-- color CSS -->
     <link href="{{ ('/booking-dev/public/ampleplugins/css/colors/blue-dark.css') }}" id="theme" rel="stylesheet">
+    <!-- page CSS -->
+    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/custom-select/custom-select.css" rel="stylesheet" type="text/css') }}" />
+    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/switchery/dist/switchery.min.css') }}" rel="stylesheet" />
+    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-select/bootstrap-select.min.css') }}" rel="stylesheet" />
+    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" />
+    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/multiselect/css/multi-select.css') }}" rel="stylesheet" type="text/css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -124,6 +131,7 @@
                     <h3><span class="fa-fw open-close"><i class="ti-menu hidden-xs"></i><i class="ti-close visible-xs"></i></span> <span class="hide-menu">Menu</span></h3> 
                 </div>
                 <ul class="nav" id="side-menu">
+                    <li class="devider"></li>
                     <li> <a href="#" class="waves-effect"><i class="mdi mdi-home fa-fw" data-icon="v"></i> <span class="hide-menu"> Home <span class="fa arrow"></span></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="{{ url('home3') }}"><i class=" fa-fw">1</i><span class="hide-menu">Home V1</span></a> </li>
@@ -131,17 +139,55 @@
                             <li><a href="{{ url('home6') }}"><i class=" fa-fw">3</i><span class="hide-menu">Home V3</span></a> </li>
                         </ul>
                     </li>
+
+                    @if(Auth::check() and Session::get('user_data')->user_status == 1)
+                    <li> <a href="#" class="waves-effect"><i class="mdi mdi-human-male fa-fw" data-icon="v"></i> <span class="hide-menu"> Pengguna <span class="fa arrow"></span></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="{{ url('users') }}"><i class=" fa-fw">1</i><span class="hide-menu">Kelola Pengguna</span></a> </li>
+                            <li><a href="{{ url('roles') }}"><i class=" fa-fw">2</i><span class="hide-menu">Kelola Hak Akses</span></a> </li>
+                        </ul>
+                    </li>
+                    <li> <a href="#" class="waves-effect"><i class="mdi mdi-key fa-fw" data-icon="v"></i> <span class="hide-menu"> Master Data <span class="fa arrow"></span></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="{{ url('time') }}"><i class=" fa-fw">1</i><span class="hide-menu">Data Waktu</span></a> </li>
+                            <li><a href="{{ url('bidang') }}"><i class=" fa-fw">2</i><span class="hide-menu">Data Bidang</span></a> </li>
+                            <li><a href="{{ url('book_status') }}"><i class=" fa-fw">3</i><span class="hide-menu">Data Status</span></a> </li>
+                            <li><a href="{{ url('ruang') }}"><i class=" fa-fw">4</i><span class="hide-menu">Data Ruang</span></a> </li>
+                            <li><a href="{{ url('tipe_ruang') }}"><i class=" fa-fw">5</i><span class="hide-menu">Data Tipe Ruang</span></a> </li>
+                        </ul>
+                    </li>
+                    @endif
+
+                    <li class="devider"></li>
+
                     @if(Auth::check() and Auth::user()->user_status == 2)
                         <li><a href="{{ url('booking/form') }}" class="waves-effect"><i class="mdi mdi-plus fa-fw"></i> <span class="hide-menu">Buat Pinjaman Baru</span></a></li>
                     @endif
-                    <li> <a href="#" class="waves-effect"><i class="mdi mdi-note-outline fa-fw" data-icon="v"></i> <span class="hide-menu"> Rekap Per Bulan <span class="fa arrow"></span></span></a>
+
+                    <li> <a href="#" class="waves-effect"><i class="mdi mdi-book-open fa-fw" data-icon="v"></i> <span class="hide-menu"> Booking <span class="fa arrow"></span></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="{{ url('booking') }}"><i class=" fa-fw">1</i><span class="hide-menu">Semua Pinjaman</span></a> </li>
+                            @if(Auth::check())
+                                @if(Auth::user()->user_status == 2)
+                                    <li><a href="{{ url('booking/my-booking') }}"><i class=" fa-fw">2</i><span class="hide-menu">Pinjaman Saya</span></a> </li>
+                                    <li><a href="{{ url('booking/bidang-lain') }}"><i class=" fa-fw">3</i><span class="hide-menu">Pinjaman Dari Bidang Lain</span></a> </li>
+                                @elseif(Auth::user()->user_status != 2)
+                                    <li><a href="{{ url('booking/not') }}"><i class=" fa-fw">2</i><span class="hide-menu">Pinjaman Belum Disetujui</span></a> </li>
+                                    <li><a href="{{ url('booking/cancel') }}"><i class=" fa-fw">3</i><span class="hide-menu">Pinjaman Dibatalkan</span></a> </li>
+                                    <li><a href="{{ url('booking/done') }}"><i class=" fa-fw">4</i><span class="hide-menu">Pinjaman Telah Disetujui</span></a> </li>
+                                @endif
+                            @endif
+                        </ul>
+                    </li>
+
+                    <li> <a href="#" class="waves-effect"><i class="mdi mdi-note-outline fa-fw" data-icon="v"></i> <span class="hide-menu"> Rekap Bulanan <span class="fa arrow"></span></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="{{ url('list/bidang') }}"><i class=" fa-fw">1</i><span class="hide-menu">Per Bidang</span></a> </li>
                             <li><a href="{{ url('list/ruang') }}"><i class=" fa-fw">2</i><span class="hide-menu">Per Ruang</span></a> </li>
                         </ul>
                     </li>
+                    
                     <li class="devider"></li>
-                    <li> <a href="widgets.html" class="waves-effect"><i  class="mdi mdi-settings fa-fw"></i> <span class="hide-menu">Widgets</span></a> </li>
                 </ul>
             </div>
         </div>
@@ -187,6 +233,13 @@
     <!-- Date range Plugin JavaScript -->
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/timepicker/bootstrap-timepicker.min.js') }}"></script>
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/switchery/dist/switchery.min.js') }}"></script>
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/custom-select/custom-select.min.js') }}" type="text/javascript"></script>
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-select/bootstrap-select.min.js') }}" type="text/javascript"></script>
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ ('/booking-dev/public/ampleplugins/bower_components/multiselect/js/jquery.multi-select.js') }}"></script>
 
     <!-- jquery validation -->
     <!-- <script src="{{ ('/booking-dev/public/js/jquery-validation2/dist/jquery.validate.min.js') }}"></script> -->
@@ -201,6 +254,8 @@
     @yield('formvalidation')
 
     @yield('datatable')
+
+    @yield('formadvanced')
 </body>
 
 </html>

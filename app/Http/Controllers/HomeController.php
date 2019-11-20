@@ -214,7 +214,7 @@ class HomeController extends Controller
                     ->orderBy('id_room', 'ASC')
                     ->get();
 
-        $datenow = date('Y-m-21');
+        $datenow = date('Y-m-d');
 
         $bookings = Booking::
                     with('surat')
