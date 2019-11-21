@@ -70,7 +70,7 @@
                               <div class="col-lg-4 col-sm-6 row-in-br">
                                 <ul class="col-in">
                                         <li>
-                                            <span class="circle circle-md bg-danger"><i class="ti-clipboard"></i></span>
+                                            <span class="circle circle-md bg-danger"><i class="ti-close"></i></span>
                                         </li>
                                         <li class="col-last"><h3 class="counter text-right m-t-15">{{ $countstatus[0] }}</h3></li>
                                         <li class="col-middle">
@@ -82,7 +82,7 @@
                               <div class="col-lg-4 col-sm-6 row-in-br  b-r-none">
                                 <ul class="col-in">
                                         <li>
-                                            <span class="circle circle-md bg-warning"><i class="ti-wallet"></i></span>
+                                            <span class="circle circle-md bg-warning"><i class="ti-help"></i></span>
                                         </li>
                                         <li class="col-last"><h3 class="counter text-right m-t-15">{{ $countstatus[1] }}</h3></li>
                                         <li class="col-middle">
@@ -94,11 +94,11 @@
                               <div class="col-lg-4 col-sm-6 row-in-br">
                                 <ul class="col-in">
                                         <li>
-                                            <span class="circle circle-md bg-success"><i class=" ti-shopping-cart"></i></span>
+                                            <span class="circle circle-md bg-success"><i class=" ti-check"></i></span>
                                         </li>
                                         <li class="col-last"><h3 class="counter text-right m-t-15">{{ $countstatus[2] }}</h3></li>
                                         <li class="col-middle">
-                                            <h4>Pinjaman Dibatalkan</h4>
+                                            <h4>Pinjaman Disetujui</h4>
                                         </li>
                                         
                                 </ul>

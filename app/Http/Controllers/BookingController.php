@@ -83,7 +83,17 @@ class BookingController extends Controller
                     ->orderBy('created_at', 'desc')
                     ->get();
 
-        return view('pages.bookings.table-cancel')->with('datas', $datas);
+        $countstatus = count(Booking::with('status')
+                    ->with('surat')
+                    ->with('bidang')
+                    ->with('room')
+                    ->with('time1')
+                    ->with('time2')
+                    ->where('booking_status', 2)
+                    ->orderBy('created_at', 'desc')
+                    ->get());
+
+        return view('pages.bookings.table-cancel')->with('datas', $datas)->with('countstatus', $countstatus);
     }
     
     public function showBookDone()
@@ -101,7 +111,20 @@ class BookingController extends Controller
                 ->orderBy('time_end', 'asc')
                 ->get();
 
-        return view('pages.bookings.table-done')->with('datas',$datas);
+        $countstatus = count(Booking::with('status')
+                ->with('surat')
+                ->with('bidang')
+                ->with('room')
+                ->with('time1')
+                ->with('time2')
+                ->with('user')
+                ->where('booking_status', '=', 3)
+                ->orderBy('booking_date', 'desc')
+                ->orderBy('time_start', 'asc')
+                ->orderBy('time_end', 'asc')
+                ->get());        
+
+        return view('pages.bookings.table-done')->with('datas',$datas)->with('countstatus', $countstatus);
     }
 
     public function showBookNotDone()
@@ -119,7 +142,20 @@ class BookingController extends Controller
                     ->orderBy('created_at', 'asc')
                     ->get();
 
-        return view('pages.bookings.table-not')->with('roomlists', $roomlists)->with('rooms', $rooms);
+        $countstatus = count(Booking::with('status')
+                    ->with('surat')
+                    ->with('bidang')
+                    ->with('room')
+                    ->with('time1')
+                    ->with('time2')
+                    ->where('booking_status', 1)
+                    ->orderBy('created_at', 'asc')
+                    ->get());
+
+        return view('pages.bookings.table-not')
+                ->with('roomlists', $roomlists)
+                ->with('rooms', $rooms)
+                ->with('countstatus', $countstatus);
     }
 
     public function showBookOthers()
