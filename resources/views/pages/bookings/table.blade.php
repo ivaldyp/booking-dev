@@ -18,7 +18,7 @@
             <div class="row">
             	<div class="col-sm-12">
             		@if(Session::has('message'))
-						<div class="alert alert-danger">{{ Session::get('message') }}</div>
+						<div class="alert alert-success alert-dismissable">{{ Session::get('message') }}</div>
 				    @endif
             	</div>
             </div>
@@ -225,7 +225,7 @@
 
 								<?php $file_name = explode("~", $data->surat->file_name); ?>
 								<td><a href="{{ url('booking/download') }}/{{ $data->surat->id_surat }}"> {{ $file_name[2] }} </a></td>
-								<td bgcolor="#ff3333"><b>
+								<td bgcolor="#ff3333" style="color: white"><b>
 								  {{ $data->status->status_name }}
 								</b></td>
 								<td>Buat ulang pinjaman

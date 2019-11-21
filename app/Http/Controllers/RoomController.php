@@ -56,7 +56,9 @@ class RoomController extends Controller
         $room->room_name = $request->room_name;
         $owners = explode("||", $request->room_owner);
         $room->room_owner = $owners[0];
-        $room->room_subowner = $owners[1];
+        if (isset($owners[1])) {
+            $room->room_subowner = $owners[1];
+        }
         $room->room_type = $request->room_type;
         $room->room_floor = $request->room_floor;
         $room->room_capacity = $request->room_capacity;

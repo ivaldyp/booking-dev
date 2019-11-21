@@ -27,6 +27,7 @@ class UsersTableSeeder extends Seeder
 	            'name' => "pegawai - 1",
 	            'user_status' => "2",
 	            'user_bidang' => "5",
+	            'user_subbidang' => "15",
 	        ], 
 	        [
 	        	'id_user' =>  md5(uniqid()),
@@ -35,6 +36,7 @@ class UsersTableSeeder extends Seeder
 	            'name' => "pegawai - 2",
 	            'user_status' => "2",
 	            'user_bidang' => "2",
+	            'user_subbidang' => "5",
 	        ], 
 	        [
 	        	'id_user' =>  md5(uniqid()),
@@ -43,6 +45,7 @@ class UsersTableSeeder extends Seeder
 	            'name' => "umum",
 	            'user_status' => "3",
 	            'user_bidang' => "1",
+	            'user_subbidang' => "1",
 	        ]
     	]);
     }

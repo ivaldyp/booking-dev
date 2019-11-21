@@ -15,6 +15,13 @@
                 <!-- /.col-lg-12 -->
             </div>
             <div class="row">
+				<div class="col-lg-12">
+					@if(Session::has('message'))
+						<div class="alert alert-success alert-dismissable">{{ Session::get('message') }}</div>
+					@endif
+				</div>
+			</div>
+            <div class="row">
                 <div class="col-sm-12">
                     <div class="white-box">
                         <h3 class="box-title">Rapat Hari Ini</h3> 

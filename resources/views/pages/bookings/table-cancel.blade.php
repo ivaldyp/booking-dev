@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     @if(Session::has('message'))
-                        <div class="alert alert-danger">{{ Session::get('message') }}</div>
+                        <div class="alert alert-danger alert-dismissable">{{ Session::get('message') }}</div>
                     @endif
                 </div>
             </div>

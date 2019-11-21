@@ -1,22 +1,38 @@
-@extends('layouts.master')
+@extends('layouts.master2')
 
 @section('content')
-
-		<section class="content">
-			<div class="row">
-				<div class="col-xs-3">
-					<a href="{{ url('/registeruser') }}"><button class="btn btn-success" style="margin-bottom: 10px">Tambah</button></a>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box">
-						<div class="box-header">
-							<h3 class="box-title">Daftar Pengguna</h3>
-						</div>
-						<!-- /.box-header -->
-						<div class="box-body">
-							<table id="example1" class="table table-bordered table-hover">
+	<div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Waktu</h4> 
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12"> 
+                    <ol class="breadcrumb">
+                        <li><a href="#">Dashboard</a></li>
+                        <li class="active">Starter Page</li>
+                    </ol>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    @if(Session::has('message'))
+                        <div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="color: white;">&times;</button>{{ Session::get('message') }}</div>
+                    @endif
+                </div>
+            </div>
+            <div class="row" id="btn-hide">
+                <div class="col-sm-3">
+                    <button data-toggle="modal" data-target="#modal-create" class="btn btn-info" style="margin-bottom: 10px">Tambah</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <!-- <h3 class="box-title">Waktu</h3> -->
+                        <div class="table-responsive">
+                        	<table id="example1" class="table table-bordered table-hover">
 								<thead>
 									<tr>
 										<th>No</th>
@@ -88,114 +104,112 @@
 								</tbody>
 							</table>
 						</div>
-						<!-- /.box-body -->
-					</div>
-
-					<div id="modal-update" class="modal fade" role="dialog">
-						<div class="modal-dialog">
-							<!-- Modal content-->
-							<div class="modal-content">
-								<form method="POST" action="users/update" class="form-horizontal">
-									@csrf
-									<div class="modal-header">
-										<h4 class="modal-title"><b>Ubah Data</b></h4>
-									</div>
-									<div class="modal-body">
-										<input type="hidden" name="id_user" id="modal_update_id_user">
-
-										<div class="form-group">
-											<label for="modal_update_user_name" class="col-lg-3
-											control-label"> Nama </label>
-											<div class="col-lg-8">
-												<input type="text" name="name" id="modal_update_user_name" class="form-control" autocomplete="off">
-											</div>
+						<div id="modal-update" class="modal fade" role="dialog">
+							<div class="modal-dialog">
+								<!-- Modal content-->
+								<div class="modal-content">
+									<form method="POST" action="users/update" class="form-horizontal">
+										@csrf
+										<div class="modal-header">
+											<h4 class="modal-title"><b>Ubah Data</b></h4>
 										</div>
+										<div class="modal-body">
+											<input type="hidden" name="id_user" id="modal_update_id_user">
 
-										<div class="form-group">
-											<label for="modal_update_user_nrk" class="col-lg-3
-											control-label"> NRK </label>
-											<div class="col-lg-8">
-												<input type="text" name="nrk" id="modal_update_user_nrk" class="form-control" autocomplete="off">
+											<div class="form-group">
+												<label for="modal_update_user_name" class="col-lg-3
+												control-label"> Nama </label>
+												<div class="col-lg-8">
+													<input type="text" name="name" id="modal_update_user_name" class="form-control" autocomplete="off">
+												</div>
 											</div>
-										</div>
 
-										<div class="form-group">
-											<label for="modal_update_user_nip" class="col-lg-3
-											control-label"> NIP </label>
-											<div class="col-lg-8">
-												<input type="text" name="nip" id="modal_update_user_nip" class="form-control" autocomplete="off">
+											<div class="form-group">
+												<label for="modal_update_user_nrk" class="col-lg-3
+												control-label"> NRK </label>
+												<div class="col-lg-8">
+													<input type="text" name="nrk" id="modal_update_user_nrk" class="form-control" autocomplete="off">
+												</div>
 											</div>
-										</div>
 
-										<div class="form-group">
-											<label for="modal_update_user_username" class="col-lg-3
-											control-label"> Username </label>
-											<div class="col-lg-8">
-												<input type="text" name="username" id="modal_update_user_username" class="form-control" autocomplete="off">
+											<div class="form-group">
+												<label for="modal_update_user_nip" class="col-lg-3
+												control-label"> NIP </label>
+												<div class="col-lg-8">
+													<input type="text" name="nip" id="modal_update_user_nip" class="form-control" autocomplete="off">
+												</div>
 											</div>
-										</div>
 
-										<div class="form-group">
-											<label for="modal_update_user_email" class="col-lg-3
-											control-label"> Email </label>
-											<div class="col-lg-8">
-												<input type="text" name="email" id="modal_update_user_email" class="form-control" autocomplete="off">
+											<div class="form-group">
+												<label for="modal_update_user_username" class="col-lg-3
+												control-label"> Username </label>
+												<div class="col-lg-8">
+													<input type="text" name="username" id="modal_update_user_username" class="form-control" autocomplete="off">
+												</div>
 											</div>
+
+											<div class="form-group">
+												<label for="modal_update_user_email" class="col-lg-3
+												control-label"> Email </label>
+												<div class="col-lg-8">
+													<input type="text" name="email" id="modal_update_user_email" class="form-control" autocomplete="off">
+												</div>
+											</div>
+
+											<div class="form-group">
+						                      <label for="modal_update_user_status" class="col-lg-3 control-label"> Tipe Pengguna </label>
+						                      <div class="col-lg-8">
+						                        <select class="form-control" name="user_status" id="modal_update_user_status">
+						                          <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Tipe Pengguna --</option>
+						                          <?php foreach ($user_types as $data) { ?>
+						                            <option value="{{ $data->id_userType }}">{{ $data->userType_name }}</option>
+						                          <?php } ?>
+						                        </select>
+						                      </div>
+						                    </div>
+
+						                    <div class="form-group">
+						                      <label for="modal_update_user_bidang" class="col-lg-3 control-label"> Bidang </label>
+						                      <div class="col-lg-8">
+						                        <select class="form-control" name="user_bidang" id="modal_update_user_bidang">
+						                          <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Bidang --</option>
+						                          <option value="<?php echo NULL; ?>">Tidak Ada</option>
+						                          <?php foreach ($bidangs as $data) { ?>
+						                            <option value="{{ $data->id_bidang }}">{{ $data->bidang_name }}</option>
+						                          <?php } ?>
+						                        </select>
+						                      </div>
+						                    </div>
+
 										</div>
-
-										<div class="form-group">
-                      <label for="modal_update_user_status" class="col-lg-3 control-label"> Tipe Pengguna </label>
-                      <div class="col-lg-8">
-                        <select class="form-control" name="user_status" id="modal_update_user_status">
-                          <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Tipe Pengguna --</option>
-                          <?php foreach ($user_types as $data) { ?>
-                            <option value="{{ $data->id_userType }}">{{ $data->userType_name }}</option>
-                          <?php } ?>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="modal_update_user_bidang" class="col-lg-3 control-label"> Bidang </label>
-                      <div class="col-lg-8">
-                        <select class="form-control" name="user_bidang" id="modal_update_user_bidang">
-                          <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Bidang --</option>
-                          <option value="<?php echo NULL; ?>">Tidak Ada</option>
-                          <?php foreach ($bidangs as $data) { ?>
-                            <option value="{{ $data->id_bidang }}">{{ $data->bidang_name }}</option>
-                          <?php } ?>
-                        </select>
-                      </div>
-                    </div>
-
-									</div>
-									<div class="modal-footer">
-										<button type="submit" class="btn btn-success pull-right">Simpan</button>
-										<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
-									</div>
-								</form>
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-success pull-right">Simpan</button>
+											<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
-
-					<!-- /.box -->
 				</div>
 			</div>
-		</section>
+		</div>
+	</div>
 
-		<script type="text/javascript">
-			function myFunction(id_user, name, nrk, nip, username, email, id_userType, id_bidang) {
-				document.getElementById("modal_update_id_user").value = id_user;
-				document.getElementById("modal_update_user_name").value = name;
-				document.getElementById("modal_update_user_nrk").value = nrk;
-				document.getElementById("modal_update_user_nip").value = nip;
-				document.getElementById("modal_update_user_username").value = username;
-				document.getElementById("modal_update_user_email").value = email;
-				document.getElementById("modal_update_user_status").value = id_userType;
-				document.getElementById("modal_update_user_bidang").value = id_bidang;
-				console.log(id_bidang);
-			}
-		</script>
+		
+	<script type="text/javascript">
+		function myFunction(id_user, name, nrk, nip, username, email, id_userType, id_bidang) {
+			document.getElementById("modal_update_id_user").value = id_user;
+			document.getElementById("modal_update_user_name").value = name;
+			document.getElementById("modal_update_user_nrk").value = nrk;
+			document.getElementById("modal_update_user_nip").value = nip;
+			document.getElementById("modal_update_user_username").value = username;
+			document.getElementById("modal_update_user_email").value = email;
+			document.getElementById("modal_update_user_status").value = id_userType;
+			document.getElementById("modal_update_user_bidang").value = id_bidang;
+			console.log(id_bidang);
+		}
+	</script>
 
 @endsection
 

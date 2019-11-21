@@ -17,6 +17,8 @@ class UserController extends Controller
     {
         $users = User::with('bidang')
                         ->with('usertype')
+                        ->orderBy('user_status', 'ASC')
+                        ->orderBy('username', 'ASC')
                         ->get();
 
         $bidangs = Bidang::get();

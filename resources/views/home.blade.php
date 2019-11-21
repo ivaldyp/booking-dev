@@ -6,7 +6,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					@if(Session::has('message'))
-						<div class="alert alert-success">{{ Session::get('message') }}</div>
+						<div class="alert alert-success alert-dismissable">{{ Session::get('message') }}</div>
 					@endif
 				</div>
 			</div>

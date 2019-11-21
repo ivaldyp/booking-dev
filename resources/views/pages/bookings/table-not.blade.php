@@ -18,7 +18,7 @@
             <div class="row">
             	<div class="col-sm-12">
             		@if(Session::has('message'))
-						<div class="alert alert-danger">{{ Session::get('message') }}</div>
+						<div class="alert alert-danger alert-dismissable">{{ Session::get('message') }}</div>
 				    @endif
             	</div>
             </div>
@@ -80,89 +80,90 @@
 												echo $data->keterangan_status;
 											}?>
 										</td>
-										<td><button type="button" class="btn btn-success btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->time2->id_time }}||{{ $data->booking_room }}"><i class="fa fa-edit"></i></button></td>
+										<td><button type="button" class="btn btn-primary btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->time2->id_time }}||{{ $data->booking_room }}"><i class="fa fa-edit"></i></button></td>
 									</tr>
 									<?php } ?>
 								</tbody>
 							</table>
 						</div>
+						<div class="modal fade" id="modal-default">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title">Ubah status booking ruangan</h4>
+									</div>
+										<form method="POST" action="updateStatus" class="form-horizontal">
+										@csrf
+											<div class="modal-body">
+												<input type="hidden" name="id_booking" id="modal_id_booking">
+												<input type="hidden" name="booking_date" id="modal_booking_date">
+												<input type="hidden" name="time_start" id="modal_time_start">
+												<input type="hidden" name="time_end" id="modal_time_end">
+												<input type="hidden" name="booking_room" id="modal_booking_room">
+
+												<div class="form-group">
+													<label for="booking_status" class="col-lg-2 control-label"> Ubah Status </label>
+													<div class="col-lg-8">
+														<div class="radio">
+															<label>
+																<input type="radio" name="booking_status" id="optionsRadios3" value="3" checked>
+																OK
+															</label>
+														</div>
+														<div class="radio">
+															<label>
+																<input type="radio" name="booking_status" id="optionsRadios2" value="2">
+																Batal
+															</label>
+														</div>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="keterangan_status" class="col-lg-2 control-label"> Keterangan </label>
+													<div class="col-lg-8">
+														<textarea class="form-control" id="modal_keterangan_status" name="keterangan_status" rows="3" autocomplete="off"></textarea>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="booking_room_change" class="col-lg-2 control-label"> Ubah Ruang? </label>
+													<div class="col-lg-1">
+						                            	<div class="checkbox">
+															<label><input type="checkbox" name="checkchangeroom" id="checkchangeroom" style="width: 30px; height: 30px; top: 0px"></label>
+						                            	</div>
+						                          	</div>
+													<div class="col-lg-7">
+									                    <select class="form-control" name="booking_room_change" id="booking_room_change" disabled="">
+									                      	<option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
+									                      	<?php foreach ($roomlists as $data) { ?>
+									                        	<option value="{{ $data->id_room }}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option>
+									                      	<?php } ?>
+									                    </select>
+								                  	</div>
+							                  	</div>
+
+											</div>
+											<div class="modal-footer">
+												<button type="submit" class="btn btn-success pull-right">Simpan</button>
+												<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+											</div>
+										</form>
+									</div>
+									<!-- /.modal-content -->
+								</div>
+								<!-- /.modal-dialog -->
+							</div>
+							<!-- /.modal -->
             		</div>
             	</div>
             </div>
         </div>
     </div>
 
-	<div class="modal fade" id="modal-default">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Ubah status booking ruangan</h4>
-				</div>
-					<form method="POST" action="updateStatus" class="form-horizontal">
-					@csrf
-						<div class="modal-body">
-							<input type="hidden" name="id_booking" id="modal_id_booking">
-							<input type="hidden" name="booking_date" id="modal_booking_date">
-							<input type="hidden" name="time_start" id="modal_time_start">
-							<input type="hidden" name="time_end" id="modal_time_end">
-							<input type="hidden" name="booking_room" id="modal_booking_room">
-
-							<div class="form-group">
-								<label for="booking_status" class="col-lg-2 control-label"> Ubah Status </label>
-								<div class="col-lg-8">
-									<div class="radio">
-										<label>
-											<input type="radio" name="booking_status" id="optionsRadios3" value="3" checked>
-											OK
-										</label>
-									</div>
-									<div class="radio">
-										<label>
-											<input type="radio" name="booking_status" id="optionsRadios2" value="2">
-											Batal
-										</label>
-									</div>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="keterangan_status" class="col-lg-2 control-label"> Keterangan </label>
-								<div class="col-lg-8">
-									<textarea class="form-control" id="modal_keterangan_status" name="keterangan_status" rows="3" autocomplete="off"></textarea>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="booking_room_change" class="col-lg-2 control-label"> Ubah Ruang? </label>
-								<div class="col-lg-1">
-	                            	<div class="checkbox">
-										<label><input type="checkbox" name="checkchangeroom" id="checkchangeroom" style="width: 30px; height: 30px; top: 0px"></label>
-	                            	</div>
-	                          	</div>
-								<div class="col-lg-7">
-				                    <select class="form-control" name="booking_room_change" id="booking_room_change" disabled="">
-				                      	<option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
-				                      	<?php foreach ($roomlists as $data) { ?>
-				                        	<option value="{{ $data->id_room }}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option>
-				                      	<?php } ?>
-				                    </select>
-			                  	</div>
-		                  	</div>
-
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-success pull-right">Simpan</button>
-							<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
-						</div>
-					</form>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-		<!-- /.modal -->
+	
 
 
 @endsection

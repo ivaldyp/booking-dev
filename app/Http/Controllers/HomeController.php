@@ -226,10 +226,6 @@ class HomeController extends Controller
                     ->orderBy('booking_room', 'ASC')
                     ->orderBy('time_start', 'ASC')
                     ->get();
-
-        // var_dump($data_user);
-        // var_dump(Session::get('user_data')->name); 
-        // die();
         
         return view('home6', $data)
                 ->with('bidangs', $bidangs)
