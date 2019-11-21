@@ -207,7 +207,6 @@
 			document.getElementById("modal_update_user_email").value = email;
 			document.getElementById("modal_update_user_status").value = id_userType;
 			document.getElementById("modal_update_user_bidang").value = id_bidang;
-			console.log(id_bidang);
 		}
 	</script>
 

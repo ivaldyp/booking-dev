@@ -13,7 +13,8 @@ class TimeController extends Controller
 {
     public function index()
     {
-        $times = Time::orderBy('time_name', 'asc')
+        $times = Time::orderBy('time_singkat', 'asc')
+                        ->orderBy('time_name', 'asc')
                         ->get();
         return view('pages.times.table')->with('times', $times);    
     }
@@ -25,12 +26,12 @@ class TimeController extends Controller
 
     public function store(Request $request)
     {
-        $time_input = $request->time_name;
-        $time_name = date('Y-m-d') . " " . $time_input;
+        $time_name = date('Y-m-d') . " " . $request->time_h . ":" . $request->time_m;
 
         $time = new Time;
         // var_dump(DB::getPdo()->lastInsertId());
         $time->time_name = $time_name;
+        $time->time_singkat = $request->time_h . ":" . $request->time_m;
         $time->save();
 
         return redirect('/time')->with('message', 'Data Waktu berhasil ditambah');
@@ -38,9 +39,10 @@ class TimeController extends Controller
 
     public function update(Request $request)
     {
-        $time_name = date('Y-m-d') . " " . $request->time_name;
+        $time_name = date('Y-m-d') . " " . $request->time_h . ":" . $request->time_m;
         $time = Time::find($request->id_time);
         $time->time_name = $time_name;
+        $time->time_singkat = $request->time_h . ":" . $request->time_m;
         $time->save();
         return redirect('time')->with('message', 'Berhasil melakukan perubahan data waktu');
     }

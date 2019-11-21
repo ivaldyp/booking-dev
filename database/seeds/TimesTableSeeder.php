@@ -19,6 +19,7 @@ class TimesTableSeeder extends Seeder
         			DB::table('times')->insert([
         			[
 			            'time_name' => $now . $time . ":30",
+                        'time_singkat' => $time . ":30",
 			        ],	
 			        ]);
         			$time++;
@@ -26,6 +27,7 @@ class TimesTableSeeder extends Seeder
         			DB::table('times')->insert([
         			[
 			            'time_name' => $now . $time . ":00",
+                        'time_singkat' => $time . ":00",
 			        ],
 			        ]);
         		}	

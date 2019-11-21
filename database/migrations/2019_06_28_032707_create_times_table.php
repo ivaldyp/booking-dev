@@ -15,7 +15,8 @@ class CreateTimesTable extends Migration
     {
         Schema::create('times', function (Blueprint $table) {
             $table->increments('id_time');
-            $table->timestamp('time_name');
+            $table->timestamp('time_name')->nullable();
+            $table->time('time_singkat')->nullable();
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrent();
         });
