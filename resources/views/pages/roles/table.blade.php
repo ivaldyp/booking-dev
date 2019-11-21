@@ -277,8 +277,12 @@
 		</div>
 	</div>
 
-	<script type="text/javascript">
-	  function myFunction(id_userType, userType_name, can_editUser, can_editRoom, can_bookRoom, can_approve, can_bookFood) {
+@endsection
+
+@section('datatable')
+
+<script>
+	function myFunction(id_userType, userType_name, can_editUser, can_editRoom, can_bookRoom, can_approve, can_bookFood) {
 		document.getElementById("modal_update_id_usertype").value = id_userType;
 		document.getElementById("modal_update_usertype_name").value = userType_name;
 
@@ -301,14 +305,7 @@
 		if (can_bookFood == 1) {
 		  document.getElementById("modal_update_usertype_can_bookfood").checked = true;
 		} 
-	  }
-	</script>
-
-@endsection
-
-@section('datatable')
-
-<script>
+  	}
   $(function () {
 	$("#example1").DataTable();
 	// $('#example2').DataTable({

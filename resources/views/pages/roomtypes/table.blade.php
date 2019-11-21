@@ -61,7 +61,7 @@
 								  <td>{{ $data->updated_at }}</td>
 								  <td>
 									<div class="btn-group"> 
-										<button class="btn btn-warning btn_modal_update_roomtype" data-toggle="modal" data-target="#modal-update" id="{{$data->id_roomType}}||{{$data->roomType_name}}||{{$data->roomType_ket}}">
+										<button class="btn btn-warning btn_modal_update_roomtype" data-toggle="modal" data-target="#modal-update" onclick="myFunction('{{$data->id_roomType}}', '{{$data->roomType_name}}', '{{$data->roomType_ket}}')">
 											<i class="fa fa-edit"></i>
 										</button>
 										<button class="btn btn-danger" data-toggle="modal" data-target="#deleteRoomType{{$key}}">
@@ -148,9 +148,20 @@
 								  <div class="modal-body">
 									<input type="hidden" name="id_roomType" id="modal_update_id_roomtype">
 
-									<div id="modal_update_roomtype_name"></div>
-									<div id="modal_update_roomtype_ket"></div>
-
+									<div class='form-group'>
+										<label for='roomType_name' class='col-lg-2 control-label'> Nama </label>
+										<div class='col-lg-8'>
+											<input type='text' name='roomType_name' id='modal_update_roomtype_name' class='form-control'>
+										</div> 
+									</div>
+																			
+									<div class='form-group'>
+										<label for='roomType_ket' class='col-lg-2 control-label'> Keterangan </label>
+										<div class='col-lg-8'>
+											<input type='text' name='roomType_ket' id='modal_update_roomtype_ket' class='form-control'>
+										</div> 
+									</div>
+									
 								  </div>
 								  <div class="modal-footer">
 									<button type="submit" class="btn btn-success pull-right">Simpan</button>
@@ -171,31 +182,22 @@
 @section('datatable')
 
 <script>
-  $(function () {
-	$("#example1").DataTable();
-	// $('#example2').DataTable({
-	//   "paging": true,
-	//   "lengthChange": true,
-	//   "searching": false,
-	//   "ordering": true,
-	//   "info": false,
-	//   "autoWidth": false
-	// });
-
-	$('.btn_modal_update_roomtype').click(function() {
-	  var data = (this.id).split('||');
-	  
-	  $("#modal_update_id_roomtype").val(data[0]);
-	  $("#modal_update_roomtype_name").append("<div class='form-group'><label for='roomType_name' class='col-lg-2 control-label'> Nama </label><div class='col-lg-8'><input type='text' name='roomType_name' id='roomType_name' class='form-control' value='"+data[1]+"'></div> </div>");
-	  $("#modal_update_roomtype_ket").append("<div class='form-group'><label for='roomType_ket' class='col-lg-2 control-label'> Keterangan </label><div class='col-lg-8'><input type='text' name='roomType_ket' id='roomType_ket' class='form-control' value='"+data[2]+"'></div> </div>");
+	function myFunction(id_roomtype, roomType_name, roomtype_ket) {
+        document.getElementById("modal_update_id_roomtype").value = id_roomtype;
+        document.getElementById("modal_update_roomtype_name").value = roomType_name;
+        document.getElementById("modal_update_roomtype_ket").value = roomtype_ket;
+    }
+	$(function () {
+		$("#example1").DataTable();
+		// $('#example2').DataTable({
+		//   "paging": true,
+		//   "lengthChange": true,
+		//   "searching": false,
+		//   "ordering": true,
+		//   "info": false,
+		//   "autoWidth": false
+		// });
 	});
-
-	$("#modal-update").on("hidden.bs.modal", function () {
-	  $("#modal_update_roomtype_name").empty();
-	  $("#modal_update_roomtype_ket").empty();
-	});
-
-  });
 </script>
 
 @endsection

@@ -25,6 +25,7 @@ class RoomController extends Controller
                         ->get();
 
         $bidangs = Bidang::join('subbidangs', 'subbidangs.id_bidang', '=', 'bidangs.id_bidang')->get();
+        $bidangs = Bidang::get();
 
         $room_types = Room_type::get();
         
@@ -37,10 +38,11 @@ class RoomController extends Controller
         $room->id_room = $request->id_room;
         $room->room_name = $request->room_name;
 
-        $room_ids = explode("||", $request->room_owner);
-        $room->room_owner = $room_ids[0];
-        $room->room_subowner = $room_ids[1];
+        // $room_ids = explode("||", $request->room_owner);
+        // $room->room_owner = $room_ids[0];
+        // $room->room_subowner = $room_ids[1];
 
+        $room->room_owner = $request->room_owner;
         $room->room_type = $request->room_type;
         $room->room_floor = $request->room_floor;
         $room->room_capacity = $request->room_capacity;
@@ -54,11 +56,12 @@ class RoomController extends Controller
     {
         $room = Room::find($request->id_room);
         $room->room_name = $request->room_name;
-        $owners = explode("||", $request->room_owner);
-        $room->room_owner = $owners[0];
-        if (isset($owners[1])) {
-            $room->room_subowner = $owners[1];
-        }
+        // $owners = explode("||", $request->room_owner);
+        // $room->room_owner = $owners[0];
+        // if (isset($owners[1])) {
+        //     $room->room_subowner = $owners[1];
+        // }
+        $room->room_owner = $request->room_owner;
         $room->room_type = $request->room_type;
         $room->room_floor = $request->room_floor;
         $room->room_capacity = $request->room_capacity;

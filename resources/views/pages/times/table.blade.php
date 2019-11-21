@@ -54,7 +54,7 @@
                                   <td>{{ $data->updated_at }}</td>
                                   <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-warning btn_modal_update_time" data-toggle="modal" data-target="#modal-update" onclick="myFunction('{{$data->id_time}}', '{{$data->time_name}}')" id="{{$data->id_time}}||{{$data->time_name}}">
+                                        <button class="btn btn-warning btn_modal_update_time" data-toggle="modal" data-target="#modal-update" onclick="myFunction('{{$data->id_time}}', '{{$data->time_name}}')">
                                             <i class="fa fa-edit"></i>
                                         </button>
                                         <button class="btn btn-danger" data-toggle="modal" data-target="#deleteTime{{$key}}">
@@ -110,7 +110,7 @@
                                     <div class="col-md-12">
                                       <select class="form-control" name="time_h" id="time_h">
                                         <?php for($i=7; $i<=17; $i++) { ?>
-                                          <option value="<?php if($i < 9) { echo '0'.$i; }  ?>">{{ $i }}</option>
+                                          <option value="{{ $i }}">{{ $i }}</option>  
                                         <?php } ?>
                                       </select>
                                     </div>
@@ -145,15 +145,15 @@
                                 <div class="modal-header">
                                   <h4 class="modal-title"><b>Ubah Data</b></h4>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body col-md-12">
                                   <input type="hidden" name="id_time" id="modal_update_id_time">
                                   <div id="modal_update_time">
-                                    <div class='form-group col-md-6'>"+
+                                    <div class='form-group col-md-6'>
                                       <label for='room_type' class='col-md-2 control-label'> Jam </label>
                                       <div class='col-md-12'>
                                         <select class='form-control' name='time_h' id='modal_update_time_h'>
-                                          <?php for($i=7; $i<=17; $i++) { ?>
-                                            <option value='{{ $i }}'>{{ $i }}</option>
+                                          <?php for($i=7; $i<=17; $i++) { if ($i<=9) {$j = "0".$i;} else {$j=$i;}  ?>
+                                            <option value='{{ $j }}'>{{$i }}</option>
                                           <?php } ?>
                                         </select>
                                       </div>
@@ -180,28 +180,27 @@
                             </div>
                           </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script type="text/javascript">
-      function myFunction(id_time, time_name) {
-        var time1 = time_name.toString().split(" ");
-        var time2 = time1[1].toString().split(":");
-        console.log(time2);
-        document.getElementById("modal_update_id_time").value = id_time;
-        document.getElementById("modal_update_time_h").value = time2[0];
-        document.getElementById("modal_update_time_m").value = time2[1];
-      }
-    </script>
-
 @endsection
 
 @section('datatable')
 
 <script>
+  function myFunction(id_time, time_name) {
+      var time1 = time_name.toString().split(" ");
+      var time2 = time1[1].toString().split(":");
+      document.getElementById("modal_update_id_time").value = id_time;
+      document.getElementById("modal_update_time_h").value = time2[0];
+      document.getElementById("modal_update_time_m").value = time2[1];
+    }
+      
   $(function () {
     $("#example1").DataTable({
       "iDisplayLength": 25

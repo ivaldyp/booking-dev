@@ -37,7 +37,7 @@
                                 <tr>
                                   <th>No</th>
                                   <th>Nama Ruang</th>
-                                  <th>Pemilik</th>
+                                  <th class="col-md-3">Pemilik</th>
                                   <th>Jenis Ruangan</th>
                                   <th>Lantai</th>
                                 <th>Kapasitas Ruang</th>
@@ -56,8 +56,8 @@
                                 <tr>
                                   <td>{{ $key + 1 }}</td>
                                   <td>{{ ucwords($data->room_name) }}</td>
-                                  <td>{{ $data->bidang_name }}</td>
-                                  <td>{{ $data->roomType_name }}</td>
+                                  <td>{{ $data->bidang->bidang_name }}</td>
+                                  <td>{{ $data->roomtype->roomType_name }}</td>
                                 <td>{{ $data->room_floor }}</td>
                                 <td>{{ $data->room_capacity }}</td>
                                   <td>
@@ -124,17 +124,11 @@
                                 </div>
 
                                 <div class="form-group">
-                                  <label for="room_owner" class="col-lg-2 control-label"> Pemilik Ruangan </label>
+                                  <label for="modal_update_room_owner" class="col-lg-2 control-label"> Pemilik Ruangan </label>
                                   <div class="col-lg-8">
                                     <select class="form-control" name="room_owner" id="room_owner">
-                                      <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Bidang --</option>
-                                      <?php $id=0; foreach ($bidangs as $data) { 
-                                        if ($data->id_bidang != $id) {
-                                          $id = $data->id_bidang;
-                                          echo "<optgroup label='$data->bidang_name'>";
-                                        }
-                                      ?>
-                                        <option value="{{ $data->id_bidang }}||{{ $data->id_subbidang }}">{{ $data->subbidang_name }}</option>
+                                      <?php foreach ($bidangs as $data) { ?>
+                                        <option value="{{ $data->id_bidang }}">{{ $data->bidang_name }}</option>
                                       <?php } ?>
                                     </select>
                                   </div>
@@ -204,14 +198,8 @@
                                   <label for="modal_update_room_owner" class="col-lg-2 control-label"> Pemilik Ruangan </label>
                                   <div class="col-lg-8">
                                     <select class="form-control" name="room_owner" id="modal_update_room_owner">
-                                      <?php $bidangnow = 0; foreach ($bidangs as $data) { 
-                                        if ($data->id_bidang != $id) {
-                                          $id = $data->id_bidang; ?>
-                                          <optgroup label="{{$data->bidang_name}}">
-                                      <?php
-                                        }
-                                      ?>
-                                        <option value="{{ $data->id_bidang }}||{{ $data->id_subbidang }}">{{ $data->subbidang_name }}</option>
+                                      <?php foreach ($bidangs as $data) { ?>
+                                        <option value="{{ $data->id_bidang }}">{{ $data->bidang_name }}</option>
                                       <?php } ?>
                                     </select>
                                   </div>
@@ -259,22 +247,19 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-      function myFunction(id_room, room_name, id_bidang, id_roomType, room_floor, room_capacity) {
-        document.getElementById("modal_update_id_room").value = id_room;
-        document.getElementById("modal_update_room_name").value = room_name;
-        document.getElementById("modal_update_room_owner").value = id_bidang;
-        document.getElementById("modal_update_room_type").value = id_roomType;
-        document.getElementById("modal_update_room_floor").value = room_floor;
-        document.getElementById("modal_update_room_capacity").value = room_capacity;
-      }
-    </script>
-
 @endsection
 
 @section('datatable')
 
 <script>
+  function myFunction(id_room, room_name, id_bidang, id_roomType, room_floor, room_capacity) { 
+    document.getElementById("modal_update_id_room").value = id_room;
+    document.getElementById("modal_update_room_name").value = room_name;
+    document.getElementById("modal_update_room_owner").value = id_bidang;
+    document.getElementById("modal_update_room_type").value = id_roomType;
+    document.getElementById("modal_update_room_floor").value = room_floor;
+    document.getElementById("modal_update_room_capacity").value = room_capacity;
+  }
   $(function () {
     // $("#example1").DataTable();
     // $('#example2').DataTable({

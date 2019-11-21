@@ -196,25 +196,22 @@
 		</div>
 	</div>
 
-		
-	<script type="text/javascript">
-		function myFunction(id_user, name, nrk, nip, username, email, id_userType, id_bidang) {
-			document.getElementById("modal_update_id_user").value = id_user;
-			document.getElementById("modal_update_user_name").value = name;
-			document.getElementById("modal_update_user_nrk").value = nrk;
-			document.getElementById("modal_update_user_nip").value = nip;
-			document.getElementById("modal_update_user_username").value = username;
-			document.getElementById("modal_update_user_email").value = email;
-			document.getElementById("modal_update_user_status").value = id_userType;
-			document.getElementById("modal_update_user_bidang").value = id_bidang;
-		}
-	</script>
-
 @endsection
 
 @section('datatable')
 
 <script>
+	function myFunction(id_user, name, nrk, nip, username, email, id_userType, id_bidang) {
+		document.getElementById("modal_update_id_user").value = id_user;
+		document.getElementById("modal_update_user_name").value = name;
+		document.getElementById("modal_update_user_nrk").value = nrk;
+		document.getElementById("modal_update_user_nip").value = nip;
+		document.getElementById("modal_update_user_username").value = username;
+		document.getElementById("modal_update_user_email").value = email;
+		document.getElementById("modal_update_user_status").value = id_userType;
+		document.getElementById("modal_update_user_bidang").value = id_bidang;
+	}
+	
 	$(function () {
 		$("#example1").DataTable();
 		// $('#example2').DataTable({

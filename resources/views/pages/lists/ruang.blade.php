@@ -20,17 +20,19 @@
                     <div class="form-row">
                       <div class="form-group col-xs-3">
                         <select class="form-control" name="booking_room" id="booking_room" required>
-                          <?php foreach ($rooms as $data) {
-                            // if ($id_room == 0) {
-                            //  echo "<option disabled selected value='NULL'>-- Pilih Ruang --</option>";
-                            // }
+                          <?php $bidang_now=0; foreach ($rooms as $data) { 
+                            if ($data->room_owner != $bidang_now) {
+                            $bidang_now = $data->room_owner; 
+                          ?>
+                            <optgroup label="{{ $data->bidang_name }}">
+                          <?php
+                            }
                           ?>
                             <option value="{{ $data->id_room }}" 
                               <?php 
                                 if ($id_room == $data->id_room) {
                                   echo "selected";
                                 }
-
                               ?>
                             >{{ $data->room_name }}</option>
                           <?php } ?>
@@ -60,6 +62,50 @@
                     </div>
                     
                 </form>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                         <div class="row row-in">
+                              <div class="col-lg-4 col-sm-6 row-in-br">
+                                <ul class="col-in">
+                                        <li>
+                                            <span class="circle circle-md bg-danger"><i class="ti-clipboard"></i></span>
+                                        </li>
+                                        <li class="col-last"><h3 class="counter text-right m-t-15">{{ $countstatus[0] }}</h3></li>
+                                        <li class="col-middle">
+                                            <h4>Pinjaman Dibatalkan</h4>
+                                        </li>
+                                        
+                                </ul>
+                              </div>
+                              <div class="col-lg-4 col-sm-6 row-in-br  b-r-none">
+                                <ul class="col-in">
+                                        <li>
+                                            <span class="circle circle-md bg-warning"><i class="ti-wallet"></i></span>
+                                        </li>
+                                        <li class="col-last"><h3 class="counter text-right m-t-15">{{ $countstatus[1] }}</h3></li>
+                                        <li class="col-middle">
+                                            <h4>Pinjaman Belum Disetujui</h4>
+                                        </li>
+                                        
+                                </ul>
+                              </div>
+                              <div class="col-lg-4 col-sm-6 row-in-br">
+                                <ul class="col-in">
+                                        <li>
+                                            <span class="circle circle-md bg-success"><i class=" ti-shopping-cart"></i></span>
+                                        </li>
+                                        <li class="col-last"><h3 class="counter text-right m-t-15">{{ $countstatus[2] }}</h3></li>
+                                        <li class="col-middle">
+                                            <h4>Pinjaman Dibatalkan</h4>
+                                        </li>
+                                        
+                                </ul>
+                              </div>
+                            </div>   
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
