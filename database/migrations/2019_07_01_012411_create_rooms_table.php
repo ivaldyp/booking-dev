@@ -17,7 +17,7 @@ class CreateRoomsTable extends Migration
             $table->string('id_room')->primary();
             $table->string('room_name');
             $table->unsignedInteger('room_owner');
-            $table->unsignedInteger('room_subowner')->nullable();
+            $table->integer('room_subowner')->nullable();
             $table->unsignedInteger('room_type');
             $table->integer('room_floor');
             $table->integer('room_capacity')->nullable();

@@ -18,7 +18,8 @@ class UsersTableSeeder extends Seeder
 	            'password' => Hash::make("adminadmin"),
 	            'name' => "admin",
 	            'user_status' => "1",
-	            'user_bidang' => NULL,
+				'user_bidang' => NULL,
+				'user_subbidang' => NULL,
 	        ], 
 	        [
 	        	'id_user' =>  md5(uniqid()),

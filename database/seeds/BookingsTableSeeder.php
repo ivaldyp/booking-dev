@@ -29,7 +29,7 @@ class BookingsTableSeeder extends Seeder
             //LANTAI 4
             [
                 'id_room' => $room1,
-                'room_name' => "Ruang Aula",
+                'room_name' => "Ruang Serba Guna",
                 'room_owner' => 1,
                 'room_subowner' => NULL,
                 'room_type' => "1",

@@ -86,7 +86,7 @@
                             <li>
                                 <div class="dw-user-box">
                                     <div class="u-img"><img src="{{ ('/booking-dev/public/ampleplugins/images/users/varun.jpg') }}" alt="user" /></div>
-                                    <div class="u-text"><h4>{{Session::get('user_data')->name}}</h4><p class="text-muted">{{Session::get('user_data')->email}}</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
+                                    <div class="u-text"><h4>{{Session::get('user_data')->name}}</h4><p class="text-muted">{{ucwords(Session::get('user_data')->bidang_name)}}</p></div>
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>
