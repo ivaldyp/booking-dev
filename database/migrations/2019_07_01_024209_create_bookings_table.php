@@ -19,7 +19,7 @@ class CreateBookingsTable extends Migration
             $table->string('id_peminjam');
             $table->string('nama_peminjam');
             $table->integer('nip_peminjam')->nullable();
-            $table->unsignedInteger('bidang_peminjam');
+            $table->integer('bidang_peminjam');
             $table->string('id_penyetuju')->nullable();
             $table->string('booking_room');
             $table->integer('booking_room_owner')->nullable();
@@ -36,7 +36,7 @@ class CreateBookingsTable extends Migration
             $table->timestamp('updated_at')->nullable()->useCurrent();
             $table->boolean('soft_delete')->default('0');
 
-            $table->foreign('bidang_peminjam')->references('id_bidang')->on('bidangs');
+            // $table->foreign('bidang_peminjam')->references('id_bidang')->on('bidangs');
             $table->foreign('id_penyetuju')->references('id_user')->on('users');
             $table->foreign('booking_room')->references('id_room')->on('rooms');
             // $table->foreign('booking_room_owner')->references('room_owner')->on('rooms');
