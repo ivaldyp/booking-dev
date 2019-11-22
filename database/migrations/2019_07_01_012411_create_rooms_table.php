@@ -26,7 +26,7 @@ class CreateRoomsTable extends Migration
             $table->boolean('soft_delete')->default('0');
 
             $table->foreign('room_owner')->references('id_bidang')->on('bidangs');
-            $table->foreign('room_subowner')->references('id_subbidang')->on('subbidangs');
+            // $table->foreign('room_subowner')->references('id_subbidang')->on('subbidangs');
             $table->foreign('room_type')->references('id_roomType')->on('room_types');
         });
 
