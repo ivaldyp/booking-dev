@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->nullable();
             $table->unsignedInteger('user_status')->nullable();
             $table->integer('user_bidang')->nullable();
-            $table->unsignedInteger('user_subbidang')->nullable();
+            $table->integer('user_subbidang')->nullable();
             $table->rememberToken();
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrent();
@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
 
             $table->foreign('user_status')->references('id_userType')->on('user_types');
             // $table->foreign('user_subbidang')->references('id_subbidang')->on('subbidangs');
-            $table->foreign('user_bidang')->references('id_bidang')->on('bidangs');
+            // $table->foreign('user_bidang')->references('id_bidang')->on('bidangs');
         });
 
         Artisan::call('db:seed', [
