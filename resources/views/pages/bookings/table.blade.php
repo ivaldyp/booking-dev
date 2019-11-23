@@ -83,7 +83,9 @@
 								<th>Jumlah Peserta</th>
 								<th class="col-lg-1">Waktu</th>
 								<th>File Surat</th>
-								<th>Log</th>
+								<?php if(Auth::check() && Auth::user()->user_status == 1) { ?>
+								  <th> Log </th>
+								<?php } ?>
 								<th>Status Booking</th>
 								<!-- <th>Keterangan</th> -->
 								<!-- <th>Tanggal Dibuat</th> -->
@@ -120,9 +122,11 @@
 								<td>
 									<button type="button" class="btn btn-info btn_file" data-toggle="modal" data-target="#modal-file" data-surat="{{ $data->surat->id_surat }}||{{ $file_name[2] }}"><i class="fa fa-download"></i></button>
 								</td>
+								<?php if(Auth::check() && Auth::user()->user_status == 1) { ?>
 								<td>
 									<button type="button" class="btn btn-info btn_log" data-toggle="modal" data-target="#modal-log" id="{{ $data->id_booking }}"><i class="fa fa-list"></i></button>
 								</td>
+								<?php } ?>
 								<td bgcolor="#64de5d">
 								  {{ $data->status->status_name }}
 								</td>
@@ -162,7 +166,9 @@
 								<th>Jumlah Peserta</th>
 								<th class="col-lg-1">Waktu</th>
 								<th>File Surat</th>
+								<?php if(Auth::check() && Auth::user()->user_status == 1) { ?>
 								<th>Log</th>
+								<?php } ?>
 								<th>Status Booking</th>
 								<!-- <th>Keterangan</th> -->
 								<!-- <th>Tanggal Dibuat</th> -->
@@ -199,9 +205,11 @@
 								<td>
 									<button type="button" class="btn btn-info btn_file" data-toggle="modal" data-target="#modal-file" data-surat="{{ $data->surat->id_surat }}||{{ $file_name[2] }}"><i class="fa fa-download"></i></button>
 								</td>
+								<?php if(Auth::check() && Auth::user()->user_status == 1) { ?>
 								<td>
 									<button type="button" class="btn btn-info btn_log" data-toggle="modal" data-target="#modal-log" id="{{ $data->id_booking }}"><i class="fa fa-list"></i></button>
 								</td>
+								<?php } ?>
 								<td bgcolor='yellow'>
 								  {{ $data->status->status_name }}
 								</td>
@@ -250,7 +258,9 @@
 								<th>Jumlah Peserta</th>
 								<th class="col-lg-1">Waktu</th>
 								<th>File Surat</th>
+								<?php if(Auth::check() && Auth::user()->user_status == 1) { ?>
 								<th>Log</th>
+								<?php } ?>
 								<th>Status Booking</th>
 								<th>Keterangan</th>
 								<!-- <th>Tanggal Dibuat</th> -->
@@ -284,9 +294,11 @@
 								<td>
 									<button type="button" class="btn btn-info btn_file" data-toggle="modal" data-target="#modal-file" data-surat="{{ $data->surat->id_surat }}||{{ $file_name[2] }}"><i class="fa fa-download"></i></button>
 								</td>
+								<?php if(Auth::check() && Auth::user()->user_status == 1) { ?>
 								<td>
 									<button type="button" class="btn btn-info btn_log" data-toggle="modal" data-target="#modal-log" id="{{ $data->id_booking }}"><i class="fa fa-list"></i></button>
 								</td>
+								<?php } ?>
 								<td bgcolor="#ff3333" style="color: white"><b>
 								  {{ $data->status->status_name }}
 								</b></td>
@@ -432,7 +444,6 @@
 		
 		$('.btn_log').click(function() {
 			var id = this.id;
-			alert(id);
 			$.ajax({
 	            url: "/booking-dev/log/read",
 	            type: "get",

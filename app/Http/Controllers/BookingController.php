@@ -198,29 +198,79 @@ class BookingController extends Controller
         $roomlists = Room::with('bidang')
                         ->with('roomtype')
                         ->get();
-        $rooms = Booking::with('status')
+
+
+        $roomsnot = Booking::with('status')
                     ->with('surat')
                     ->with('bidang')
                     ->with('room')
                     ->with('time1')
                     ->with('time2')
                     ->where('booking_status', 1)
+                    ->where('id_peminjam', '!=', Auth::id())
                     ->where('booking_room_owner', Session::get('user_data')->user_bidang)
                     ->orderBy('created_at', 'asc')
                     ->get();
 
-        $countstatus = count(Booking::with('status')
+        $roomscancel = Booking::with('status')
+                    ->with('surat')
+                    ->with('bidang')
+                    ->with('room')
+                    ->with('time1')
+                    ->with('time2')
+                    ->where('booking_status', 2)
+                    ->where('id_peminjam', '!=', Auth::id())
+                    ->where('booking_room_owner', Session::get('user_data')->user_bidang)
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+
+        $roomsdone = Booking::with('status')
+                    ->with('surat')
+                    ->with('bidang')
+                    ->with('room')
+                    ->with('time1')
+                    ->with('time2')
+                    ->where('booking_status', 3)
+                    ->where('id_peminjam', '!=', Auth::id())
+                    ->where('booking_room_owner', Session::get('user_data')->user_bidang)
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+
+        $countstatus[0] = count(Booking::with('status')
+                    ->with('surat')
+                    ->with('bidang')
+                    ->with('room')
+                    ->with('time1')
+                    ->with('time2')
+                    ->where('booking_status', 2)
+                    ->where('id_peminjam', '!=', Auth::id())
+                    ->where('booking_room_owner', Session::get('user_data')->user_bidang)
+                    ->orderBy('created_at', 'asc')
+                    ->get()); 
+        $countstatus[1] = count(Booking::with('status')
                     ->with('surat')
                     ->with('bidang')
                     ->with('room')
                     ->with('time1')
                     ->with('time2')
                     ->where('booking_status', 1)
+                    ->where('id_peminjam', '!=', Auth::id())
+                    ->where('booking_room_owner', Session::get('user_data')->user_bidang)
+                    ->orderBy('created_at', 'asc')
+                    ->get()); 
+        $countstatus[2] = count(Booking::with('status')
+                    ->with('surat')
+                    ->with('bidang')
+                    ->with('room')
+                    ->with('time1')
+                    ->with('time2')
+                    ->where('booking_status', 3)
+                    ->where('id_peminjam', '!=', Auth::id())
                     ->where('booking_room_owner', Session::get('user_data')->user_bidang)
                     ->orderBy('created_at', 'asc')
                     ->get()); 
 
-        return view('pages.bookings.others')->with('roomlists', $roomlists)->with('rooms', $rooms)->with('countstatus', $countstatus);
+        return view('pages.bookings.others')->with('roomlists', $roomlists)->with('roomsnot', $roomsnot)->with('roomscancel', $roomscancel)->with('roomsdone', $roomsdone)->with('countstatus', $countstatus);
     }
 
     public function showBookMy()
