@@ -24,7 +24,22 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="white-box">
-                        <h3 class="box-title">Rapat Hari Ini</h3> 
+                    	<div class="btn-group m-b-20">
+                    		<?php $new = explode("-", $datenow); ?>
+                    		<form style="display: inline;" method="GET" action="home6">
+                    			<input type="hidden" name="newdate" value="{{ $new[2] - 1 }}">
+                            	<button onclick="this.form.submit()" data-toggle="tooltip" data-original-title="Kurangi 1 Hari" type="button" class="btn btn-default btn-outline waves-effect"><i class="mdi mdi-arrow-left-bold"></i></button>
+                            </form>
+                            <form style="display: inline;" method="GET" action="home6">
+                            	<input type="hidden" name="newdate" value="{{ date('d') }}">
+                        		<button data-toggle="tooltip" data-original-title="Kembali Ke Hari Ini" onclick="this.form.submit()" type="button" class="btn btn-default btn-outline waves-effect"><i class="mdi mdi-calendar"></i></button>
+                        	</form>
+                           	<form style="display: inline;" method="GET" action="home6">
+                           		<input type="hidden" name="newdate" value="{{ $new[2] + 1 }}">
+                            	<button onclick="this.form.submit()" data-toggle="tooltip" data-original-title="Tambah 1 Hari" type="button" class="btn btn-default btn-outline waves-effect"><i class="mdi mdi-arrow-right-bold"></i></button>
+                            </form>
+                        </div>
+                        <h3 class="box-title">Rapat Hari Ini<span><h3>{{ $datenow }}</h3></span></h3> 
                         <div class="table-responsive">
                         	<table class="table table-hover table-bordered">
                         		<thead>

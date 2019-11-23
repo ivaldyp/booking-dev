@@ -214,7 +214,11 @@ class HomeController extends Controller
                     ->orderBy('id_room', 'ASC')
                     ->get();
 
-        $datenow = date('Y-m-d');
+        if (is_null($request->newdate) || $request->newdate == 0) {
+            $datenow = date('Y-m-d');
+        } else {
+            $datenow = date('Y-m-'.$request->newdate.'');
+        }
 
         $bookings = Booking::
                     with('surat')
@@ -231,7 +235,8 @@ class HomeController extends Controller
                 ->with('bidangs', $bidangs)
                 ->with('times', $times)
                 ->with('rooms', $rooms)
-                ->with('bookings', $bookings);
+                ->with('bookings', $bookings)
+                ->with('datenow', $datenow);
     }
 
     public function read()
