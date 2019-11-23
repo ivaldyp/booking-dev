@@ -39,6 +39,7 @@
 								<th>Jumlah Peserta</th>
 								<th class="col-lg-1">Waktu</th>
 								<th>File Surat</th>
+								<th>Log</th>
 								<th>Status Booking</th>
 								<!-- <th>Keterangan</th> -->
 								<!-- <th>Tanggal Dibuat</th> -->
@@ -73,6 +74,9 @@
 
 								<?php $file_name = explode("~", $data->surat->file_name); ?>
 								<td><a href="{{ url('booking/download') }}/{{ $data->surat->id_surat }}"> {{ $file_name[2] }} </a></td>
+								<td>
+									<button type="button" class="btn btn-success btn_log" data-toggle="modal" data-target="#modal-log" id="{{ $data->id_booking }}"><i class="fa fa-list"></i></button>
+								</td>
 								<td bgcolor="#64de5d">
 								  {{ $data->status->status_name }}
 								</td>
@@ -112,6 +116,7 @@
 								<th>Jumlah Peserta</th>
 								<th class="col-lg-1">Waktu</th>
 								<th>File Surat</th>
+								<th>Log</th>
 								<th>Status Booking</th>
 								<!-- <th>Keterangan</th> -->
 								<!-- <th>Tanggal Dibuat</th> -->
@@ -146,6 +151,9 @@
 
 								<?php $file_name = explode("~", $data->surat->file_name); ?>
 								<td><a href="{{ url('booking/download') }}/{{ $data->surat->id_surat }}"> {{ $file_name[2] }} </a></td>
+								<td>
+									<button type="button" class="btn btn-success btn_log" data-toggle="modal" data-target="#modal-log" id="{{ $data->id_booking }}"><i class="fa fa-list"></i></button>
+								</td>
 								<td bgcolor='yellow'>
 								  {{ $data->status->status_name }}
 								</td>
@@ -194,6 +202,7 @@
 								<th>Jumlah Peserta</th>
 								<th class="col-lg-1">Waktu</th>
 								<th>File Surat</th>
+								<th>Log</th>
 								<th>Status Booking</th>
 								<th>Keterangan</th>
 								<!-- <th>Tanggal Dibuat</th> -->
@@ -225,6 +234,9 @@
 
 								<?php $file_name = explode("~", $data->surat->file_name); ?>
 								<td><a href="{{ url('booking/download') }}/{{ $data->surat->id_surat }}"> {{ $file_name[2] }} </a></td>
+								<td>
+									<button type="button" class="btn btn-success btn_log" data-toggle="modal" data-target="#modal-log" id="{{ $data->id_booking }}"><i class="fa fa-list"></i></button>
+								</td>
 								<td bgcolor="#ff3333" style="color: white"><b>
 								  {{ $data->status->status_name }}
 								</b></td>
@@ -288,46 +300,110 @@
 	  </div>
 	  <!-- /.modal -->
 
+	  <div class="modal fade" id="modal-log">
+		<div class="modal-dialog modal-lg">
+		  <div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Log</h4>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>ID Log</th>
+								<!-- <th>ID Booking</th> -->
+								<th>Pengguna</th>
+								<th>Aksi</th>
+								<!-- <th>Created At</th> -->
+							</tr>
+						</thead>
+						<tbody id="log-isi">
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+			</div>
+		  </div>
+		  <!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	  </div>
+	  <!-- /.modal -->
+
 
 @endsection
 
 @section('datatable')
 
 <script>
-  $(function () {
-	$("#example1").DataTable();
-	$("#example2").DataTable();
-	$("#example3").DataTable();
+	$(function () {
+		$("#example1").DataTable();
+		$("#example2").DataTable();
+		$("#example3").DataTable();
 
-	$('.btn_booking_not_edit_stat').click(function() {
+		
+		$('.btn_log').click(function() {
+			var id = this.id;
+			alert(id);
+			$.ajax({
+	            url: "/booking-dev/log/read",
+	            type: "get",
+	            data: {id_booking:id},
+	            success: function(datas){
+            		for(var i=0; i<datas['logs'].length; i++){
+            			$("#log-isi").append("<tr>"+
+            								"<td>"+(i+1)+"</td>"+
+            								"<td>"+datas['logs'][i].id_log+"</td>"+
+            								// "<td>"+datas['logs'][i].id_booking+"</td>"+
+            								"<td>"+datas['logs'][i].id_user+"<br>"+datas['logs'][i].name+"</td>"+
+            								"<td>"+datas['status'][(datas['logs'][i].log_tipe - 1)]+"</td>"+
+            								// "<td>"+datas['logs'][i].created_at+"</td>"+
+            								"</tr>");
+            		}
+	            }
+			});
+		});
 
-	  var data = (this.id).split('||');
-	  console.log(data)
+		$("#modal-log").on("hidden.bs.modal", function () {
+		  $("#log-isi").empty();
+		});
 
-	  if (data[6] == 1) {
-		$("#book-status-1").append("<div class='form-group'><label for='booking_status' class='col-lg-2 control-label'> Ubah Status </label><div class='col-lg-8'><div class='radio'><label><input type='radio' name='booking_status' id='optionsRadios1' value='3' checked>OK</label></div><div class='radio'><label><input type='radio' name='booking_status' id='optionsRadios2' value='2'>Batal</label></div></div></div>");
-	  } else if (data[6] == 3) {
-		$("#book-status-2").append("<div class='form-group'><label for='booking_status' class='col-lg-2 control-label'> Ubah Status </label><div class='col-lg-8'><div class='checkbox'><label for='booking_status' class='control-label'><input type='checkbox' name='booking_status' id='optionsCheck2' value='2'>Batal</label></div></div></div>");
-	  }
+		$('.btn_booking_not_edit_stat').click(function() {
 
-	  $('#modal_id_booking').val(data[0]);
-	  if (data[1] == '' || data[1] == null) {
-		$('#modal_keterangan_status').val('-');
-	  } else {
-		$('#modal_keterangan_status').val(data[1]);
-	  }
-	  $('#modal_booking_date').val(data[2]);
-	  $('#modal_time_start').val(data[3]);
-	  $('#modal_time_end').val(data[4]);
-	  $('#modal_booking_room').val(data[5]);
-	  $('#modal_status_id').val(data[6]);
+		  var data = (this.id).split('||');
+		  console.log(data)
+
+		  if (data[6] == 1) {
+			$("#book-status-1").append("<div class='form-group'><label for='booking_status' class='col-lg-2 control-label'> Ubah Status </label><div class='col-lg-8'><div class='radio'><label><input type='radio' name='booking_status' id='optionsRadios1' value='3' checked>OK</label></div><div class='radio'><label><input type='radio' name='booking_status' id='optionsRadios2' value='2'>Batal</label></div></div></div>");
+		  } else if (data[6] == 3) {
+			$("#book-status-2").append("<div class='form-group'><label for='booking_status' class='col-lg-2 control-label'> Ubah Status </label><div class='col-lg-8'><div class='checkbox'><label for='booking_status' class='control-label'><input type='checkbox' name='booking_status' id='optionsCheck2' value='2'>Batal</label></div></div></div>");
+		  }
+
+		  $('#modal_id_booking').val(data[0]);
+		  if (data[1] == '' || data[1] == null) {
+			$('#modal_keterangan_status').val('-');
+		  } else {
+			$('#modal_keterangan_status').val(data[1]);
+		  }
+		  $('#modal_booking_date').val(data[2]);
+		  $('#modal_time_start').val(data[3]);
+		  $('#modal_time_end').val(data[4]);
+		  $('#modal_booking_room').val(data[5]);
+		  $('#modal_status_id').val(data[6]);
+		});
+
+		$("#modal-default").on("hidden.bs.modal", function () {
+		  $("#book-status-1").empty();
+		  $("#book-status-2").empty();
+		});
 	});
-
-	$("#modal-default").on("hidden.bs.modal", function () {
-	  $("#book-status-1").empty();
-	  $("#book-status-2").empty();
-	});
-  });
 </script>
 
 @endsection

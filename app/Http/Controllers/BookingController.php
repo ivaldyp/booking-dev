@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Session;
 use App\Bidang;
 use App\Booking;
 use App\Booking_Status;
+use App\Log;
 use App\Room;
 use App\Surat;
 use App\Time;
@@ -296,9 +297,9 @@ class BookingController extends Controller
         if ($surat->save()) {
             for ($i=0; $i < $request->total_room; $i++) { 
                 ${'booking' . $i} = new Booking;
-                ${'booking' . $i}->id_booking = md5(uniqid());
+                ${'booking' . $i}->id_booking = $id_booking = md5(uniqid());
                 ${'booking' . $i}->id_surat = $request->id_surat;
-                ${'booking' . $i}->id_peminjam = Auth::id();
+                ${'booking' . $i}->id_peminjam = $id_user = Auth::id();
                 ${'booking' . $i}->nip_peminjam = $request->nip_peminjam;
                 ${'booking' . $i}->nama_peminjam = $request->nama_peminjam;
                 ${'booking' . $i}->bidang_peminjam = $request->bidang_peminjam;
@@ -307,8 +308,10 @@ class BookingController extends Controller
                 ${'booking' . $i}->booking_room_owner = $room_detail[1];
                 if (Session::get('user_data')->user_bidang == $room_detail[1]) {
                     ${'booking' . $i}->booking_status = 3;
+                    $log_tipe = 1;
                 } else {
                     ${'booking' . $i}->booking_status = 1;
+                    $log_tipe = 2;
                 }
                 ${'booking' . $i}->booking_total_tamu = $request->booking_total_tamu;
                 ${'booking' . $i}->booking_total_snack = $request->booking_total_snack;
@@ -317,10 +320,19 @@ class BookingController extends Controller
                 ${'booking' . $i}->time_end = $request->time_end;
                 ${'booking' . $i}->request_hapus = $request->request_hapus;
                 date_default_timezone_set('Asia/Jakarta');
-                ${'booking' . $i}->created_at = date('Y-m-d H:i:s');
-                ${'booking' . $i}->updated_at = date('Y-m-d H:i:s');
+                ${'booking' . $i}->created_at = $created_at = date('Y-m-d H:i:s');
+                ${'booking' . $i}->updated_at = $updated_at = date('Y-m-d H:i:s');
                 ${'booking' . $i}->save();
-                var_dump($i);
+
+                ${'log' . $i} = new Log;
+                ${'log' . $i}->id_log = md5(uniqid());
+                ${'log' . $i}->id_booking = $id_booking;
+                ${'log' . $i}->id_user = Auth::id();
+                ${'log' . $i}->log_tipe = $log_tipe;
+                ${'log' . $i}->created_at = $created_at;
+                ${'log' . $i}->updated_at = $updated_at;
+                ${'log' . $i}->soft_delete = 0;
+                ${'log' . $i}->save();
             }
         } else {
             return redirect('/home6')->with('message', 'Data Surat ada yang salah');
@@ -338,6 +350,9 @@ class BookingController extends Controller
         }
         if (!is_null($request->checkchangeroom)) {
             $booking->booking_room = $request->booking_room_change;
+            $log_tipe = 4;
+        } else {
+            $log_tipe = 3;
         }
         $booking->keterangan_status = $request->keterangan_status;
 
@@ -353,15 +368,55 @@ class BookingController extends Controller
             if (array_key_exists($array_key, $back_link) == false) {
                 if ($request->status_id == 1) {
                     if ($request->booking_status == 2) {
+                        $log = new Log();
+                        $log->id_log = md5(uniqid());
+                        $log->id_booking = $request->id_booking;
+                        $log->id_user = Auth::id();
+                        $log->log_tipe = 5;
+                        date_default_timezone_set('Asia/Jakarta');
+                        $log->created_at = date('Y-m-d H:i:s');
+                        $log->updated_at = date('Y-m-d H:i:s');
+                        $log->soft_delete = 0;
+                        $log->save();
                         return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
                     } elseif ($request->booking_status == 3) {
+                        $log = new Log();
+                        $log->id_log = md5(uniqid());
+                        $log->id_booking = $request->id_booking;
+                        $log->id_user = Auth::id();
+                        $log->log_tipe = $log_tipe;
+                        date_default_timezone_set('Asia/Jakarta');
+                        $log->created_at = date('Y-m-d H:i:s');
+                        $log->updated_at = date('Y-m-d H:i:s');
+                        $log->soft_delete = 0;
+                        $log->save();
                         return redirect('booking/done')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
                     }
                 } elseif ($request->status_id == 3) {
+                    $log = new Log();
+                    $log->id_log = md5(uniqid());
+                    $log->id_booking = $request->id_booking;
+                    $log->id_user = Auth::id();
+                    $log->log_tipe = 5;
+                    date_default_timezone_set('Asia/Jakarta');
+                    $log->created_at = date('Y-m-d H:i:s');
+                    $log->updated_at = date('Y-m-d H:i:s');
+                    $log->soft_delete = 0;
+                    $log->save();
                     return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
                 }
             } elseif (end($back_link) == 'not' || end($back_link) == 'bidang-lain') {
                 if ($request->booking_status == 2) {
+                    $log = new Log();
+                    $log->id_log = md5(uniqid());
+                    $log->id_booking = $request->id_booking;
+                    $log->id_user = Auth::id();
+                    $log->log_tipe = 5;
+                    date_default_timezone_set('Asia/Jakarta');
+                    $log->created_at = date('Y-m-d H:i:s');
+                    $log->updated_at = date('Y-m-d H:i:s');
+                    $log->soft_delete = 0;
+                    $log->save();
                     return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
                 } elseif ($request->booking_status == 3) {
                     $time1 = $request->time_start;
@@ -395,16 +450,59 @@ class BookingController extends Controller
                         $booking->keterangan_status = 'Jadwal yang dipilih telah terisi penuh';
                         $booking->soft_delete = 1;
                         $booking->save();
+
+                        ${'log' . $i} = new Log();
+                        ${'log' . $i}->id_log = md5(uniqid());
+                        ${'log' . $i}->id_booking = $booking->id_booking;
+                        ${'log' . $i}->id_user = Auth::id();
+                        ${'log' . $i}->log_tipe = 5;
+                        date_default_timezone_set('Asia/Jakarta');
+                        ${'log' . $i}->created_at = date('Y-m-d H:i:s');
+                        ${'log' . $i}->updated_at = date('Y-m-d H:i:s');
+                        ${'log' . $i}->created_at = $created_at;
+                        ${'log' . $i}->updated_at = $updated_at;
+                        ${'log' . $i}->soft_delete = 0;
+                        ${'log' . $i}->save();
                     }
                     
                     if (end($back_link) == 'not') {
+                        $log = new Log();
+                        $log->id_log = md5(uniqid());
+                        $log->id_booking = $request->id_booking;
+                        $log->id_user = Auth::id();
+                        $log->log_tipe = $log_tipe;
+                        date_default_timezone_set('Asia/Jakarta');
+                        $log->created_at = date('Y-m-d H:i:s');
+                        $log->updated_at = date('Y-m-d H:i:s');
+                        $log->soft_delete = 0;
+                        $log->save();
                         return redirect('booking/done')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
                     } elseif (end($back_link) == 'bidang-lain') {
+                        $log = new Log();
+                        $log->id_log = md5(uniqid());
+                        $log->id_booking = $request->id_booking;
+                        $log->id_user = Auth::id();
+                        $log->log_tipe = $log_tipe;
+                        date_default_timezone_set('Asia/Jakarta');
+                        $log->created_at = date('Y-m-d H:i:s');
+                        $log->updated_at = date('Y-m-d H:i:s');
+                        $log->soft_delete = 0;
+                        $log->save();
                         return redirect('booking/bidang-lain')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
                     }
                     
                 }
             } elseif (end($back_link) == 'done') {
+                $log = new Log();
+                $log->id_log = md5(uniqid());
+                $log->id_booking = $request->id_booking;
+                $log->id_user = Auth::id();
+                $log->log_tipe = 5;
+                date_default_timezone_set('Asia/Jakarta');
+                $log->created_at = date('Y-m-d H:i:s');
+                $log->updated_at = date('Y-m-d H:i:s');
+                $log->soft_delete = 0;
+                $log->save();
                 return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
             }
         } else {

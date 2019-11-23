@@ -80,8 +80,8 @@
 											}
 										}
 									} else {
-										$rowspan = count($times) + 1;
-										echo "<td rowspan='".$rowspan."' style='text-align: center;'>No data available</td>";
+										$colspan = count($times) + 1;
+										echo "<td colspan='".$colspan."' style='text-align: center;'>No data available</td>";
 									}
 								?>
 								</tbody>

@@ -63,6 +63,8 @@ Route::group(['prefix' => 'list'], function () {
 	Route::get('/ruang', 'ListController@getRuang');
 });
 
+Route::get('/log/read', 'LogController@showLog');
+
 Route::group(['prefix' => 'notulen'], function () {
 	Route::get('/', 'NotulenController@index');
 	Route::post('/store', 'NotulenController@store');
