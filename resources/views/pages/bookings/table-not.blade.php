@@ -88,7 +88,9 @@
 					                    {{ $time1[0] . ":" . $time1[1] }} - {{ $time2[0] . ":" . $time2[1] }}</td>
 
 										<?php $file_name = explode("~", $data->surat->file_name); ?>
-										<td><a href="{{ url('booking/download') }}/{{ $data->surat->id_surat }}"> {{ $file_name[2] }} </a></td>
+										<td>
+                                     	 	<button type="button" class="btn btn-info btn_file" data-toggle="modal" data-target="#modal-file" data-surat="{{ $data->surat->id_surat }}||{{ $file_name[2] }}"><i class="fa fa-download"></i></button>
+	                                    </td>
 										<td bgcolor='yellow'>
 											{{ $data->status->status_name }}
 										</td>
@@ -175,7 +177,28 @@
 								</div>
 								<!-- /.modal-dialog -->
 							</div>
-							<!-- /.modal -->
+							<div class="modal fade" id="modal-file">
+						      <div class="modal-dialog">
+						        <div class="modal-content">
+						        <div class="modal-header">
+						          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span></button>
+						          <h4 class="modal-title">File Surat</h4>
+						        </div>
+						        <div class="modal-body">
+						          <div class="table-responsive" id="file-isi">
+						            
+						          </div>
+						        </div>
+						        <div class="modal-footer">
+						          <button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+						        </div>
+						        </div>
+						        <!-- /.modal-content -->
+						      </div>
+						      <!-- /.modal-dialog -->
+						    </div>
+						    <!-- /.modal -->
             		</div>
             	</div>
             </div>
@@ -191,6 +214,15 @@
 
 <script>
 	$(function () {
+		$('.btn_file').click(function() {
+	      var surat = $(this).data("surat").split("||");
+	      $('#file-isi').append("<a href='{{ url('booking/download') }}/"+surat[0]+"'> "+surat[1]+" </a>")
+	    });
+
+	    $("#modal-file").on("hidden.bs.modal", function () {
+	      $("#file-isi").empty();
+	    });
+
 		$("#checkchangeroom").on("change", function(event) {
 			if($(this).is(":checked")) {
 				$('#booking_room_change').prop("disabled", false);      
