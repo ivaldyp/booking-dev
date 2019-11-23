@@ -23,6 +23,25 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm-3">
+                    <div class="white-box">
+                     	<div class="row row-in">
+                          	<div class="col-lg-12 col-sm-6">
+                                <ul class="col-in">
+                                    <li>
+                                        <span class="circle circle-md bg-warning"><i class="ti-help"></i></span>
+                                    </li>
+                                    <li class="col-last"><h3 class="counter text-right m-t-15">{{ $countstatus }}</h3></li>
+                                    <li class="col-middle">
+                                        <h4>Pinjaman Belum Disetujui</h4>
+                                    </li>
+                                </ul>
+                          </div>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-12">
                     <div class="white-box">
                         <!-- <h3 class="box-title">Pinjaman Disetujui</h3> -->

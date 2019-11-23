@@ -69,7 +69,41 @@ class BookingController extends Controller
                         ->orderBy('time_end', 'asc')
                         ->get();
 
-        return view('pages.bookings.table')->with('bookingnot', $bookingnot)->with('bookingcancel', $bookingcancel)->with('bookingdone', $bookingdone);
+        $countstatus[0] = count(Booking::with('status')
+                        ->with('surat')
+                        ->with('bidang')
+                        ->with('room')
+                        ->with('time1')
+                        ->with('time2')
+                        ->where('booking_status', 2)
+                        ->orderBy('booking_date', 'desc')
+                        ->orderBy('time_start', 'asc')
+                        ->orderBy('time_end', 'asc')
+                        ->get());
+        $countstatus[1] = count(Booking::with('status')
+                        ->with('surat')
+                        ->with('bidang')
+                        ->with('room')
+                        ->with('time1')
+                        ->with('time2')
+                        ->where('booking_status', 1)
+                        ->orderBy('booking_date', 'desc')
+                        ->orderBy('time_start', 'asc')
+                        ->orderBy('time_end', 'asc')
+                        ->get());
+        $countstatus[2] = count(Booking::with('status')
+                        ->with('surat')
+                        ->with('bidang')
+                        ->with('room')
+                        ->with('time1')
+                        ->with('time2')
+                        ->where('booking_status', 3)
+                        ->orderBy('booking_date', 'desc')
+                        ->orderBy('time_start', 'asc')
+                        ->orderBy('time_end', 'asc')
+                        ->get());
+
+        return view('pages.bookings.table')->with('bookingnot', $bookingnot)->with('bookingcancel', $bookingcancel)->with('bookingdone', $bookingdone)->with('countstatus', $countstatus);
     }
 
     public function showBookCancel(Request $request)
@@ -175,7 +209,18 @@ class BookingController extends Controller
                     ->orderBy('created_at', 'asc')
                     ->get();
 
-        return view('pages.bookings.others')->with('roomlists', $roomlists)->with('rooms', $rooms);
+        $countstatus = count(Booking::with('status')
+                    ->with('surat')
+                    ->with('bidang')
+                    ->with('room')
+                    ->with('time1')
+                    ->with('time2')
+                    ->where('booking_status', 1)
+                    ->where('booking_room_owner', Session::get('user_data')->user_bidang)
+                    ->orderBy('created_at', 'asc')
+                    ->get()); 
+
+        return view('pages.bookings.others')->with('roomlists', $roomlists)->with('rooms', $rooms)->with('countstatus', $countstatus);
     }
 
     public function showBookMy()
@@ -221,7 +266,44 @@ class BookingController extends Controller
                         ->orderBy('time_end', 'asc')
                         ->get();
 
-        return view('pages.bookings.my-table')->with('bookingnot', $bookingnot)->with('bookingcancel', $bookingcancel)->with('bookingdone', $bookingdone);
+        $countstatus[0] = count(Booking::with('status')
+                        ->with('surat')
+                        ->with('bidang')
+                        ->with('room')
+                        ->with('time1')
+                        ->with('time2')
+                        ->where('id_peminjam', $id_peminjam)
+                        ->where('booking_status', 2)
+                        ->orderBy('booking_date', 'desc')
+                        ->orderBy('time_start', 'asc')
+                        ->orderBy('time_end', 'asc')
+                        ->get());
+        $countstatus[1] = count(Booking::with('status')
+                        ->with('surat')
+                        ->with('bidang')
+                        ->with('room')
+                        ->with('time1')
+                        ->with('time2')
+                        ->where('id_peminjam', $id_peminjam)
+                        ->where('booking_status', 1)
+                        ->orderBy('booking_date', 'desc')
+                        ->orderBy('time_start', 'asc')
+                        ->orderBy('time_end', 'asc')
+                        ->get());
+        $countstatus[2] = count(Booking::with('status')
+                        ->with('surat')
+                        ->with('bidang')
+                        ->with('room')
+                        ->with('time1')
+                        ->with('time2')
+                        ->where('id_peminjam', $id_peminjam)
+                        ->where('booking_status', 3)
+                        ->orderBy('booking_date', 'desc')
+                        ->orderBy('time_start', 'asc')
+                        ->orderBy('time_end', 'asc')
+                        ->get());
+
+        return view('pages.bookings.my-table')->with('bookingnot', $bookingnot)->with('bookingcancel', $bookingcancel)->with('bookingdone', $bookingdone)->with('countstatus', $countstatus);
     }
 
     public function showForm()
