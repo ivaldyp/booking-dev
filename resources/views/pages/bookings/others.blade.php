@@ -138,7 +138,7 @@
                     <div class="white-box">
                         <h3 class="box-title">Pinjaman Belum Disetujui</h3>
                         <div class="table-responsive">
-                        	<table id="example1" class="table table-bordered table-hover">
+                        	<table id="example2" class="table table-bordered table-hover">
 								<thead>
 									<tr>
 										<th>No</th>
@@ -388,6 +388,9 @@
 			}
 		});
 		$("#example1").DataTable();
+		$("#example2").DataTable();
+		$("#example3").DataTable();
+		
 		$('.btn_booking_not_edit_stat').click(function() {
 			var data = (this.id).split('||');
 			$('#modal_id_booking').val(data[0]);

@@ -512,6 +512,50 @@ class BookingController extends Controller
                         $log->save();
                         return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
                     } elseif ($request->booking_status == 3) {
+                        $time1 = $request->time_start;
+                        $time2 = $request->time_end;
+                        
+                        $bookings = Booking::where('id_booking', '!=', $request->id_booking)
+                                            ->where('booking_room', $request->booking_room)
+                                            ->where('booking_date', $request->booking_date)
+                                            ->where(function($q) use ($time1, $time2){
+                                                $q->where(function($f1) use ($time1, $time2) {
+                                                    $f1->where('time_start', '<', $time1)
+                                                       ->whereBetween('time_end', [$time1, $time2]);
+                                                })
+                                                ->orWhere(function($f2) use ($time1, $time2) {
+                                                    $f2->whereBetween('time_start', [$time1, $time2])
+                                                       ->where('time_end', '>', $time2);
+                                                })
+                                                ->orWhere(function($f3) use ($time1, $time2) {
+                                                    $f3->where('time_start', '>=', $time1)
+                                                       ->where('time_end', '<=', $time2);
+                                                })
+                                                ->orWhere(function($f4) use ($time1, $time2) {
+                                                    $f4->where('time_start', '<', $time1)
+                                                       ->where('time_end', '>', $time2);
+                                                });
+                                            })
+                                            ->get();
+
+                        foreach ($bookings as $key => $booking) {
+                            $booking->booking_status = 2;
+                            $booking->keterangan_status = 'Jadwal yang dipilih telah terisi penuh';
+                            $booking->soft_delete = 1;
+                            $booking->save();
+
+                            ${'log' . $key} = new Log();
+                            ${'log' . $key}->id_log = md5(uniqid());
+                            ${'log' . $key}->id_booking = $booking->id_booking;
+                            ${'log' . $key}->id_user = Auth::id();
+                            ${'log' . $key}->log_tipe = 5;
+                            date_default_timezone_set('Asia/Jakarta');
+                            ${'log' . $key}->created_at = date('Y-m-d H:i:s');
+                            ${'log' . $key}->updated_at = date('Y-m-d H:i:s');
+                            ${'log' . $key}->soft_delete = 0;
+                            ${'log' . $key}->save();
+                        }
+
                         $log = new Log();
                         $log->id_log = md5(uniqid());
                         $log->id_booking = $request->id_booking;
@@ -583,18 +627,16 @@ class BookingController extends Controller
                         $booking->soft_delete = 1;
                         $booking->save();
 
-                        ${'log' . $i} = new Log();
-                        ${'log' . $i}->id_log = md5(uniqid());
-                        ${'log' . $i}->id_booking = $booking->id_booking;
-                        ${'log' . $i}->id_user = Auth::id();
-                        ${'log' . $i}->log_tipe = 5;
+                        ${'log' . $key} = new Log();
+                        ${'log' . $key}->id_log = md5(uniqid());
+                        ${'log' . $key}->id_booking = $booking->id_booking;
+                        ${'log' . $key}->id_user = Auth::id();
+                        ${'log' . $key}->log_tipe = 5;
                         date_default_timezone_set('Asia/Jakarta');
-                        ${'log' . $i}->created_at = date('Y-m-d H:i:s');
-                        ${'log' . $i}->updated_at = date('Y-m-d H:i:s');
-                        ${'log' . $i}->created_at = $created_at;
-                        ${'log' . $i}->updated_at = $updated_at;
-                        ${'log' . $i}->soft_delete = 0;
-                        ${'log' . $i}->save();
+                        ${'log' . $key}->created_at = date('Y-m-d H:i:s');
+                        ${'log' . $key}->updated_at = date('Y-m-d H:i:s');
+                        ${'log' . $key}->soft_delete = 0;
+                        ${'log' . $key}->save();
                     }
                     
                     if (end($back_link) == 'not') {
