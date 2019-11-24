@@ -82,6 +82,7 @@
                                 <th>Waktu</th>
                                 <th>File Surat</th>
                                 <th>Status Booking</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -111,6 +112,9 @@
                                 </td>
                                 <td bgcolor="#64de5d">
                                   {{ $data->status->status_name }}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->time2->id_time }}||{{ $data->room->booking_room }}||{{ $data->status->status_id }}"><i class="fa fa-edit"></i></button>
                                 </td>
                               </tr>
                               <?php } ?>
@@ -239,6 +243,53 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modal-default">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Ubah status booking ruangan</h4>
+          </div>
+            <form method="POST" action="updateStatus" class="form-horizontal">
+            @csrf
+              <div class="modal-body">
+                <input type="hidden" name="id_booking" class="modal_id_booking">
+                <input type="hidden" name="booking_date" class="modal_booking_date">
+                <input type="hidden" name="time_start" class="modal_time_start">
+                <input type="hidden" name="time_end" class="modal_time_end">
+                <input type="hidden" name="booking_room" class="modal_booking_room">
+                <input type="hidden" name="status_id" class="modal_status_id">
+
+                <div class='form-group'>
+                  <label for='booking_status' class='col-lg-2 control-label'> Ubah Status </label>
+                  <div class='col-lg-8'>
+                    <div class='checkbox'>
+                      <label for='booking_status' class='control-label'>
+                        <input type='checkbox' name='booking_status' id='optionsCheck2' value='2'>Batal
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="keterangan_status" class="col-lg-2 control-label"> Keterangan </label>
+                  <div class="col-lg-8">
+                    <textarea class="form-control" id="modal_keterangan_status" name="keterangan_status" rows="3" autocomplete="off"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success pull-right">Simpan</button>
+                <button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
     <div class="modal fade" id="modal-file">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -280,6 +331,20 @@
     $("#example1").DataTable();
     $("#example2").DataTable();
     $("#example3").DataTable();
+
+    $('.btn_booking_not_edit_stat').click(function() {
+      var data = (this.id).split('||');
+      $('.modal_id_booking').val(data[0]);
+      if (data[1] == '' || data[1] == null) {
+        $('.modal_keterangan_status').val('-');
+      } else {
+        $('.modal_keterangan_status').val(data[1]);
+      }
+      $('.modal_booking_date').val(data[2]);
+      $('.modal_time_start').val(data[3]);
+      $('.modal_time_end').val(data[4]);
+      $('.modal_booking_room').val(data[5]);
+    });
   });
 </script>
 

@@ -202,7 +202,7 @@ class BookingController extends Controller
         $roomlists = Room::with('bidang')
                         ->with('roomtype')
                         ->get();
-                        
+
         $roomsnot = Booking::with('status')
                     ->with('surat')
                     ->with('bidang')
@@ -675,6 +675,18 @@ class BookingController extends Controller
                 $log->soft_delete = 0;
                 $log->save();
                 return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
+            } elseif (end($back_link) == 'my-booking') {
+                $log = new Log();
+                $log->id_log = md5(uniqid());
+                $log->id_booking = $request->id_booking;
+                $log->id_user = Auth::id();
+                $log->log_tipe = 5;
+                date_default_timezone_set('Asia/Jakarta');
+                $log->created_at = date('Y-m-d H:i:s');
+                $log->updated_at = date('Y-m-d H:i:s');
+                $log->soft_delete = 0;
+                $log->save();
+                return redirect('booking/my-booking')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
             }
         } else {
             if (end($back_link) == 'not' || end($back_link) == 'bidang-lain') {

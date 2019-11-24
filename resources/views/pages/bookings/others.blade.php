@@ -124,7 +124,7 @@
 								<!-- <td>{{$data->tanggal_dibuat}}</td> -->
 								<td>
 								  	<button type="button" class="btn btn-info btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->time2->id_time }}||{{ $data->room->booking_room }}||{{ $data->status->status_id }}"><i class="fa fa-edit"></i></button>
-								  </td>
+								</td>
 							  </tr>
 							  <?php } ?>
 							</tbody>
