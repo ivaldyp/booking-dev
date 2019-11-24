@@ -473,10 +473,17 @@
 		  console.log(data)
 
 		  if (data[6] == 1) {
-			$("#book-status-1").append("<div class='form-group'><label for='booking_status' class='col-lg-2 control-label'> Ubah Status </label><div class='col-lg-8'><div class='radio'><label><input type='radio' name='booking_status' id='optionsRadios1' value='3' checked>OK</label></div><div class='radio'><label><input type='radio' name='booking_status' id='optionsRadios2' value='2'>Batal</label></div></div></div>");
+			$("#book-status-1").append("<div class='form-group'><label for='booking_status' class='col-lg-2 control-label'> Ubah Status </label><div class='col-lg-8'><div class='radio'><label><input type='radio' name='booking_status' id='optionsRadios1' value='3' checked>OK</label></div><div class='radio'><label><input type='radio' name='booking_status' id='optionsRadios2' value='2'>Batal</label></div></div></div><div class='form-group'><label for='booking_room_change' class='col-lg-2 control-label'> Ubah Ruang? </label><div class='col-lg-1'><div class='checkbox'><label><input type='checkbox' name='checkchangeroom' id='checkchangeroom' style='width: 30px; height: 30px; top: 0px'></label></div></div><div class='col-lg-7'><select class='form-control' name='booking_room_change' id='booking_room_change' disabled='><option value='<?php echo NULL; ?>' selected disabled>-- Pilih Ruang --</option><?php foreach ($roomlists as $data) { ?><option value='{{ $data->id_room }}'>{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option><?php } ?></select></div></div>");
 		  } else if (data[6] == 3) {
 			$("#book-status-2").append("<div class='form-group'><label for='booking_status' class='col-lg-2 control-label'> Ubah Status </label><div class='col-lg-8'><div class='checkbox'><label for='booking_status' class='control-label'><input type='checkbox' name='booking_status' id='optionsCheck2' value='2'>Batal</label></div></div></div>");
 		  }
+		  $("#checkchangeroom").on("change", function(event) {
+			if($(this).is(":checked")) {
+				$('#booking_room_change').prop("disabled", false);      
+			} else {
+				$('#booking_room_change').prop("disabled", true);      
+			}
+		  });
 
 		  $('#modal_id_booking').val(data[0]);
 		  if (data[1] == '' || data[1] == null) {

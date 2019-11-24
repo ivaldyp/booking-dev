@@ -33,6 +33,10 @@ class BookingController extends Controller
 
     public function showAllBook(Request $request)
     {
+        $roomlists = Room::with('bidang')
+                        ->with('roomtype')
+                        ->get();
+
         $bookingnot = Booking::with('status')
                         ->with('surat')
                         ->with('bidang')
@@ -103,7 +107,7 @@ class BookingController extends Controller
                         ->orderBy('time_end', 'asc')
                         ->get());
 
-        return view('pages.bookings.table')->with('bookingnot', $bookingnot)->with('bookingcancel', $bookingcancel)->with('bookingdone', $bookingdone)->with('countstatus', $countstatus);
+        return view('pages.bookings.table')->with('bookingnot', $bookingnot)->with('bookingcancel', $bookingcancel)->with('bookingdone', $bookingdone)->with('countstatus', $countstatus)->with('roomlists', $roomlists);
     }
 
     public function showBookCancel(Request $request)
@@ -198,8 +202,7 @@ class BookingController extends Controller
         $roomlists = Room::with('bidang')
                         ->with('roomtype')
                         ->get();
-
-
+                        
         $roomsnot = Booking::with('status')
                     ->with('surat')
                     ->with('bidang')
@@ -482,8 +485,10 @@ class BookingController extends Controller
         }
         if (!is_null($request->checkchangeroom)) {
             $booking->booking_room = $request->booking_room_change;
+            $newroom = $request->booking_room_change;
             $log_tipe = 4;
         } else {
+            $newroom = $request->booking_room;
             $log_tipe = 3;
         }
         $booking->keterangan_status = $request->keterangan_status;
@@ -516,7 +521,7 @@ class BookingController extends Controller
                         $time2 = $request->time_end;
                         
                         $bookings = Booking::where('id_booking', '!=', $request->id_booking)
-                                            ->where('booking_room', $request->booking_room)
+                                            ->where('booking_room', $newroom)
                                             ->where('booking_date', $request->booking_date)
                                             ->where(function($q) use ($time1, $time2){
                                                 $q->where(function($f1) use ($time1, $time2) {
@@ -593,13 +598,17 @@ class BookingController extends Controller
                     $log->updated_at = date('Y-m-d H:i:s');
                     $log->soft_delete = 0;
                     $log->save();
-                    return redirect('booking/cancel')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
+                    if (end($back_link) == 'not') {
+                        return redirect('booking/done')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
+                    } elseif (end($back_link) == 'bidang-lain') {
+                        return redirect('booking/bidang-lain')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
+                    }
                 } elseif ($request->booking_status == 3) {
                     $time1 = $request->time_start;
                     $time2 = $request->time_end;
                     
                     $bookings = Booking::where('id_booking', '!=', $request->id_booking)
-                                        ->where('booking_room', $request->booking_room)
+                                        ->where('booking_room', $newroom)
                                         ->where('booking_date', $request->booking_date)
                                         ->where(function($q) use ($time1, $time2){
                                             $q->where(function($f1) use ($time1, $time2) {
@@ -638,33 +647,21 @@ class BookingController extends Controller
                         ${'log' . $key}->soft_delete = 0;
                         ${'log' . $key}->save();
                     }
-                    
+                    $log = new Log();
+                    $log->id_log = md5(uniqid());
+                    $log->id_booking = $request->id_booking;
+                    $log->id_user = Auth::id();
+                    $log->log_tipe = $log_tipe;
+                    date_default_timezone_set('Asia/Jakarta');
+                    $log->created_at = date('Y-m-d H:i:s');
+                    $log->updated_at = date('Y-m-d H:i:s');
+                    $log->soft_delete = 0;
+                    $log->save();
                     if (end($back_link) == 'not') {
-                        $log = new Log();
-                        $log->id_log = md5(uniqid());
-                        $log->id_booking = $request->id_booking;
-                        $log->id_user = Auth::id();
-                        $log->log_tipe = $log_tipe;
-                        date_default_timezone_set('Asia/Jakarta');
-                        $log->created_at = date('Y-m-d H:i:s');
-                        $log->updated_at = date('Y-m-d H:i:s');
-                        $log->soft_delete = 0;
-                        $log->save();
                         return redirect('booking/done')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
                     } elseif (end($back_link) == 'bidang-lain') {
-                        $log = new Log();
-                        $log->id_log = md5(uniqid());
-                        $log->id_booking = $request->id_booking;
-                        $log->id_user = Auth::id();
-                        $log->log_tipe = $log_tipe;
-                        date_default_timezone_set('Asia/Jakarta');
-                        $log->created_at = date('Y-m-d H:i:s');
-                        $log->updated_at = date('Y-m-d H:i:s');
-                        $log->soft_delete = 0;
-                        $log->save();
                         return redirect('booking/bidang-lain')->with('message', 'Berhasil melakukan perubahan terhadap status booking');
                     }
-                    
                 }
             } elseif (end($back_link) == 'done') {
                 $log = new Log();

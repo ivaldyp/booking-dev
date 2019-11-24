@@ -193,7 +193,7 @@
 												echo $data->keterangan_status;
 											}?>
 										</td>
-										<td><button type="button" class="btn btn-info btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->time2->id_time }}||{{ $data->booking_room }}"><i class="fa fa-edit"></i></button></td>
+										<td><button type="button" class="btn btn-info btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->time2->id_time }}||{{ $data->booking_room }}||{{ $data->status->status_id }}"><i class="fa fa-edit"></i></button></td>
 									</tr>
 									<?php } ?>
 								</tbody>
@@ -278,14 +278,48 @@
 								<span aria-hidden="true">&times;</span></button>
 							<h4 class="modal-title">Ubah status booking ruangan</h4>
 						</div>
-							<form method="POST" action="updateStatus" class="form-horizontal">
+							<form method="POST" action="updateStatus" class="form-horizontal" id="ubah_status_1">
 							@csrf
 								<div class="modal-body">
-									<input type="hidden" name="id_booking" id="modal_id_booking">
-									<input type="hidden" name="booking_date" id="modal_booking_date">
-									<input type="hidden" name="time_start" id="modal_time_start">
-									<input type="hidden" name="time_end" id="modal_time_end">
-									<input type="hidden" name="booking_room" id="modal_booking_room">
+									<input type="hidden" name="id_booking" class="modal_id_booking">
+									<input type="hidden" name="booking_date" class="modal_booking_date">
+									<input type="hidden" name="time_start" class="modal_time_start">
+									<input type="hidden" name="time_end" class="modal_time_end">
+									<input type="hidden" name="booking_room" class="modal_booking_room">
+									<input type="hidden" name="status_id" class="modal_status_id">
+
+									<div class='form-group'>
+										<label for='booking_status' class='col-lg-2 control-label'> Ubah Status </label>
+										<div class='col-lg-8'>
+											<div class='checkbox'>
+												<label for='booking_status' class='control-label'>
+													<input type='checkbox' name='booking_status' id='optionsCheck2' value='2'>Batal
+												</label>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="keterangan_status" class="col-lg-2 control-label"> Keterangan </label>
+										<div class="col-lg-8">
+											<textarea class="form-control" id="modal_keterangan_status" name="keterangan_status" rows="3" autocomplete="off"></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="submit" class="btn btn-success pull-right">Simpan</button>
+									<button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+								</div>
+							</form>
+							<form method="POST" action="updateStatus" class="form-horizontal" id="ubah_status_2">
+							@csrf
+								<div class="modal-body">
+									<input type="hidden" name="id_booking" class="modal_id_booking">
+									<input type="hidden" name="booking_date" class="modal_booking_date">
+									<input type="hidden" name="time_start" class="modal_time_start">
+									<input type="hidden" name="time_end" class="modal_time_end">
+									<input type="hidden" name="booking_room" class="modal_booking_room">
+									<input type="hidden" name="status_id" class="modal_status_id">
 
 									<div class="form-group">
 										<label for="booking_status" class="col-lg-2 control-label"> Ubah Status </label>
@@ -390,20 +424,29 @@
 		$("#example1").DataTable();
 		$("#example2").DataTable();
 		$("#example3").DataTable();
-		
+
 		$('.btn_booking_not_edit_stat').click(function() {
 			var data = (this.id).split('||');
-			$('#modal_id_booking').val(data[0]);
-			if (data[1] == '' || data[1] == null) {
-				$('#modal_keterangan_status').val('-');
-			} else {
-				$('#modal_keterangan_status').val(data[1]);
+			if (data[6] == 1) {
+				$("#ubah_status_1").hide();
+			} else if (data[6] == 3) {
+				$("#ubah_status_2").hide();
 			}
-			$('#modal_booking_date').val(data[2]);
-			$('#modal_time_start').val(data[3]);
-			$('#modal_time_end').val(data[4]);
-			$('#modal_booking_room').val(data[5]);
+			$('.modal_id_booking').val(data[0]);
+			if (data[1] == '' || data[1] == null) {
+				$('.modal_keterangan_status').val('-');
+			} else {
+				$('.modal_keterangan_status').val(data[1]);
+			}
+			$('.modal_booking_date').val(data[2]);
+			$('.modal_time_start').val(data[3]);
+			$('.modal_time_end').val(data[4]);
+			$('.modal_booking_room').val(data[5]);
 		});
+		$("#modal-default").on("hidden.bs.modal", function () {
+	      $("#ubah_status_1").show();
+	      $("#ubah_status_2").show();
+	    });
 	});
 </script>
 
