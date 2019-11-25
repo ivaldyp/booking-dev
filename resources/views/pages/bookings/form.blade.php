@@ -16,6 +16,13 @@
 				<!-- /.col-lg-12 -->
 			</div>
 			<div class="row">
+                <div class="col-sm-12">
+                    @if(Session::has('message'))
+                        <div class="alert alert-danger alert-dismissable">{{ Session::get('message') }}</div>
+                    @endif
+                </div>
+            </div>
+			<div class="row">
 				<div class="col-sm-1"></div>
 				<div class="col-sm-10">
 					<div class="white-box">

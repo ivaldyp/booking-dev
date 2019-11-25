@@ -390,7 +390,7 @@ class BookingController extends Controller
         $totalbookcheck = 0;
         for ($i=0; $i < $request->total_room; $i++) { 
             $book_check = Booking::
-                        where('booking_room', $request->booking_room[$i])
+                        where('booking_room', explode("||", $request->booking_room[$i])[0])
                         ->where('booking_date', $newDate)
                         ->where('time_start', '<=', $request->time_start)
                         ->where('time_end', '>', $request->time_start)
@@ -398,7 +398,6 @@ class BookingController extends Controller
                         ->get();   
             $totalbookcheck = $totalbookcheck + count($book_check);
         }
-
         if ($totalbookcheck > 0) {
             return redirect('/booking/form')->with('message', 'Tidak dapat melakukan booking karena jadwal tersebut telah terisi');    
         }
