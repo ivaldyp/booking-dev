@@ -77,7 +77,9 @@
                 </div>
                 <!-- /Logo -->
                 <!-- Search input and Toggle icon -->
-                
+                <ul class="nav navbar-top-links navbar-left">
+                    <li><a href="javascript:void(0)" class="open-close waves-effect waves-light visible-xs"><i class="ti-close ti-menu"></i></a></li>
+                </ul>
                 <ul class="nav navbar-top-links navbar-right pull-right">
                 <?php if (Auth::check()) { ?>
                     <li class="dropdown">

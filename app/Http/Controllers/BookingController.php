@@ -35,6 +35,8 @@ class BookingController extends Controller
     {
         $roomlists = Room::with('bidang')
                         ->with('roomtype')
+                        ->orderBy('room_owner', 'asc')
+                        ->orderBy('room_name', 'asc')
                         ->get();
 
         $bookingnot = Booking::with('status')
@@ -170,7 +172,10 @@ class BookingController extends Controller
     {
         $roomlists = Room::with('bidang')
                         ->with('roomtype')
+                        ->orderBy('room_owner', 'asc')
+                        ->orderBy('room_name', 'asc')
                         ->get();
+                        
         $rooms = Booking::with('status')
                     ->with('surat')
                     ->with('bidang')
@@ -201,6 +206,8 @@ class BookingController extends Controller
     {
         $roomlists = Room::with('bidang')
                         ->with('roomtype')
+                        ->orderBy('room_owner', 'asc')
+                        ->orderBy('room_name', 'asc')
                         ->get();
 
         $roomsnot = Booking::with('status')
