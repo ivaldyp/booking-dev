@@ -82,7 +82,9 @@ class HomeController extends Controller
             $id_bidang = $request->id_bidang;
         }
 
-        $times = Time::get();
+        $times = Time::
+                orderBy('time_singkat', 'ASC')
+                ->get();
 
         $rooms = Room::
                     where('room_owner', $id_bidang)
@@ -127,7 +129,9 @@ class HomeController extends Controller
             $id_bidang = $request->id_bidang;
         }
 
-        $times = Time::get();
+        $times = Time::
+                orderBy('time_singkat', 'ASC')
+                ->get();
 
         $rooms = Room::
                     where('room_owner', $id_bidang)
@@ -170,7 +174,9 @@ class HomeController extends Controller
 
         $bidangs = Bidang::get();
 
-        $times = Time::get();
+        $times = Time::
+                orderBy('time_singkat', 'ASC')
+                ->get();
 
         $rooms = Room::
                     orderBy('room_owner', 'ASC')
@@ -214,7 +220,9 @@ class HomeController extends Controller
 
         $bidangs = Bidang::get();
 
-        $times = Time::get();
+        $times = Time::
+                orderBy('time_singkat', 'ASC')
+                ->get();
 
         $rooms = Room::
                     orderBy('room_owner', 'ASC')
