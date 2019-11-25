@@ -125,7 +125,9 @@ class BookingsTableSeeder extends Seeder
 
     	$angka = 1;
     	$nip = 12;
-    	$date = 18;
+        $date = 25;
+        $month = date('m');
+        $year = date('Y');
     	$rooms = [$room4, $room5, $room6];
 
         for ($i=1; $i <= 5; $i++) { 
@@ -141,7 +143,7 @@ class BookingsTableSeeder extends Seeder
                 ], 
             ]);
 
-            $newdate = '2019-11-'.$date;
+            $newdate = $year.'-'.$month.'-'.$date;
             $nowdate = date("Y-m-d", strtotime($newdate));
 
             DB::table('bookings')->insert([
@@ -164,6 +166,47 @@ class BookingsTableSeeder extends Seeder
                 ], 
             ]);
             $date++;
+            if ($month == 1 && $date > 31) {
+                $date = 1;
+                $month++;
+            } elseif ($month == 2 && $year%4 == 0 && $date > 29) {
+                $date = 1;
+                $month++;
+            } elseif ($month == 2 && $year%4 != 0 && $date > 28) {
+                $date = 1;
+                $month++;
+            } elseif ($month == 3 && $date > 31) {
+                $date = 1;
+                $month++;                
+            } elseif ($month == 4 && $date > 31) {
+                $date = 1;
+                $month++;
+            } elseif ($month == 5 && $date > 31) {
+                $date = 1;
+                $month++;
+            } elseif ($month == 6 && $date > 31) {
+                $date = 1;
+                $month++;
+            } elseif ($month == 7 && $date > 31) {
+                $date = 1;
+                $month++;
+            } elseif ($month == 8 && $date > 31) {
+                $date = 1;
+                $month++;
+            } elseif ($month == 9 && $date > 31) {
+                $date = 1;
+                $month++;
+            } elseif ($month == 10 && $date > 31) {
+                $date = 1;
+                $month++;
+            } elseif ($month == 11 && $date > 31) {
+                $date = 1;
+                $month++;
+            } elseif ($month == 12 && $date > 31) {
+                $date = 1;
+                $month++;
+                $year++;
+            }
             $angka++;
             $nip+=11;
         }
