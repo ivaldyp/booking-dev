@@ -40,7 +40,7 @@
                     <div class="white-box">
                         <!-- <h3 class="box-title">Rapat Hari Ini</h3>  -->
                         <div class="table-responsive">
-                        	<table class="table table-hover table-bordered">
+                        	<table class="table table-hover table-bordered" id="example1">
 								<thead>
 								<?php
 									for ($i=0; $i <= count($rooms); $i++) { 
@@ -263,7 +263,7 @@
 @section('cal-init')
 	<script type="text/javascript">
 		$(function () {
-			$('#table').datatable();
+			$('#example1').DataTable();
 		});
 	</script>
 	<!-- <script src="{{ URL::asset('plugins2/bower_components/calendar/dist/cal-init.js') }}"></script> -->

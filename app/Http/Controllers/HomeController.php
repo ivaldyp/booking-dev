@@ -137,12 +137,15 @@ class HomeController extends Controller
         $datenow = date('Y-m-d');
 
         $bookings = Booking::
-                    where('booking_date', $datenow)
+                    join('rooms', 'rooms.id_room', '=', 'bookings.booking_room')
+                    ->where('booking_date', $datenow)
                     ->where('booking_status', 3)
                     ->where('booking_room_owner', $id_bidang)
-                    ->orderBy('booking_room', 'ASC')
+                    ->orderBy('rooms.room_name', 'ASC')
+                    ->orderBy('booking_room_owner', 'ASC')
                     ->orderBy('time_start', 'ASC')
                     ->get();
+
         return view('home4', $data)
                 ->with('times', $times)
                 ->with('rooms', $rooms)
@@ -177,10 +180,14 @@ class HomeController extends Controller
         $datenow = date('Y-m-d');
 
         $bookings = Booking::
-                    where('booking_date', $datenow)
+                    join('rooms', 'rooms.id_room', '=', 'bookings.booking_room')
+                    ->with('surat')
+                    ->with('time1')
+                    ->with('time2')
+                    ->where('booking_date', $datenow)
                     ->where('booking_status', 3)
+                    ->orderBy('rooms.room_name', 'ASC')
                     ->orderBy('booking_room_owner', 'ASC')
-                    ->orderBy('booking_room', 'ASC')
                     ->orderBy('time_start', 'ASC')
                     ->get();
         
@@ -221,16 +228,17 @@ class HomeController extends Controller
         }
 
         $bookings = Booking::
-                    with('surat')
+                    join('rooms', 'rooms.id_room', '=', 'bookings.booking_room')
+                    ->with('surat')
                     ->with('time1')
                     ->with('time2')
                     ->where('booking_date', $datenow)
                     ->where('booking_status', 3)
+                    ->orderBy('rooms.room_name', 'ASC')
                     ->orderBy('booking_room_owner', 'ASC')
-                    ->orderBy('booking_room', 'ASC')
                     ->orderBy('time_start', 'ASC')
                     ->get();
-        
+
         return view('home6', $data)
                 ->with('bidangs', $bidangs)
                 ->with('times', $times)
