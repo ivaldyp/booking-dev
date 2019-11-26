@@ -16,18 +16,18 @@ class CreateRoomsTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->string('id_room')->primary();
             $table->string('room_name');
-            $table->unsignedInteger('room_owner');
+            $table->integer('room_owner');
             $table->integer('room_subowner')->nullable();
-            $table->unsignedInteger('room_type');
+            $table->integer('room_type');
             $table->integer('room_floor');
             $table->integer('room_capacity')->nullable();
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrent();
             $table->boolean('soft_delete')->default('0');
 
-            $table->foreign('room_owner')->references('id_bidang')->on('bidangs');
+            // $table->foreign('room_owner')->references('id_bidang')->on('bidangs');
             // $table->foreign('room_subowner')->references('id_subbidang')->on('subbidangs');
-            $table->foreign('room_type')->references('id_roomType')->on('room_types');
+            // $table->foreign('room_type')->references('id_roomType')->on('room_types');
         });
 
         // Artisan::call('db:seed', [

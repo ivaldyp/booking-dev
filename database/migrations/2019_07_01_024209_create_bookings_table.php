@@ -27,9 +27,9 @@ class CreateBookingsTable extends Migration
             $table->integer('booking_total_tamu')->nullable();
             $table->integer('booking_total_snack')->nullable();
             $table->string('id_surat');
-            $table->unsignedInteger('time_start');
-            $table->unsignedInteger('time_end');
-            $table->unsignedInteger('booking_status');
+            $table->integer('time_start');
+            $table->integer('time_end');
+            $table->integer('booking_status');
             $table->string('keterangan_status')->nullable();
             $table->boolean('request_hapus')->nullable();
             $table->timestamp('created_at')->nullable()->useCurrent();
@@ -37,13 +37,13 @@ class CreateBookingsTable extends Migration
             $table->boolean('soft_delete')->default('0');
 
             // $table->foreign('bidang_peminjam')->references('id_bidang')->on('bidangs');
-            $table->foreign('id_penyetuju')->references('id_user')->on('users');
-            $table->foreign('booking_room')->references('id_room')->on('rooms');
+            // $table->foreign('id_penyetuju')->references('id_user')->on('users');
+            // $table->foreign('booking_room')->references('id_room')->on('rooms');
             // $table->foreign('booking_room_owner')->references('room_owner')->on('rooms');
-            $table->foreign('id_surat')->references('id_surat')->on('surats');
-            $table->foreign('time_start')->references('id_time')->on('times');
-            $table->foreign('time_end')->references('id_time')->on('times');
-            $table->foreign('booking_status')->references('status_id')->on('booking_statuses');
+            // $table->foreign('id_surat')->references('id_surat')->on('surats');
+            // $table->foreign('time_start')->references('id_time')->on('times');
+            // $table->foreign('time_end')->references('id_time')->on('times');
+            // $table->foreign('booking_status')->references('status_id')->on('booking_statuses');
         });
 
         Artisan::call('db:seed', [

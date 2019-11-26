@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('name');
             $table->string('email')->nullable();
-            $table->unsignedInteger('user_status')->nullable();
+            $table->integer('user_status')->nullable();
             $table->integer('user_bidang')->nullable();
             $table->integer('user_subbidang')->nullable();
             $table->rememberToken();
@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('updated_at')->nullable()->useCurrent();
             $table->boolean('soft_delete')->default('0');
 
-            $table->foreign('user_status')->references('id_userType')->on('user_types');
+            // $table->foreign('user_status')->references('id_userType')->on('user_types');
             // $table->foreign('user_subbidang')->references('id_subbidang')->on('subbidangs');
             // $table->foreign('user_bidang')->references('id_bidang')->on('bidangs');
         });
