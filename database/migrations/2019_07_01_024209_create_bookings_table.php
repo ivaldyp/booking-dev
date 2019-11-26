@@ -18,7 +18,7 @@ class CreateBookingsTable extends Migration
             $table->string('id_booking')->primary();
             $table->string('id_peminjam');
             $table->string('nama_peminjam');
-            $table->integer('nip_peminjam')->nullable();
+            $table->bigInteger('nip_peminjam')->nullable();
             $table->integer('bidang_peminjam');
             $table->string('id_penyetuju')->nullable();
             $table->string('booking_room');

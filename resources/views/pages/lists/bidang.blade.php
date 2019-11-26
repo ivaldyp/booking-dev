@@ -51,7 +51,7 @@
                         <option <?php if($booking_status == 1) {echo "selected";} ?> value="1">Belum Disetujui</option>
                         </select>
                       </div>
-                      <button type="submit" class="btn btn-primary">Simpan</button>
+                      <button type="submit" class="btn btn-primary">Cari</button>
                     </div>
                 </form>
             </div>
