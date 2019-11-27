@@ -13,7 +13,7 @@ class UserTypeController extends Controller
 {
     public function index()
     {
-        $user_status = User_type::get();
+        $user_status = User_type::orderBy('id_userType', 'ASC')->get();
         return view('pages.roles.table')->with('user_status', $user_status);
     }
 

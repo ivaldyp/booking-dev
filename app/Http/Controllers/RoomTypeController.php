@@ -14,7 +14,7 @@ class RoomTypeController extends Controller
 {
     public function index()
     {
-        $room_types = Room_type::get();
+        $room_types = Room_type::orderBy('id_roomType', 'ASC')->get();
         return view('pages.roomtypes.table')->with('room_types', $room_types);
     }
 

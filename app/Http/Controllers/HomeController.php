@@ -75,7 +75,7 @@ class HomeController extends Controller
                             ->get();
             Session::put('user_data', $data_user[0]);
         }
-        $bidangs = Bidang::get();
+        $bidangs = Bidang::orderBy('id_bidang', 'ASC')->get();
         if (is_null($request->id_bidang)) {
             $id_bidang = 1;
         } else {
@@ -122,7 +122,7 @@ class HomeController extends Controller
                             ->get();
             Session::put('user_data', $data_user[0]);
         }
-        $bidangs = Bidang::get();
+        $bidangs = Bidang::orderBy('id_bidang', 'ASC')->get();
         if (is_null($request->id_bidang)) {
             $id_bidang = 1;
         } else {
@@ -172,7 +172,7 @@ class HomeController extends Controller
             Session::put('user_data', $data_user[0]);
         }
 
-        $bidangs = Bidang::get();
+        $bidangs = Bidang::orderBy('id_bidang', 'ASC')->get();
 
         $times = Time::
                 orderBy('time_singkat', 'ASC')
@@ -218,7 +218,7 @@ class HomeController extends Controller
             Session::put('user_data', $data_user[0]);
         }
 
-        $bidangs = Bidang::get();
+        $bidangs = Bidang::orderBy('id_bidang', 'ASC')->get();
 
         $times = Time::
                 orderBy('time_singkat', 'ASC')

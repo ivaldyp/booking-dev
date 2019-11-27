@@ -13,16 +13,8 @@ class LoadRegisterController extends Controller
 {
     public function index()
     {
-        $data['bidangs'] = 
-            DB::select('SELECT *
-                        FROM bidangs');
-
-        $data['user_types'] = 
-            DB::select('SELECT * 
-                        FROM user_types');
-
-        $bidangs = Bidang::get();
-        $user_types = User_type::get();
+        $bidangs = Bidang::orderBy('id_bidang', 'ASC')->get();
+        $user_types = User_type::orderBy('id_userType', 'ASC')->get();
         return view('auth.register')->with('bidangs', $bidangs)->with('user_types', $user_types);
     }
 }

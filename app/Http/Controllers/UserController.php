@@ -21,9 +21,9 @@ class UserController extends Controller
                         ->orderBy('username', 'ASC')
                         ->get();
 
-        $bidangs = Bidang::get();
+        $bidangs = Bidang::orderBy('id_bidang', 'ASC')->get();
 
-        $user_types = User_type::get();
+        $user_types = User_type::orderBy('id_userType', 'ASC')->get();
 
         return view('pages.users.table')->with('users', $users)->with('bidangs', $bidangs)->with('user_types', $user_types);
     }

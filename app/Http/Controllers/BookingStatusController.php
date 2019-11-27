@@ -13,7 +13,7 @@ class BookingStatusController extends Controller
 {
     public function index()
     {
-        $status = Booking_Status::get();
+        $status = Booking_Status::orderBy('status_id', 'ASC')->get();
         return view('pages.book_status.table')->with('status', $status);
     }
 

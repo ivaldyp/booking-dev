@@ -47,7 +47,7 @@ class ListController extends Controller
             $booking_status = 3;
         }
 
-        $bidangs = Bidang::get();
+        $bidangs = Bidang::orderBy('id_bidang', 'ASC')->get();
 
         $countstatus[0] = count(Booking::with('status')
                         ->with('surat')

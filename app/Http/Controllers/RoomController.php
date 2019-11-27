@@ -24,10 +24,9 @@ class RoomController extends Controller
                         ->orderBy('room_name', 'asc')
                         ->get();
 
-        $bidangs = Bidang::join('subbidangs', 'subbidangs.id_bidang', '=', 'bidangs.id_bidang')->get();
-        $bidangs = Bidang::get();
+        $bidangs = Bidang::orderBy('id_bidang', 'ASC')->get();
 
-        $room_types = Room_type::get();
+        $room_types = Room_type::orderBy('id_roomType', 'ASC')->get();
         
         return view('pages.rooms.table')->with('rooms', $rooms)->with('bidangs', $bidangs)->with('room_types', $room_types);    
     }

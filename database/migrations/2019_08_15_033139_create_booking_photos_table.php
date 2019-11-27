@@ -22,7 +22,7 @@ class CreateBookingPhotosTable extends Migration
             $table->timestamp('updated_at')->nullable()->useCurrent();
             $table->boolean('soft_delete')->default('0');
 
-            $table->foreign('id_surat')->references('id_surat')->on('surats');
+            // $table->foreign('id_surat')->references('id_surat')->on('surats');
         });
     }
 
