@@ -38,6 +38,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="white-box">
+						
                         <!-- <h3 class="box-title">Rapat Hari Ini</h3>  -->
                         <div class="table-responsive">
                         	<table class="table table-hover table-bordered" id="example1">

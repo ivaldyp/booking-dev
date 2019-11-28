@@ -35,10 +35,17 @@ class HomeController extends Controller
             $user_status = $this->user->user_status;
             $data['user_status'] = User_Type::where('id_userType', $user_status);
             Session::put('user_status', $user_status);
-            $data_user = User::where('id_user',$this->user->id_user)
+            if (is_null($this->user->user_subbidang)) {
+                $data_user = User::where('id_user',$this->user->id_user)
+                            ->leftjoin('bidangs', 'bidangs.id_bidang', '=', 'users.user_bidang')
+                            ->get();
+            } else {
+                $data_user = User::where('id_user',$this->user->id_user)
                             ->leftjoin('subbidangs', 'subbidangs.id_subbidang', '=', 'users.user_subbidang')
                             ->leftjoin('bidangs', 'bidangs.id_bidang', '=', 'subbidangs.id_bidang')
                             ->get();
+            }
+
             Session::put('user_data', $data_user[0]);
         }
         
@@ -53,10 +60,17 @@ class HomeController extends Controller
             $user_status = $this->user->user_status;
             $data['user_status'] = User_Type::where('id_userType', $user_status);
             Session::put('user_status', $user_status);
-            $data_user = User::where('id_user',$this->user->id_user)
+
+            if (is_null($this->user->user_subbidang)) {
+                $data_user = User::where('id_user',$this->user->id_user)
+                            ->leftjoin('bidangs', 'bidangs.id_bidang', '=', 'users.user_bidang')
+                            ->get();
+            } else {
+                $data_user = User::where('id_user',$this->user->id_user)
                             ->leftjoin('subbidangs', 'subbidangs.id_subbidang', '=', 'users.user_subbidang')
                             ->leftjoin('bidangs', 'bidangs.id_bidang', '=', 'subbidangs.id_bidang')
                             ->get();
+            }
             Session::put('user_data', $data_user[0]);
         }
         return view('home2', $data);
@@ -69,10 +83,17 @@ class HomeController extends Controller
             $user_status = $this->user->user_status;
             $data['user_status'] = User_Type::where('id_userType', $user_status);
             Session::put('user_status', $user_status);
-            $data_user = User::where('id_user',$this->user->id_user)
+
+            if (is_null($this->user->user_subbidang)) {
+                $data_user = User::where('id_user',$this->user->id_user)
+                            ->leftjoin('bidangs', 'bidangs.id_bidang', '=', 'users.user_bidang')
+                            ->get();
+            } else {
+                $data_user = User::where('id_user',$this->user->id_user)
                             ->leftjoin('subbidangs', 'subbidangs.id_subbidang', '=', 'users.user_subbidang')
                             ->leftjoin('bidangs', 'bidangs.id_bidang', '=', 'subbidangs.id_bidang')
                             ->get();
+            }
             Session::put('user_data', $data_user[0]);
         }
         $bidangs = Bidang::orderBy('id_bidang', 'ASC')->get();
@@ -116,10 +137,17 @@ class HomeController extends Controller
             $user_status = $this->user->user_status;
             $data['user_status'] = User_Type::where('id_userType', $user_status);
             Session::put('user_status', $user_status);
-            $data_user = User::where('id_user',$this->user->id_user)
+
+            if (is_null($this->user->user_subbidang)) {
+                $data_user = User::where('id_user',$this->user->id_user)
+                            ->leftjoin('bidangs', 'bidangs.id_bidang', '=', 'users.user_bidang')
+                            ->get();
+            } else {
+                $data_user = User::where('id_user',$this->user->id_user)
                             ->leftjoin('subbidangs', 'subbidangs.id_subbidang', '=', 'users.user_subbidang')
                             ->leftjoin('bidangs', 'bidangs.id_bidang', '=', 'subbidangs.id_bidang')
                             ->get();
+            }
             Session::put('user_data', $data_user[0]);
         }
         $bidangs = Bidang::orderBy('id_bidang', 'ASC')->get();
@@ -165,10 +193,17 @@ class HomeController extends Controller
             $user_status = $this->user->user_status;
             $data['user_status'] = User_Type::where('id_userType', $user_status);
             Session::put('user_status', $user_status);
-            $data_user = User::where('id_user',$this->user->id_user)
+
+            if (is_null($this->user->user_subbidang)) {
+                $data_user = User::where('id_user',$this->user->id_user)
+                            ->leftjoin('bidangs', 'bidangs.id_bidang', '=', 'users.user_bidang')
+                            ->get();
+            } else {
+                $data_user = User::where('id_user',$this->user->id_user)
                             ->leftjoin('subbidangs', 'subbidangs.id_subbidang', '=', 'users.user_subbidang')
                             ->leftjoin('bidangs', 'bidangs.id_bidang', '=', 'subbidangs.id_bidang')
                             ->get();
+            }
             Session::put('user_data', $data_user[0]);
         }
 
@@ -211,10 +246,17 @@ class HomeController extends Controller
             $user_status = $this->user->user_status;
             $data['user_status'] = User_Type::where('id_userType', $user_status);
             Session::put('user_status', $user_status);
-            $data_user = User::where('id_user',$this->user->id_user)
+
+            if (is_null($this->user->user_subbidang)) {
+                $data_user = User::where('id_user',$this->user->id_user)
+                            ->leftjoin('bidangs', 'bidangs.id_bidang', '=', 'users.user_bidang')
+                            ->get();
+            } else {
+                $data_user = User::where('id_user',$this->user->id_user)
                             ->leftjoin('subbidangs', 'subbidangs.id_subbidang', '=', 'users.user_subbidang')
                             ->leftjoin('bidangs', 'bidangs.id_bidang', '=', 'subbidangs.id_bidang')
                             ->get();
+            }
             Session::put('user_data', $data_user[0]);
         }
 
@@ -232,6 +274,7 @@ class HomeController extends Controller
         if (is_null($request->newdate) || $request->newdate == 0) {
             $datenow = date('Y-m-d');
         } else {
+            
             $datenow = date('Y-m-'.$request->newdate.'');
         }
 

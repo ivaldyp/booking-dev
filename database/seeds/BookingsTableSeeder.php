@@ -132,7 +132,7 @@ class BookingsTableSeeder extends Seeder
 
         for ($i=1; $i <= 5; $i++) { 
             $id_surat = md5(uniqid());
-            $file_name = uniqid(md5(time()))."~".date('dmY')."~02_Disposisi.pdf";
+            $file_name = uniqid(md5(time()))."~".date('dmY')."~surat.pdf";
             DB::table('surats')->insert([
                 [
                     'id_surat' => $id_surat,
