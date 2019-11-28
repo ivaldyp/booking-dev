@@ -268,14 +268,14 @@ class HomeController extends Controller
 
         $rooms = Room::
                     orderBy('room_owner', 'ASC')
-                    ->orderBy('id_room', 'ASC')
+                    ->orderBy('room_name', 'ASC')
                     ->get();
 
         if (is_null($request->newdate) || $request->newdate == 0) {
             $datenow = date('Y-m-d');
         } else {
-            
-            $datenow = date('Y-m-'.$request->newdate.'');
+            $tanggal = explode("/", $request->newdate);
+            $datenow = date(''.$tanggal[2].'-'.$tanggal[0].'-'.$tanggal[1].'');
         }
 
         $bookings = Booking::
