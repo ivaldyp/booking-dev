@@ -30,7 +30,7 @@
 								<input type="hidden" name="newdate" value="{{ $new[2] - 1 }}">
 								<button onclick="this.form.submit()" data-toggle="tooltip" data-original-title="Kurangi 1 Hari" type="button" class="btn btn-default btn-outline waves-effect"><i class="mdi mdi-arrow-left-bold"></i></button>
 							</form> -->
-							<form style="display: inline;" method="GET" action="home6" id="form6">
+							<form style="display: inline;" method="GET" action="home" id="form6">
 								<!-- <input type="hidden" name="newdate" value="{{ date('d') }}"> -->
 								<input autocomplete="off" type="text" id="datepicker-autoclose" name="newdate" style="width: 0px">
 								<button id="newdate_button" data-toggle="tooltip" data-original-title="Pilih Tanggal" type="button" class="btn btn-default btn-outline waves-effect"><i class="mdi mdi-calendar"></i></button>

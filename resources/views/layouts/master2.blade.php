@@ -134,13 +134,7 @@
                 </div>
                 <ul class="nav" id="side-menu">
                     <li class="devider"></li>
-                    <li> <a href="#" class="waves-effect"><i class="mdi mdi-home fa-fw" data-icon="v"></i> <span class="hide-menu"> Home <span class="fa arrow"></span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a href="{{ url('home3') }}"><i class=" fa-fw">1</i><span class="hide-menu">Home V1</span></a> </li>
-                            <li><a href="{{ url('home4') }}"><i class=" fa-fw">2</i><span class="hide-menu">Home V2</span></a> </li>
-                            <li><a href="{{ url('home6') }}"><i class=" fa-fw">3</i><span class="hide-menu">Home V3</span></a> </li>
-                        </ul>
-                    </li>
+                    <li> <a href="{{ url('home') }}" class="waves-effect"><i class="mdi mdi-home fa-fw" data-icon="v"></i> <span class="hide-menu"> Home </span></a></li>
 
                     @if(Auth::check() and Session::get('user_data')->user_status == 1)
                     <li> <a href="#" class="waves-effect"><i class="mdi mdi-human-male fa-fw" data-icon="v"></i> <span class="hide-menu"> Pengguna <span class="fa arrow"></span></span></a>

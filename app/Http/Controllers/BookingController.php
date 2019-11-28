@@ -476,9 +476,9 @@ class BookingController extends Controller
                 ${'log' . $i}->save();
             }
         } else {
-            return redirect('/home6')->with('message', 'Data Surat ada yang salah');
+            return redirect('/home')->with('message', 'Data Surat ada yang salah');
         }
-        return redirect('/home6')->with('message', 'Booking berhasil dilakukan, harap menunggu hingga peminjaman ruangan disetujui');
+        return redirect('/home')->with('message', 'Booking berhasil dilakukan');
     }  
 
     public function updateBookStatus(Request $request)
