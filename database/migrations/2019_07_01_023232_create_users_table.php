@@ -34,9 +34,9 @@ class CreateUsersTable extends Migration
             // $table->foreign('user_bidang')->references('id_bidang')->on('bidangs');
         });
 
-        Artisan::call('db:seed', [
-            '--class' => UsersTableSeeder::class
-        ]);
+        // Artisan::call('db:seed', [
+        //     '--class' => UsersTableSeeder::class
+        // ]);
     }
 
     /**

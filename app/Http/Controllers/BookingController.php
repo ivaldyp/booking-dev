@@ -75,6 +75,9 @@ class BookingController extends Controller
                         ->orderBy('time_end', 'asc')
                         ->get();
 
+        // var_dump($bookingdone[0]->room->room_name);
+        // die();
+
         $countstatus[0] = count(Booking::with('status')
                         ->with('surat')
                         ->with('bidang')

@@ -231,7 +231,7 @@ class HomeController extends Controller
                     ->orderBy('booking_room_owner', 'ASC')
                     ->orderBy('time_start', 'ASC')
                     ->get();
-        
+
         return view('home5', $data)
                 ->with('bidangs', $bidangs)
                 ->with('times', $times)
@@ -285,6 +285,7 @@ class HomeController extends Controller
                     ->with('time2')
                     ->where('booking_date', $datenow)
                     ->where('booking_status', 3)
+                    ->orderBy('room_owner', 'ASC')
                     ->orderBy('time_start', 'ASC')
                     ->orderBy('rooms.room_name', 'ASC')
                     ->orderBy('booking_room_owner', 'ASC')

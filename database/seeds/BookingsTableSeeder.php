@@ -123,92 +123,434 @@ class BookingsTableSeeder extends Seeder
             ]
         ]);
 
-    	$angka = 1;
-    	$nip = 12;
-        $date = 25;
-        $month = date('m');
-        $year = date('Y');
-    	$rooms = [$room4, $room5, $room6];
+    	// $angka = 1;
+    	// $nip = 12;
+     //    $date = 25;
+     //    $month = date('m');
+     //    $year = date('Y');
+        $file_name = uniqid(md5(time()))."~".date('dmY')."~surat.pdf";
+        $id_surats = [];
 
-        for ($i=1; $i <= 5; $i++) { 
-            $id_surat = md5(uniqid());
-            $file_name = uniqid(md5(time()))."~".date('dmY')."~surat.pdf";
-            DB::table('surats')->insert([
-                [
-                    'id_surat' => $id_surat,
-                    'surat_judul' => "acara".$angka,
-                    'surat_deskripsi' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                    'file_name' => $file_name,
-                    'file_fullpath' => "C:\Users\Valdy\Documents\Upload\\" . $file_name,
-                ], 
-            ]);
-
-            $newdate = $year.'-'.$month.'-'.$date;
-            $nowdate = date("Y-m-d", strtotime($newdate));
-
-            DB::table('bookings')->insert([
-                [
-                    'id_booking' => md5(uniqid()),
-                    'id_peminjam' => "1f0bab64bcb61f7851d2c476dee6729d",
-                    'nama_peminjam' => "a".$angka,
-                    'nip_peminjam' => $nip,
-                    'bidang_peminjam' => rand(1, 5),
-                    'booking_room' => $rooms[rand(0,2)],
-                    'booking_room_owner' => 5,
-                    'booking_date' => $nowdate,
-                    'booking_total_tamu' => 25,
-                    'booking_total_snack' => 25,
-                    'id_surat' => $id_surat,
-                    'time_start' => 5,
-                    'time_end' => 10,
-                    'booking_status' => 3,
-                    'request_hapus' => 0
-                ], 
-            ]);
-            $date++;
-            if ($month == 1 && $date > 31) {
-                $date = 1;
-                $month++;
-            } elseif ($month == 2 && $year%4 == 0 && $date > 29) {
-                $date = 1;
-                $month++;
-            } elseif ($month == 2 && $year%4 != 0 && $date > 28) {
-                $date = 1;
-                $month++;
-            } elseif ($month == 3 && $date > 31) {
-                $date = 1;
-                $month++;                
-            } elseif ($month == 4 && $date > 31) {
-                $date = 1;
-                $month++;
-            } elseif ($month == 5 && $date > 31) {
-                $date = 1;
-                $month++;
-            } elseif ($month == 6 && $date > 31) {
-                $date = 1;
-                $month++;
-            } elseif ($month == 7 && $date > 31) {
-                $date = 1;
-                $month++;
-            } elseif ($month == 8 && $date > 31) {
-                $date = 1;
-                $month++;
-            } elseif ($month == 9 && $date > 31) {
-                $date = 1;
-                $month++;
-            } elseif ($month == 10 && $date > 31) {
-                $date = 1;
-                $month++;
-            } elseif ($month == 11 && $date > 31) {
-                $date = 1;
-                $month++;
-            } elseif ($month == 12 && $date > 31) {
-                $date = 1;
-                $month++;
-                $year++;
-            }
-            $angka++;
-            $nip+=11;
+        for ($i=0; $i < 13; $i++) { 
+            array_push($id_surats, md5(uniqid()));    
         }
+
+        DB::table('surats')->insert([
+            [
+                //ruang sekretariat
+                'id_surat' => $id_surats[0],
+                'surat_judul' => "Pembahasan pemanfaatan aset lahan kontribusi Pulau C dan D",
+                'surat_deskripsi' => "Pembahasan pemanfaatan aset lahan kontribusi Pulau C dan D",
+                'file_name' => $file_name,
+                'file_fullpath' => "C:\Users\Valdy\Documents\Upload\\" . $file_name,
+            ], 
+            [
+                //ruang p3a
+                'id_surat' => $id_surats[1],
+                'surat_judul' => "Membahas permohonan pemanfaatan lahan tempat berdagang bunga PD Sarana Jaya",
+                'surat_deskripsi' => "Membahas permohonan pemanfaatan lahan tempat berdagang bunga PD Sarana Jaya",
+                'file_name' => $file_name,
+                'file_fullpath' => "C:\Users\Valdy\Documents\Upload\\" . $file_name,
+            ],
+            [
+                //ruang p3a
+                'id_surat' => $id_surats[2],
+                'surat_judul' => "Permohonan perpanjangan sewa Gedung Dinas Teknik Lt.14 oleh PT Jamkrida Jakarta",
+                'surat_deskripsi' => "Permohonan perpanjangan sewa Gedung Dinas Teknik Lt.14 oleh PT Jamkrida Jakarta",
+                'file_name' => $file_name,
+                'file_fullpath' => "C:\Users\Valdy\Documents\Upload\\" . $file_name,
+            ],
+            [
+                //ruang p3a
+                'id_surat' => $id_surats[3],
+                'surat_judul' => "Permohonan pemanfaatan BMD berupa tanah untuk gudang ikan di Muara Angke",
+                'surat_deskripsi' => "Permohonan pemanfaatan BMD berupa tanah untuk gudang ikan di Muara Angke",
+                'file_name' => $file_name,
+                'file_fullpath' => "C:\Users\Valdy\Documents\Upload\\" . $file_name,
+            ], 
+            [
+                //ruang p3a
+                'id_surat' => $id_surats[4],
+                'surat_judul' => "Permohonan pembangunan mesjid diatas Taman Sub Zona Taman Kota / Lingkungan",
+                'surat_deskripsi' => "Permohonan pembangunan mesjid diatas Taman Sub Zona Taman Kota / Lingkungan",
+                'file_name' => $file_name,
+                'file_fullpath' => "C:\Users\Valdy\Documents\Upload\\" . $file_name,
+            ],
+            [
+                //ruang p3a
+                'id_surat' => $id_surats[5],
+                'surat_judul' => "Permohonan pemanfaatan BMD oleh PT. Jakarta Solusi Lestari",
+                'surat_deskripsi' => "Permohonan pemanfaatan BMD oleh PT. Jakarta Solusi Lestari",
+                'file_name' => $file_name,
+                'file_fullpath' => "C:\Users\Valdy\Documents\Upload\\" . $file_name,
+            ],
+            [
+                //ruang p3a
+                'id_surat' => $id_surats[6],
+                'surat_judul' => "Permohonan pinjam pakai BMD berupa tanah dan bangunan Sunter",
+                'surat_deskripsi' => "Permohonan pinjam pakai BMD berupa tanah dan bangunan Sunter",
+                'file_name' => $file_name,
+                'file_fullpath' => "C:\Users\Valdy\Documents\Upload\\" . $file_name,
+            ], 
+
+
+
+            [
+                //ruang psa
+                'id_surat' => $id_surats[7],
+                'surat_judul' => "Rapat penyelesaian Gedung Yayasan Lembaga Bantuan Hukum Indonesia (YLBHI)",
+                'surat_deskripsi' => "Rapat penyelesaian Gedung Yayasan Lembaga Bantuan Hukum Indonesia (YLBHI)",
+                'file_name' => $file_name,
+                'file_fullpath' => "C:\Users\Valdy\Documents\Upload\\" . $file_name,
+            ],
+
+
+
+            [
+                //ruang fasos fasum
+                'id_surat' => $id_surats[8],
+                'surat_judul' => "Pembahasan penyerahan kewajiban fasos fasum berupa tanah marga jalan di Pantai Indah Kapuk",
+                'surat_deskripsi' => "Pembahasan penyerahan kewajiban fasos fasum berupa tanah marga jalan di Pantai Indah Kapuk",
+                'file_name' => $file_name,
+                'file_fullpath' => "C:\Users\Valdy\Documents\Upload\\" . $file_name,
+            ],
+            [
+                //ruang sekretariat
+                'id_surat' => $id_surats[9],
+                'surat_judul' => "BAST penandatanganan sertifikat",
+                'surat_deskripsi' => "BAST penandatanganan sertifikat",
+                'file_name' => $file_name,
+                'file_fullpath' => "C:\Users\Valdy\Documents\Upload\\" . $file_name,
+            ], 
+
+
+
+            [
+                'id_surat' => $id_surats[10],
+                'surat_judul' => "Inventarisasi penggabungan dan pemisahan SKPD",
+                'surat_deskripsi' => "Inventarisasi penggabungan dan pemisahan SKPD",
+                'file_name' => $file_name,
+                'file_fullpath' => "C:\Users\Valdy\Documents\Upload\\" . $file_name,
+            ],
+            [
+                'id_surat' => $id_surats[11],
+                'surat_judul' => "Inventarisasi penggabungan dan pemisahan SKPD",
+                'surat_deskripsi' => "Inventarisasi penggabungan dan pemisahan SKPD",
+                'file_name' => $file_name,
+                'file_fullpath' => "C:\Users\Valdy\Documents\Upload\\" . $file_name,
+            ],
+            [
+                'id_surat' => $id_surats[12],
+                'surat_judul' => "Inventarisasi penggabungan dan pemisahan SKPD",
+                'surat_deskripsi' => "Inventarisasi penggabungan dan pemisahan SKPD",
+                'file_name' => $file_name,
+                'file_fullpath' => "C:\Users\Valdy\Documents\Upload\\" . $file_name,
+            ],
+        ]);
+
+        $users = [];
+        for ($i=0; $i < 7; $i++) { 
+            array_push($users, md5(uniqid()));
+        }
+
+        DB::table('users')->insert([
+            [
+                'id_user' =>  $users[0],
+                'username' => "admin",
+                'password' => Hash::make("adminadmin"),
+                'name' => "admin",
+                'user_status' => "1",
+                'user_bidang' => NULL,
+                'user_subbidang' => NULL,
+            ], 
+            [
+                'id_user' =>  $users[1],
+                'username' => "pegawai1",
+                'password' => Hash::make("tesuser1"),
+                'name' => "pegawai",
+                'user_status' => "2",
+                'user_bidang' => "1",
+                'user_subbidang' => NULL,
+            ], 
+            [
+                'id_user' =>  $users[2],
+                'username' => "pegawai2",
+                'password' => Hash::make("tesuser2"),
+                'name' => "pegawai",
+                'user_status' => "2",
+                'user_bidang' => "2",
+                'user_subbidang' => NULL,
+            ], 
+            [
+                'id_user' =>  $users[3],
+                'username' => "pegawai3",
+                'password' => Hash::make("tesuser3"),
+                'name' => "pegawai",
+                'user_status' => "2",
+                'user_bidang' => "3",
+                'user_subbidang' => NULL,
+            ], 
+            [
+                'id_user' =>  $users[4],
+                'username' => "pegawai4",
+                'password' => Hash::make("tesuser4"),
+                'name' => "pegawai",
+                'user_status' => "2",
+                'user_bidang' => "4",
+                'user_subbidang' => NULL,
+            ], 
+            [
+                'id_user' =>  $users[5],
+                'username' => "pegawai5",
+                'password' => Hash::make("tesuser5"),
+                'name' => "pegawai",
+                'user_status' => "2",
+                'user_bidang' => "5",
+                'user_subbidang' => NULL,
+            ], 
+            [
+                'id_user' =>  $users[6],
+                'username' => "umum",
+                'password' => Hash::make("u1u1u1u1"),
+                'name' => "umum",
+                'user_status' => "3",
+                'user_bidang' => "1",
+                'user_subbidang' => "1",
+            ]
+        ]);
+
+        DB::table('bookings')->insert([
+            //bidang p3a
+            [
+                'id_booking' => md5(uniqid()),
+                'id_peminjam' => $users[2],
+                'nama_peminjam' => "pegawai",
+                'nip_peminjam' => NULL,
+                'bidang_peminjam' => 2,
+                'booking_room' => $room2,
+                'booking_room_owner' => 1,
+                'booking_date' => date('2019-11-27'),
+                'booking_total_tamu' => 25,
+                'booking_total_snack' => 25,
+                'id_surat' => $id_surats[0],
+                'time_start' => 14,
+                'time_end' => 17,
+                'booking_status' => 3,
+                'request_hapus' => 0,
+            ], 
+            [
+                'id_booking' => md5(uniqid()),
+                'id_peminjam' => $users[2],
+                'nama_peminjam' => "pegawai",
+                'nip_peminjam' => NULL,
+                'bidang_peminjam' => 2,
+                'booking_room' => $room0,
+                'booking_room_owner' => 2,
+                'booking_date' => date('2019-11-27'),
+                'booking_total_tamu' => 25,
+                'booking_total_snack' => 25,
+                'id_surat' => $id_surats[1],
+                'time_start' => 4,
+                'time_end' => 7,
+                'booking_status' => 3,
+                'request_hapus' => 0,
+            ], 
+            [
+                'id_booking' => md5(uniqid()),
+                'id_peminjam' => $users[2],
+                'nama_peminjam' => "pegawai",
+                'nip_peminjam' => NULL,
+                'bidang_peminjam' => 2,
+                'booking_room' => $room0,
+                'booking_room_owner' => 2,
+                'booking_date' => date('2019-11-27'),
+                'booking_total_tamu' => 25,
+                'booking_total_snack' => 25,
+                'id_surat' => $id_surats[2],
+                'time_start' => 8,
+                'time_end' => 11,
+                'booking_status' => 3,
+                'request_hapus' => 0,
+            ], 
+            [
+                'id_booking' => md5(uniqid()),
+                'id_peminjam' => $users[2],
+                'nama_peminjam' => "pegawai",
+                'nip_peminjam' => NULL,
+                'bidang_peminjam' => 2,
+                'booking_room' => $room0,
+                'booking_room_owner' => 2,
+                'booking_date' => date('2019-11-26'),
+                'booking_total_tamu' => 25,
+                'booking_total_snack' => 25,
+                'id_surat' => $id_surats[3],
+                'time_start' => 5,
+                'time_end' => 8,
+                'booking_status' => 3,
+                'request_hapus' => 0,
+            ], 
+            [
+                'id_booking' => md5(uniqid()),
+                'id_peminjam' => $users[2],
+                'nama_peminjam' => "pegawai",
+                'nip_peminjam' => NULL,
+                'bidang_peminjam' => 2,
+                'booking_room' => $room0,
+                'booking_room_owner' => 2,
+                'booking_date' => date('2019-11-28'),
+                'booking_total_tamu' => 25,
+                'booking_total_snack' => 25,
+                'id_surat' => $id_surats[4],
+                'time_start' => 4,
+                'time_end' => 7,
+                'booking_status' => 3,
+                'request_hapus' => 0,
+            ], 
+            [
+                'id_booking' => md5(uniqid()),
+                'id_peminjam' => $users[2],
+                'nama_peminjam' => "pegawai",
+                'nip_peminjam' => NULL,
+                'bidang_peminjam' => 2,
+                'booking_room' => $room0,
+                'booking_room_owner' => 2,
+                'booking_date' => date('2019-11-25'),
+                'booking_total_tamu' => 25,
+                'booking_total_snack' => 25,
+                'id_surat' => $id_surats[5],
+                'time_start' => 4,
+                'time_end' => 6,
+                'booking_status' => 3,
+                'request_hapus' => 0,
+            ], 
+            [
+                'id_booking' => md5(uniqid()),
+                'id_peminjam' => $users[2],
+                'nama_peminjam' => "pegawai",
+                'nip_peminjam' => NULL,
+                'bidang_peminjam' => 2,
+                'booking_room' => $room0,
+                'booking_room_owner' => 2,
+                'booking_date' => date('2019-11-25'),
+                'booking_total_tamu' => 25,
+                'booking_total_snack' => 25,
+                'id_surat' => $id_surats[6],
+                'time_start' => 7,
+                'time_end' => 10,
+                'booking_status' => 3,
+                'request_hapus' => 0,
+            ], 
+
+            
+            //bidang psa
+            [
+                'id_booking' => md5(uniqid()),
+                'id_peminjam' => $users[3],
+                'nama_peminjam' => "pegawai",
+                'nip_peminjam' => NULL,
+                'bidang_peminjam' => 3,
+                'booking_room' => $room7,
+                'booking_room_owner' => 3,
+                'booking_date' => date('2019-11-25'),
+                'booking_total_tamu' => 25,
+                'booking_total_snack' => 25,
+                'id_surat' => $id_surats[7],
+                'time_start' => 5,
+                'time_end' => 8,
+                'booking_status' => 3,
+                'request_hapus' => 0,
+            ], 
+
+
+            //bidang p5h
+            [
+                'id_booking' => md5(uniqid()),
+                'id_peminjam' => $users[4],
+                'nama_peminjam' => "pegawai",
+                'nip_peminjam' => NULL,
+                'bidang_peminjam' => 4,
+                'booking_room' => $room8,
+                'booking_room_owner' => 4,
+                'booking_date' => date('2019-11-27'),
+                'booking_total_tamu' => 25,
+                'booking_total_snack' => 25,
+                'id_surat' => $id_surats[8],
+                'time_start' => 4,
+                'time_end' => 7,
+                'booking_status' => 3,
+                'request_hapus' => 0,
+            ], 
+            [
+                'id_booking' => md5(uniqid()),
+                'id_peminjam' => $users[4],
+                'nama_peminjam' => "pegawai",
+                'nip_peminjam' => NULL,
+                'bidang_peminjam' => 4,
+                'booking_room' => $room2,
+                'booking_room_owner' => 1,
+                'booking_date' => date('2019-11-27'),
+                'booking_total_tamu' => 25,
+                'booking_total_snack' => 25,
+                'id_surat' => $id_surats[9],
+                'time_start' => 3,
+                'time_end' => 6,
+                'booking_status' => 3,
+                'request_hapus' => 0,
+            ], 
+
+
+            //bidang indidok
+            [
+                'id_booking' => md5(uniqid()),
+                'id_peminjam' => $users[5],
+                'nama_peminjam' => "pegawai",
+                'nip_peminjam' => NULL,
+                'bidang_peminjam' => 5,
+                'booking_room' => $room4,
+                'booking_room_owner' => 5,
+                'booking_date' => date('2019-11-26'),
+                'booking_total_tamu' => 25,
+                'booking_total_snack' => 25,
+                'id_surat' => $id_surats[10],
+                'time_start' => 5,
+                'time_end' => 10,
+                'booking_status' => 3,
+                'request_hapus' => 0,
+            ], 
+            [
+                'id_booking' => md5(uniqid()),
+                'id_peminjam' => $users[5],
+                'nama_peminjam' => "pegawai",
+                'nip_peminjam' => NULL,
+                'bidang_peminjam' => 5,
+                'booking_room' => $room4,
+                'booking_room_owner' => 5,
+                'booking_date' => date('2019-11-27'),
+                'booking_total_tamu' => 25,
+                'booking_total_snack' => 25,
+                'id_surat' => $id_surats[11],
+                'time_start' => 5,
+                'time_end' => 10,
+                'booking_status' => 3,
+                'request_hapus' => 0,
+            ], 
+            [
+                'id_booking' => md5(uniqid()),
+                'id_peminjam' => $users[5],
+                'nama_peminjam' => "pegawai",
+                'nip_peminjam' => NULL,
+                'bidang_peminjam' => 5,
+                'booking_room' => $room4,
+                'booking_room_owner' => 5,
+                'booking_date' => date('2019-11-28'),
+                'booking_total_tamu' => 25,
+                'booking_total_snack' => 25,
+                'id_surat' => $id_surats[12],
+                'time_start' => 5,
+                'time_end' => 10,
+                'booking_status' => 3,
+                'request_hapus' => 0,
+            ], 
+        ]);
     }
 }
