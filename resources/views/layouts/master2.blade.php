@@ -71,7 +71,7 @@
                         <!-- mini logo for sidebar mini 50x50 pixels -->
                         <span class="hidden-sm hidden-md hidden-lg">Pinjam</span>
                         <!-- logo for regular state and mobile devices -->
-                        <span class="hidden-xs">Pinjam Ruang</span>
+                        <span class="hidden-xs p-l-10">Pinjam Ruang</span>
                     </a>
                     
                 </div>
