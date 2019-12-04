@@ -9,6 +9,8 @@
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png">
     <title>Ample Admin Template - The Ultimate Multipurpose admin template</title>
+
+    @yield('css')
     <!-- Bootstrap Core CSS -->
     <link href="{{ ('/booking-dev/public/ampleplugins/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -236,6 +238,8 @@
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript" src="{{ ('/booking-dev/public/ampleplugins/bower_components/multiselect/js/jquery.multi-select.js') }}"></script>
+    <script src="{{ ('/booking-dev/public/ampleplugins/js/cbpFWTabs.js') }}"></script>
+    
 
     <!-- jquery validation -->
     <!-- <script src="{{ ('/booking-dev/public/js/jquery-validation2/dist/jquery.validate.min.js') }}"></script> -->
@@ -250,6 +254,8 @@
     @yield('formvalidation')
 
     @yield('datatable')
+
+    @yeild('stylishtabs')
 
     @yield('formadvanced')
 </body>

@@ -15,9 +15,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('bidang')
-                        ->with('usertype')
-                        ->orderBy('user_status', 'ASC')
+        $users = User::orderBy('user_status', 'ASC')
                         ->orderBy('username', 'ASC')
                         ->get();
 

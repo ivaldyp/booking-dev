@@ -48,12 +48,59 @@
 							</div>
 
 							<div class="form-group">
-							  <label for="bidang_peminjam" class="col-lg-2 control-label"><span style="color: red">*</span> Bidang Peminjam </label>
+							  <label for="subbidang_peminjam" class="col-lg-2 control-label"><span style="color: red">*</span> Subbidang Peminjam </label>
 							  <div class="col-lg-8">
-								<select class="form-control" name="bidang_peminjam" id="bidang_peminjam" required>
-								  <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Bidang --</option>
-								  <?php foreach ($bidangs as $data) { ?>
-									<option value="{{ $data->id_bidang }}">{{ $data->bidang_name }}</option>
+								<select class="form-control" name="subbidang_peminjam" id="subbidang_peminjam" required>
+								  <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Subbidang --</option>
+								  <?php $bidang_now = 0; foreach ($subbidangs  as $data) { 
+								  	if ($data->id_bidang != $bidang_now){ 
+								  		$bidang_now = $data->id_bidang ?>
+								  		<optgroup label="{{ $data->bidang_name }}">
+								  <?php 
+								  	}
+								  ?>
+									<option value="{{ $data->id_bidang }}||{{ $data->id_subbidang }}">{{ $data->subbidang_name }}</option>
+								  <?php } ?>
+								</select>
+							  </div>
+							</div>
+
+							<div class="form-group">
+							  <label for="booking_date" class="col-lg-2 control-label"><span style="color: red">*</span> Tanggal </label>
+							  <div class="col-lg-4">
+								<div class="input-group date">
+								  <div class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								  </div>
+								  <input type="text" class="form-control pull-right booking_date" id="datepicker-autoclose" name="booking_date" autocomplete="off" required>
+								</div>
+							  </div>  
+							</div>
+
+							<div class="form-group">
+							  <label class="col-lg-2 control-label"><span style="color: red">*</span> Jam Mulai </label>
+							  <div class="col-lg-4">
+								<select class="form-control" name="time_start" id="time_start" required>
+								  <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
+								  <?php
+									foreach ($times as $data) { 
+									  $time_name = explode(":", explode(" ", $data->time_name)[1]); ?>
+									  <option value="{{ $data->id_time }}">{{ $time_name[0].":". $time_name[1] }}</option>
+									<?php }
+								  ?>
+								  
+								</select>
+							  </div>
+							</div> 
+
+							<div class="form-group">
+							  <label class="col-lg-2 control-label"><span style="color: red">*</span> Jam Selesai </label>
+							  <div class="col-lg-4">
+								<select class="form-control" name="time_end" id="time_end" required> 
+								  <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
+								  <?php foreach ($times as $data) { 
+									$time_name = explode(":", explode(" ", $data->time_name)[1]); ?>
+									<option id="timend{{$data->id_time}}" value="{{ $data->id_time }}">{{ $time_name[0].":". $time_name[1] }}</option>
 								  <?php } ?>
 								</select>
 							  </div>
@@ -113,58 +160,7 @@
 							  <div class="col-lg-4">
 								<input type="number" class="form-control" id="booking_total_snack" name="booking_total_snack" autocomplete="off" maxlength="3">
 							  </div>
-							</div>
-
-							<div class="form-group">
-							  <label for="booking_date" class="col-lg-2 control-label"><span style="color: red">*</span> Tanggal </label>
-							  <div class="col-lg-4">
-								<div class="input-group date">
-								  <div class="input-group-addon">
-									<i class="fa fa-calendar"></i>
-								  </div>
-								  <input type="text" class="form-control pull-right booking_date" id="datepicker-autoclose" name="booking_date" autocomplete="off" required>
-								</div>
-							  </div>  
-							</div>
-
-							<div class="form-group">
-							  <label class="col-lg-2 control-label"><span style="color: red">*</span> Jam Mulai </label>
-							  <div class="col-lg-4">
-								<select class="form-control" name="time_start" id="time_start" required>
-								  <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
-								  <?php
-									// $i = 0;
-									// foreach ($times as $data) {
-									//   $time_name = explode(":", explode(" ", $data->time_name)[1]);
-									//   if ($i == count($times) - 1) {
-									//     break;
-									//   } else {
-									//     echo "<option value=".$data->id_time.">".$time_name[0].":". $time_name[1]."</option>";
-									//   }
-									//   $i++;
-									// }
-									foreach ($times as $data) { 
-									  $time_name = explode(":", explode(" ", $data->time_name)[1]); ?>
-									  <option value="{{ $data->id_time }}">{{ $time_name[0].":". $time_name[1] }}</option>
-									<?php }
-								  ?>
-								  
-								</select>
-							  </div>
-							</div> 
-
-							<div class="form-group">
-							  <label class="col-lg-2 control-label"><span style="color: red">*</span> Jam Selesai </label>
-							  <div class="col-lg-4">
-								<select class="form-control" name="time_end" id="time_end" required> 
-								  <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Waktu --</option>
-								  <?php foreach ($times as $data) { 
-									$time_name = explode(":", explode(" ", $data->time_name)[1]); ?>
-									<option id="timend{{$data->id_time}}" value="{{ $data->id_time }}">{{ $time_name[0].":". $time_name[1] }}</option>
-								  <?php } ?>
-								</select>
-							  </div>
-							</div>
+							</div>							
 
 							<div class="form-group">
 							  <label for="surat_judul" class="col-lg-2 control-label"><span style="color: red">*</span> Judul Acara </label>
@@ -362,8 +358,8 @@
     // Date Picker
     jQuery('.mydatepicker, #datepicker').datepicker();
     jQuery('#datepicker-autoclose').datepicker({
-        autoclose: true
-        , todayHighlight: true
+        autoclose: true,
+		todayHighlight: true, 
     });
     jQuery('#date-range').datepicker({
         toggleActive: true

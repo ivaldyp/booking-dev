@@ -53,7 +53,7 @@
                                     <th>Acara</th>
                                     <th class="col-lg-2">Deskripsi</th>
                                     <th>Nama Peminjam</th>
-                                    <th>Bidang Peminjam</th>
+                                    <th>Subbidang Peminjam</th>
                                     <th>Ruang</th>
                                     <th>Jumlah Peserta</th>
                                     <th class="col-lg-1">Waktu</th>
@@ -71,7 +71,7 @@
                                     <td>{{ $data->surat->surat_judul }}</td>
                                     <td>{{ $data->surat->surat_deskripsi }}</td>
                                     <td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
-                                    <td>{{ $data->bidang->bidang_name }}</td>
+                                    <td>{{ $data->subbidang->subbidang_name }}</td>
                                     <td>{{ $data->room->room_name }}</td>
                                     <td>{{ $data->booking_total_tamu }}</td>
 

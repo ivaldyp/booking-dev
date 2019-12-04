@@ -1,5 +1,11 @@
 @extends('layouts.master2')
 
+@section('css')
+<style type="text/css">
+    
+</style>
+@endsection
+
 @section('content')
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -348,4 +354,14 @@
   });
 </script>
 
+@endsection
+
+@section('stylishtabs')
+<script type="text/javascript">
+    (function () {
+            [].slice.call(document.querySelectorAll('.sttabs')).forEach(function (el) {
+            new CBPFWTabs(el);
+        });
+    })();
+</script>
 @endsection

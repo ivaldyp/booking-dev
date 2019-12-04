@@ -11,6 +11,7 @@ use App\Bidang;
 use App\Booking;
 use App\Booking_Status;
 use App\Room;
+use App\Subbidang;
 use App\Surat;
 use App\Time;
 use App\User;
@@ -49,39 +50,24 @@ class ListController extends Controller
 
         $bidangs = Bidang::orderBy('id_bidang', 'ASC')->get();
 
-        $countstatus[0] = count(Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('booking_status', 2)
+        $countstatus[0] = count(Booking::
+                        where('booking_status', 2)
                         ->where('booking_room_owner', $id_bidang)
                         ->whereMonth('booking_date', $monthnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get());
-        $countstatus[1] = count(Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('booking_status', 1)
+        $countstatus[1] = count(Booking::
+                        where('booking_status', 1)
                         ->where('booking_room_owner', $id_bidang)
                         ->whereMonth('booking_date', $monthnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get());
-        $countstatus[2] = count(Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('booking_status', 3)
+        $countstatus[2] = count(Booking::
+                        where('booking_status', 3)
                         ->where('booking_room_owner', $id_bidang)
                         ->whereMonth('booking_date', $monthnow)
                         ->orderBy('booking_date', 'desc')
@@ -89,13 +75,8 @@ class ListController extends Controller
                         ->orderBy('time_end', 'asc')
                         ->get());
 
-        $listbidang = Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('booking_status', $booking_status)
+        $listbidang = Booking::
+                        where('booking_status', $booking_status)
                         ->where('booking_room_owner', $id_bidang)
                         ->whereMonth('booking_date', $monthnow)
                         ->orderBy('booking_date', 'desc')
@@ -143,39 +124,24 @@ class ListController extends Controller
             $id_room = $rooms[0]->id_room;
         }
 
-        $countstatus[0] = count(Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('booking_status', 2)
+        $countstatus[0] = count(Booking::
+                        where('booking_status', 2)
                         ->where('booking_room', $id_room)
                         ->whereMonth('booking_date', $monthnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get());
-        $countstatus[1] = count(Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('booking_status', 1)
+        $countstatus[1] = count(Booking::
+                        where('booking_status', 1)
                         ->where('booking_room', $id_room)
                         ->whereMonth('booking_date', $monthnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get());
-        $countstatus[2] = count(Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('booking_status', 3)
+        $countstatus[2] = count(Booking::
+                        where('booking_status', 3)
                         ->where('booking_room', $id_room)
                         ->whereMonth('booking_date', $monthnow)
                         ->orderBy('booking_date', 'desc')
@@ -183,13 +149,8 @@ class ListController extends Controller
                         ->orderBy('time_end', 'asc')
                         ->get());
 
-        $listruang = Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('booking_status', $booking_status)
+        $listruang = Booking::
+                        where('booking_status', $booking_status)
                         ->where('booking_room', $id_room)
                         ->whereMonth('booking_date', $monthnow)
                         ->orderBy('booking_date', 'desc')

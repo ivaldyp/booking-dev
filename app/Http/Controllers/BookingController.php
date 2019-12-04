@@ -14,6 +14,7 @@ use App\Booking;
 use App\Booking_Status;
 use App\Log;
 use App\Room;
+use App\Subbidang;
 use App\Surat;
 use App\Time;
 use App\User;
@@ -33,43 +34,26 @@ class BookingController extends Controller
 
     public function showAllBook(Request $request)
     {
-        $roomlists = Room::with('bidang')
-                        ->with('roomtype')
-                        ->orderBy('room_owner', 'asc')
+        $roomlists = Room::orderBy('room_owner', 'asc')
                         ->orderBy('room_name', 'asc')
                         ->get();
 
-        $bookingnot = Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('booking_status', 1)
+        $bookingnot = Booking::
+                        where('booking_status', 1)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get();
 
-        $bookingcancel = Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('booking_status', 2)
+        $bookingcancel = Booking::
+                        where('booking_status', 2)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get();
 
-        $bookingdone = Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('booking_status', 3)
+        $bookingdone = Booking::
+                        where('booking_status', 3)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -78,35 +62,20 @@ class BookingController extends Controller
         // var_dump($bookingdone[0]->room->room_name);
         // die();
 
-        $countstatus[0] = count(Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('booking_status', 2)
+        $countstatus[0] = count(Booking::
+                        where('booking_status', 2)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get());
-        $countstatus[1] = count(Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('booking_status', 1)
+        $countstatus[1] = count(Booking::
+                        where('booking_status', 1)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get());
-        $countstatus[2] = count(Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('booking_status', 3)
+        $countstatus[2] = count(Booking::
+                        where('booking_status', 3)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -117,23 +86,13 @@ class BookingController extends Controller
 
     public function showBookCancel(Request $request)
     {
-        $datas = Booking::with('status')
-                    ->with('surat')
-                    ->with('bidang')
-                    ->with('room')
-                    ->with('time1')
-                    ->with('time2')
-                    ->where('booking_status', 2)
+        $datas = Booking::
+                    where('booking_status', 2)
                     ->orderBy('created_at', 'desc')
                     ->get();
 
-        $countstatus = count(Booking::with('status')
-                    ->with('surat')
-                    ->with('bidang')
-                    ->with('room')
-                    ->with('time1')
-                    ->with('time2')
-                    ->where('booking_status', 2)
+        $countstatus = count(Booking::
+                    where('booking_status', 2)
                     ->orderBy('created_at', 'desc')
                     ->get());
 
@@ -142,27 +101,15 @@ class BookingController extends Controller
     
     public function showBookDone()
     {
-        $datas = Booking::with('status')
-                ->with('surat')
-                ->with('bidang')
-                ->with('room')
-                ->with('time1')
-                ->with('time2')
-                ->with('user')
-                ->where('booking_status', '=', 3)
+        $datas = Booking::
+                where('booking_status', '=', 3)
                 ->orderBy('booking_date', 'desc')
                 ->orderBy('time_start', 'asc')
                 ->orderBy('time_end', 'asc')
                 ->get();
 
-        $countstatus = count(Booking::with('status')
-                ->with('surat')
-                ->with('bidang')
-                ->with('room')
-                ->with('time1')
-                ->with('time2')
-                ->with('user')
-                ->where('booking_status', '=', 3)
+        $countstatus = count(Booking::
+                where('booking_status', '=', 3)
                 ->orderBy('booking_date', 'desc')
                 ->orderBy('time_start', 'asc')
                 ->orderBy('time_end', 'asc')
@@ -173,29 +120,15 @@ class BookingController extends Controller
 
     public function showBookNotDone()
     {
-        $roomlists = Room::with('bidang')
-                        ->with('roomtype')
-                        ->orderBy('room_owner', 'asc')
+        $roomlists = Room::orderBy('room_owner', 'asc')
                         ->orderBy('room_name', 'asc')
                         ->get();
                         
-        $rooms = Booking::with('status')
-                    ->with('surat')
-                    ->with('bidang')
-                    ->with('room')
-                    ->with('time1')
-                    ->with('time2')
-                    ->where('booking_status', 1)
+        $rooms = Booking::where('booking_status', 1)
                     ->orderBy('created_at', 'asc')
                     ->get();
 
-        $countstatus = count(Booking::with('status')
-                    ->with('surat')
-                    ->with('bidang')
-                    ->with('room')
-                    ->with('time1')
-                    ->with('time2')
-                    ->where('booking_status', 1)
+        $countstatus = count(Booking::where('booking_status', 1)
                     ->orderBy('created_at', 'asc')
                     ->get());
 
@@ -207,77 +140,39 @@ class BookingController extends Controller
 
     public function showBookOthers()
     {
-        $roomlists = Room::with('bidang')
-                        ->with('roomtype')
-                        ->orderBy('room_owner', 'asc')
+        $roomlists = Room::orderBy('room_owner', 'asc')
                         ->orderBy('room_name', 'asc')
                         ->get();
 
-        $roomsnot = Booking::with('status')
-                    ->with('surat')
-                    ->with('bidang')
-                    ->with('room')
-                    ->with('time1')
-                    ->with('time2')
-                    ->where('booking_status', 1)
+        $roomsnot = Booking::where('booking_status', 1)
                     ->where('id_peminjam', '!=', Auth::id())
                     ->where('booking_room_owner', Session::get('user_data')->user_bidang)
                     ->orderBy('created_at', 'asc')
                     ->get();
 
-        $roomscancel = Booking::with('status')
-                    ->with('surat')
-                    ->with('bidang')
-                    ->with('room')
-                    ->with('time1')
-                    ->with('time2')
-                    ->where('booking_status', 2)
+        $roomscancel = Booking::where('booking_status', 2)
                     ->where('id_peminjam', '!=', Auth::id())
                     ->where('booking_room_owner', Session::get('user_data')->user_bidang)
                     ->orderBy('created_at', 'asc')
                     ->get();
 
-        $roomsdone = Booking::with('status')
-                    ->with('surat')
-                    ->with('bidang')
-                    ->with('room')
-                    ->with('time1')
-                    ->with('time2')
-                    ->where('booking_status', 3)
+        $roomsdone = Booking::where('booking_status', 3)
                     ->where('id_peminjam', '!=', Auth::id())
                     ->where('booking_room_owner', Session::get('user_data')->user_bidang)
                     ->orderBy('created_at', 'asc')
                     ->get();
 
-        $countstatus[0] = count(Booking::with('status')
-                    ->with('surat')
-                    ->with('bidang')
-                    ->with('room')
-                    ->with('time1')
-                    ->with('time2')
-                    ->where('booking_status', 2)
+        $countstatus[0] = count(Booking::where('booking_status', 2)
                     ->where('id_peminjam', '!=', Auth::id())
                     ->where('booking_room_owner', Session::get('user_data')->user_bidang)
                     ->orderBy('created_at', 'asc')
                     ->get()); 
-        $countstatus[1] = count(Booking::with('status')
-                    ->with('surat')
-                    ->with('bidang')
-                    ->with('room')
-                    ->with('time1')
-                    ->with('time2')
-                    ->where('booking_status', 1)
+        $countstatus[1] = count(Booking::where('booking_status', 1)
                     ->where('id_peminjam', '!=', Auth::id())
                     ->where('booking_room_owner', Session::get('user_data')->user_bidang)
                     ->orderBy('created_at', 'asc')
                     ->get()); 
-        $countstatus[2] = count(Booking::with('status')
-                    ->with('surat')
-                    ->with('bidang')
-                    ->with('room')
-                    ->with('time1')
-                    ->with('time2')
-                    ->where('booking_status', 3)
+        $countstatus[2] = count(Booking::where('booking_status', 3)
                     ->where('id_peminjam', '!=', Auth::id())
                     ->where('booking_room_owner', Session::get('user_data')->user_bidang)
                     ->orderBy('created_at', 'asc')
@@ -290,76 +185,40 @@ class BookingController extends Controller
     {
         $id_peminjam = Auth::id();
 
-        $bookingnot = Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('id_peminjam', $id_peminjam)
+        $bookingnot = Booking::where('id_peminjam', $id_peminjam)
                         ->where('booking_status', 1)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get();
 
-        $bookingcancel = Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('id_peminjam', $id_peminjam)
+        $bookingcancel = Booking::where('id_peminjam', $id_peminjam)
                         ->where('booking_status', 2)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get();
 
-        $bookingdone = Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('id_peminjam', $id_peminjam)
+        $bookingdone = Booking::where('id_peminjam', $id_peminjam)
                         ->where('booking_status', 3)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get();
 
-        $countstatus[0] = count(Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('id_peminjam', $id_peminjam)
+        $countstatus[0] = count(Booking::where('id_peminjam', $id_peminjam)
                         ->where('booking_status', 2)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get());
-        $countstatus[1] = count(Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('id_peminjam', $id_peminjam)
+        $countstatus[1] = count(Booking::where('id_peminjam', $id_peminjam)
                         ->where('booking_status', 1)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get());
-        $countstatus[2] = count(Booking::with('status')
-                        ->with('surat')
-                        ->with('bidang')
-                        ->with('room')
-                        ->with('time1')
-                        ->with('time2')
-                        ->where('id_peminjam', $id_peminjam)
+        $countstatus[2] = count(Booking::where('id_peminjam', $id_peminjam)
                         ->where('booking_status', 3)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
@@ -374,15 +233,18 @@ class BookingController extends Controller
         $rooms = Room::
                         // with('bidang')
                         join('bidangs', 'bidangs.id_bidang', '=', 'rooms.room_owner')
-                        ->with('roomtype')
                         ->orderBy('room_owner', 'ASC')
                         ->orderBy('room_name', 'ASC')
                         ->get();
 
         $bidangs = Bidang::get();
 
+        $subbidangs = Subbidang::
+                        join('bidangs', 'bidangs.id_bidang', '=', 'subbidangs.id_bidang')
+                        ->get();
+
         $times = Time::get();
-        return view('pages.bookings.form')->with('rooms', $rooms)->with('bidangs', $bidangs)->with('times', $times);
+        return view('pages.bookings.form')->with('rooms', $rooms)->with('bidangs', $bidangs)->with('subbidangs', $subbidangs)->with('times', $times);
     }
 
     public function store(Request $request)
@@ -421,8 +283,8 @@ class BookingController extends Controller
 
         $file_name = uniqid(md5(time()))."~".date('dmY')."~".$file->getClientOriginalName();
 
-        // $tujuan_upload = 'C:\Users\user\Documents\Upload';
-        $tujuan_upload = 'C:\Users\Valdy\Documents\Upload';
+        $tujuan_upload = 'C:\Users\user\Documents\Upload';
+        // $tujuan_upload = 'C:\Users\Valdy\Documents\Upload';
 
         // $origDate = $request->booking_date;
         // $date = str_replace('/', '-', $origDate );
@@ -446,7 +308,9 @@ class BookingController extends Controller
                 ${'booking' . $i}->id_peminjam = $id_user = Auth::id();
                 ${'booking' . $i}->nip_peminjam = $request->nip_peminjam;
                 ${'booking' . $i}->nama_peminjam = $request->nama_peminjam;
-                ${'booking' . $i}->bidang_peminjam = $request->bidang_peminjam;
+                $bidang_detail = explode("||", $request->subbidang_peminjam);
+                ${'booking' . $i}->bidang_peminjam = $bidang_detail[0];
+                ${'booking' . $i}->subbidang_peminjam = $bidang_detail[1];
                 $room_detail = explode("||", $request->booking_room[$i]);
                 ${'booking' . $i}->booking_room = $room_detail[0];
                 ${'booking' . $i}->booking_room_owner = $room_detail[1];

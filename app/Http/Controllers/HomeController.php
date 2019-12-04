@@ -222,9 +222,6 @@ class HomeController extends Controller
 
         $bookings = Booking::
                     join('rooms', 'rooms.id_room', '=', 'bookings.booking_room')
-                    ->with('surat')
-                    ->with('time1')
-                    ->with('time2')
                     ->where('booking_date', $datenow)
                     ->where('booking_status', 3)
                     ->orderBy('rooms.room_name', 'ASC')
@@ -280,9 +277,6 @@ class HomeController extends Controller
 
         $bookings = Booking::
                     join('rooms', 'rooms.id_room', '=', 'bookings.booking_room')
-                    ->with('surat')
-                    ->with('time1')
-                    ->with('time2')
                     ->where('booking_date', $datenow)
                     ->where('booking_status', 3)
                     ->orderBy('room_owner', 'ASC')
@@ -301,11 +295,7 @@ class HomeController extends Controller
 
     public function read()
     {
-        $bookings = Booking::with('surat')
-                            ->with('time1')
-                            ->with('time2')
-                            ->with('room')
-                            ->where('soft_delete', false)
+        $bookings = Booking::where('soft_delete', false)
                             ->where('booking_status', 3)
                             ->get();
         return $bookings;
