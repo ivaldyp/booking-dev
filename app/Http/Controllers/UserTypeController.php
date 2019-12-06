@@ -8,11 +8,15 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\User_type;
+use App\Bidang;
 
 class UserTypeController extends Controller
 {
+    use SessionCheckTraits;
+
     public function index()
     {
+        $this->check();
         $user_status = User_type::orderBy('id_userType', 'ASC')->get();
         return view('pages.roles.table')->with('user_status', $user_status);
     }
@@ -111,6 +115,7 @@ class UserTypeController extends Controller
 
     public function delete($id)
     {
+        $this->check();
         $user_type = User_type::find($id);
         if($user_type->delete()) {
             return redirect('roles')->with('message', 'Data berhasil dihapus');

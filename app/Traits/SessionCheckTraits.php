@@ -14,6 +14,7 @@ trait SessionCheckTraits
 			redirect('login')->send()->with([
                         'message' => 'Session was expired. Please try again',
                         'message-type' => 'danger']);
+			die();
 		} 
 	}
 }

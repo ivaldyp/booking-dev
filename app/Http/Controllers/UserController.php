@@ -10,11 +10,15 @@ use Illuminate\Support\Facades\Session;
 use App\Bidang;
 use App\User_type;
 use App\User;
+use App\Bidang;
 
 class UserController extends Controller
 {
+    use SessionCheckTraits;
+
     public function index()
     {
+        $this->check();
         $users = User::orderBy('user_status', 'ASC')
                         ->orderBy('username', 'ASC')
                         ->get();
@@ -61,6 +65,7 @@ class UserController extends Controller
 
     public function delete($id)
     {
+        $this->check();
         $user = User::find($id);
         if($user->delete()) {
             return redirect('users')->with('message', 'Data berhasil dihapus');

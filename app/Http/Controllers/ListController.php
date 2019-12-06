@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use App\Traits\SessionCheckTraits;
 use App\Bidang;
 use App\Booking;
 use App\Booking_Status;
@@ -19,8 +20,11 @@ use App\Http\Controllers\Controller;
 
 class ListController extends Controller
 {
+    use SessionCheckTraits;
+
     public function getBidang(Request $request)
     {
+        $this->check();
         if (!(is_null($request->monthnow))) {
             $monthnow = $request->monthnow;
         } else {
@@ -95,6 +99,7 @@ class ListController extends Controller
 
     public function getRuang(Request $request)
     {
+        $this->check();
         if (!(is_null($request->monthnow))) {
             $monthnow = $request->monthnow;
         } else {
