@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use App\Traits\SessionCheckTraits;
 use App\Bidang;
 use App\Booking;
 use App\Booking_Status;
@@ -22,6 +23,8 @@ use App\Http\Controllers\Controller;
 
 class BookingController extends Controller
 { 
+    use SessionCheckTraits;
+
     public function download($id)
     {
         $data = Surat::where('id_surat', $id)->first();
@@ -86,6 +89,7 @@ class BookingController extends Controller
 
     public function showBookCancel(Request $request)
     {
+        $this->check();
         $datas = Booking::
                     where('booking_status', 2)
                     ->orderBy('created_at', 'desc')
@@ -101,6 +105,7 @@ class BookingController extends Controller
     
     public function showBookDone()
     {
+        $this->check();
         $datas = Booking::
                 where('booking_status', '=', 3)
                 ->orderBy('booking_date', 'desc')
@@ -120,6 +125,7 @@ class BookingController extends Controller
 
     public function showBookNotDone()
     {
+        $this->check();
         $roomlists = Room::orderBy('room_owner', 'asc')
                         ->orderBy('room_name', 'asc')
                         ->get();
@@ -140,6 +146,7 @@ class BookingController extends Controller
 
     public function showBookOthers()
     {
+        $this->check();
         $roomlists = Room::orderBy('room_owner', 'asc')
                         ->orderBy('room_name', 'asc')
                         ->get();
@@ -183,6 +190,7 @@ class BookingController extends Controller
 
     public function showBookMy()
     {
+        $this->check();
         $id_peminjam = Auth::id();
 
         $bookingnot = Booking::where('id_peminjam', $id_peminjam)
@@ -230,6 +238,7 @@ class BookingController extends Controller
 
     public function showForm()
     {
+        $this->check();
         $rooms = Room::
                         // with('bidang')
                         join('bidangs', 'bidangs.id_bidang', '=', 'rooms.room_owner')
@@ -240,6 +249,7 @@ class BookingController extends Controller
         $bidangs = Bidang::get();
 
         $subbidangs = Subbidang::
+        die();
                         join('bidangs', 'bidangs.id_bidang', '=', 'subbidangs.id_bidang')
                         ->get();
 
@@ -249,6 +259,10 @@ class BookingController extends Controller
 
     public function store(Request $request)
     {
+        // $this->check();
+        // $a = new SessionCheckTraits;
+        // $a->check();
+        // SessionCheckTraits::check();
         // $date = explode("/", $request->booking_date);
         // $date = str_replace('/', '-', $request->booking_date);
         $newDate = date("Y/m/d", strtotime($request->booking_date));

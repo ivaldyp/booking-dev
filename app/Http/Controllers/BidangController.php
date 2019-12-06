@@ -13,6 +13,7 @@ class BidangController extends Controller
 {
     public function index()
     {
+        $this->check();
         $bidangs = Bidang::orderBy('bidang_name', 'asc')->get();
         return view('pages.bidangs.table')->with('bidangs', $bidangs);
     }

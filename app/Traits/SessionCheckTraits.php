@@ -9,7 +9,11 @@ trait SessionCheckTraits
 	public function check()
 	{
 		if (Auth::check() == FALSE) {
-			redirect('login')->with('message', 'Berhasil melakukan perubahan terhadap status booking')->send();
+			var_dump("AA");
+			// die();
+			redirect('login')->send()->with([
+                        'message' => 'Session was expired. Please try again',
+                        'message-type' => 'danger']);
 		} 
 	}
 }

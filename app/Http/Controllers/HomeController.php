@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use App\Traits\SessionCheckTraits;
 use App\Bidang;
 use App\Booking;
 use App\Room;
@@ -22,9 +21,6 @@ class HomeController extends Controller
     public function __construct()
     {
         // $this->middleware('auth');
-        if (Auth::check() == FALSE) {
-            return redirect()->route('login');
-        } 
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
 
@@ -240,16 +236,8 @@ class HomeController extends Controller
                 ->with('bookings', $bookings);
     }
 
-    use SessionCheckTraits;
-
     public function index6(Request $request)
     {
-        $this->check();
-        // if (Auth::check() == FALSE) {
-        //     return redirect()->route('login');
-        // } 
-        // $check = new SessionCheckTraits;
-        // $check->check();
         $data = [];
         if (Auth::check()) {
             $user_status = $this->user->user_status;
