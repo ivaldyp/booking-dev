@@ -25,6 +25,11 @@ class BookingController extends Controller
 { 
     use SessionCheckTraits;
 
+    public function tes()
+    {
+        return view('pages.bookings.tes');
+    }
+
     public function download($id)
     {
         $data = Surat::where('id_surat', $id)->first();

@@ -38,6 +38,8 @@ Route::group(['prefix' => 'bidang'], function () {
 });
 
 Route::group(['prefix' => 'booking'], function () {
+	Route::get('/tesbaru', 'BookingController@tes');
+
 	Route::get('/', 'BookingController@showAllBook');
 	Route::get('/not', 'BookingController@showBookNotDone');
 	Route::get('/done', 'BookingController@showBookDone');
