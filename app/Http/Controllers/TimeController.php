@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use App\Time;
 use App\Traits\SessionCheckTraits;
+use App\Time;
 
 class TimeController extends Controller
 {

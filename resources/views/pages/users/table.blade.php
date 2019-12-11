@@ -37,7 +37,7 @@
 									<tr>
 										<th>No</th>
 										<th>Username</th>
-										<th>Nama Lengkap</th>
+										<th>Nama</th>
 										<th>Bidang</th>
 										<th>Status</th>
 										<th>Aksi</th>

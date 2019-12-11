@@ -80,7 +80,7 @@
 								<th>Peminjam</th>
 								<th>Subbidang Peminjam</th>
 								<th>Ruang</th>
-								<th>Jumlah Peserta</th>
+								<th>Jumlah Peserta / Snack</th>
 								<th class="col-lg-1">Waktu</th>
 								<th>File Surat</th>
 								<?php if(Auth::check() && Auth::user()->user_status == 1) { ?>
@@ -104,7 +104,7 @@
 								<td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
 								<td>{{ $data->subbidang->subbidang_name }}</td>
 								<td>{{ $data->room->room_name }}</td>
-								<td>{{ $data->booking_total_tamu }}</td>
+								<td>{{ $data->booking_total_tamu }} / {{ $data->booking_total_snack }}</td>
 
 								<?php 
 								  $booking_date2 = DateTime::createFromFormat('Y-m-d', $data->booking_date);
@@ -163,7 +163,7 @@
 								<th>Nama Peminjam</th>
 								<th>Subbidang Peminjam</th>
 								<th>Ruang</th>
-								<th>Jumlah Peserta</th>
+								<th>Jumlah Peserta / Snack</th>
 								<th class="col-lg-1">Waktu</th>
 								<th>File Surat</th>
 								<?php if(Auth::check() && Auth::user()->user_status == 1) { ?>
@@ -187,7 +187,7 @@
 								<td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
 								<td>{{ $data->subbidang->subbidang_name }}</td>
 								<td>{{ $data->room->room_name }}</td>
-								<td>{{ $data->booking_total_tamu }}</td>
+								<td>{{ $data->booking_total_tamu }} / {{ $data->booking_total_snack }}</td>
 
 								<?php 
 								  $booking_date2 = DateTime::createFromFormat('Y-m-d', $data->booking_date);
@@ -255,7 +255,7 @@
 								<th>Nama Peminjam</th>
 								<th>Subbidang Peminjam</th>
 								<th>Ruang</th>
-								<th>Jumlah Peserta</th>
+								<th>Jumlah Peserta / Snack</th>
 								<th class="col-lg-1">Waktu</th>
 								<th>File Surat</th>
 								<?php if(Auth::check() && Auth::user()->user_status == 1) { ?>
@@ -276,7 +276,7 @@
 								<td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
 								<td>{{ $data->subbidang->subbidang_name }}</td>
 								<td>{{ $data->room->room_name }}</td>
-								<td>{{ $data->booking_total_tamu }}</td>
+								<td>{{ $data->booking_total_tamu }} / {{ $data->booking_total_snack }}</td>
 								
 								<?php 
 								  $booking_date2 = DateTime::createFromFormat('Y-m-d', $data->booking_date);

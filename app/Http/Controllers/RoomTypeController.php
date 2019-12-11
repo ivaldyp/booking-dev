@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use App\Room_type;
 use App\Traits\SessionCheckTraits;
+use App\Room_type;
 
 class RoomTypeController extends Controller
 {
