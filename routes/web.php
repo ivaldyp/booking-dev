@@ -50,6 +50,7 @@ Route::group(['prefix' => 'booking'], function () {
 	Route::get('/download/{id}', 'BookingController@download');
 	Route::get('/form', 'BookingController@showForm');
 	Route::post('/store', 'BookingController@store');
+	Route::post('/updateRoom', 'BookingController@updateRoom');
 	Route::post('/updateStatus', 'BookingController@updateBookStatus');
 });
 

@@ -160,8 +160,10 @@ class BookingController extends Controller
     public function showBookOthers()
     {
         $this->check();
-        $roomlists = Room::orderBy('room_owner', 'asc')
-                        ->orderBy('room_name', 'asc')
+        $roomlists = Room::
+                        join('bidangs', 'bidangs.id_bidang', '=', 'rooms.room_owner')
+                        ->orderBy('room_owner', 'ASC')
+                        ->orderBy('room_name', 'ASC')
                         ->get();
 
         $roomsnot = Booking::where('booking_status', 1)
@@ -224,6 +226,12 @@ class BookingController extends Controller
         $this->check();
         $id_peminjam = Auth::id();
 
+        $roomlists = Room::
+                        join('bidangs', 'bidangs.id_bidang', '=', 'rooms.room_owner')
+                        ->orderBy('room_owner', 'ASC')
+                        ->orderBy('room_name', 'ASC')
+                        ->get();
+
         $bookingnot = Booking::where('id_peminjam', $id_peminjam)
                         ->where('booking_status', 1)
                         ->orderBy('booking_date', 'desc')
@@ -264,14 +272,13 @@ class BookingController extends Controller
                         ->orderBy('time_end', 'asc')
                         ->get());
 
-        return view('pages.bookings.my-table')->with('bookingnot', $bookingnot)->with('bookingcancel', $bookingcancel)->with('bookingdone', $bookingdone)->with('countstatus', $countstatus);
+        return view('pages.bookings.my-table')->with('roomlists', $roomlists)->with('bookingnot', $bookingnot)->with('bookingcancel', $bookingcancel)->with('bookingdone', $bookingdone)->with('countstatus', $countstatus);
     }
 
     public function showForm()
     {
         $this->check();
         $rooms = Room::
-                        // with('bidang')
                         join('bidangs', 'bidangs.id_bidang', '=', 'rooms.room_owner')
                         ->orderBy('room_owner', 'ASC')
                         ->orderBy('room_name', 'ASC')
@@ -391,6 +398,58 @@ class BookingController extends Controller
         }
         return redirect('/home')->with('message', 'Booking berhasil dilakukan');
     }  
+
+    public function updateRoom(Request $request)
+    {
+        $actual_link = "{$_SERVER['HTTP_REFERER']}";
+        $back_link = explode("/", $actual_link);
+        $roombaru = explode("||", $request->booking_room);
+
+        $book_check = Booking::
+                    where('booking_room', $roombaru[0])
+                    ->where('booking_date', $request->booking_date)
+                    ->where('time_start', '<=', $request->time_start)
+                    ->where('time_end', '>', $request->time_start)
+                    ->where('booking_status', 3)
+                    ->get();   
+        if (count($book_check) > 0) {
+            if (end($back_link) == 'my-booking') {
+                return redirect('/booking/my-booking')->with('message', 'Tidak dapat merubah ruangan karena ruang yang dipilih telah terisi')->with('messagecode', 1);
+            } elseif (end($back_link) == 'bidang-lain') {
+                return redirect('/booking/bidang-lain')->with('message', 'Tidak dapat merubah ruangan karena ruang yang dipilih telah terisi')->with('messagecode', 1);
+            }
+        }
+
+        $booking = Booking::where('id_booking', $request->id_booking)->first();
+        if ($request->booking_status == 1) {
+            if ($roombaru[1] == $booking->bidang_peminjam) {
+                $booking->booking_room = $roombaru[0];
+                $booking->booking_room_owner = $roombaru[1];
+                $booking->booking_status = 3;
+            } elseif ($roombaru[1] != Session::get('user_data')->user_bidang) {
+                $booking->booking_room = $roombaru[0];
+                $booking->booking_room_owner = $roombaru[1];
+            }
+        } elseif ($request->booking_status == 3) {
+            if ($roombaru[1] == Session::get('user_data')->user_bidang) {
+                $booking->booking_room = $roombaru[0];
+                $booking->booking_room_owner = $roombaru[1];
+            } elseif ($roombaru[1] != Session::get('user_data')->user_bidang) {
+                $booking->booking_room = $roombaru[0];
+                $booking->booking_room_owner = $roombaru[1];
+                $booking->booking_status = 1;
+                $booking->id_penyetuju = NULL;
+            }
+        }
+
+        if($booking->save()) {
+            if (end($back_link) == 'my-booking') {
+                return redirect('/booking/my-booking')->with('message', 'Berhasil melakukan perubahan ruangan')->with('messagecode', 2);
+            } elseif (end($back_link) == 'bidang-lain') {
+                return redirect('/booking/bidang-lain')->with('message', 'Berhasil melakukan perubahan ruangan')->with('messagecode', 2);
+            }
+        }
+    }    
 
     public function updateBookStatus(Request $request)
     { 
