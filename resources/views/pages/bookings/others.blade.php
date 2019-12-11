@@ -322,7 +322,7 @@
 									<input type="hidden" name="status_id" class="modal_status_id">
 
 									<div class="form-group">
-										<label for="booking_status" class="col-lg-2 control-label"> Ubah Status </label>
+										<label for="booking_status" class="col-lg-2 control-label"><span style="color: red">*</span> Ubah Status </label>
 										<div class="col-lg-8">
 											<div class="radio">
 												<label>
