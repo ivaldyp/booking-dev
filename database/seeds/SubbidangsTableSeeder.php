@@ -47,15 +47,15 @@ class SubbidangsTableSeeder extends Seeder
 	        ], 
 	        [
 	            'id_bidang' => 3,
-	            'subbidang_name' => "Subbidang Perubahan Status Aset Tanah "
+	            'subbidang_name' => "Subbidang Perubahan Status Aset Tanah dan Aset Diatasnya"
 	        ], 
 	        [
 	            'id_bidang' => 3,
-	            'subbidang_name' => "Subbidang Perubahan Status Aset Bangunan"
+	            'subbidang_name' => "Subbidang Perubahan Status Aset Kendaraan"
 	        ], 
 
 
-	        //bidang F6
+	        //bidang P5H
 	        [
 	            'id_bidang' => 4,
 	            'subbidang_name' => 'Subbidang Perencanaan dan Kebutuhan Aset'
@@ -69,7 +69,7 @@ class SubbidangsTableSeeder extends Seeder
 	            'subbidang_name' => 'Subbidang Patokan Harga Barang & Inventaris'
 	        ],
 
-
+			//bidang Indidok
 	        [
 	            'id_bidang' => 5,
 	            'subbidang_name' => 'Subbidang Inventarisasi Aset'

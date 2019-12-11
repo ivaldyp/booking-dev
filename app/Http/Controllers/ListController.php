@@ -24,7 +24,6 @@ class ListController extends Controller
 
     public function getBidang(Request $request)
     {
-        $this->check();
         if (!(is_null($request->monthnow))) {
             $monthnow = $request->monthnow;
         } else {
@@ -99,7 +98,6 @@ class ListController extends Controller
 
     public function getRuang(Request $request)
     {
-        $this->check();
         if (!(is_null($request->monthnow))) {
             $monthnow = $request->monthnow;
         } else {
