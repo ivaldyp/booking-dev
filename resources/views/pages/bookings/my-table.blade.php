@@ -29,6 +29,39 @@
                 </div>
             </div>
             <div class="row">
+                <form method="GET" action="my-booking">
+                    <div class="form-row">
+                      <div class="form-group col-xs-1">
+                        <select class="form-control" name="monthnow" id="monthnow" required>
+                          <?php foreach ($montharray as $key => $data) { ?>
+                            <option value="{{ $key + 1 }}" 
+                              <?php 
+                                if ($monthnow == $key+1) {
+                                  echo "selected";
+                                }
+                              ?>
+                            >{{ $data }}</option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                      <div class="form-group col-xs-1">
+                        <select class="form-control" name="yearnow" id="yearnow" required>
+                          <?php foreach ($yeararray as $key => $data) { ?>
+                            <option value="{{ $data }}" 
+                              <?php 
+                                if ($yearnow == $data) {
+                                  echo "selected";
+                                }
+                              ?>
+                            >{{ $data }}</option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Cari</button>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
                 <div class="col-sm-12">
                     <div class="white-box">
                          <div class="row row-in">

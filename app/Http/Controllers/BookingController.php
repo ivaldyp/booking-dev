@@ -42,12 +42,36 @@ class BookingController extends Controller
 
     public function showAllBook(Request $request)
     {
+        if (!(is_null($request->monthnow))) {
+            $monthnow = $request->monthnow;
+        } else {
+            $monthnow = date('m');
+        }
+
+        if (!(is_null($request->yearnow))) {
+            $yearnow = $request->yearnow;
+        } else {
+            $yearnow = date('Y');
+        }
+
+        $montharray = ['Jan', 'Feb', 'Mar', 
+                        'Apr', 'Mei', 'Jun',
+                        'Jul', 'Agu', 'Sep',
+                        'Okt', 'Nov', 'Des'];
+
+        $yeararray = [];
+        for ($i=date('Y'); $i >= date('Y')-4; $i--) { 
+            array_push($yeararray, $i);    
+        }
+
         $roomlists = Room::orderBy('room_owner', 'asc')
                         ->orderBy('room_name', 'asc')
                         ->get();
 
         $bookingnot = Booking::
                         where('booking_status', 1)
+                        ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -55,6 +79,8 @@ class BookingController extends Controller
 
         $bookingcancel = Booking::
                         where('booking_status', 2)
+                        ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -62,6 +88,8 @@ class BookingController extends Controller
 
         $bookingdone = Booking::
                         where('booking_status', 3)
+                        ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -72,31 +100,62 @@ class BookingController extends Controller
 
         $countstatus[0] = count(Booking::
                         where('booking_status', 2)
+                        ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get());
         $countstatus[1] = count(Booking::
                         where('booking_status', 1)
+                        ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get());
         $countstatus[2] = count(Booking::
                         where('booking_status', 3)
+                        ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get());
 
-        return view('pages.bookings.table')->with('bookingnot', $bookingnot)->with('bookingcancel', $bookingcancel)->with('bookingdone', $bookingdone)->with('countstatus', $countstatus)->with('roomlists', $roomlists);
+        return view('pages.bookings.table')->with('bookingnot', $bookingnot)->with('bookingcancel', $bookingcancel)->with('bookingdone', $bookingdone)->with('countstatus', $countstatus)->with('roomlists', $roomlists)->with('monthnow', $monthnow)->with('montharray', $montharray)->with('yearnow', $yearnow)->with('yeararray', $yeararray);
     }
 
     public function showBookCancel(Request $request)
     {
         $this->check();
+        
+        if (!(is_null($request->monthnow))) {
+            $monthnow = $request->monthnow;
+        } else {
+            $monthnow = date('m');
+        }
+
+        if (!(is_null($request->yearnow))) {
+            $yearnow = $request->yearnow;
+        } else {
+            $yearnow = date('Y');
+        }
+
+        $montharray = ['Jan', 'Feb', 'Mar', 
+                        'Apr', 'Mei', 'Jun',
+                        'Jul', 'Agu', 'Sep',
+                        'Okt', 'Nov', 'Des'];
+
+        $yeararray = [];
+        for ($i=date('Y'); $i >= date('Y')-4; $i--) { 
+            array_push($yeararray, $i);    
+        }
+
         $datas = Booking::
                     where('booking_status', 2)
+                    ->whereMonth('booking_date', $monthnow)
+                    ->whereYear('booking_date', $yearnow)
                     ->orderBy('booking_date', 'desc')
                     ->orderBy('time_start', 'asc')
                     ->orderBy('time_end', 'asc')
@@ -104,19 +163,46 @@ class BookingController extends Controller
 
         $countstatus = count(Booking::
                     where('booking_status', 2)
+                    ->whereMonth('booking_date', $monthnow)
+                    ->whereYear('booking_date', $yearnow)
                     ->orderBy('booking_date', 'desc')
                     ->orderBy('time_start', 'asc')
                     ->orderBy('time_end', 'asc')
                     ->get());
 
-        return view('pages.bookings.table-cancel')->with('datas', $datas)->with('countstatus', $countstatus);
+        return view('pages.bookings.table-cancel')->with('datas', $datas)->with('countstatus', $countstatus)->with('monthnow', $monthnow)->with('montharray', $montharray)->with('yearnow', $yearnow)->with('yeararray', $yeararray);
     }
     
-    public function showBookDone()
+    public function showBookDone(Request $request)
     {
         $this->check();
+        
+        if (!(is_null($request->monthnow))) {
+            $monthnow = $request->monthnow;
+        } else {
+            $monthnow = date('m');
+        }
+
+        if (!(is_null($request->yearnow))) {
+            $yearnow = $request->yearnow;
+        } else {
+            $yearnow = date('Y');
+        }
+
+        $montharray = ['Jan', 'Feb', 'Mar', 
+                        'Apr', 'Mei', 'Jun',
+                        'Jul', 'Agu', 'Sep',
+                        'Okt', 'Nov', 'Des'];
+
+        $yeararray = [];
+        for ($i=date('Y'); $i >= date('Y')-4; $i--) { 
+            array_push($yeararray, $i);    
+        }
+
         $datas = Booking::
                 where('booking_status', '=', 3)
+                ->whereMonth('booking_date', $monthnow)
+                    ->whereYear('booking_date', $yearnow)
                 ->orderBy('booking_date', 'desc')
                 ->orderBy('time_start', 'asc')
                 ->orderBy('time_end', 'asc')
@@ -124,42 +210,91 @@ class BookingController extends Controller
 
         $countstatus = count(Booking::
                 where('booking_status', '=', 3)
+                ->whereMonth('booking_date', $monthnow)
+                    ->whereYear('booking_date', $yearnow)
                 ->orderBy('booking_date', 'desc')
                 ->orderBy('time_start', 'asc')
                 ->orderBy('time_end', 'asc')
                 ->get());        
 
-        return view('pages.bookings.table-done')->with('datas',$datas)->with('countstatus', $countstatus);
+        return view('pages.bookings.table-done')->with('datas',$datas)->with('countstatus', $countstatus)->with('monthnow', $monthnow)->with('montharray', $montharray)->with('yearnow', $yearnow)->with('yeararray', $yeararray);
     }
 
-    public function showBookNotDone()
+    public function showBookNotDone(Request $request)
     {
         $this->check();
+        
+        if (!(is_null($request->monthnow))) {
+            $monthnow = $request->monthnow;
+        } else {
+            $monthnow = date('m');
+        }
+
+        if (!(is_null($request->yearnow))) {
+            $yearnow = $request->yearnow;
+        } else {
+            $yearnow = date('Y');
+        }
+
+        $montharray = ['Jan', 'Feb', 'Mar', 
+                        'Apr', 'Mei', 'Jun',
+                        'Jul', 'Agu', 'Sep',
+                        'Okt', 'Nov', 'Des'];
+
+        $yeararray = [];
+        for ($i=date('Y'); $i >= date('Y')-4; $i--) { 
+            array_push($yeararray, $i);    
+        }
+
         $roomlists = Room::orderBy('room_owner', 'asc')
                         ->orderBy('room_name', 'asc')
                         ->get();
                         
         $rooms = Booking::where('booking_status', 1)
+                    ->whereMonth('booking_date', $monthnow)
+                    ->whereYear('booking_date', $yearnow)
                     ->orderBy('booking_date', 'desc')
                     ->orderBy('time_start', 'asc')
                     ->orderBy('time_end', 'asc')
                     ->get();
 
         $countstatus = count(Booking::where('booking_status', 1)
+                    ->whereMonth('booking_date', $monthnow)
+                    ->whereYear('booking_date', $yearnow)
                     ->orderBy('booking_date', 'desc')
                     ->orderBy('time_start', 'asc')
                     ->orderBy('time_end', 'asc')
                     ->get());
 
-        return view('pages.bookings.table-not')
-                ->with('roomlists', $roomlists)
-                ->with('rooms', $rooms)
-                ->with('countstatus', $countstatus);
+        return view('pages.bookings.table-not')->with('roomlists', $roomlists)->with('rooms', $rooms)->with('countstatus', $countstatus)->with('monthnow', $monthnow)->with('montharray', $montharray)->with('yearnow', $yearnow)->with('yeararray', $yeararray);
     }
 
-    public function showBookOthers()
+    public function showBookOthers(Request $request)
     {
         $this->check();
+
+        if (!(is_null($request->monthnow))) {
+            $monthnow = $request->monthnow;
+        } else {
+            $monthnow = date('m');
+        }
+
+        if (!(is_null($request->yearnow))) {
+            $yearnow = $request->yearnow;
+        } else {
+            $yearnow = date('Y');
+        }
+
+        $montharray = ['Jan', 'Feb', 'Mar', 
+                        'Apr', 'Mei', 'Jun',
+                        'Jul', 'Agu', 'Sep',
+                        'Okt', 'Nov', 'Des'];
+
+        $yeararray = [];
+        for ($i=date('Y'); $i >= date('Y')-4; $i--) { 
+            array_push($yeararray, $i);    
+        }
+
         $roomlists = Room::
                         join('bidangs', 'bidangs.id_bidang', '=', 'rooms.room_owner')
                         ->orderBy('room_owner', 'ASC')
@@ -170,6 +305,8 @@ class BookingController extends Controller
                     ->where('id_peminjam', '!=', Auth::id())
                     ->where('bidang_peminjam', '!=', Session::get('user_data')->user_bidang)
                     ->where('booking_room_owner', Session::get('user_data')->user_bidang)
+                    ->whereMonth('booking_date', $monthnow)
+                    ->whereYear('booking_date', $yearnow)
                     ->orderBy('booking_date', 'desc')
                     ->orderBy('time_start', 'asc')
                     ->orderBy('time_end', 'asc')
@@ -179,6 +316,8 @@ class BookingController extends Controller
                     ->where('id_peminjam', '!=', Auth::id())
                     ->where('bidang_peminjam', '!=', Session::get('user_data')->user_bidang)
                     ->where('booking_room_owner', Session::get('user_data')->user_bidang)
+                    ->whereMonth('booking_date', $monthnow)
+                    ->whereYear('booking_date', $yearnow)
                     ->orderBy('booking_date', 'desc')
                     ->orderBy('time_start', 'asc')
                     ->orderBy('time_end', 'asc')
@@ -188,6 +327,8 @@ class BookingController extends Controller
                     ->where('id_peminjam', '!=', Auth::id())
                     ->where('bidang_peminjam', '!=', Session::get('user_data')->user_bidang)
                     ->where('booking_room_owner', Session::get('user_data')->user_bidang)
+                    ->whereMonth('booking_date', $monthnow)
+                    ->whereYear('booking_date', $yearnow)
                     ->orderBy('booking_date', 'desc')
                     ->orderBy('time_start', 'asc')
                     ->orderBy('time_end', 'asc')
@@ -197,6 +338,8 @@ class BookingController extends Controller
                     ->where('id_peminjam', '!=', Auth::id())
                     ->where('bidang_peminjam', '!=', Session::get('user_data')->user_bidang)
                     ->where('booking_room_owner', Session::get('user_data')->user_bidang)
+                    ->whereMonth('booking_date', $monthnow)
+                    ->whereYear('booking_date', $yearnow)
                     ->orderBy('booking_date', 'desc')
                     ->orderBy('time_start', 'asc')
                     ->orderBy('time_end', 'asc')
@@ -205,6 +348,8 @@ class BookingController extends Controller
                     ->where('id_peminjam', '!=', Auth::id())
                     ->where('bidang_peminjam', '!=', Session::get('user_data')->user_bidang)
                     ->where('booking_room_owner', Session::get('user_data')->user_bidang)
+                    ->whereMonth('booking_date', $monthnow)
+                    ->whereYear('booking_date', $yearnow)
                     ->orderBy('booking_date', 'desc')
                     ->orderBy('time_start', 'asc')
                     ->orderBy('time_end', 'asc')
@@ -213,17 +358,42 @@ class BookingController extends Controller
                     ->where('id_peminjam', '!=', Auth::id())
                     ->where('bidang_peminjam', '!=', Session::get('user_data')->user_bidang)
                     ->where('booking_room_owner', Session::get('user_data')->user_bidang)
+                    ->whereMonth('booking_date', $monthnow)
+                    ->whereYear('booking_date', $yearnow)
                     ->orderBy('booking_date', 'desc')
                     ->orderBy('time_start', 'asc')
                     ->orderBy('time_end', 'asc')
                     ->get()); 
 
-        return view('pages.bookings.others')->with('roomlists', $roomlists)->with('roomsnot', $roomsnot)->with('roomscancel', $roomscancel)->with('roomsdone', $roomsdone)->with('countstatus', $countstatus);
+        return view('pages.bookings.others')->with('roomlists', $roomlists)->with('roomsnot', $roomsnot)->with('roomscancel', $roomscancel)->with('roomsdone', $roomsdone)->with('countstatus', $countstatus)->with('monthnow', $monthnow)->with('montharray', $montharray)->with('yearnow', $yearnow)->with('yeararray', $yeararray);
     }
 
-    public function showBookMy()
+    public function showBookMy(Request $request)
     {
         $this->check();
+
+        if (!(is_null($request->monthnow))) {
+            $monthnow = $request->monthnow;
+        } else {
+            $monthnow = date('m');
+        }
+
+        if (!(is_null($request->yearnow))) {
+            $yearnow = $request->yearnow;
+        } else {
+            $yearnow = date('Y');
+        }
+
+        $montharray = ['Jan', 'Feb', 'Mar', 
+                        'Apr', 'Mei', 'Jun',
+                        'Jul', 'Agu', 'Sep',
+                        'Okt', 'Nov', 'Des'];
+
+        $yeararray = [];
+        for ($i=date('Y'); $i >= date('Y')-4; $i--) { 
+            array_push($yeararray, $i);    
+        }
+
         $id_peminjam = Auth::id();
 
         $roomlists = Room::
@@ -234,6 +404,8 @@ class BookingController extends Controller
 
         $bookingnot = Booking::where('id_peminjam', $id_peminjam)
                         ->where('booking_status', 1)
+                        ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -241,6 +413,8 @@ class BookingController extends Controller
 
         $bookingcancel = Booking::where('id_peminjam', $id_peminjam)
                         ->where('booking_status', 2)
+                        ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -248,6 +422,8 @@ class BookingController extends Controller
 
         $bookingdone = Booking::where('id_peminjam', $id_peminjam)
                         ->where('booking_status', 3)
+                        ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -255,24 +431,30 @@ class BookingController extends Controller
 
         $countstatus[0] = count(Booking::where('id_peminjam', $id_peminjam)
                         ->where('booking_status', 2)
+                        ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get());
         $countstatus[1] = count(Booking::where('id_peminjam', $id_peminjam)
                         ->where('booking_status', 1)
+                        ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get());
         $countstatus[2] = count(Booking::where('id_peminjam', $id_peminjam)
                         ->where('booking_status', 3)
+                        ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
                         ->get());
 
-        return view('pages.bookings.my-table')->with('roomlists', $roomlists)->with('bookingnot', $bookingnot)->with('bookingcancel', $bookingcancel)->with('bookingdone', $bookingdone)->with('countstatus', $countstatus);
+        return view('pages.bookings.my-table')->with('roomlists', $roomlists)->with('bookingnot', $bookingnot)->with('bookingcancel', $bookingcancel)->with('bookingdone', $bookingdone)->with('countstatus', $countstatus)->with('monthnow', $monthnow)->with('montharray', $montharray)->with('yearnow', $yearnow)->with('yeararray', $yeararray);
     }
 
     public function showForm()
@@ -459,14 +641,7 @@ class BookingController extends Controller
         if ($request->booking_status == 2) {
             $booking->soft_delete = 1;
         }
-        if (!is_null($request->checkchangeroom)) {
-            $booking->booking_room = $request->booking_room_change;
-            $newroom = $request->booking_room_change;
-            $log_tipe = 4;
-        } else {
-            $newroom = $request->booking_room;
-            $log_tipe = 3;
-        }
+
         $booking->keterangan_status = $request->keterangan_status;
 
         $actual_link = "{$_SERVER['HTTP_REFERER']}";

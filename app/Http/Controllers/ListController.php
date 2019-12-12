@@ -30,10 +30,21 @@ class ListController extends Controller
             $monthnow = date('m');
         }
 
+        if (!(is_null($request->yearnow))) {
+            $yearnow = $request->yearnow;
+        } else {
+            $yearnow = date('Y');
+        }
+
         $montharray = ['Jan', 'Feb', 'Mar', 
                         'Apr', 'Mei', 'Jun',
                         'Jul', 'Agu', 'Sep',
                         'Okt', 'Nov', 'Des'];
+
+        $yeararray = [];
+        for ($i=date('Y'); $i >= date('Y')-4; $i--) { 
+            array_push($yeararray, $i);    
+        }
 
         if (!(is_null($request->bidang_peminjam))) {
             $id_bidang = $request->bidang_peminjam;
@@ -57,6 +68,7 @@ class ListController extends Controller
                         where('booking_status', 2)
                         ->where('booking_room_owner', $id_bidang)
                         ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -65,6 +77,7 @@ class ListController extends Controller
                         where('booking_status', 1)
                         ->where('booking_room_owner', $id_bidang)
                         ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -73,6 +86,7 @@ class ListController extends Controller
                         where('booking_status', 3)
                         ->where('booking_room_owner', $id_bidang)
                         ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -82,6 +96,7 @@ class ListController extends Controller
                         where('booking_status', $booking_status)
                         ->where('booking_room_owner', $id_bidang)
                         ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -92,6 +107,8 @@ class ListController extends Controller
                 ->with('id_bidang', $id_bidang)
                 ->with('monthnow', $monthnow)
                 ->with('montharray', $montharray)
+                ->with('yearnow', $yearnow)
+                ->with('yeararray', $yeararray)
                 ->with('booking_status', $booking_status)
                 ->with('countstatus', $countstatus);
     }
@@ -104,10 +121,21 @@ class ListController extends Controller
             $monthnow = date('m');
         }
 
+        if (!(is_null($request->yearnow))) {
+            $yearnow = $request->yearnow;
+        } else {
+            $yearnow = date('Y');
+        }
+
         $montharray = ['Jan', 'Feb', 'Mar', 
                         'Apr', 'Mei', 'Jun',
                         'Jul', 'Agu', 'Sep',
                         'Okt', 'Nov', 'Des'];
+
+        $yeararray = [];
+        for ($i=date('Y'); $i >= date('Y')-4; $i--) { 
+            array_push($yeararray, $i);    
+        }
 
         if (!(is_null($request->booking_status))) {
             $booking_status = $request->booking_status;
@@ -131,6 +159,7 @@ class ListController extends Controller
                         where('booking_status', 2)
                         ->where('booking_room', $id_room)
                         ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -139,6 +168,7 @@ class ListController extends Controller
                         where('booking_status', 1)
                         ->where('booking_room', $id_room)
                         ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -147,6 +177,7 @@ class ListController extends Controller
                         where('booking_status', 3)
                         ->where('booking_room', $id_room)
                         ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -156,6 +187,7 @@ class ListController extends Controller
                         where('booking_status', $booking_status)
                         ->where('booking_room', $id_room)
                         ->whereMonth('booking_date', $monthnow)
+                        ->whereYear('booking_date', $yearnow)
                         ->orderBy('booking_date', 'desc')
                         ->orderBy('time_start', 'asc')
                         ->orderBy('time_end', 'asc')
@@ -166,6 +198,8 @@ class ListController extends Controller
                 ->with('id_room', $id_room)
                 ->with('monthnow', $monthnow)
                 ->with('montharray', $montharray)
+                ->with('yearnow', $yearnow)
+                ->with('yeararray', $yeararray)
                 ->with('booking_status', $booking_status)
                 ->with('countstatus', $countstatus);
     }
