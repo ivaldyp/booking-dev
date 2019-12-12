@@ -34,7 +34,7 @@ class User extends Authenticatable
 
     public function subbidang()
     {
-        return $this->hasOneThrough('App\User', 'App\Bidang');
+        return $this->hasOne('App\Subbidang', 'id_subbidang', 'user_subbidang');
     }
 
 
