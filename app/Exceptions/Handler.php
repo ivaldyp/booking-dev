@@ -4,9 +4,23 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\AuthenticationException as AuthenticationException;
 
 class Handler extends ExceptionHandler
 {
+    // protected function unauthenticated($request, AuthenticationException $exception)
+    // {
+    //     return $request->expectsJson()
+    //             ? response()->json(['message' => 'Unauthenticated.'], 401)
+    //             : redirect()->guest(route('/'));
+    // }
+
+    protected function prepareException(Exception $e)
+    {
+        
+
+        return $e;
+    }
     /**
      * A list of the exception types that are not reported.
      *

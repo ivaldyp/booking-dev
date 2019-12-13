@@ -18,4 +18,16 @@ class Authenticate extends Middleware
             return route('login');
         }
     }
+
+    //this method will be triggered before your controller constructor
+    public function handle($request, Closure $next)
+    {
+        //check here if the user is authenticated
+        if ( ! $this->auth->user() )
+        {
+            return redirect('/login');
+        }
+
+        return $next($request);
+    }
 }

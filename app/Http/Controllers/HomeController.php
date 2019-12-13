@@ -246,10 +246,12 @@ class HomeController extends Controller
 
             if (is_null($this->user->user_subbidang)) {
                 $data_user = User::where('id_user',$this->user->id_user)
+                            ->join('user_types', 'user_types.id_userType', '=', 'users.user_status')
                             ->leftjoin('bidangs', 'bidangs.id_bidang', '=', 'users.user_bidang')
                             ->get();
             } else {
                 $data_user = User::where('id_user',$this->user->id_user)
+                            ->join('user_types', 'user_types.id_userType', '=', 'users.user_status')
                             ->leftjoin('subbidangs', 'subbidangs.id_subbidang', '=', 'users.user_subbidang')
                             ->leftjoin('bidangs', 'bidangs.id_bidang', '=', 'subbidangs.id_bidang')
                             ->get();
