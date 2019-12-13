@@ -24,7 +24,7 @@
             </div>
             <div class="row" id="btn-hide">
                 <div class="col-sm-3">
-                    <button data-toggle="modal" data-target="#modal-create" class="btn btn-info" style="margin-bottom: 10px">Tambah</button>
+                    <a href="registeruser"><button data-toggle="modal" data-target="#modal-create" class="btn btn-info" style="margin-bottom: 10px">Tambah</button></a>
                 </div>
             </div>
             <div class="row">
@@ -37,8 +37,9 @@
 									<tr>
 										<th>No</th>
 										<th>Username</th>
-										<th>Nama Lengkap</th>
+										<th>Nama</th>
 										<th>Bidang</th>
+										<th>Sub Bidang</th>
 										<th>Status</th>
 										<th>Aksi</th>
 									</tr>
@@ -59,6 +60,12 @@
 											<td> - </td>
 										<?php } else { ?>
 											<td> {{ $data->bidang->bidang_name }} </td>
+										<?php } ?>
+
+										<?php if (!(isset($data->subbidang->subbidang_name))) { ?>
+											<td> - </td>
+										<?php } else { ?>
+											<td> {{ $data->subbidang->subbidang_name }} </td>
 										<?php } ?>
 
 										<td>{{ $data->usertype->userType_name }}</td>

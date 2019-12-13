@@ -7,23 +7,30 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Traits\SessionCheckTraits;
 use App\Bidang;
+use App\Subbidang;
 use App\User_type;
 use App\User;
 
 class UserController extends Controller
 {
+    use SessionCheckTraits;
+
     public function index()
     {
+        $this->check();
         $users = User::orderBy('user_status', 'ASC')
                         ->orderBy('username', 'ASC')
                         ->get();
+
+        $subbidangs = Subbidang::orderBy('id_subbidang', 'ASC')->get();
 
         $bidangs = Bidang::orderBy('id_bidang', 'ASC')->get();
 
         $user_types = User_type::orderBy('id_userType', 'ASC')->get();
 
-        return view('pages.users.table')->with('users', $users)->with('bidangs', $bidangs)->with('user_types', $user_types);
+        return view('pages.users.table')->with('users', $users)->with('bidangs', $bidangs)->with('subbidangs', $subbidangs)->with('user_types', $user_types);
     }
 
     public function update(Request $request)
@@ -61,6 +68,7 @@ class UserController extends Controller
 
     public function delete($id)
     {
+        $this->check();
         $user = User::find($id);
         if($user->delete()) {
             return redirect('users')->with('message', 'Data berhasil dihapus');

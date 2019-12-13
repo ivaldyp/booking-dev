@@ -51,6 +51,19 @@
                           <?php } ?>
                         </select>
                       </div>
+                      <div class="form-group col-xs-1">
+                        <select class="form-control" name="yearnow" id="yearnow" required>
+                          <?php foreach ($yeararray as $key => $data) { ?>
+                            <option value="{{ $data }}" 
+                              <?php 
+                                if ($yearnow == $data) {
+                                  echo "selected";
+                                }
+                              ?>
+                            >{{ $data }}</option>
+                          <?php } ?>
+                        </select>
+                      </div>
                       <div class="form-group col-xs-2">
                         <select class="form-control" name="booking_status" id="booking_status" required>
                             <option <?php if($booking_status == 3) {echo "selected";} ?> value="3">Disetujui</option>

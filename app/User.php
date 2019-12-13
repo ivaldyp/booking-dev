@@ -19,7 +19,7 @@ class User extends Authenticatable
     protected $primaryKey = 'id_user';
 
     protected $fillable = [
-        'id_user', 'nrk', 'nip', 'username', 'password', 'name', 'email', 'user_status', 'user_bidang', 'remember_token', 'created_at', 'updated_at', 'soft_delete'
+        'id_user', 'nrk', 'nip', 'username', 'password', 'name', 'email', 'user_status', 'user_bidang', 'user_subbidang', 'remember_token', 'created_at', 'updated_at', 'soft_delete'
     ];
 
     public function bidang()
@@ -34,7 +34,7 @@ class User extends Authenticatable
 
     public function subbidang()
     {
-        return $this->hasOneThrough('App\User', 'App\Bidang');
+        return $this->hasOne('App\Subbidang', 'id_subbidang', 'user_subbidang');
     }
 
 

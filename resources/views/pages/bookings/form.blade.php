@@ -59,7 +59,7 @@
 								  <?php 
 								  	}
 								  ?>
-									<option value="{{ $data->id_bidang }}||{{ $data->id_subbidang }}">{{ $data->subbidang_name }}</option>
+									<option <?php if(Session::get('user_data')->user_subbidang == $data->id_subbidang) {echo "selected";} ?> value="{{ $data->id_bidang }}||{{ $data->id_subbidang }}">{{ $data->subbidang_name }}</option>
 								  <?php } ?>
 								</select>
 							  </div>

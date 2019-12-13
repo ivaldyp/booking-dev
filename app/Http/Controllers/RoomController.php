@@ -7,15 +7,18 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-
+use App\Traits\SessionCheckTraits;
 use App\Bidang;
 use App\Room;
 use App\Room_type;
 
 class RoomController extends Controller
 {
+    use SessionCheckTraits;
+
     public function index()
     {
+        $this->check();
         $rooms = Room::
                         // leftJoin('bidangs as b', 'b.id_bidang', '=', 'rooms.room_owner')
                         orderBy('room_owner', 'asc')
@@ -69,6 +72,7 @@ class RoomController extends Controller
 
     public function delete($id)
     {
+        $this->check();
         $room = Room::find($id);
         if($room->delete()) {
             return redirect('ruang')->with('message', 'Data berhasil dihapus');

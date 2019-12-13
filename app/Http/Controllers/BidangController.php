@@ -1,5 +1,5 @@
 <?php
-
+ 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -7,12 +7,16 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Traits\SessionCheckTraits;
 use App\Bidang;
 
 class BidangController extends Controller
 {
+    use SessionCheckTraits;
+
     public function index()
     {
+        $this->check();
         $bidangs = Bidang::orderBy('bidang_name', 'asc')->get();
         return view('pages.bidangs.table')->with('bidangs', $bidangs);
     }
@@ -37,6 +41,7 @@ class BidangController extends Controller
 
     public function delete($id)
     {
+        $this->check();
         $bidang = Bidang::find($id);
         if($bidang->delete()) {
             return redirect('bidang')->with('message', 'Data bidang berhasil dihapus');

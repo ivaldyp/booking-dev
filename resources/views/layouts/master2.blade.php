@@ -12,34 +12,52 @@
 
     @yield('css')
     <!-- Bootstrap Core CSS -->
-    <link href="{{ ('/booking-dev/public/ampleplugins/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet"> 
+    
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
+    
     <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+    
     <!-- Menu CSS -->
-    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
+    <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
+    
     <!--alerts CSS -->
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/sweetalert/sweetalert.css') }}" rel="stylesheet" type="text/css">
+    
     <!-- Page plugins css -->
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css') }}" rel="stylesheet">
+    
     <!-- Color picker plugins css -->
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery-asColorPicker-master/css/asColorPicker.css') }}" rel="stylesheet">
+    
     <!-- Date picker plugins css -->
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
+    
     <!-- Daterange picker plugins css -->
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">
+    
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+    
     <!-- animation CSS -->
-    <link href="{{ ('/booking-dev/public/ampleplugins/css/animate.css') }}" rel="stylesheet">
+    <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/css/animate.css') }}" rel="stylesheet">
+    
     <!-- Custom CSS -->
-    <link href="{{ ('/booking-dev/public/ampleplugins/css/style.css') }}" rel="stylesheet">
+    <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/css/style.css') }}" rel="stylesheet">
+    
     <!-- color CSS -->
-    <link href="{{ ('/booking-dev/public/ampleplugins/css/colors/blue-dark.css') }}" id="theme" rel="stylesheet">
+    <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/css/colors/blue-dark.css') }}" id="theme" rel="stylesheet">
+    
     <!-- page CSS -->
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/custom-select/custom-select.css" rel="stylesheet" type="text/css') }}" />
+    
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/switchery/dist/switchery.min.css') }}" rel="stylesheet" />
+    
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-select/bootstrap-select.min.css') }}" rel="stylesheet" />
+    
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" />
+    
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/multiselect/css/multi-select.css') }}" rel="stylesheet" type="text/css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -94,12 +112,12 @@
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
+                            <!-- <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
                             <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
                             <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
-                            <li role="separator" class="divider"></li>
+                            <li role="separator" class="divider"></li> -->
                             <li>
                                 <a class="dropdown-item btn btn-danger btn-flat" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
@@ -203,47 +221,71 @@
     </div>
     <!-- /#wrapper -->
     <!-- jQuery -->
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
+    
     <!-- Bootstrap Core JavaScript -->
-    <script src="{{ ('/booking-dev/public/ampleplugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    
     <!-- Menu Plugin JavaScript -->
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
+    
     <!--slimscroll JavaScript -->
     <script src="{{ ('/booking-dev/public/ampleplugins/js/jquery.slimscroll.js') }}"></script>
+    
     <!--Wave Effects -->
     <script src="{{ ('/booking-dev/public/ampleplugins/js/waves.js') }}"></script>
+    
     <!-- Sweet-Alert  -->
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/sweetalert/sweetalert.min.js') }}"></script>
+    
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/sweetalert/jquery.sweet-alert.custom.js') }}"></script>
+    
     <!-- Custom Theme JavaScript -->
     <script src="{{ ('/booking-dev/public/ampleplugins/js/custom.min.js') }}"></script>
+    
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/datatables/jquery.dataTables.min.js') }}"></script>
+    
     <!-- Plugin JavaScript -->
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/moment/moment.js') }}"></script>
+    
     <!-- Clock Plugin JavaScript -->
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/clockpicker/dist/jquery-clockpicker.min.js') }}"></script>
+    
     <!-- Color Picker Plugin JavaScript -->
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery-asColorPicker-master/libs/jquery-asColor.js') }}"></script>
+    
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery-asColorPicker-master/libs/jquery-asGradient.js') }}"></script>
+    
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js') }}"></script>
+    
     <!-- Date Picker Plugin JavaScript -->
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    
     <!-- Date range Plugin JavaScript -->
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/timepicker/bootstrap-timepicker.min.js') }}"></script>
+    
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    
     <!-- Custom Theme JavaScript -->
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/switchery/dist/switchery.min.js') }}"></script>
+    
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/custom-select/custom-select.min.js') }}" type="text/javascript"></script>
+    
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-select/bootstrap-select.min.js') }}" type="text/javascript"></script>
+    
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+    
     <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js') }}" type="text/javascript"></script>
+    
     <script type="text/javascript" src="{{ ('/booking-dev/public/ampleplugins/bower_components/multiselect/js/jquery.multi-select.js') }}"></script>
+    
     <script src="{{ ('/booking-dev/public/ampleplugins/js/cbpFWTabs.js') }}"></script>
     
 
     <!-- jquery validation -->
     <!-- <script src="{{ ('/booking-dev/public/js/jquery-validation2/dist/jquery.validate.min.js') }}"></script> -->
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     
     <!--Style Switcher -->

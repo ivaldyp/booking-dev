@@ -23,6 +23,39 @@
             	</div>
             </div>
             <div class="row">
+                <form method="GET" action="not">
+                    <div class="form-row">
+                      <div class="form-group col-xs-1">
+                        <select class="form-control" name="monthnow" id="monthnow" required>
+                          <?php foreach ($montharray as $key => $data) { ?>
+                            <option value="{{ $key + 1 }}" 
+                              <?php 
+                                if ($monthnow == $key+1) {
+                                  echo "selected";
+                                }
+                              ?>
+                            >{{ $data }}</option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                      <div class="form-group col-xs-1">
+                        <select class="form-control" name="yearnow" id="yearnow" required>
+                          <?php foreach ($yeararray as $key => $data) { ?>
+                            <option value="{{ $data }}" 
+                              <?php 
+                                if ($yearnow == $data) {
+                                  echo "selected";
+                                }
+                              ?>
+                            >{{ $data }}</option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Cari</button>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
                 <div class="col-sm-3">
                     <div class="white-box">
                      	<div class="row row-in">
@@ -55,7 +88,7 @@
 										<th>Nama Peminjam</th>
 										<th>Subbidang Peminjam</th>
 										<th>Ruang</th>
-										<th>Jumlah Peserta</th>
+										<th>Jumlah Peserta / Snack</th>
 										<th class="col-lg-1">Waktu</th>
 										<th>File Surat</th>
 										<th>Status Booking</th>
@@ -73,7 +106,7 @@
 										<td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
 										<td>{{ $data->subbidang->subbidang_name }}</td>
 										<td>{{ $data->room->room_name }}</td>
-										<td>{{ $data->booking_total_tamu }}</td>
+										<td>{{ $data->booking_total_tamu }} / {{ $data->booking_total_snack }}</td>
 
 										<?php 
 											$booking_date2 = DateTime::createFromFormat('Y-m-d', $data->booking_date);
@@ -148,23 +181,6 @@
 														<textarea class="form-control" id="modal_keterangan_status" name="keterangan_status" rows="3" autocomplete="off"></textarea>
 													</div>
 												</div>
-
-												<div class="form-group">
-													<label for="booking_room_change" class="col-lg-2 control-label"> Ubah Ruang? </label>
-													<div class="col-lg-1">
-						                            	<div class="checkbox">
-															<label><input type="checkbox" name="checkchangeroom" id="checkchangeroom" style="width: 30px; height: 30px; top: 0px"></label>
-						                            	</div>
-						                          	</div>
-													<div class="col-lg-7">
-									                    <select class="form-control" name="booking_room_change" id="booking_room_change" disabled="">
-									                      	<option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
-									                      	<?php foreach ($roomlists as $data) { ?>
-									                        	<option value="{{ $data->id_room }}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option>
-									                      	<?php } ?>
-									                    </select>
-								                  	</div>
-							                  	</div>
 
 											</div>
 											<div class="modal-footer">

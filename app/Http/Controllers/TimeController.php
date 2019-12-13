@@ -7,12 +7,16 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Traits\SessionCheckTraits;
 use App\Time;
 
 class TimeController extends Controller
 {
+    use SessionCheckTraits;
+
     public function index()
     {
+        $this->check();
         $times = Time::orderBy('time_singkat', 'asc')
                         ->orderBy('time_name', 'asc')
                         ->get();
@@ -49,6 +53,7 @@ class TimeController extends Controller
 
     public function delete($id)
     {
+        $this->check();
         $time = Time::where('id_time', $id);
         if($time->delete()) {
             return redirect('time')->with('message', 'Data waktu berhasil dihapus');

@@ -8,11 +8,15 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Traits\SessionCheckTraits;
 
 class BookingStatusController extends Controller
 {
+    use SessionCheckTraits;
+
     public function index()
     {
+        $this->check();
         $status = Booking_Status::orderBy('status_id', 'ASC')->get();
         return view('pages.book_status.table')->with('status', $status);
     }

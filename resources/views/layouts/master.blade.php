@@ -488,6 +488,7 @@
 <!-- Multiple select -->
 <!-- <script type="text/javascript" src="{{ ('/booking-dev/public/js/multiple/dist/js/bootstrap-multiselect.js') }}"></script> -->
 <script src="{{ ('/booking-dev/public/js/multiselect/js/jquery.multi-select.js') }}" type="text/javascript"></script>
+@yield('confirm_password')
 
 @yield('cal-init')
 
@@ -495,7 +496,6 @@
 
 @yield('multipleselect')
 
-@yield('confirm_password')
 
 @yield('datatable')
 

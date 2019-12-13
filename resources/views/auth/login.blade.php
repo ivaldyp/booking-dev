@@ -4,6 +4,13 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <div class="row">
+                <div class="col-sm-12">
+                    @if(Session::has('message'))
+                        <div class="alert alert-info alert-dismissable">{{ Session::get('message') }}</div>
+                    @endif
+                </div>
+            </div>
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 

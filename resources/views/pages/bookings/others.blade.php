@@ -23,6 +23,39 @@
                 </div>
             </div>
             <div class="row">
+                <form method="GET" action="bidang-lain">
+                    <div class="form-row">
+                      <div class="form-group col-xs-1">
+                        <select class="form-control" name="monthnow" id="monthnow" required>
+                          <?php foreach ($montharray as $key => $data) { ?>
+                            <option value="{{ $key + 1 }}" 
+                              <?php 
+                                if ($monthnow == $key+1) {
+                                  echo "selected";
+                                }
+                              ?>
+                            >{{ $data }}</option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                      <div class="form-group col-xs-1">
+                        <select class="form-control" name="yearnow" id="yearnow" required>
+                          <?php foreach ($yeararray as $key => $data) { ?>
+                            <option value="{{ $data }}" 
+                              <?php 
+                                if ($yearnow == $data) {
+                                  echo "selected";
+                                }
+                              ?>
+                            >{{ $data }}</option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Cari</button>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
                 <div class="col-sm-12">
                     <div class="white-box">
                          <div class="row row-in">
@@ -80,7 +113,7 @@
 								<th>Peminjam</th>
 								<th>Subbidang Peminjam</th>
 								<th>Ruang</th>
-								<th>Jumlah Peserta</th>
+								<th>Jumlah Peserta / Snack</th>
 								<th class="col-lg-1">Waktu</th>
 								<th>File Surat</th>
 								<th>Status Booking</th>
@@ -99,7 +132,7 @@
 								<td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
 								<td>{{ $data->subbidang->subbidang_name }}</td>
 								<td>{{ $data->room->room_name }}</td>
-								<td>{{ $data->booking_total_tamu }}</td>
+								<td>{{ $data->booking_total_tamu }} / {{ $data->booking_total_snack }}</td>
 
 								<?php 
 								  $booking_date2 = DateTime::createFromFormat('Y-m-d', $data->booking_date);
@@ -124,6 +157,8 @@
 								<!-- <td>{{$data->tanggal_dibuat}}</td> -->
 								<td>
 								  	<button type="button" class="btn btn-info btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->time2->id_time }}||{{ $data->room->booking_room }}||{{ $data->status->status_id }}"><i class="fa fa-edit"></i></button>
+								  	<hr>
+								  	<button type="button" class="btn btn-info btn_change_room" data-toggle="modal" data-target="#modal-room" id="{{ $data->id_booking }}||{{ $data->booking_status }}||{{ $data->booking_date }}||{{ $data->time_start }}"><i class="fa fa-map-marker"></i></button>
 								</td>
 							  </tr>
 							  <?php } ?>
@@ -147,7 +182,7 @@
 										<th>Nama Peminjam</th>
 										<th>Subbidang Peminjam</th>
 										<th>Ruang</th>
-										<th>Jumlah Peserta</th>
+										<th>Jumlah Peserta / Snack</th>
 										<th class="col-lg-1">Waktu</th>
 										<th>File Surat</th>
 										<th>Status Booking</th>
@@ -165,7 +200,7 @@
 										<td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
 										<td>{{ $data->subbidang->subbidang_name }}</td>
 										<td>{{ $data->room->room_name }}</td>
-										<td>{{ $data->booking_total_tamu }}</td>
+										<td>{{ $data->booking_total_tamu }} / {{ $data->booking_total_snack }}</td>
 
 										<?php 
 											$booking_date2 = DateTime::createFromFormat('Y-m-d', $data->booking_date);
@@ -193,7 +228,11 @@
 												echo $data->keterangan_status;
 											}?>
 										</td>
-										<td><button type="button" class="btn btn-info btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->time2->id_time }}||{{ $data->booking_room }}||{{ $data->status->status_id }}"><i class="fa fa-edit"></i></button></td>
+										<td>
+											<button type="button" class="btn btn-info btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->time2->id_time }}||{{ $data->booking_room }}||{{ $data->status->status_id }}"><i class="fa fa-edit"></i></button>
+											<hr>
+											<button type="button" class="btn btn-info btn_change_room" data-toggle="modal" data-target="#modal-room" id="{{ $data->id_booking }}||{{ $data->booking_status }}||{{ $data->booking_date }}||{{ $data->time_start }}"><i class="fa fa-map-marker"></i></button>
+										</td>
 									</tr>
 									<?php } ?>
 								</tbody>
@@ -216,7 +255,7 @@
 								<th>Nama Peminjam</th>
 								<th>Subbidang Peminjam</th>
 								<th>Ruang</th>
-								<th>Jumlah Peserta</th>
+								<th>Jumlah Peserta / Snack</th>
 								<th class="col-lg-1">Waktu</th>
 								<th>File Surat</th>
 								<th>Status Booking</th>
@@ -234,7 +273,7 @@
 								<td>{{ $data->nama_peminjam }}<hr>{{ $data->nip_peminjam }}</td>
 								<td>{{ $data->subbidang->subbidang_name }}</td>
 								<td>{{ $data->room->room_name }}</td>
-								<td>{{ $data->booking_total_tamu }}</td>
+								<td>{{ $data->booking_total_tamu }} / {{ $data->booking_total_snack }}</td>
 								
 								<?php 
 								  $booking_date2 = DateTime::createFromFormat('Y-m-d', $data->booking_date);
@@ -322,7 +361,7 @@
 									<input type="hidden" name="status_id" class="modal_status_id">
 
 									<div class="form-group">
-										<label for="booking_status" class="col-lg-2 control-label"> Ubah Status </label>
+										<label for="booking_status" class="col-lg-2 control-label"><span style="color: red">*</span> Ubah Status </label>
 										<div class="col-lg-8">
 											<div class="radio">
 												<label>
@@ -345,23 +384,6 @@
 											<textarea class="form-control" id="modal_keterangan_status" name="keterangan_status" rows="3" autocomplete="off"></textarea>
 										</div>
 									</div>
-
-									<div class="form-group">
-										<label for="booking_room_change" class="col-lg-2 control-label"> Ubah Ruang? </label>
-										<div class="col-lg-1">
-			                            	<div class="checkbox">
-												<label><input type="checkbox" name="checkchangeroom" id="checkchangeroom" style="width: 30px; height: 30px; top: 0px"></label>
-			                            	</div>
-			                          	</div>
-										<div class="col-lg-7">
-						                    <select class="form-control" name="booking_room_change" id="booking_room_change" disabled="">
-						                      	<option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
-						                      	<?php foreach ($roomlists as $data) { ?>
-						                        	<option value="{{ $data->id_room }}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option>
-						                      	<?php } ?>
-						                    </select>
-					                  	</div>
-				                  	</div>
 
 								</div>
 								<div class="modal-footer">
@@ -396,6 +418,55 @@
 			      <!-- /.modal-dialog -->
 			    </div>
 				<!-- /.modal -->
+
+				<div class="modal fade" id="modal-room">
+			      <div class="modal-dialog">
+			        <div class="modal-content">
+			          <div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			            <span aria-hidden="true">&times;</span></button>
+			            <h4 class="modal-title">Ubah Ruang</h4>
+			          </div>
+			          <form method="POST" action="updateRoom" class="form-horizontal">
+			            @csrf
+			              <div class="modal-body">
+			                <input type="hidden" name="id_booking" class="modal_id_booking">
+			                <input type="hidden" name="booking_status" class="modal_booking_status">
+			                <input type="hidden" name="booking_date" class="modal_booking_date">
+			                <input type="hidden" name="time_start" class="modal_booking_time_start">
+
+			                <div id="ruang-tambahan">
+			                <div class="form-group">
+			                  <label for="booking_room" class="col-lg-2 control-label">Ruang</label>
+			                  <div class="col-lg-8">
+			                    <select class="form-control booking_room" name="booking_room" required >
+			                    <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
+			                    <?php $bidang_now=0; foreach ($roomlists as $data) { 
+			                      if ($data->room_owner != $bidang_now) {
+			                      $bidang_now = $data->room_owner; 
+			                    ?> 
+			                      <optgroup label="{{ $data->bidang_name }}">
+			                    <?php
+			                      }
+			                    ?>
+
+			                      <option value="{{ $data->id_room }}||{{ $data->room_owner }}">{{ $data->room_name }} (Kapasitas {{$data->room_capacity}} orang)</option>
+			                    <?php } ?>
+			                    </select>
+			                  </div>
+			                </div>
+			              </div>
+			              <div class="modal-footer">
+			                <button type="submit" class="btn btn-success pull-right">Simpan</button>
+			                <button type="button" class="btn btn-default pull-right" style="margin-right: 10px" data-dismiss="modal">Close</button>
+			              </div>
+			            </form>
+			        </div>
+			        <!-- /.modal-content -->
+			      </div>
+			      <!-- /.modal-dialog -->
+			    </div>
+			    <!-- /.modal -->
         </div>
     </div>
 
@@ -446,6 +517,13 @@
 		$("#modal-default").on("hidden.bs.modal", function () {
 	      $("#ubah_status_1").show();
 	      $("#ubah_status_2").show();
+	    });
+	    $('.btn_change_room').click(function() {
+	      var data = (this.id).split('||');
+	      $('.modal_id_booking').val(data[0]);
+	      $('.modal_booking_status').val(data[1]);
+	      $('.modal_booking_date').val(data[2]);
+	      $('.modal_booking_time_start').val(data[3]);
 	    });
 	});
 </script>

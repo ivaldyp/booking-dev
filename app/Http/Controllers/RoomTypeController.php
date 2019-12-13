@@ -7,13 +7,16 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Traits\SessionCheckTraits;
 use App\Room_type;
-
 
 class RoomTypeController extends Controller
 {
+    use SessionCheckTraits;
+
     public function index()
     {
+        $this->check();
         $room_types = Room_type::orderBy('id_roomType', 'ASC')->get();
         return view('pages.roomtypes.table')->with('room_types', $room_types);
     }
@@ -44,6 +47,7 @@ class RoomTypeController extends Controller
 
     public function delete($id)
     {
+        $this->check();
         $room_type = Room_type::find($id);
         if($room_type->delete()) {
             return redirect('tipe_ruang')->with('message', 'Data berhasil dihapus');
