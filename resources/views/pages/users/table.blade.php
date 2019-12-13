@@ -176,7 +176,7 @@
 						                    </div>
 
 						                    <div class="form-group">
-						                      <label for="modal_update_user_bidang" class="col-lg-3 control-label"> Bidang </label>
+						                      <label for="modal_update_user_bidang" class="col-lg-3 control-label"> Sub Bidang </label>
 						                      <div class="col-lg-8">
 						                        <select class="form-control" name="user_bidang" id="modal_update_user_bidang">
 						                          <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Bidang --</option>

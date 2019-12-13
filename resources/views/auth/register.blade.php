@@ -72,6 +72,7 @@
                             <div class="col-md-6">
                                 <select class="form-control" name="user_subbidang" id="user_subbidang" required>
                                     <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Subbidang --</option>
+                                    <option value="<?php echo NULL; ?>">Tidak Ada</option>
                                     <?php $bidang_now = 0; foreach ($subbidangs  as $data) { 
                                         if ($data->id_bidang != $bidang_now){ 
                                             $bidang_now = $data->id_bidang ?>
