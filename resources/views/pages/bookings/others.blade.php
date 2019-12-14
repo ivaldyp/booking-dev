@@ -158,7 +158,7 @@
 								<td>
 								  	<button type="button" class="btn btn-info btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->time2->id_time }}||{{ $data->room->booking_room }}||{{ $data->status->status_id }}"><i class="fa fa-edit"></i></button>
 								  	<hr>
-								  	<button type="button" class="btn btn-info btn_change_room" data-toggle="modal" data-target="#modal-room" id="{{ $data->id_booking }}||{{ $data->booking_status }}||{{ $data->booking_date }}||{{ $data->time_start }}"><i class="fa fa-map-marker"></i></button>
+								  	<button type="button" class="btn btn-info btn_change_room" data-toggle="modal" data-target="#modal-room" id="{{ $data->id_booking }}||{{ $data->booking_status }}||{{ $data->booking_date }}||{{ $data->time_start }}||{{ $data->booking_room }}||{{ $data->booking_room_owner }}"><i class="fa fa-map-marker"></i></button>
 								</td>
 							  </tr>
 							  <?php } ?>
@@ -231,7 +231,7 @@
 										<td>
 											<button type="button" class="btn btn-info btn_booking_not_edit_stat" data-toggle="modal" data-target="#modal-default" id="{{ $data->id_booking }}||{{ $data->keterangan_status }}||{{ $data->booking_date }}||{{ $data->time1->id_time }}||{{ $data->time2->id_time }}||{{ $data->booking_room }}||{{ $data->status->status_id }}"><i class="fa fa-edit"></i></button>
 											<hr>
-											<button type="button" class="btn btn-info btn_change_room" data-toggle="modal" data-target="#modal-room" id="{{ $data->id_booking }}||{{ $data->booking_status }}||{{ $data->booking_date }}||{{ $data->time_start }}"><i class="fa fa-map-marker"></i></button>
+											<button type="button" class="btn btn-info btn_change_room" data-toggle="modal" data-target="#modal-room" id="{{ $data->id_booking }}||{{ $data->booking_status }}||{{ $data->booking_date }}||{{ $data->time_start }}||{{ $data->booking_room }}||{{ $data->booking_room_owner }}"><i class="fa fa-map-marker"></i></button>
 										</td>
 									</tr>
 									<?php } ?>
@@ -330,11 +330,11 @@
 									<div class='form-group'>
 										<label for='booking_status' class='col-lg-2 control-label'> Ubah Status </label>
 										<div class='col-lg-8'>
-											<div class='checkbox'>
+											
 												<label for='booking_status' class='control-label'>
 													<input type='checkbox' name='booking_status' id='optionsCheck2' value='2'>Batal
 												</label>
-											</div>
+											
 										</div>
 									</div>
 
@@ -363,18 +363,17 @@
 									<div class="form-group">
 										<label for="booking_status" class="col-lg-2 control-label"><span style="color: red">*</span> Ubah Status </label>
 										<div class="col-lg-8">
-											<div class="radio">
+											
 												<label>
 													<input type="radio" name="booking_status" id="optionsRadios3" value="3" checked>
 													OK
 												</label>
-											</div>
-											<div class="radio">
+											<br>
 												<label>
 													<input type="radio" name="booking_status" id="optionsRadios2" value="2">
 													Batal
 												</label>
-											</div>
+											
 										</div>
 									</div>
 
@@ -439,7 +438,7 @@
 			                <div class="form-group">
 			                  <label for="booking_room" class="col-lg-2 control-label">Ruang</label>
 			                  <div class="col-lg-8">
-			                    <select class="form-control booking_room" name="booking_room" required >
+			                    <select class="form-control booking_room" name="booking_room" required id="modal_change_room_name">
 			                    <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
 			                    <?php $bidang_now=0; foreach ($roomlists as $data) { 
 			                      if ($data->room_owner != $bidang_now) {
@@ -524,6 +523,13 @@
 	      $('.modal_booking_status').val(data[1]);
 	      $('.modal_booking_date').val(data[2]);
 	      $('.modal_booking_time_start').val(data[3]);
+	      $('.modal_booking_room').val(data[4]);
+	      $('.modal_booking_room_owner').val(data[5]);
+
+	      var booking_room = data[4];
+	      var booking_room_owner = data[5];
+
+	      $("#modal_change_room_name option[value='"+booking_room+"||"+booking_room_owner+"']").remove();
 	    });
 	});
 </script>

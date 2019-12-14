@@ -378,7 +378,7 @@
                 <div class="form-group">
                   <label for="booking_room" class="col-lg-2 control-label">Ruang</label>
                   <div class="col-lg-8">
-                    <select class="form-control booking_room" name="booking_room" required >
+                    <select class="form-control booking_room" name="booking_room" required id="modal_change_room_name">
                     <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Ruang --</option>
                     <?php $bidang_now=0; foreach ($roomlists as $data) { 
                       if ($data->room_owner != $bidang_now) {
@@ -446,6 +446,13 @@
       $('.modal_booking_status').val(data[1]);
       $('.modal_booking_date').val(data[2]);
       $('.modal_booking_time_start').val(data[3]);
+      $('.modal_booking_room').val(data[4]);
+      $('.modal_booking_room_owner').val(data[5]);
+
+      var booking_room = data[4];
+      var booking_room_owner = data[5];
+
+      $("#modal_change_room_name option[value='"+booking_room+"||"+booking_room_owner+"']").remove();
     });
   });
 </script>

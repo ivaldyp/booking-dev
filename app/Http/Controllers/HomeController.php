@@ -271,7 +271,7 @@ class HomeController extends Controller
                     ->get();
 
         if (is_null($request->newdate) || $request->newdate == 0) {
-            $datenow = date('Y-m-d');
+            $datenow = date('d-m-Y');
         } else {
             $tanggal = explode("/", $request->newdate);
             $datenow = date(''.$tanggal[2].'-'.$tanggal[0].'-'.$tanggal[1].'');

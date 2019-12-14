@@ -25,18 +25,18 @@
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/sweetalert/sweetalert.css') }}" rel="stylesheet" type="text/css">
     
     <!-- Page plugins css -->
-    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css') }}" rel="stylesheet">
+    <!-- <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css') }}" rel="stylesheet"> -->
     
     <!-- Color picker plugins css -->
-    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery-asColorPicker-master/css/asColorPicker.css') }}" rel="stylesheet">
+    <!-- <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery-asColorPicker-master/css/asColorPicker.css') }}" rel="stylesheet"> -->
     
     <!-- Date picker plugins css -->
     <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
     
     <!-- Daterange picker plugins css -->
-    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">
+    <!-- <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet"> -->
     
-    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+    <!-- <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet"> -->
     
     <!-- animation CSS -->
     <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/css/animate.css') }}" rel="stylesheet">

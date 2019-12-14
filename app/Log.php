@@ -10,8 +10,13 @@ class Log extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'id_log', 'id_booking', 'id_user', 'log_tipe', 'created_at', 'updated_at', 'soft_delete'
+        'id_log', 'id_booking', 'id_user', 'log_tipe', 'log_keterangan', 'created_at', 'updated_at', 'soft_delete'
     ];
+
+    public function room()
+    {
+        return $this->hasOne('App\Room','id_room','log_keterangan');
+    }
 
     public function booking()
     {

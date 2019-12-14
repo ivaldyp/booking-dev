@@ -672,7 +672,7 @@ class BookingController extends Controller
                         $time2 = $request->time_end;
                         
                         $bookings = Booking::where('id_booking', '!=', $request->id_booking)
-                                            ->where('booking_room', $newroom)
+                                            ->where('booking_room', $request->booking_room)
                                             ->where('booking_date', $request->booking_date)
                                             ->where(function($q) use ($time1, $time2){
                                                 $q->where(function($f1) use ($time1, $time2) {
@@ -716,7 +716,7 @@ class BookingController extends Controller
                         $log->id_log = md5(uniqid());
                         $log->id_booking = $request->id_booking;
                         $log->id_user = Auth::id();
-                        $log->log_tipe = $log_tipe;
+                        $log->log_tipe = 3;
                         date_default_timezone_set('Asia/Jakarta');
                         $log->created_at = date('Y-m-d H:i:s');
                         $log->updated_at = date('Y-m-d H:i:s');
@@ -759,7 +759,7 @@ class BookingController extends Controller
                     $time2 = $request->time_end;
                     
                     $bookings = Booking::where('id_booking', '!=', $request->id_booking)
-                                        ->where('booking_room', $newroom)
+                                        ->where('booking_room', $request->booking_room)
                                         ->where('booking_date', $request->booking_date)
                                         ->where(function($q) use ($time1, $time2){
                                             $q->where(function($f1) use ($time1, $time2) {
@@ -802,7 +802,7 @@ class BookingController extends Controller
                     $log->id_log = md5(uniqid());
                     $log->id_booking = $request->id_booking;
                     $log->id_user = Auth::id();
-                    $log->log_tipe = $log_tipe;
+                    $log->log_tipe = 3;
                     date_default_timezone_set('Asia/Jakarta');
                     $log->created_at = date('Y-m-d H:i:s');
                     $log->updated_at = date('Y-m-d H:i:s');
