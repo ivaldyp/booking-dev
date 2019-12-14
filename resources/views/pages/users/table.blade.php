@@ -71,7 +71,7 @@
 										<td>{{ $data->usertype->userType_name }}</td>
 										<td>
 											<div class="btn-group">
-												<button class="btn btn-warning btn_modal_update_user" data-toggle="modal" data-target="#modal-update" onclick="myFunction('{{$data->id_user}}', '{{$data->name}}', '{{$data->nrk}}', '{{$data->nip}}', '{{$data->username}}', '{{$data->email}}', '{{$data->usertype->id_userType}}', '{{$id_bidang}}')">
+												<button class="btn btn-warning btn_modal_update_user" data-toggle="modal" data-target="#modal-update" onclick="myFunction('{{$data->id_user}}', '{{$data->name}}', '{{$data->nrk}}', '{{$data->nip}}', '{{$data->username}}', '{{$data->email}}', '{{$data->usertype->id_userType}}', '{{$id_bidang}}', '{{$data->user_subbidang}}')">
 													<i class="fa fa-edit"></i>
 												</button>
 												<button class="btn btn-danger"  data-toggle="modal" data-target="#deleteUser{{$key}}">
@@ -176,17 +176,23 @@
 						                    </div>
 
 						                    <div class="form-group">
-						                      <label for="modal_update_user_bidang" class="col-lg-3 control-label"> Sub Bidang </label>
-						                      <div class="col-lg-8">
-						                        <select class="form-control" name="user_bidang" id="modal_update_user_bidang">
-						                          <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Bidang --</option>
-						                          <option value="<?php echo NULL; ?>">Tidak Ada</option>
-						                          <?php foreach ($bidangs as $data) { ?>
-						                            <option value="{{ $data->id_bidang }}">{{ $data->bidang_name }}</option>
-						                          <?php } ?>
-						                        </select>
-						                      </div>
-						                    </div>
+											  <label for="modal_update_user_subbidang" class="col-lg-3 control-label"><span style="color: red">*</span> Sub Bidang Peminjam </label>
+											  <div class="col-lg-8">
+												<select class="form-control" name="subbidang_peminjam" id="modal_update_user_subbidang" required>
+												  <option value="<?php echo NULL; ?>" selected disabled>-- Pilih Subbidang --</option>
+												  <option value="<?php echo NULL; ?>">Tidak Ada</option>
+												  <?php $bidang_now = 0; foreach ($subbidangs  as $data) { 
+												  	if ($data->id_bidang != $bidang_now){ 
+												  		$bidang_now = $data->id_bidang ?>
+												  		<optgroup label="{{ $data->bidang_name }}">
+												  <?php 
+												  	}
+												  ?>
+													<option value="{{ $data->id_bidang }}||{{ $data->id_subbidang }}">{{ $data->subbidang_name }}</option>
+												  <?php } ?>
+												</select>
+											  </div>
+											</div>
 
 										</div>
 										<div class="modal-footer">
@@ -208,7 +214,7 @@
 @section('datatable')
 
 <script>
-	function myFunction(id_user, name, nrk, nip, username, email, id_userType, id_bidang) {
+	function myFunction(id_user, name, nrk, nip, username, email, id_userType, id_bidang, id_subbidang) {
 		document.getElementById("modal_update_id_user").value = id_user;
 		document.getElementById("modal_update_user_name").value = name;
 		document.getElementById("modal_update_user_nrk").value = nrk;
@@ -216,7 +222,7 @@
 		document.getElementById("modal_update_user_username").value = username;
 		document.getElementById("modal_update_user_email").value = email;
 		document.getElementById("modal_update_user_status").value = id_userType;
-		document.getElementById("modal_update_user_bidang").value = id_bidang;
+		document.getElementById("modal_update_user_subbidang").value = id_bidang +"||"+id_subbidang;
 	}
 	
 	$(function () {

@@ -24,7 +24,9 @@ class UserController extends Controller
                         ->orderBy('username', 'ASC')
                         ->get();
 
-        $subbidangs = Subbidang::orderBy('id_subbidang', 'ASC')->get();
+        $subbidangs = Subbidang::
+                        join('bidangs', 'bidangs.id_bidang', '=', 'subbidangs.id_bidang')
+                        ->get();
 
         $bidangs = Bidang::orderBy('id_bidang', 'ASC')->get();
 
@@ -60,7 +62,9 @@ class UserController extends Controller
         $user->username = $request->username;
         $user->email = $request->email;
         $user->user_status = $request->user_status;
-        $user->user_bidang = $request->user_bidang;
+        $subbidang_peminjam = explode("||", $request->subbidang_peminjam);
+        $user->user_bidang = $subbidang_peminjam[0];
+        $user->user_subbidang = $subbidang_peminjam[1];
         $user->save();
 
         return redirect('users')->with('message', 'Berhasil melakukan perubahan data');
