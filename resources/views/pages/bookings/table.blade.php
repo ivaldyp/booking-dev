@@ -401,7 +401,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Log</h4>
+				<h4 class="modal-title">Log - Sort Descending By Time</h4>
 			</div>
 			<div class="modal-body">
 				<div class="table-responsive">
@@ -483,14 +483,38 @@
 	            data: {id_booking:id},
 	            success: function(datas){
             		for(var i=0; i<datas['logs'].length; i++){
-            			$("#log-isi").append("<tr>"+
-            								"<td>"+(i+1)+"</td>"+
-            								"<td>"+datas['logs'][i].id_log+"</td>"+
-            								// "<td>"+datas['logs'][i].id_booking+"</td>"+
-            								"<td>"+datas['logs'][i].id_user+"<br>"+datas['logs'][i].name+"</td>"+
-            								"<td>"+datas['status'][(datas['logs'][i].log_tipe - 1)]+"</td>"+
-            								// "<td>"+datas['logs'][i].created_at+"</td>"+
-            								"</tr>");
+            			console.log(datas['logs']);
+            			if (datas['logs'][i].log_keterangan != null) {
+            				if (datas['logs'][i].log_tipe == 3) {
+            					$("#log-isi").append("<tr>"+
+			        								"<td>"+(i+1)+"</td>"+
+			        								"<td>"+datas['logs'][i].id_log+"</td>"+
+			        								// "<td>"+datas['logs'][i].id_booking+"</td>"+
+			        								"<td>"+datas['logs'][i].id_user+"<br>"+datas['logs'][i].name+"</td>"+
+			        								"<td>"+datas['status'][(datas['logs'][i].log_tipe - 1)]+datas['logs'][i].log_keterangan+"</td>"+
+			        								// "<td>"+datas['logs'][i].created_at+"</td>"+
+			        								"</tr>");
+            				} else if (datas['logs'][i].log_tipe == 4) {
+            					$("#log-isi").append("<tr>"+
+			        								"<td>"+(i+1)+"</td>"+
+			        								"<td>"+datas['logs'][i].id_log+"</td>"+
+			        								// "<td>"+datas['logs'][i].id_booking+"</td>"+
+			        								"<td>"+datas['logs'][i].id_user+"<br>"+datas['logs'][i].name+"</td>"+
+			        								"<td>"+datas['status'][(datas['logs'][i].log_tipe - 1)]+": "+datas['logs'][i].room_name+"</td>"+
+			        								// "<td>"+datas['logs'][i].created_at+"</td>"+
+			        								"</tr>");
+            				} 
+            			} else {
+            				$("#log-isi").append("<tr>"+
+		        								"<td>"+(i+1)+"</td>"+
+		        								"<td>"+datas['logs'][i].id_log+"</td>"+
+		        								// "<td>"+datas['logs'][i].id_booking+"</td>"+
+		        								"<td>"+datas['logs'][i].id_user+"<br>"+datas['logs'][i].name+"</td>"+
+		        								"<td>"+datas['status'][(datas['logs'][i].log_tipe - 1)]+"</td>"+
+		        								// "<td>"+datas['logs'][i].created_at+"</td>"+
+		        								"</tr>");
+            			}
+            			
             		}
 	            }
 			});

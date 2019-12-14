@@ -608,19 +608,109 @@ class BookingController extends Controller
                 $booking->booking_room = $roombaru[0];
                 $booking->booking_room_owner = $roombaru[1];
                 $booking->booking_status = 3;
+
+                $log = new Log();
+                $log->id_log = md5(uniqid());
+                $log->id_booking = $request->id_booking;
+                $log->id_user = Auth::id();
+                $log->log_tipe = 4;
+                $log->log_keterangan = $roombaru[0];
+                date_default_timezone_set('Asia/Jakarta');
+                $log->created_at = date('Y-m-d H:i:s');
+                $log->updated_at = date('Y-m-d H:i:s');
+                $log->soft_delete = 0;
+                $log->save();
+
+                $log = new Log();
+                $log->id_log = md5(uniqid());
+                $log->id_booking = $request->id_booking;
+                $log->id_user = Auth::id();
+                $log->log_tipe = 3;
+                $log->log_keterangan = " - Otomatis";
+                date_default_timezone_set('Asia/Jakarta');
+                $log->created_at = date('Y-m-d H:i:s');
+                $log->updated_at = date('Y-m-d H:i:s');
+                $log->soft_delete = 0;
+                $log->save();
+
             } elseif ($roombaru[1] != Session::get('user_data')->user_bidang) {
                 $booking->booking_room = $roombaru[0];
                 $booking->booking_room_owner = $roombaru[1];
+
+                $log = new Log();
+                $log->id_log = md5(uniqid());
+                $log->id_booking = $request->id_booking;
+                $log->id_user = Auth::id();
+                $log->log_tipe = 4;
+                $log->log_keterangan = $roombaru[0];
+                date_default_timezone_set('Asia/Jakarta');
+                $log->created_at = date('Y-m-d H:i:s');
+                $log->updated_at = date('Y-m-d H:i:s');
+                $log->soft_delete = 0;
+                $log->save();
             }
         } elseif ($request->booking_status == 3) {
             if ($roombaru[1] == Session::get('user_data')->user_bidang) {
                 $booking->booking_room = $roombaru[0];
                 $booking->booking_room_owner = $roombaru[1];
+            
+                $log = new Log();
+                $log->id_log = md5(uniqid());
+                $log->id_booking = $request->id_booking;
+                $log->id_user = Auth::id();
+                $log->log_tipe = 4;
+                $log->log_keterangan = $roombaru[0];
+                date_default_timezone_set('Asia/Jakarta');
+                $log->created_at = date('Y-m-d H:i:s');
+                $log->updated_at = date('Y-m-d H:i:s');
+                $log->soft_delete = 0;
+                $log->save();
+
+            } elseif ($roombaru[1] == $booking->bidang_peminjam) {
+                $booking->booking_room = $roombaru[0];
+                $booking->booking_room_owner = $roombaru[1];
+                $booking->booking_status = 3;
+
+                $log = new Log();
+                $log->id_log = md5(uniqid());
+                $log->id_booking = $request->id_booking;
+                $log->id_user = Auth::id();
+                $log->log_tipe = 4;
+                $log->log_keterangan = $roombaru[0];
+                date_default_timezone_set('Asia/Jakarta');
+                $log->created_at = date('Y-m-d H:i:s');
+                $log->updated_at = date('Y-m-d H:i:s');
+                $log->soft_delete = 0;
+                $log->save();
+
+                $log = new Log();
+                $log->id_log = md5(uniqid());
+                $log->id_booking = $request->id_booking;
+                $log->id_user = Auth::id();
+                $log->log_tipe = 3;
+                $log->log_keterangan = " - Otomatis";
+                date_default_timezone_set('Asia/Jakarta');
+                $log->created_at = date('Y-m-d H:i:s');
+                $log->updated_at = date('Y-m-d H:i:s');
+                $log->soft_delete = 0;
+                $log->save();
             } elseif ($roombaru[1] != Session::get('user_data')->user_bidang) {
                 $booking->booking_room = $roombaru[0];
                 $booking->booking_room_owner = $roombaru[1];
                 $booking->booking_status = 1;
                 $booking->id_penyetuju = NULL;
+
+                $log = new Log();
+                $log->id_log = md5(uniqid());
+                $log->id_booking = $request->id_booking;
+                $log->id_user = Auth::id();
+                $log->log_tipe = 4;
+                $log->log_keterangan = $roombaru[0];
+                date_default_timezone_set('Asia/Jakarta');
+                $log->created_at = date('Y-m-d H:i:s');
+                $log->updated_at = date('Y-m-d H:i:s');
+                $log->soft_delete = 0;
+                $log->save();
             }
         }
 

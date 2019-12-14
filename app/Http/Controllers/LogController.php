@@ -19,12 +19,13 @@ class LogController extends Controller
     public function showLog(Request $request)
     {
         $datas['logs'] = Log::where('logs.id_booking', $request->id_booking)
+            ->leftJoin('rooms', 'rooms.id_room', '=', 'logs.log_keterangan')
             ->join('bookings', 'bookings.id_booking', '=', 'logs.id_booking')
             ->join('users', 'users.id_user', '=', 'logs.id_user')
-            ->orderBy('logs.created_at', 'ASC')
+            ->orderBy('logs.created_at', 'DESC')
             ->get();
 
-        $datas['status'] = ['Dibuat & Disetujui', 'Dibuat', 'Disetujui', 'Disetujui & Ubah Ruangan', 'Dibatalkan / Tidak Disetujui'];
+        $datas['status'] = ['Dibuat & Disetujui', 'Dibuat', 'Disetujui', 'Ubah Ruangan', 'Dibatalkan / Tidak Disetujui'];
 
         return $datas;
     }

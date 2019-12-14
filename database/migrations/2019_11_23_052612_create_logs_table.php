@@ -18,7 +18,7 @@ class CreateLogsTable extends Migration
             $table->string('id_booking');
             $table->string('id_user');
             $table->integer('log_tipe');
-            $table->string('log_keterangan');
+            $table->string('log_keterangan')->nullable();
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrent();
             $table->boolean('soft_delete')->default('0');
