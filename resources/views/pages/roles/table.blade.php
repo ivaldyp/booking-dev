@@ -145,45 +145,45 @@
 								<div class="form-group">
 								  <label for="can_editUser" class="col-sm-3 control-label"> Kelola Pengguna </label>
 									<div class="col-sm-1">
-									  <div class="checkbox">
+									  
 										<label><input type="checkbox" name="can_editUser" id="can_editUser" style="width: 30px; height: 30px; top: 0px"></label>
-									</div>
+									
 								  </div>
 								</div>
 
 								<div class="form-group">
 								  <label for="can_editRoom" class="col-sm-3 control-label"> Kelola Ruang </label>
 									<div class="col-sm-1">
-									  <div class="checkbox">
+									  
 										<label><input type="checkbox" name="can_editRoom" id="can_editRoom" style="width: 30px; height: 30px; top: 0px"></label>
-									</div>
+									
 								  </div>
 								</div>
 
 								<div class="form-group">
 								  <label for="can_bookRoom" class="col-sm-3 control-label"> Sewa Ruang </label>
 									<div class="col-sm-1">
-									  <div class="checkbox">
+									  
 										<label><input type="checkbox" name="can_bookRoom" id="can_bookRoom" style="width: 30px; height: 30px; top: 0px"></label>
-									</div>
+									
 								  </div>
 								</div>
 
 								<div class="form-group">
 								  <label for="can_approve" class="col-sm-3 control-label"> Setujui Ruangan </label>
 									<div class="col-sm-1">
-									  <div class="checkbox">
+									  
 										<label><input type="checkbox" name="can_approve" id="can_approve" style="width: 30px; height: 30px; top: 0px"></label>
-									</div>
+									
 								  </div>
 								</div>
 
 								<div class="form-group">
 								  <label for="can_bookFood" class="col-sm-3 control-label"> Beli Snack </label>
 									<div class="col-sm-1">
-									  <div class="checkbox">
+									  
 										<label><input type="checkbox" name="can_bookFood" id="can_bookFood" style="width: 30px; height: 30px; top: 0px"></label>
-									</div>
+									
 								  </div>
 								</div>
 
@@ -220,45 +220,45 @@
 								<div class="form-group">
 								  <label for="modal_update_usertype_can_edituser" class="col-sm-3 control-label"> Kelola Pengguna </label>
 									<div class="col-sm-1">
-									  <div class="checkbox">
+									  
 										<label><input type="checkbox" name="can_editUser" id="modal_update_usertype_can_edituser" style="width: 30px; height: 30px; top: 0px"></label>
-									</div>
+									
 								  </div>
 								</div>
 
 								<div class="form-group">
 								  <label for="modal_update_usertype_can_editroom" class="col-sm-3 control-label"> Kelola Ruang </label>
 									<div class="col-sm-1">
-									  <div class="checkbox">
+									  
 										<label><input type="checkbox" name="can_editRoom" id="modal_update_usertype_can_editroom" style="width: 30px; height: 30px; top: 0px"></label>
-									</div>
+									
 								  </div>
 								</div>
 
 								<div class="form-group">
 								  <label for="modal_update_usertype_can_bookroom" class="col-sm-3 control-label"> Sewa Ruang </label>
 									<div class="col-sm-1">
-									  <div class="checkbox">
+									  
 										<label><input type="checkbox" name="can_bookRoom" id="modal_update_usertype_can_bookroom" style="width: 30px; height: 30px; top: 0px"></label>
-									</div>
+									
 								  </div>
 								</div>
 
 								<div class="form-group">
 								  <label for="modal_update_usertype_can_approve" class="col-sm-3 control-label"> Setujui Ruangan </label>
 									<div class="col-sm-1">
-									  <div class="checkbox">
+									  
 										<label><input type="checkbox" name="can_approve" id="modal_update_usertype_can_approve" style="width: 30px; height: 30px; top: 0px"></label>
-									</div>
+									
 								  </div>
 								</div>
 
 								<div class="form-group">
 								  <label for="modal_update_usertype_can_bookFood" class="col-sm-3 control-label"> Beli Snack </label>
 									<div class="col-sm-1">
-									  <div class="checkbox">
+									  
 										<label><input type="checkbox" name="can_bookFood" id="modal_update_usertype_can_bookfood" style="width: 30px; height: 30px; top: 0px"></label>
-									</div>
+									
 								  </div>
 								</div>
 
