@@ -89,9 +89,9 @@
                     <!-- Logo -->
                     <a href="{{ url('/home') }}" class="logo">
                         <!-- mini logo for sidebar mini 50x50 pixels -->
-                        <span class="hidden-sm hidden-md hidden-lg">Pinjam</span>
+                        <span class="hidden-sm hidden-md hidden-lg">Ruang</span>
                         <!-- logo for regular state and mobile devices -->
-                        <span class="hidden-xs p-l-10">Pinjam Ruang</span>
+                        <span class="hidden-xs p-l-10">Ruang BPAD</span>
                     </a>
                     
                 </div>
