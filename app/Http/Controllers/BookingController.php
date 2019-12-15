@@ -199,6 +199,12 @@ class BookingController extends Controller
             array_push($yeararray, $i);    
         }
 
+        $roomlists = Room::
+                        join('bidangs', 'bidangs.id_bidang', '=', 'rooms.room_owner')
+                        ->orderBy('room_owner', 'ASC')
+                        ->orderBy('room_name', 'ASC')
+                        ->get();
+
         $datas = Booking::
                 where('booking_status', '=', 3)
                 ->whereMonth('booking_date', $monthnow)
@@ -217,7 +223,7 @@ class BookingController extends Controller
                 ->orderBy('time_end', 'asc')
                 ->get());        
 
-        return view('pages.bookings.table-done')->with('datas',$datas)->with('countstatus', $countstatus)->with('monthnow', $monthnow)->with('montharray', $montharray)->with('yearnow', $yearnow)->with('yeararray', $yeararray);
+        return view('pages.bookings.table-done')->with('datas',$datas)->with('countstatus', $countstatus)->with('monthnow', $monthnow)->with('montharray', $montharray)->with('yearnow', $yearnow)->with('yeararray', $yeararray)->with('roomlists', $roomlists);
     }
 
     public function showBookNotDone(Request $request)
@@ -246,8 +252,10 @@ class BookingController extends Controller
             array_push($yeararray, $i);    
         }
 
-        $roomlists = Room::orderBy('room_owner', 'asc')
-                        ->orderBy('room_name', 'asc')
+        $roomlists = Room::
+                        join('bidangs', 'bidangs.id_bidang', '=', 'rooms.room_owner')
+                        ->orderBy('room_owner', 'ASC')
+                        ->orderBy('room_name', 'ASC')
                         ->get();
                         
         $rooms = Booking::where('booking_status', 1)
@@ -599,6 +607,10 @@ class BookingController extends Controller
                 return redirect('/booking/my-booking')->with('message', 'Tidak dapat merubah ruangan karena ruang yang dipilih telah terisi')->with('messagecode', 1);
             } elseif (end($back_link) == 'bidang-lain') {
                 return redirect('/booking/bidang-lain')->with('message', 'Tidak dapat merubah ruangan karena ruang yang dipilih telah terisi')->with('messagecode', 1);
+            } elseif (end($back_link) == 'done') {
+                return redirect('/booking/done')->with('message', 'Tidak dapat merubah ruangan karena ruang yang dipilih telah terisi')->with('messagecode', 1);
+            } elseif (end($back_link) == 'not') {
+                return redirect('/booking/not')->with('message', 'Tidak dapat merubah ruangan karena ruang yang dipilih telah terisi')->with('messagecode', 1);
             }
         }
 
@@ -627,6 +639,22 @@ class BookingController extends Controller
                 $log->id_user = Auth::id();
                 $log->log_tipe = 3;
                 $log->log_keterangan = " - Otomatis";
+                date_default_timezone_set('Asia/Jakarta');
+                $log->created_at = date('Y-m-d H:i:s');
+                $log->updated_at = date('Y-m-d H:i:s');
+                $log->soft_delete = 0;
+                $log->save();
+
+            } elseif ($roombaru[1] == Session::get('user_data')->user_bidang) {
+                $booking->booking_room = $roombaru[0];
+                $booking->booking_room_owner = $roombaru[1];
+
+                $log = new Log();
+                $log->id_log = md5(uniqid());
+                $log->id_booking = $request->id_booking;
+                $log->id_user = Auth::id();
+                $log->log_tipe = 4;
+                $log->log_keterangan = $roombaru[0];
                 date_default_timezone_set('Asia/Jakarta');
                 $log->created_at = date('Y-m-d H:i:s');
                 $log->updated_at = date('Y-m-d H:i:s');
@@ -719,6 +747,10 @@ class BookingController extends Controller
                 return redirect('/booking/my-booking')->with('message', 'Berhasil melakukan perubahan ruangan')->with('messagecode', 2);
             } elseif (end($back_link) == 'bidang-lain') {
                 return redirect('/booking/bidang-lain')->with('message', 'Berhasil melakukan perubahan ruangan')->with('messagecode', 2);
+            } elseif (end($back_link) == 'done') {
+                return redirect('/booking/done')->with('message', 'Berhasil melakukan perubahan ruangan')->with('messagecode', 2);
+            } elseif (end($back_link) == 'not') {
+                return redirect('/booking/not')->with('message', 'Berhasil melakukan perubahan ruangan')->with('messagecode', 2);
             }
         }
     }    

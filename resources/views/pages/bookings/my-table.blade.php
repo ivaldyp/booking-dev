@@ -13,12 +13,12 @@
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                     <h4 class="page-title">Pinjaman <br> {{Session::get('user_data')->bidang_name}}</h4> 
                 </div>
-                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12"> 
+                <!-- <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12"> 
                     <ol class="breadcrumb">
                         <li><a href="#">Dashboard</a></li>
                         <li class="active">Starter Page</li>
                     </ol>
-                </div>
+                </div> -->
                 <!-- /.col-lg-12 -->
             </div>
             <div class="row">
@@ -449,10 +449,10 @@
       $('.modal_booking_room').val(data[4]);
       $('.modal_booking_room_owner').val(data[5]);
 
-      var booking_room = data[4];
-      var booking_room_owner = data[5];
+      // var booking_room = data[4];
+      // var booking_room_owner = data[5];
 
-      $("#modal_change_room_name option[value='"+booking_room+"||"+booking_room_owner+"']").remove();
+      // $("#modal_change_room_name option[value='"+booking_room+"||"+booking_room_owner+"']").remove();
     });
   });
 </script>
