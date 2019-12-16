@@ -309,11 +309,11 @@
                 <div class='form-group'>
                   <label for='booking_status' class='col-lg-2 control-label'> Ubah Status </label>
                   <div class='col-lg-8'>
-                    <div class='checkbox'>
+                    
                       <label for='booking_status' class='control-label'>
                         <input type='checkbox' name='booking_status' id='optionsCheck2' value='2'>Batal
                       </label>
-                    </div>
+                    
                   </div>
                 </div>
 
