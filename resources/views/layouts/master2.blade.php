@@ -14,29 +14,18 @@
     <!-- Bootstrap Core CSS -->
     <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet"> 
     
-    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/bower_components/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
     
-    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <!-- a --><link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
     
     <!-- Menu CSS -->
     <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
     
     <!--alerts CSS -->
-    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/sweetalert/sweetalert.css') }}" rel="stylesheet" type="text/css">
-    
-    <!-- Page plugins css -->
-    <!-- <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css') }}" rel="stylesheet"> -->
-    
-    <!-- Color picker plugins css -->
-    <!-- <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery-asColorPicker-master/css/asColorPicker.css') }}" rel="stylesheet"> -->
+    <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/bower_components/sweetalert/sweetalert.css') }}" rel="stylesheet" type="text/css">
     
     <!-- Date picker plugins css -->
-    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
-    
-    <!-- Daterange picker plugins css -->
-    <!-- <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet"> -->
-    
-    <!-- <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet"> -->
+    <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
     
     <!-- animation CSS -->
     <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/css/animate.css') }}" rel="stylesheet">
@@ -48,17 +37,16 @@
     <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/css/colors/blue-dark.css') }}" id="theme" rel="stylesheet">
     
     <!-- page CSS -->
-    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/custom-select/custom-select.css" rel="stylesheet" type="text/css') }}" />
+    <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/bower_components/custom-select/custom-select.css" rel="stylesheet" type="text/css') }}" />
     
-    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/switchery/dist/switchery.min.css') }}" rel="stylesheet" />
+    <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/bower_components/switchery/dist/switchery.min.css') }}" rel="stylesheet" />
     
-    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-select/bootstrap-select.min.css') }}" rel="stylesheet" />
+    <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-select/bootstrap-select.min.css') }}" rel="stylesheet" />
     
-    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}" rel="stylesheet" />
     
-    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" />
+    <!-- a --><link href="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" />
     
-    <link href="{{ ('/booking-dev/public/ampleplugins/bower_components/multiselect/css/multi-select.css') }}" rel="stylesheet" type="text/css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -157,13 +145,13 @@
                     <li> <a href="{{ url('home') }}" class="waves-effect"><i class="mdi mdi-home fa-fw" data-icon="v"></i> <span class="hide-menu"> Home </span></a></li>
 
                     @if(Auth::check() and Session::get('user_data')->user_status == 1)
-                    <li> <a href="#" class="waves-effect"><i class="mdi mdi-human-male fa-fw" data-icon="v"></i> <span class="hide-menu"> Pengguna <span class="fa arrow"></span></span></a>
+                    <li> <a href="javascript:void(0)" class="waves-effect"><i class="mdi mdi-human-male fa-fw" data-icon="v"></i> <span class="hide-menu"> Pengguna <span class="fa arrow"></span></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="{{ url('users') }}"><i class=" fa-fw">1</i><span class="hide-menu">Kelola Pengguna</span></a> </li>
                             <li><a href="{{ url('roles') }}"><i class=" fa-fw">2</i><span class="hide-menu">Kelola Hak Akses</span></a> </li>
                         </ul>
                     </li>
-                    <li> <a href="#" class="waves-effect"><i class="mdi mdi-key fa-fw" data-icon="v"></i> <span class="hide-menu"> Master Data <span class="fa arrow"></span></span></a>
+                    <li> <a href="javascript:void(0)" class="waves-effect"><i class="mdi mdi-key fa-fw" data-icon="v"></i> <span class="hide-menu"> Master Data <span class="fa arrow"></span></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="{{ url('time') }}"><i class=" fa-fw">1</i><span class="hide-menu">Data Waktu</span></a> </li>
                             <li><a href="{{ url('bidang') }}"><i class=" fa-fw">2</i><span class="hide-menu">Data Bidang</span></a> </li>
@@ -180,7 +168,7 @@
                         <li><a href="{{ url('booking/form') }}" class="waves-effect"><i class="mdi mdi-plus fa-fw"></i> <span class="hide-menu">Buat Pinjaman Baru</span></a></li>
                     @endif
 
-                    <li> <a href="#" class="waves-effect"><i class="mdi mdi-book-open fa-fw" data-icon="v"></i> <span class="hide-menu"> Booking <span class="fa arrow"></span></span></a>
+                    <li> <a href="javascript:void(0)" class="waves-effect"><i class="mdi mdi-book-open fa-fw" data-icon="v"></i> <span class="hide-menu"> Booking <span class="fa arrow"></span></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="{{ url('booking') }}"><i class=" fa-fw">1</i><span class="hide-menu">Semua Pinjaman</span></a> </li>
                             @if(Auth::check())
@@ -196,7 +184,7 @@
                         </ul>
                     </li>
 
-                    <li> <a href="#" class="waves-effect"><i class="mdi mdi-note-outline fa-fw" data-icon="v"></i> <span class="hide-menu"> Rekap Bulanan <span class="fa arrow"></span></span></a>
+                    <li> <a href="javascript:void(0)" class="waves-effect"><i class="mdi mdi-note-outline fa-fw" data-icon="v"></i> <span class="hide-menu"> Rekap Bulanan <span class="fa arrow"></span></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="{{ url('list/bidang') }}"><i class=" fa-fw">1</i><span class="hide-menu">Per Bidang</span></a> </li>
                             <li><a href="{{ url('list/ruang') }}"><i class=" fa-fw">2</i><span class="hide-menu">Per Ruang</span></a> </li>
@@ -205,11 +193,11 @@
                     
                     <li class="devider"></li>
 
-                    <li> <a href="#" class="waves-effect"><i class="mdi mdi-help-circle fa-fw" data-icon="v"></i> <span class="hide-menu"> Bantuan <span class="fa arrow"></span></span></a>
+                    <li> <a href="javascript:void(0)" class="waves-effect"><i class="mdi mdi-help-circle fa-fw" data-icon="v"></i> <span class="hide-menu"> Bantuan <span class="fa arrow"></span></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="{{ url('home/downloadManual') }}"><i class=" fa-fw">1</i><span class="hide-menu">Manual Book</span></a> </li>
                             <!-- <li><a href="{{ url('list/ruang') }}"><i class=" fa-fw">2</i><span class="hide-menu">Kontak</span></a> </li> -->
-                            <li><a href="#" class="waves-effect"><i class=" fa-fw">2</i><span class="hide-menu">Kontak</span><span class="fa arrow"></span></a>
+                            <li><a href="javascript:void(0)" class="waves-effect"><i class=" fa-fw">2</i><span class="hide-menu">Kontak</span><span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li> <a href="javascript:void(0)"><i class="mdi mdi-whatsapp fa-fw" data-icon="v"></i><span class="hide-menu"> 0812-8169-3711<br>IVALDY PUTRA </span></a> </li>
                                 </ul>
@@ -242,56 +230,39 @@
     <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
     
     <!--slimscroll JavaScript -->
-    <script src="{{ ('/booking-dev/public/ampleplugins/js/jquery.slimscroll.js') }}"></script>
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/js/jquery.slimscroll.js') }}"></script>
     
     <!--Wave Effects -->
-    <script src="{{ ('/booking-dev/public/ampleplugins/js/waves.js') }}"></script>
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/js/waves.js') }}"></script>
     
     <!-- Sweet-Alert  -->
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/sweetalert/sweetalert.min.js') }}"></script>
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/bower_components/sweetalert/sweetalert.min.js') }}"></script>
     
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/sweetalert/jquery.sweet-alert.custom.js') }}"></script>
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/bower_components/sweetalert/jquery.sweet-alert.custom.js') }}"></script>
     
     <!-- Custom Theme JavaScript -->
-    <script src="{{ ('/booking-dev/public/ampleplugins/js/custom.min.js') }}"></script>
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/js/custom.min.js') }}"></script>
     
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/datatables/jquery.dataTables.min.js') }}"></script>
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/bower_components/datatables/jquery.dataTables.min.js') }}"></script>
     
     <!-- Plugin JavaScript -->
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/moment/moment.js') }}"></script>
-    
-    <!-- Clock Plugin JavaScript -->
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/clockpicker/dist/jquery-clockpicker.min.js') }}"></script>
-    
-    <!-- Color Picker Plugin JavaScript -->
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery-asColorPicker-master/libs/jquery-asColor.js') }}"></script>
-    
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery-asColorPicker-master/libs/jquery-asGradient.js') }}"></script>
-    
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js') }}"></script>
-    
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/bower_components/moment/moment.js') }}"></script>
+       
     <!-- Date Picker Plugin JavaScript -->
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
-    
-    <!-- Date range Plugin JavaScript -->
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/timepicker/bootstrap-timepicker.min.js') }}"></script>
-    
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-    
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+        
     <!-- Custom Theme JavaScript -->
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/switchery/dist/switchery.min.js') }}"></script>
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/bower_components/switchery/dist/switchery.min.js') }}"></script>
     
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/custom-select/custom-select.min.js') }}" type="text/javascript"></script>
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/bower_components/custom-select/custom-select.min.js') }}"></script>
     
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-select/bootstrap-select.min.js') }}" type="text/javascript"></script>
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-select/bootstrap-select.min.js') }}"></script>
     
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
     
-    <script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js') }}" type="text/javascript"></script>
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js') }}"></script>
     
-    <script type="text/javascript" src="{{ ('/booking-dev/public/ampleplugins/bower_components/multiselect/js/jquery.multi-select.js') }}"></script>
-    
-    <script src="{{ ('/booking-dev/public/ampleplugins/js/cbpFWTabs.js') }}"></script>
+    <!-- a --><script src="{{ ('/booking-dev/public/ampleplugins/js/cbpFWTabs.js') }}"></script>
     
 
     <!-- jquery validation -->
