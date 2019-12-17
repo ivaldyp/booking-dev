@@ -204,6 +204,18 @@
                     </li>
                     
                     <li class="devider"></li>
+
+                    <li> <a href="#" class="waves-effect"><i class="mdi mdi-help-circle fa-fw" data-icon="v"></i> <span class="hide-menu"> Bantuan <span class="fa arrow"></span></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="{{ url('home/downloadManual') }}"><i class=" fa-fw">1</i><span class="hide-menu">Manual Book</span></a> </li>
+                            <!-- <li><a href="{{ url('list/ruang') }}"><i class=" fa-fw">2</i><span class="hide-menu">Kontak</span></a> </li> -->
+                            <li><a href="#" class="waves-effect"><i class=" fa-fw">2</i><span class="hide-menu">Kontak</span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li> <a href="javascript:void(0)"><i class="mdi mdi-whatsapp fa-fw" data-icon="v"></i><span class="hide-menu"> 0812-8169-3711<br>IVALDY PUTRA </span></a> </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

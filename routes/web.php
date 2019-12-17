@@ -22,6 +22,7 @@ Route::get('/home3', 'HomeController@index3')->name('home');
 Route::get('/home4', 'HomeController@index4')->name('home');
 Route::get('/home5', 'HomeController@index5')->name('home');
 Route::get('/home', 'HomeController@index6')->name('home');
+Route::get('/home/downloadManual', 'HomeController@downloadManual');
 Route::get('/home/read', 'HomeController@read');
 Route::get('/home/read2', 'HomeController@read2');
 

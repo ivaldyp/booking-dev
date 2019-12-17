@@ -28,6 +28,15 @@ class HomeController extends Controller
         });
     }
 
+    public function downloadManual()
+    {
+        $tujuan = "C:\Users\user\Documents\Upload\!PENTING\Manual_Book_Aplikasi.pdf";
+        
+        header("Content-type: application/pdf");
+        header("Content-disposition: attachment; filename=Manual_Book_Aplikasi_Penggunaan_Ruang_Rapat.pdf");
+        readfile($tujuan);
+    }
+
     public function index()
     {
         $data = [];

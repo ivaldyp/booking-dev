@@ -279,7 +279,6 @@
     $("#example1").DataTable();
     $('.btn_booking_done_edit_stat').click(function() {      
       var data = (this.id).split('||');
-      console.log(this.id);
 
       $('#modal_id_booking').val(data[0]);
       if (data[1] == '' || data[1] == null) {
