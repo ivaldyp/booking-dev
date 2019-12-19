@@ -269,7 +269,7 @@ class HomeController extends Controller
         }
 
         $bidangs = Bidang::orderBy('id_bidang', 'ASC')->get();
-
+        
         $times = Time::
                 orderBy('time_singkat', 'ASC')
                 ->get();
@@ -302,6 +302,11 @@ class HomeController extends Controller
                 ->with('rooms', $rooms)
                 ->with('bookings', $bookings)
                 ->with('datenow', $datenow);
+    }
+
+    public function maintenance()
+    {
+        return view('maintenance');
     }
 
     public function read()
