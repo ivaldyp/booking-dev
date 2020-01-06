@@ -13,7 +13,7 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index6')->name('home6');
-Route::get('/', 'HomeController@maintenance');
+// Route::get('/', 'HomeController@maintenance');
 
 Route::get('/registeruser', 'LoadRegisterController@index');
 
