@@ -40,7 +40,10 @@
 								<button onclick="this.form.submit()" data-toggle="tooltip" data-original-title="Tambah 1 Hari" type="button" class="btn btn-default btn-outline waves-effect"><i class="mdi mdi-arrow-right-bold"></i></button>
 							</form> -->
 						</div>
-						<h3 class="box-title">Rapat Hari Ini<span><h3>{{ $datenow }}</h3></span></h3> 
+						<?php 
+							$date_sekarang = explode("-", $datenow);
+						?>
+						<h3 class="box-title">Rapat Hari Ini<span><h3>{{ $date_sekarang[2] }}-{{ $date_sekarang[1] }}-{{ $date_sekarang[0] }}</h3></span></h3> 
 						<div class="table-responsive">
 							<table class="table table-hover table-bordered">
 								<thead>
